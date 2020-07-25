@@ -5,7 +5,6 @@ import 'package:swiftvote/models/models.dart';
 import 'package:swiftvote/widgets/widgets.dart';
 
 class AppScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, AppTab>(
@@ -23,19 +22,32 @@ class AppScreen extends StatelessWidget {
   }
 
   Widget getWidget(AppTab activeTab) {
+    Widget widget;
     switch (activeTab) {
       case AppTab.explore:
-        return ExploreWidget();
+        widget = ExploreWidget();
+        break;
+//        return ExploreWidget();
       case AppTab.search:
-        return SearchWidget();
+        widget = SearchWidget();
+        break;
+//        return SearchWidget();
       case AppTab.home:
-        return HomeWidget();
+        widget = HomeWidget();
+        break;
+//        return HomeWidget();
       case AppTab.notifications:
-        return NotificationsWidget();
+        widget = NotificationsWidget();
+        break;
+//        return NotificationsWidget();
       case AppTab.settings:
-        return SettingsWidget();
+        widget = SettingsWidget();
+        break;
+//        return SettingsWidget();
       default:
-        return HomeWidget();
+        widget = HomeWidget();
+        break;
     }
+    return SafeArea(child: widget);
   }
 }

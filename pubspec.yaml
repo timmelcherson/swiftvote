@@ -77,7 +77,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-fonts:
-  -family: VoteIcon
-  -fonts:
-    -asset: assets/fonts/vote_icon.ttf
+  fonts:
+    - family: RobotoMono
+      fonts:
+      - asset: assets/fonts/RobotoMono-Regular.ttf
+        weight: 400
