@@ -26,14 +26,31 @@ class TabSelector extends StatelessWidget {
         return BottomNavigationBarItem(
           title: Text('title'),
           icon: tab == AppTab.home
-              ? SvgPicture.asset(
-                  'assets/icons/vote_icon.svg',
-                  height: 60.0,
-                  allowDrawingOutsideViewBox: true,
-                )
-              : Icon(tab.icon, key: tab.key),
+              ? (activeTab == AppTab.home
+                  ? SvgPicture.asset(
+                      'assets/icons/vote_icon_selected.svg',
+                      height: 56.0,
+                      allowDrawingOutsideViewBox: true,
+                    )
+                  : SvgPicture.asset(
+                      'assets/icons/vote_icon_unselected.svg',
+                      height: 56.0,
+                      allowDrawingOutsideViewBox: true,
+                    ))
+              : (tab == activeTab
+                  ? Icon(
+                      tab.icon,
+                      key: tab.key,
+                      size: 30.0,
+                    )
+                  : Icon(
+                      tab.icon,
+                      key: tab.key,
+                      size: 24.0,
+                    )),
         );
       }).toList(),
+      backgroundColor: SwiftvoteTheme.secondaryColor,
       selectedFontSize: 0.0,
       unselectedFontSize: 0.0,
       type: BottomNavigationBarType.fixed,

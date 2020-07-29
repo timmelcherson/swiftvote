@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
+import 'package:swiftvote/widgets/vote_page/vote_item.dart';
 
 class VoteWidget extends StatelessWidget {
+
+  VoteWidget({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +22,7 @@ class VoteWidget extends StatelessWidget {
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 1,
-                    blurRadius: 5,
+                    blurRadius: 3,
                     offset: Offset(0, 5),
                   ),
                 ],
@@ -72,42 +76,11 @@ class VoteWidget extends StatelessWidget {
                       ),
                     ),
                   ), // Vote Title
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: <Widget>[
-                            FractionallySizedBox(
-                              widthFactor: 0.7,
-                              child: RaisedButton(
-                                child: Text(
-                                  'Lionel Messi',
-                                  style: SwiftvoteTheme.darkQuestionTextStyle,
-                                ),
-                                onPressed: () => {},
-                                color: SwiftvoteTheme.primaryColor,
-                                elevation: 6.0,
-                              ),
-                            ),
-                            FractionallySizedBox(
-                              widthFactor: 0.7,
-                              child: RaisedButton(
-                                child: Text(
-                                  'Christiano Ronaldo',
-                                  style: SwiftvoteTheme.lightQuestionTextStyle,
-                                ),
-                                onPressed: () => {},
-                                color: Color.fromRGBO(242, 242, 242, 1),
-                                elevation: 6.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  VoteItem(
+                    vote: vote,
+                    onTap: () async {
+                      print('Vote was tapped');
+                    },
                   ),
                   Expanded(
                     flex: 1,

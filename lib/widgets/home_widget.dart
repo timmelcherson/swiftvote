@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/utils/keys.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
-import 'package:swiftvote/widgets/vote_widget.dart';
+import 'vote_page/vote_barrel.dart';
 
 class HomeWidget extends StatelessWidget {
   @override
@@ -10,7 +10,7 @@ class HomeWidget extends StatelessWidget {
     return Scaffold(
       key: SwiftvoteKeys.homeWidget,
       body: Container(
-        color: Color.fromRGBO(255, 249, 232, 1),
+        color: Color.fromRGBO(255, 252, 242, 1),
         child: VoteWidget(),
       ),
     );

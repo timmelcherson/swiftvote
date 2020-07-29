@@ -17,4 +17,5 @@ class SwiftvoteKeys {
   static const searchWidget = Key('__searchWidget__');
   static const notificationsWidget = Key('__notificationsWidget__');
   static const homeWidget = Key('__homeWidget__');
+  static const voteWidget = Key('__voteWidget__');
 }
