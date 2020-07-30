@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:swiftvote/utils/test_db.dart';
+import 'package:flutter/material.dart';
+import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/repositories/vote_repository.dart';
 import './vote.dart';
 
 class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
-  VoteBloc() : super(VoteLoadInProgress());
+  final VoteRepository voteRepository;
+  VoteBloc({@required this.voteRepository}) : super(VotesLoadInProgress());
 
 
 
@@ -24,9 +27,15 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     }
   }
 
+  void testPrint(List<Vote> votes) {
+
+  }
+
   Stream<VoteState> _mapVoteLoadedToState() async* {
+    print(voteRepository);
     try {
-      final votes = TestDb.voteList;
+      final votes = await this.voteRepository.loadVotes();
+      yield VotesLoadSuccess(votes);
     } catch (_) {
       yield VoteLoadFailure();
     }

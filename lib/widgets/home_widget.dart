@@ -10,7 +10,7 @@ class HomeWidget extends StatelessWidget {
     return Scaffold(
       key: SwiftvoteKeys.homeWidget,
       body: Container(
-        color: Color.fromRGBO(255, 252, 242, 1),
+        color: Color.fromRGBO(255, 253, 245, 1),
         child: VoteWidget(),
       ),
     );

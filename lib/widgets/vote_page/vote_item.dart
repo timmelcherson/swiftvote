@@ -4,12 +4,10 @@ import 'package:swiftvote/utils/swiftvote_theme.dart';
 
 class VoteItem extends StatelessWidget {
   final Vote vote;
-  final GestureTapCallback onTap;
 
   VoteItem({
     Key key,
     @required this.vote,
-    @required this.onTap,
   }) : super(key: key);
 
   @override
@@ -26,7 +24,7 @@ class VoteItem extends StatelessWidget {
                 widthFactor: 0.7,
                 child: RaisedButton(
                   child: Text(
-                    'Lionel Messi',
+                    vote.voteOptions[0],
                     style: SwiftvoteTheme.darkQuestionTextStyle,
                   ),
                   onPressed: () => {print("pressed Messi")},
@@ -38,7 +36,7 @@ class VoteItem extends StatelessWidget {
                 widthFactor: 0.7,
                 child: RaisedButton(
                   child: Text(
-                    'Christiano Ronaldo',
+                    vote.voteOptions[1],
                     style: SwiftvoteTheme.lightQuestionTextStyle,
                   ),
                   onPressed: () => {print("pressed Ronaldo")},

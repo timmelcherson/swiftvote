@@ -12,7 +12,7 @@ class SwiftvoteTheme extends Theme {
     color: Color.fromRGBO(135, 135, 135, 1),
   );
 
-  static const voteTitleTextStyle = TextStyle(
+  static const largeTitleTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 32.0,
     color: secondaryColorAccent,

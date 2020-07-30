@@ -10,19 +10,19 @@ abstract class VoteState extends Equatable{
   List<Object> get props => [];
 }
 
-class VoteLoadInProgress extends VoteState {}
+class VotesLoadInProgress extends VoteState {}
 
-class VoteLoadSuccess extends VoteState {
+class VotesLoadSuccess extends VoteState {
 
-  final Vote vote;
+  final List<Vote> votes;
 
-  const VoteLoadSuccess(this.vote);
-
-  @override
-  List<Object> get props => [vote];
+  const VotesLoadSuccess([this.votes = const []]);
 
   @override
-  String toString() => 'VoteLoadSuccess{vote: $vote}';
+  List<Object> get props => [votes];
+
+  @override
+  String toString() => 'VoteLoadSuccess{vote: $votes}';
 }
 
 class VoteLoadFailure extends VoteState {}

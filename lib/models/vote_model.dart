@@ -50,13 +50,20 @@ class Vote extends Equatable {
   }
 
   static Vote fromJson(Map<String, Object> json) {
-    return Vote(
+
+    List<String> voteOptionsList = new List<String>.from(json["voteOptions"]);
+    List<int> votesList = new List<int>.from(json["votes"]);
+    List<String> tagsList = new List<String>.from(json["tags"]);
+
+    Vote vote = Vote(
       json["id"] as String,
       json["title"] as String,
       json["author"] as String,
-      json["voteOptions"] as List<String>,
-      json["votes"] as List<int>,
-      json["tags"] as List<String>,
+      voteOptionsList,
+      votesList,
+      tagsList
     );
+
+    return vote;
   }
 }
