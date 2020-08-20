@@ -10,62 +10,65 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return GestureDetector(
-        onTap: () {
-          print("Tapped");
-          print(FocusScope.of(context));
-          FocusScope.of(context).unfocus();
-        },
-        child: CustomScrollView(
-          key: SwiftvoteKeys.searchWidget,
-          scrollDirection: Axis.vertical,
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SearchWidgetHeaderDelegate(
-                  maxExtentValue: constraints.maxHeight,
-                  searchCallback: searchCallback),
-            ),
-            SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 4,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return GestureDetector(
+          onTap: () {
+            print("Tapped");
+            print(FocusScope.of(context));
+            FocusScope.of(context).unfocus();
+          },
+          child: CustomScrollView(
+            key: SwiftvoteKeys.searchWidget,
+            scrollDirection: Axis.vertical,
+            slivers: <Widget>[
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: SearchWidgetHeaderDelegate(
+                    maxExtentValue: constraints.maxHeight,
+                    searchCallback: searchCallback),
               ),
-              delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) => Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Stack(
-                              alignment: Alignment.bottomLeft,
-                              children: <Widget>[
-                                Container(
-                                  color: Colors.lightBlue[100 * (index % 9)],
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                  child: Text(
-                                    searchQuery == null ? 'No search' : searchQuery,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'RobotoMono',
-                                      fontSize: 16.0,
-                                    ),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) => Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Stack(
+                                alignment: Alignment.bottomLeft,
+                                children: <Widget>[
+                                  Container(
+                                    color: Colors.lightBlue[100 * (index % 9)],
                                   ),
-                                )
-                              ],
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
+                                    child: Text(
+                                      'Search here',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'RobotoMono',
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                  childCount: 2),
-            ),
-          ],
-        ),
-      );
-    });
+                          ],
+                        ),
+                    childCount: 20),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void searchCallback(String search) {
