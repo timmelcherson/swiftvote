@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/repositories/vote_repository.dart';
+import 'package:swiftvote/utils/file_storage.dart';
 import 'package:swiftvote/widgets/widgets.dart';
 
 class AppScreen extends StatelessWidget {
@@ -12,10 +15,9 @@ class AppScreen extends StatelessWidget {
         return Scaffold(
           body: getWidget(activeTab),
           bottomNavigationBar: TabSelector(
-            activeTab: activeTab,
-            onTabSelected: (tab) =>
-                BlocProvider.of<TabBloc>(context).add(TabUpdated(tab)),
-          ),
+              activeTab: activeTab,
+              onTabSelected: (tab) =>
+                  {BlocProvider.of<TabBloc>(context).add(TabUpdated(tab))}),
         );
       },
     );
@@ -27,27 +29,27 @@ class AppScreen extends StatelessWidget {
       case AppTab.explore:
         widget = ExploreWidget();
         break;
-//        return ExploreWidget();
       case AppTab.search:
         widget = SearchWidget();
         break;
-//        return SearchWidget();
       case AppTab.home:
-        widget = HomeWidget();
+        widget = VoteWidget();
         break;
-//        return HomeWidget();
       case AppTab.notifications:
         widget = NotificationsWidget();
         break;
-//        return NotificationsWidget();
       case AppTab.settings:
         widget = SettingsWidget();
         break;
-//        return SettingsWidget();
       default:
-        widget = HomeWidget();
+        widget = VoteWidget();
         break;
     }
-    return SafeArea(child: widget);
+    return SafeArea(
+      child: Container(
+        color: Color.fromRGBO(255, 253, 245, 1),
+        child: widget,
+      ),
+    );
   }
 }

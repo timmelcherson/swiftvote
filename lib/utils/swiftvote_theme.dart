@@ -5,6 +5,7 @@ class SwiftvoteTheme extends Theme {
   static const Color primaryColorAccent = Color.fromRGBO(54, 46, 79, 1);
   static const Color secondaryColor = Color.fromRGBO(242, 242, 242, 1);
   static const Color secondaryColorAccent = Color.fromRGBO(50, 50, 50, 1);
+  static const Color lightYellowBackgroundColor = Color.fromRGBO(255, 253, 245, 1);
 
   static const voteTagsTextStyle = TextStyle(
     fontFamily: 'RobotoMono',

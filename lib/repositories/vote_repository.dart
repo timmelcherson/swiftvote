@@ -16,7 +16,6 @@ class VoteRepository {
     try {
       return await fileStorage.loadVotes();
     } catch (e) {
-      print("ERROR IN LOAD VOTES: ");
       print(e);
       final votes = await webClient.fetchVotes();
 

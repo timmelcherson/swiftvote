@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
@@ -19,7 +17,6 @@ class VoteWidget extends StatelessWidget {
           return LoadingIndicator(key: SwiftvoteKeys.loadingIndicator);
         } else if (state is VotesLoadSuccess) {
           final votes = state.votes;
-          print(votes[1]);
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
             child: Flex(

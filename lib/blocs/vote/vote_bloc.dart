@@ -10,8 +10,6 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   final VoteRepository voteRepository;
   VoteBloc({@required this.voteRepository}) : super(VotesLoadInProgress());
 
-
-
   @override
   Stream<VoteState> mapEventToState(
     VoteEvent event,
@@ -25,10 +23,6 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     } else if (event is VoteDeleted) {
       yield* _mapVoteDeletedToState(event);
     }
-  }
-
-  void testPrint(List<Vote> votes) {
-
   }
 
   Stream<VoteState> _mapVoteLoadedToState() async* {
