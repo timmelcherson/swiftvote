@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +6,9 @@ import 'package:swiftvote/utils/keys.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 
 class SearchWidget extends StatelessWidget {
-  final bool _renderSearchResult = false;
+  bool _renderSearchResult = false;
+  final ScrollController _scrollController = new ScrollController();
+
   String searchQuery;
 
   @override
@@ -14,19 +17,23 @@ class SearchWidget extends StatelessWidget {
       builder: (context, constraints) {
         return GestureDetector(
           onTap: () {
-            print("Tapped");
-            print(FocusScope.of(context));
             FocusScope.of(context).unfocus();
           },
           child: CustomScrollView(
             key: SwiftvoteKeys.searchWidget,
             scrollDirection: Axis.vertical,
+            controller: _scrollController,
+            physics: _renderSearchResult
+                ? BouncingScrollPhysics()
+                : NeverScrollableScrollPhysics(),
             slivers: <Widget>[
               SliverPersistentHeader(
                 pinned: true,
+                floating: false,
                 delegate: SearchWidgetHeaderDelegate(
                     maxExtentValue: constraints.maxHeight,
-                    searchCallback: searchCallback),
+                    searchCallback: searchCallback,
+                    isSearchMade: _renderSearchResult),
               ),
               SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -62,7 +69,7 @@ class SearchWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                    childCount: 20),
+                    childCount: _renderSearchResult ? 20 : 0),
               ),
             ],
           ),
@@ -72,7 +79,11 @@ class SearchWidget extends StatelessWidget {
   }
 
   void searchCallback(String search) {
-    print("A SEARCH HAS BEEN MADE");
+    if (!_renderSearchResult) {
+      _scrollController.animateTo(0,
+          duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+    }
+    _renderSearchResult = true;
     print(search);
     searchQuery = search;
   }
@@ -80,50 +91,57 @@ class SearchWidget extends StatelessWidget {
 
 class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double maxExtentValue;
+  final bool isSearchMade;
   final Function(String) searchCallback;
   final TextEditingController _editingController = TextEditingController();
 
-  SearchWidgetHeaderDelegate({this.maxExtentValue, this.searchCallback});
+  SearchWidgetHeaderDelegate(
+      {this.maxExtentValue, this.isSearchMade, this.searchCallback});
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Container(
-            margin: EdgeInsets.all(16.0),
-            child: Text(
-              'Search',
-              style: SwiftvoteTheme.largeTitleTextStyle,
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 4,
-          child: Center(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 32.0),
-              child: TextField(
-                controller: _editingController,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.search),
-                  hintText: 'Search question...',
-                  hintStyle: TextStyle(fontSize: 18.0),
+    return FractionallySizedBox(
+      child: Container(
+        color: SwiftvoteTheme.lightYellowBackgroundColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                constraints: BoxConstraints(minHeight: 80.0),
+                margin: EdgeInsets.all(16.0),
+                child: Text(
+                  'Search',
+                  style: SwiftvoteTheme.largeTitleTextStyle,
+                  textAlign: TextAlign.left,
                 ),
-                onSubmitted: (String str) {
-                  searchCallback(str);
-                  _editingController.clear();
-                },
-                autofocus: false,
               ),
             ),
-          ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 32.0),
+                child: TextField(
+                  controller: _editingController,
+                  decoration: InputDecoration(
+                    suffixIcon: Icon(Icons.search),
+                    hintText: 'Search question...',
+                    hintStyle: TextStyle(fontSize: 18.0),
+                  ),
+                  onSubmitted: (String str) {
+                    print(isSearchMade);
+                    searchCallback(str);
+                    _editingController.clear();
+                  },
+                  autofocus: false,
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -131,8 +149,8 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
   @override
-  double get maxExtent => maxExtentValue;
+  double get maxExtent => isSearchMade ? 180.0 : maxExtentValue;
 
   @override
-  double get minExtent => 80.0;
+  double get minExtent => 180.0;
 }
