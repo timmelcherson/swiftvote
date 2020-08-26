@@ -6,6 +6,7 @@ import 'package:swiftvote/repositories/vote_repository.dart';
 import 'package:swiftvote/utils/file_storage.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
 import 'package:swiftvote/widgets/widgets.dart';
+import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 
 import 'blocs/blocs.dart';
 
@@ -57,12 +58,30 @@ class SwiftvoteApp extends StatelessWidget {
                 )..add(VoteLoaded()),
               ),
               BlocProvider<ExploreBloc>(
-                create: (context) => ExploreBloc()..add(ExploreLoaded(),
-              ))
+                  create: (context) => ExploreBloc()
+                    ..add(
+                      ExploreLoaded(),
+                    ))
             ],
             child: AppScreen(),
           );
         },
+        Routes.addVoteSCreen: (context) {
+          return AddVoteScreen(
+              key: SwiftvoteWidgetKeys.addVoteScreen,
+              onSave: (
+                title,
+                answerOne,
+                answerTwo,
+                category,
+              ) {
+                print(title);
+                print(answerOne);
+                print(answerTwo);
+                print(category);
+              },
+              isEditing: false);
+        }
       },
     );
   }

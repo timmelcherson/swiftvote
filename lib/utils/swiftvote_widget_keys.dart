@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-class SwiftvoteKeys {
+class SwiftvoteWidgetKeys {
   static const homeScreen = Key('__homeScreen__');
+  static const addVoteScreen = Key('__addVoteScreen');
 
   // tabs
   static const tabs = Key('__tabs__');

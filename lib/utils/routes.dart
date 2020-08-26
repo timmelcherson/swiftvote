@@ -5,4 +5,5 @@ class Routes {
   static final search = '/search';
   static final notifications = '/notifications';
   static final settings = '/settings';
+  static final addVoteSCreen = '/addVote';
 }

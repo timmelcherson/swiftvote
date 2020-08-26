@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/models/category_tag.dart';
-import 'package:swiftvote/utils/keys.dart';
+import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
@@ -16,13 +16,13 @@ class ExploreWidget extends StatelessWidget {
     return BlocBuilder<ExploreBloc, ExploreState>(
       builder: (context, state) {
         if (state is ExploreCategoriesLoadInProgress) {
-          return LoadingIndicator(key: SwiftvoteKeys.loadingIndicator);
+          return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is ExploreCategoriesLoadSuccess) {
           final categories = state.categories;
           final categoryThumbnailAssetPath = state.categoryImagesPaths;
 
           return CustomScrollView(
-            key: SwiftvoteKeys.exploreWidget,
+            key: SwiftvoteWidgetKeys.exploreWidget,
             scrollDirection: Axis.vertical,
             slivers: <Widget>[
               SliverPersistentHeader(

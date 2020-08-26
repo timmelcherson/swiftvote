@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/utils/keys.dart';
+import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/models/models.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
@@ -21,7 +21,7 @@ class TabSelector extends StatelessWidget {
     return SizedBox(
       height: 58,
       child: BottomNavigationBar(
-        key: SwiftvoteKeys.tabs,
+        key: SwiftvoteWidgetKeys.tabs,
         currentIndex: AppTab.values.indexOf(activeTab),
         onTap: (index) => {onTabSelected(AppTab.values[index])},
         items: AppTab.values.map((tab) {

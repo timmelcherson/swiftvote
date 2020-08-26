@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftvote/utils/keys.dart';
+import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 
 class SearchWidget extends StatelessWidget {
@@ -20,7 +20,7 @@ class SearchWidget extends StatelessWidget {
             FocusScope.of(context).unfocus();
           },
           child: CustomScrollView(
-            key: SwiftvoteKeys.searchWidget,
+            key: SwiftvoteWidgetKeys.searchWidget,
             scrollDirection: Axis.vertical,
             controller: _scrollController,
             physics: _renderSearchResult

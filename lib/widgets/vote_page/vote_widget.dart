@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
-import 'package:swiftvote/utils/keys.dart';
+import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/widgets/vote_page/vote_item.dart';
+import 'package:swiftvote/utils/routes.dart';
 
 class VoteWidget extends StatelessWidget {
   VoteWidget({Key key}) : super(key: key);
@@ -14,7 +15,7 @@ class VoteWidget extends StatelessWidget {
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
         if (state is VotesLoadInProgress) {
-          return LoadingIndicator(key: SwiftvoteKeys.loadingIndicator);
+          return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadSuccess) {
           final votes = state.votes;
           return Container(
@@ -125,7 +126,9 @@ class VoteWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: MaterialButton(
-                            onPressed: () => print("pressed +"),
+                            onPressed: () {
+                              Navigator.pushNamed(context, Routes.addVoteSCreen);
+                            },
                             child: Icon(
                               Icons.add,
                               color: Colors.white,
