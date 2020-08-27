@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/entities.dart';
 
 class FileStorage {
   final String tag;
@@ -13,17 +12,17 @@ class FileStorage {
     this.getDirectory,
   );
 
-  Future<List<Vote>> loadVotes() async {
+  Future<List<VoteEntity>> loadVotes() async {
     final file = await _getLocalFile();
     final string = await file.readAsString();
     final json = JsonDecoder().convert(string);
     final votes = (json['votes'])
-        .map<Vote>((vote) => Vote.fromJson(vote))
+        .map<VoteEntity>((vote) => VoteEntity.fromJson(vote))
         .toList();
     return votes;
   }
 
-  Future<File> saveVotes(List<Vote> votes) async {
+  Future<File> saveVotes(List<VoteEntity> votes) async {
     final file = await _getLocalFile();
     return file.writeAsString(JsonEncoder().convert({
       'votes': votes.map((vote) => vote.toJson()).toList(),

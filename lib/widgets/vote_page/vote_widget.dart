@@ -14,9 +14,9 @@ class VoteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
-        if (state is VotesLoadInProgress) {
+        if (state is VotesLoading) {
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
-        } else if (state is VotesLoadSuccess) {
+        } else if (state is VotesLoaded) {
           final votes = state.votes;
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),

@@ -1,4 +1,5 @@
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/entities.dart';
+import 'package:swiftvote/data/models.dart';
 
 class WebClient {
   final Duration delay;
@@ -6,11 +7,11 @@ class WebClient {
   const WebClient([this.delay = const Duration(milliseconds: 3000)]);
 
   /// Mock that "fetches" some Votes from a "web service" after a short delay
-  Future<List<Vote>> fetchVotes() async {
+  Future<List<VoteEntity>> fetchVotes() async {
     return Future.delayed(
         delay,
         () => [
-              Vote(
+              VoteEntity(
                 null,
                 'Who is better?',
                 'username123',
@@ -18,7 +19,7 @@ class WebClient {
                 [3000, 4000],
                 ["Sports", "Gaming"],
               ),
-              Vote(
+              VoteEntity(
                 null,
                 'Coolest colour?',
                 'username999',
@@ -37,7 +38,7 @@ class WebClient {
 //  final List<String> tags;
   /// Mock that returns true or false for success or failure. In this case,
   /// it will "Always Succeed"
-  Future<bool> postVotes(List<Vote> votes) async {
+  Future<bool> postVotes(List<VoteEntity> votes) async {
     return Future.value(true);
   }
 }

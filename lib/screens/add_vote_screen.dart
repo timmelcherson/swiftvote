@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 
 typedef OnSaveCallback = Function(
-    String title, String answerOne, String answerTwo, String category);
+    String title, String voteOptionOne, String voteOptionTwo, String category);
 
 class AddVoteScreen extends StatefulWidget {
   final bool isEditing;
@@ -26,8 +26,8 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   int _value = 1;
 
   String _voteTitle;
-  String _voteAnswerOne;
-  String _voteAnswerTwo;
+  String _voteOptionOne;
+  String _voteOptionTwo;
   String _voteCategory;
 
   List<ListItem> _dropDownItems = [
@@ -81,13 +81,13 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
               validator: (value) {
                 return validateTextField(value);
               },
-              onSaved: (value) => _voteAnswerOne = value,
+              onSaved: (value) => _voteOptionOne = value,
             ),
             TextFormField(
               validator: (value) {
                 return validateTextField(value);
               },
-              onSaved: (value) => _voteAnswerTwo = value,
+              onSaved: (value) => _voteOptionTwo = value,
             ),
             DropdownButton(
               value: _selectedItem,
@@ -103,7 +103,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
               onPressed: () {
                 if (_addVoteFormKey.currentState.validate()) {
                   _addVoteFormKey.currentState.save();
-                  widget.onSave(_voteTitle, _voteAnswerOne, _voteAnswerTwo,
+                  widget.onSave(_voteTitle, _voteOptionOne, _voteOptionTwo,
                       _voteCategory);
                   print("VALIDATED");
                   Navigator.pop(context);

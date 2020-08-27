@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/models.dart';
 
 @immutable
 abstract class VoteState extends Equatable{
@@ -10,19 +10,19 @@ abstract class VoteState extends Equatable{
   List<Object> get props => [];
 }
 
-class VotesLoadInProgress extends VoteState {}
+class VotesLoading extends VoteState {}
 
-class VotesLoadSuccess extends VoteState {
+class VotesLoaded extends VoteState {
 
   final List<Vote> votes;
 
-  const VotesLoadSuccess([this.votes = const []]);
+  const VotesLoaded([this.votes = const []]);
 
   @override
   List<Object> get props => [votes];
 
   @override
-  String toString() => 'VoteLoadSuccess{vote: $votes}';
+  String toString() => 'VotesLoaded{vote: $votes}';
 }
 
-class VoteLoadFailure extends VoteState {}
+class VotesNotLoaded extends VoteState {}

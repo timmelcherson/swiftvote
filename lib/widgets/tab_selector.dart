@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 

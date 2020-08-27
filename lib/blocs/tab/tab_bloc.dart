@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/blocs/tab/tab.dart';
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/models.dart';
 
 class TabBloc extends Bloc<TabEvent, AppTab> {
   TabBloc() : super(AppTab.home);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftvote/models/category_tag.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 import 'package:swiftvote/blocs/blocs.dart';

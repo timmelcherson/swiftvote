@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/utils/swiftvote_theme.dart';
 
 class VoteItem extends StatelessWidget {

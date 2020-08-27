@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:swiftvote/models/models.dart';
+import 'package:swiftvote/data/models.dart';
 
 abstract class TabEvent extends Equatable {
   const TabEvent();

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:swiftvote/models/category_tag.dart';
+import 'package:swiftvote/data/models.dart';
 import './explore.dart';
 
 class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
