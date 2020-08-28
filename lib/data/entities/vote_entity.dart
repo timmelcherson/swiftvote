@@ -46,13 +46,22 @@ class VoteEntity extends Equatable {
   }
 
   static VoteEntity fromSnapshot(DocumentSnapshot snap) {
+
+    List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
+    List<int> _votes = new List<int>.from(snap.get('votes'));
+    List<String> _tags = new List<String>.from(snap.get('tags'));
+
+    print(_voteOptions);
+    print(_votes);
+    print(_tags);
+
     return VoteEntity(
-      snap.get('id'),
+      snap.id,
       snap.get('title'),
       snap.get('author'),
-      snap.get('voteOptions'),
-      snap.get('votes'),
-      snap.get('tags'),
+      _voteOptions,
+      _votes,
+      _tags,
     );
   }
 

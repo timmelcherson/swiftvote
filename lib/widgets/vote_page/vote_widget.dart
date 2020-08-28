@@ -15,9 +15,12 @@ class VoteWidget extends StatelessWidget {
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
         if (state is VotesLoading) {
+          print("VotesLoading...");
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoaded) {
           final votes = state.votes;
+          print("votes in voteWidget: ");
+          print(votes);
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
             child: Flex(
@@ -56,7 +59,7 @@ class VoteWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      votes[1].tags[0],
+                                      votes[0].tags[0],
                                       style: SwiftvoteTheme.voteTagsTextStyle,
                                     ),
                                   ),
@@ -70,7 +73,7 @@ class VoteWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      votes[1].tags[1],
+                                      votes[0].tags[1],
                                       style: SwiftvoteTheme.voteTagsTextStyle,
                                     ),
                                   ),
@@ -88,7 +91,7 @@ class VoteWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  votes[1].title,
+                                  votes[0].title,
                                   style: SwiftvoteTheme.largeTitleTextStyle,
                                 ),
                               ],
@@ -96,7 +99,7 @@ class VoteWidget extends StatelessWidget {
                           ),
                         ), // Vote Title
                         VoteItem(
-                          vote: votes[1], // THIS SHOULD FETCH WITH ID
+                          vote: votes[0], // THIS SHOULD FETCH WITH ID
                         ),
                         Expanded(
                           flex: 1,

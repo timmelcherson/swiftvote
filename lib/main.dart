@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -6,10 +7,9 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/utils/file_storage.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
+import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/widgets/widgets.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'blocs/blocs.dart';
@@ -37,60 +37,72 @@ Future<void> main() async {
 //    ),
 //  );
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+//  FirebaseFirestore firestore = FirebaseFirestore.instance;
   runApp(SwiftvoteApp());
 }
 
 class SwiftvoteApp extends StatelessWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+  Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<VoteBloc>(
-          create: (context) => VoteBloc(
-            voteRepository: FirebaseVoteRepository(),
-          )..add(LoadVotes()),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'SwiftVote',
-        navigatorObservers: <NavigatorObserver>[observer],
-        routes: {
-          Routes.home: (context) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider<TabBloc>(
-                  create: (context) => TabBloc(),
-                ),
-                BlocProvider<ExploreBloc>(
-                    create: (context) => ExploreBloc()
-                      ..add(
-                        ExploreLoaded(),
-                      ))
-              ],
-              child: AppScreen(),
-            );
-          },
-          Routes.addVoteSCreen: (context) {
-            return AddVoteScreen(
-              key: SwiftvoteWidgetKeys.addVoteScreen,
-              isEditing: false,
-              onSave: (title, voteOptionOne, voteOptionTwo, tag) {
-                BlocProvider.of<VoteBloc>(context).add(AddVote(Vote(
-                    title: title,
-                    author: 'testAuthor',
-                    voteOptions: [voteOptionOne, voteOptionTwo],
-                    votes: [0, 0],
-                    tags: [tag])));
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print("Snapshot had error");
+          return Container();
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          print("ConnectionState is done");
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<VoteBloc>(
+                create: (context) => VoteBloc(
+                  voteRepository: FirebaseVoteRepository(),
+                )..add(LoadVotes()),
+              ),
+            ],
+            child: MaterialApp(
+              title: 'SwiftVote',
+              routes: {
+                Routes.home: (context) {
+                  return MultiBlocProvider(
+                    providers: [
+                      BlocProvider<TabBloc>(
+                        create: (context) => TabBloc(),
+                      ),
+                      BlocProvider<ExploreBloc>(
+                          create: (context) => ExploreBloc()
+                            ..add(
+                              ExploreLoaded(),
+                            ))
+                    ],
+                    child: AppScreen(),
+                  );
+                },
+                Routes.addVoteSCreen: (context) {
+                  return AddVoteScreen(
+                    key: SwiftvoteWidgetKeys.addVoteScreen,
+                    isEditing: false,
+                    onSave: (title, voteOptionOne, voteOptionTwo, tag) {
+                      BlocProvider.of<VoteBloc>(context).add(AddVote(Vote(
+                          title: title,
+                          author: 'testAuthor',
+                          voteOptions: [voteOptionOne, voteOptionTwo],
+                          votes: [0, 0],
+                          tags: [tag])));
+                    },
+                  );
+                },
               },
-            );
-          },
-        },
-      ),
+            ),
+          );
+        }
+
+        return LoadingIndicator();
+      },
     );
   }
 }
