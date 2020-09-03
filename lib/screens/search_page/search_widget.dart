@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 class SearchWidget extends StatelessWidget {
   bool _renderSearchResult = false;
@@ -103,7 +103,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return FractionallySizedBox(
       child: Container(
-        color: SwiftvoteTheme.lightYellowBackgroundColor,
+        color: ColorThemes.lightYellowBackgroundColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -114,7 +114,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                 margin: EdgeInsets.all(16.0),
                 child: Text(
                   'Search',
-                  style: SwiftvoteTheme.largeTitleTextStyle,
+                  style: TextThemes.largeTitleTextStyle,
                   textAlign: TextAlign.left,
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 class VoteItem extends StatelessWidget {
   final Vote vote;
@@ -25,11 +25,10 @@ class VoteItem extends StatelessWidget {
                 child: RaisedButton(
                   child: Text(
                     vote.voteOptions[0],
-                    style: SwiftvoteTheme.darkQuestionTextStyle,
+                    style: TextThemes.darkQuestionTextStyle,
                   ),
                   onPressed: () => {print("pressed Messi")},
-                  color: SwiftvoteTheme.primaryColor,
-                  elevation: 6.0,
+                  color: ColorThemes.primaryColor,
                 ),
               ),
               FractionallySizedBox(
@@ -37,11 +36,10 @@ class VoteItem extends StatelessWidget {
                 child: RaisedButton(
                   child: Text(
                     vote.voteOptions[1],
-                    style: SwiftvoteTheme.lightQuestionTextStyle,
+                    style: TextThemes.lightQuestionTextStyle,
                   ),
                   onPressed: () => {print("pressed Ronaldo")},
                   color: Color.fromRGBO(242, 242, 242, 1),
-                  elevation: 6.0,
                 ),
               ),
             ],

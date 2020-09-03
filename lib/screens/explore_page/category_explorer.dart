@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 class CategoryExplorer extends StatelessWidget {
   final String headerImagePath;
@@ -21,7 +21,7 @@ class CategoryExplorer extends StatelessWidget {
                 iconTheme: innerBoxIsScrolled
                     ? IconThemeData(color: Colors.black)
                     : IconThemeData(color: Colors.white),
-                backgroundColor: SwiftvoteTheme.lightYellowBackgroundColor,
+                backgroundColor: ColorThemes.lightYellowBackgroundColor,
                 flexibleSpace: FlexibleSpaceBar(
                   title: AnimatedDefaultTextStyle(
                     child: Text(category),
@@ -98,7 +98,7 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            color: SwiftvoteTheme.primaryColor,
+            color: ColorThemes.primaryColor,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 8.0, 12.0, 12.0),
               child: Text(

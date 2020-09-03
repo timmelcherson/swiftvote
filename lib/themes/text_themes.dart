@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 
-class SwiftvoteTheme extends Theme {
-  static const Color primaryColor = Color.fromRGBO(80, 92, 114, 1);
-  static const Color primaryColorAccent = Color.fromRGBO(54, 46, 79, 1);
-  static const Color secondaryColor = Color.fromRGBO(242, 242, 242, 1);
-  static const Color secondaryColorAccent = Color.fromRGBO(50, 50, 50, 1);
-  static const Color lightYellowBackgroundColor = Color.fromRGBO(255, 253, 245, 1);
+
+import 'package:flutter/material.dart';
+import 'package:swiftvote/themes/color_themes.dart';
+
+class TextThemes extends Theme {
 
   static const voteTagsTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
@@ -16,18 +14,30 @@ class SwiftvoteTheme extends Theme {
   static const largeTitleTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 32.0,
-    color: secondaryColorAccent,
+    color: ColorThemes.secondaryColorAccent,
+  );
+
+  static const mediumTitleTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 28.0,
+    color: ColorThemes.secondaryColorAccent,
   );
 
   static const TextStyle lightQuestionTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 20.0,
-    color: secondaryColorAccent,
+    color: ColorThemes.secondaryColorAccent,
   );
 
   static const TextStyle darkQuestionTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 20.0,
     color: Color.fromRGBO(255, 255, 255, 1),
+  );
+
+  static const TextStyle textHintStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 20.0,
+    color: Color.fromRGBO(170, 170, 170, 1),
   );
 }

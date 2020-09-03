@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 typedef OnSaveCallback = Function(String title, String voteOptionOne,
     String voteOptionTwo, List<String> tags);
@@ -98,34 +98,72 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
-      body: Form(
-        key: _addVoteFormKey,
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'title',
-                  hintStyle: TextStyle(fontSize: 18.0),
-                ),
-                validator: (value) {
-                  return validateTextField(value);
-                },
-                onSaved: (value) => _voteTitle = value,
+      backgroundColor: ColorThemes.secondaryColor,
+      body: SafeArea(
+        child: Form(
+          key: _addVoteFormKey,
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    iconSize: 32.0,
+                    alignment: Alignment.topLeft,
+                    padding: EdgeInsets.all(12.0),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: FractionallySizedBox(
-                widthFactor: 0.6,
+              Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
+                        child: Text(
+                          'Start a vote',
+                          style: TextThemes.mediumTitleTextStyle,
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: ClipOval(
+                        child: Material(
+                          color: ColorThemes.primaryColor,
+                          child: InkWell(
+                            child: Container(
+                              width: 32,
+                              height: 32,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '?',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 24.0),
+                              ),
+                            ),
+                            onTap: () {
+                              print('HELP ME');
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'option 1',
-                    hintStyle: TextStyle(fontSize: 18.0),
+                    hintText: 'Type question',
+                    hintStyle: TextThemes.textHintStyle,
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(),
                     ),
@@ -133,38 +171,51 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   validator: (value) {
                     return validateTextField(value);
                   },
-                  onSaved: (value) => _voteOptionOne = value,
+                  onSaved: (value) => _voteTitle = value,
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-              child: FractionallySizedBox(
-                widthFactor: 0.6,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'option 2',
-                    hintStyle: TextStyle(fontSize: 18.0),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.0),
+                child: FractionallySizedBox(
+                  widthFactor: 0.8,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Answer',
+                      hintStyle: TextThemes.textHintStyle,
                     ),
+                    validator: (value) {
+                      return validateTextField(value);
+                    },
+                    onSaved: (value) => _voteOptionOne = value,
                   ),
-                  validator: (value) {
-                    return validateTextField(value);
-                  },
-                  onSaved: (value) => _voteOptionTwo = value,
                 ),
               ),
-            ),
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              childAspectRatio: 4.0,
-              crossAxisSpacing: 20.0,
-              padding: EdgeInsets.all(8.0),
-              children: List.generate(
-                  _tagCheckboxValues.length, (index) => customCheckBox(index)),
-            ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.0),
+                child: FractionallySizedBox(
+                  widthFactor: 0.8,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(0.0),
+                      hintText: 'Answer',
+                      hintStyle: TextThemes.textHintStyle,
+                    ),
+                    validator: (value) {
+                      return validateTextField(value);
+                    },
+                    onSaved: (value) => _voteOptionTwo = value,
+                  ),
+                ),
+              ),
+              GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                childAspectRatio: 4.0,
+                crossAxisSpacing: 20.0,
+                padding: EdgeInsets.all(8.0),
+                children: List.generate(_tagCheckboxValues.length,
+                    (index) => customCheckBox(index)),
+              ),
 //            DropdownButton(
 //              value: _selectedItem,
 //              items: _dropdownMenuItems,
@@ -175,27 +226,28 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //                });
 //              },
 //            ),
-            FractionallySizedBox(
-              widthFactor: 0.5,
-              child: RaisedButton(
-                color: SwiftvoteTheme.primaryColor,
-                textColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 12.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+              FractionallySizedBox(
+                widthFactor: 0.5,
+                child: RaisedButton(
+                  color: ColorThemes.primaryColor,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  onPressed: () {
+                    if (_addVoteFormKey.currentState.validate()) {
+                      _addVoteFormKey.currentState.save();
+                      widget.onSave(_voteTitle, _voteOptionOne, _voteOptionTwo,
+                          _voteTags);
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Text('Submit'),
                 ),
-                onPressed: () {
-                  if (_addVoteFormKey.currentState.validate()) {
-                    _addVoteFormKey.currentState.save();
-                    widget.onSave(
-                        _voteTitle, _voteOptionOne, _voteOptionTwo, _voteTags);
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('Submit'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -205,6 +257,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
     if (value.trim().isEmpty) {
       return 'Enter some text';
     }
+
     return null;
   }
 

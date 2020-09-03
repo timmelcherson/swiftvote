@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 class TabSelector extends StatelessWidget {
   final AppTab activeTab;
@@ -35,7 +35,7 @@ class TabSelector extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                  color: SwiftvoteTheme.primaryColorAccent,
+                                  color: ColorThemes.primaryColorAccent,
                                   width: 3),
                             ),
                           ),
@@ -59,7 +59,7 @@ class TabSelector extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                  color: SwiftvoteTheme.primaryColorAccent,
+                                  color: ColorThemes.primaryColorAccent,
                                   width: 3),
                             ),
                           ),
@@ -79,12 +79,12 @@ class TabSelector extends StatelessWidget {
                           ),
                         )));
         }).toList(),
-        backgroundColor: SwiftvoteTheme.secondaryColor,
+        backgroundColor: ColorThemes.secondaryColor,
         selectedFontSize: 0.0,
         unselectedFontSize: 0.0,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: SwiftvoteTheme.primaryColorAccent,
-        unselectedItemColor: SwiftvoteTheme.primaryColor,
+        selectedItemColor: ColorThemes.primaryColorAccent,
+        unselectedItemColor: ColorThemes.primaryColor,
       ),
     );
   }

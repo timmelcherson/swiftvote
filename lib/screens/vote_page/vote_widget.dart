@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
+import 'package:swiftvote/screens/vote_page/vote_barrel.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
+import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
-import 'package:swiftvote/widgets/vote_page/vote_item.dart';
 import 'package:swiftvote/utils/routes.dart';
 
 class VoteWidget extends StatelessWidget {
@@ -66,7 +66,7 @@ class VoteWidget extends StatelessWidget {
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
                                       vote.tags[0],
-                                      style: SwiftvoteTheme.voteTagsTextStyle,
+                                      style: TextThemes.voteTagsTextStyle,
                                     ),
                                   ),
                                 ),
@@ -80,7 +80,7 @@ class VoteWidget extends StatelessWidget {
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
                                       vote.tags[1],
-                                      style: SwiftvoteTheme.voteTagsTextStyle,
+                                      style: TextThemes.voteTagsTextStyle,
                                     ),
                                   ),
                                 ),
@@ -98,7 +98,7 @@ class VoteWidget extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   vote.title,
-                                  style: SwiftvoteTheme.largeTitleTextStyle,
+                                  style: TextThemes.largeTitleTextStyle,
                                 ),
                               ],
                             ),
@@ -144,11 +144,11 @@ class VoteWidget extends StatelessWidget {
                               size: 36,
                             ),
                             padding: EdgeInsets.all(0),
-                            color: SwiftvoteTheme.primaryColor,
-                            splashColor: SwiftvoteTheme.primaryColorAccent,
-                            focusColor: SwiftvoteTheme.primaryColorAccent,
-                            highlightColor: SwiftvoteTheme.primaryColorAccent,
-                            hoverColor: SwiftvoteTheme.primaryColorAccent,
+                            color: ColorThemes.primaryColor,
+                            splashColor: ColorThemes.primaryColorAccent,
+                            focusColor: ColorThemes.primaryColorAccent,
+                            highlightColor: ColorThemes.primaryColorAccent,
+                            hoverColor: ColorThemes.primaryColorAccent,
                           ),
                         ),
                       )

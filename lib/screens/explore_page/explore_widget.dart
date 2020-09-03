@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
-import 'package:swiftvote/utils/swiftvote_theme.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
 
@@ -106,7 +106,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
               margin: EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
               child: Text(
                 'Explore',
-                style: SwiftvoteTheme.largeTitleTextStyle,
+                style: TextThemes.largeTitleTextStyle,
                 textAlign: TextAlign.end,
               ),
             ),
