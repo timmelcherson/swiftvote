@@ -19,6 +19,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     VoteEvent event,
   ) async* {
     if (event is LoadVotes) {
+      print("event is LoadVotes");
       yield* _mapLoadVotesToState();
     } else if (event is AddVote) {
       yield* _mapAddVoteToState(event);
@@ -26,6 +27,9 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
       yield* _mapUpdateVoteToState(event);
     } else if (event is DeleteVote) {
       yield* _mapDeleteVoteToState(event);
+    } else if (event is VotesUpdated) {
+      print("event is VotesUpdated");
+      yield* _mapVotesUpdatedToState(event);
     }
   }
 

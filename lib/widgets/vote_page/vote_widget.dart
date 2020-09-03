@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
@@ -8,6 +10,9 @@ import 'package:swiftvote/widgets/vote_page/vote_item.dart';
 import 'package:swiftvote/utils/routes.dart';
 
 class VoteWidget extends StatelessWidget {
+
+  final _randomIndex = Random();
+
   VoteWidget({Key key}) : super(key: key);
 
   @override
@@ -18,9 +23,10 @@ class VoteWidget extends StatelessWidget {
           print("VotesLoading...");
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoaded) {
-          final votes = state.votes;
-          print("votes in voteWidget: ");
-          print(votes);
+          int index = _randomIndex.nextInt(state.votes.length);
+          print(index);
+          final vote = state.votes[index];
+          print(vote);
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
             child: Flex(
@@ -59,7 +65,7 @@ class VoteWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      votes[0].tags[0],
+                                      vote.tags[0],
                                       style: SwiftvoteTheme.voteTagsTextStyle,
                                     ),
                                   ),
@@ -73,7 +79,7 @@ class VoteWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      votes[0].tags[1],
+                                      vote.tags[1],
                                       style: SwiftvoteTheme.voteTagsTextStyle,
                                     ),
                                   ),
@@ -91,7 +97,7 @@ class VoteWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  votes[0].title,
+                                  vote.title,
                                   style: SwiftvoteTheme.largeTitleTextStyle,
                                 ),
                               ],
@@ -99,7 +105,7 @@ class VoteWidget extends StatelessWidget {
                           ),
                         ), // Vote Title
                         VoteItem(
-                          vote: votes[0], // THIS SHOULD FETCH WITH ID
+                          vote: vote,
                         ),
                         Expanded(
                           flex: 1,

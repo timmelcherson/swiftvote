@@ -86,13 +86,13 @@ class SwiftvoteApp extends StatelessWidget {
                   return AddVoteScreen(
                     key: SwiftvoteWidgetKeys.addVoteScreen,
                     isEditing: false,
-                    onSave: (title, voteOptionOne, voteOptionTwo, tag) {
+                    onSave: (title, voteOptionOne, voteOptionTwo, tags) {
                       BlocProvider.of<VoteBloc>(context).add(AddVote(Vote(
                           title: title,
-                          author: 'testAuthor',
+                          author: 'Swiftvote',
                           voteOptions: [voteOptionOne, voteOptionTwo],
                           votes: [0, 0],
-                          tags: [tag])));
+                          tags: tags)));
                     },
                   );
                 },
