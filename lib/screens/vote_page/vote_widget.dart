@@ -65,21 +65,7 @@ class VoteWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      vote.tags[0],
-                                      style: TextThemes.voteTagsTextStyle,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(2.0, 0, 2.0, 0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color.fromRGBO(
-                                              125, 125, 125, 1))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      vote.tags[1],
+                                      vote.category,
                                       style: TextThemes.voteTagsTextStyle,
                                     ),
                                   ),

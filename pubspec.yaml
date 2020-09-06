@@ -59,7 +59,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/icons/
-    - assets/explore_category_thumbnails/
+    - assets/category_thumbnails/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

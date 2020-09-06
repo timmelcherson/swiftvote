@@ -23,6 +23,12 @@ class TextThemes extends Theme {
     color: ColorThemes.secondaryColorAccent,
   );
 
+  static const smallTitleTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 24.0,
+    color: ColorThemes.secondaryColorAccent,
+  );
+
   static const TextStyle lightQuestionTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 20.0,

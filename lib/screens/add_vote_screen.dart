@@ -3,8 +3,8 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 
-typedef OnSaveCallback = Function(String title, String voteOptionOne,
-    String voteOptionTwo, List<String> tags);
+typedef OnSaveCallback = Function(String title, String category,
+    String voteOptionOne, String voteOptionTwo, List<String> tags);
 
 class AddVoteScreen extends StatefulWidget {
   final bool isEditing;
@@ -28,6 +28,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   int _value = 1;
 
   String _voteTitle;
+  String _voteCategory;
   String _voteOptionOne;
   String _voteOptionTwo;
   List<String> _voteTags = new List();
@@ -40,8 +41,8 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //  ];
   List<ListItem> _dropDownItems = List.generate(
       Category.values.length,
-      (index) => ListItem(index,
-          CategoryExtension.categoryToString[Category.values[index]]));
+      (index) => ListItem(
+          index, CategoryExtension.categoryToString[Category.values[index]]));
 
 //  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
 //  ListItem _selectedItem;
@@ -103,6 +104,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
         child: Form(
           key: _addVoteFormKey,
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Row(
                 children: [
@@ -207,15 +209,32 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   ),
                 ),
               ),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                childAspectRatio: 4.0,
-                crossAxisSpacing: 20.0,
-                padding: EdgeInsets.all(8.0),
-                children: List.generate(_tagCheckboxValues.length,
-                    (index) => customCheckBox(index)),
+              Container(
+                margin: EdgeInsets.only(top: 32.0),
+                child: GestureDetector(
+                  child: Text(
+                    'Choose category ->',
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono',
+                      fontSize: 24.0,
+                      color: ColorThemes.secondaryColorAccent,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    print("category choose");
+                  },
+                ),
               ),
+//              GridView.count(
+//                shrinkWrap: true,
+//                crossAxisCount: 2,
+//                childAspectRatio: 4.0,
+//                crossAxisSpacing: 20.0,
+//                padding: EdgeInsets.all(8.0),
+//                children: List.generate(_tagCheckboxValues.length,
+//                    (index) => customCheckBox(index)),
+//              ),
 //            DropdownButton(
 //              value: _selectedItem,
 //              items: _dropdownMenuItems,
@@ -226,24 +245,32 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //                });
 //              },
 //            ),
-              FractionallySizedBox(
-                widthFactor: 0.5,
-                child: RaisedButton(
-                  color: ColorThemes.primaryColor,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+              Container(
+                margin: EdgeInsets.only(top: 32.0),
+                height: 50.0,
+                alignment: Alignment.bottomCenter,
+                child: FractionallySizedBox(
+                  widthFactor: 0.6,
+                  child: RaisedButton(
+                    color: ColorThemes.primaryColor,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    onPressed: () {
+                      if (_addVoteFormKey.currentState.validate()) {
+                        _addVoteFormKey.currentState.save();
+                        widget.onSave(_voteTitle, _voteCategory, _voteOptionOne,
+                            _voteOptionTwo, _voteTags);
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text(
+                      'Submit',
+                      style: TextThemes.darkQuestionTextStyle,
+                    ),
                   ),
-                  onPressed: () {
-                    if (_addVoteFormKey.currentState.validate()) {
-                      _addVoteFormKey.currentState.save();
-                      widget.onSave(_voteTitle, _voteOptionOne, _voteOptionTwo,
-                          _voteTags);
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Text('Submit'),
                 ),
               ),
             ],

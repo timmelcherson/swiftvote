@@ -1,26 +1,26 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class VoteEntity extends Equatable {
-
   final String id;
   final String title;
   final String author;
+  final String category;
+  final String sponsor;
   final List<String> voteOptions;
   final List<int> votes;
   final List<String> tags;
 
-  const VoteEntity(this.id, this.title, this.author, this.voteOptions, this.votes,
-      this.tags);
+  const VoteEntity(this.id, this.title, this.author, this.category,
+      this.sponsor, this.voteOptions, this.votes, this.tags);
 
   @override
-  List<Object> get props => [id, title, author, voteOptions, votes, tags];
+  List<Object> get props =>
+      [id, title, author, category, sponsor, voteOptions, votes, tags];
 
   @override
   String toString() {
-    return 'VoteEntity{id: $id, title: $title, author: $author, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
+    return 'VoteEntity{id: $id, title: $title, author: $author, category: $category, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
   }
 
   Map<String, Object> toJson() {
@@ -28,6 +28,8 @@ class VoteEntity extends Equatable {
       "id": id,
       "title": title,
       "author": author,
+      "category": category,
+      "sponsor": sponsor,
       "voteOptions": voteOptions,
       "votes": votes,
       "tags": tags,
@@ -39,14 +41,20 @@ class VoteEntity extends Equatable {
     List<int> votesList = new List<int>.from(json["votes"]);
     List<String> tagsList = new List<String>.from(json["tags"]);
 
-    VoteEntity vote = VoteEntity(json["id"] as String, json["title"] as String,
-        json["author"] as String, voteOptionsList, votesList, tagsList);
+    VoteEntity vote = VoteEntity(
+        json["id"] as String,
+        json["title"] as String,
+        json["author"] as String,
+        json["category"] as String,
+        json["sponsor"] as String,
+        voteOptionsList,
+        votesList,
+        tagsList);
 
     return vote;
   }
 
   static VoteEntity fromSnapshot(DocumentSnapshot snap) {
-
     List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
     List<int> _votes = new List<int>.from(snap.get('votes'));
     List<String> _tags = new List<String>.from(snap.get('tags'));
@@ -59,6 +67,8 @@ class VoteEntity extends Equatable {
       snap.id,
       snap.get('title'),
       snap.get('author'),
+      snap.get('category'),
+      snap.get('sponsor'),
       _voteOptions,
       _votes,
       _tags,
@@ -69,6 +79,8 @@ class VoteEntity extends Equatable {
     return {
       'title': title,
       'author': author,
+      'category': category,
+      'sponsor': sponsor,
       'voteOptions': voteOptions,
       'votes': votes,
       'tags': tags,

@@ -4,7 +4,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
-import 'package:swiftvote/utils/file_storage.dart';
 import 'package:swiftvote/widgets/widgets.dart';
 import 'screens.dart';
 

@@ -5,7 +5,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
-import 'package:swiftvote/utils/file_storage.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/widgets/widgets.dart';
@@ -86,10 +85,12 @@ class SwiftvoteApp extends StatelessWidget {
                   return AddVoteScreen(
                     key: SwiftvoteWidgetKeys.addVoteScreen,
                     isEditing: false,
-                    onSave: (title, voteOptionOne, voteOptionTwo, tags) {
+                    onSave: (title, category, voteOptionOne, voteOptionTwo, tags) {
                       BlocProvider.of<VoteBloc>(context).add(AddVote(Vote(
                           title: title,
                           author: 'Swiftvote',
+                          category: category,
+                          sponsor: "",
                           voteOptions: [voteOptionOne, voteOptionTwo],
                           votes: [0, 0],
                           tags: tags)));

@@ -9,24 +9,30 @@ class Vote {
   final String id;
   final String title;
   final String author;
+  final String category;
+  final String sponsor;
   final List<String> voteOptions;
   final List<int> votes;
   final List<String> tags;
 
-  Vote(
+  const Vote(
       {this.id,
       this.title,
       this.author,
+      this.category,
+      this.sponsor,
       this.voteOptions,
       this.votes,
       this.tags});
 
-  Vote copyWith(String id, String title, String author,
+  Vote copyWith(String id, String title, String author, String category,
       List<String> voteOptions, List<int> votes, List<String> tags) {
     return Vote(
       id: id ?? this.id,
       title: title ?? this.title,
       author: author ?? this.author,
+      category: category ?? this.category,
+      sponsor: sponsor ?? this.sponsor,
       voteOptions: voteOptions ?? this.voteOptions,
       votes: votes ?? this.votes,
       tags: tags ?? this.tags,
@@ -43,11 +49,12 @@ class Vote {
 
   @override
   String toString() {
-    return 'Vote{id: $id, title: $title, author: $author, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
+    return 'Vote{id: $id, title: $title, author: $author, category: $category, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
   }
 
   VoteEntity toEntity() {
-    return VoteEntity(id, title, author, voteOptions, votes, tags);
+    return VoteEntity(
+        id, title, author, category, sponsor, voteOptions, votes, tags);
   }
 
   static Vote fromEntity(VoteEntity entity) {
@@ -55,6 +62,8 @@ class Vote {
         id: entity.id,
         title: entity.title,
         author: entity.author,
+        category: entity.category,
+        sponsor: entity.sponsor,
         voteOptions: entity.voteOptions,
         votes: entity.votes,
         tags: entity.tags);
