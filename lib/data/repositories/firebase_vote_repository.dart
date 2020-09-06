@@ -17,7 +17,7 @@ class FirebaseVoteRepository implements VoteRepository {
   }
 
   @override
-  Stream<List<Vote>> votes() {
+  Stream<List<Vote>> getVotes() {
     return voteCollection.snapshots().map((snapshot) => snapshot.docs
         .map((doc) => Vote.fromEntity(VoteEntity.fromSnapshot(doc)))
         .toList());

@@ -39,9 +39,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //    ListItem(4, "Fourth Item"),
 //  ];
   List<ListItem> _dropDownItems = List.generate(
-      CategoryTag.values.length,
+      Category.values.length,
       (index) => ListItem(index,
-          CategoryTagExtension.categoryToString[CategoryTag.values[index]]));
+          CategoryExtension.categoryToString[Category.values[index]]));
 
 //  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
 //  ListItem _selectedItem;
@@ -56,7 +56,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //    _dropdownMenuItems = buildDropDownMenuItems(_dropDownItems);
 //    _selectedItem = _dropdownMenuItems[0].value;
     _tagCheckboxValues =
-        List.generate(CategoryTag.values.length, (index) => false);
+        List.generate(Category.values.length, (index) => false);
     print(_tagCheckboxValues);
   }
 
@@ -75,7 +75,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 
   Widget customCheckBox(int index) {
     String tagDescr =
-        CategoryTagExtension.categoryToString[CategoryTag.values[index]];
+        CategoryExtension.categoryToString[Category.values[index]];
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

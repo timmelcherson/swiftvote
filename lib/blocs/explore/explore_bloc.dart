@@ -23,8 +23,8 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
 
   Stream<ExploreState> _mapExploreLoadedToState() async* {
     try {
-      final categories = CategoryTagExtension.categoryToString.values.toList();
-      final categoryImagePaths = CategoryTagExtension.categoryThumbnailAssetPath.values.toList();
+      final categories = CategoryExtension.categoryToString.values.toList();
+      final categoryImagePaths = CategoryExtension.categoryThumbnailAssetPath.values.toList();
       yield ExploreCategoriesLoadSuccess(categories, categoryImagePaths);
     } catch(_) {
       yield ExploreCategoriesLoadFailure();

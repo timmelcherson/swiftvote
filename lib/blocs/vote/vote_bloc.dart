@@ -36,7 +36,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   Stream<VoteState> _mapLoadVotesToState() async* {
     _voteSubscription?.cancel();
     print("votesubscription");
-    _voteSubscription = _voteRepository.votes().listen((votes) => add(VotesUpdated(votes)));
+    _voteSubscription = _voteRepository.getVotes().listen((votes) => add(VotesUpdated(votes)));
   }
 
   Stream<VoteState> _mapAddVoteToState(AddVote event) async* {

@@ -7,7 +7,7 @@ abstract class VoteRepository {
 
   Future<void> deleteVote(Vote vote);
 
-  Stream<List<Vote>> votes();
+  Stream<List<Vote>> getVotes();
 
   Future<void> updateVote(Vote vote);
 }
