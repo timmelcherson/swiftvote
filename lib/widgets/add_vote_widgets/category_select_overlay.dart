@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'package:swiftvote/widgets/add_vote_widgets/category_select_overlay.dart';
 
-typedef OnSaveCallback = Function(
-    String title, String category, String voteOptionOne, String voteOptionTwo, List<String> tags);
+typedef OnSaveCallback = Function(String title, String category,
+    String voteOptionOne, String voteOptionTwo, List<String> tags);
 
 class AddVoteScreen extends StatefulWidget {
   final bool isEditing;
@@ -28,17 +26,12 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   static final _addVoteFormKey = GlobalKey<FormState>();
 
   int _value = 1;
-  int _selectCount = 0;
-  bool _showErrorMsg = false;
-//  bool _showOverlay = false;
+
   String _voteTitle;
   String _voteCategory;
   String _voteOptionOne;
   String _voteOptionTwo;
   List<String> _voteTags = new List();
-
-//  void _showOverlay(BuildContext context) =>
-//      Navigator.of(context).push(CategorySelectorOverlay());
 
 //  List<ListItem> _dropDownItems = [
 //    ListItem(1, "First Item"),
@@ -46,8 +39,10 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //    ListItem(3, "Third Item"),
 //    ListItem(4, "Fourth Item"),
 //  ];
-  List<ListItem> _dropDownItems = List.generate(Category.values.length,
-      (index) => ListItem(index, CategoryExtension.categoryToString[Category.values[index]]));
+  List<ListItem> _dropDownItems = List.generate(
+      Category.values.length,
+          (index) => ListItem(
+          index, CategoryExtension.categoryToString[Category.values[index]]));
 
 //  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
 //  ListItem _selectedItem;
@@ -59,9 +54,10 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   @override
   void initState() {
     super.initState();
-//    _dropdownMenuItems = buildDropDownMenuItems(_dropDow,nItems);
+//    _dropdownMenuItems = buildDropDownMenuItems(_dropDownItems);
 //    _selectedItem = _dropdownMenuItems[0].value;
-    _tagCheckboxValues = List.generate(Category.values.length, (index) => false);
+    _tagCheckboxValues =
+        List.generate(Category.values.length, (index) => false);
     print(_tagCheckboxValues);
   }
 
@@ -78,30 +74,20 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 //    return items;
 //  }
 
-  Widget customCheckBox(int index, String tagDescr) {
+  Widget customCheckBox(int index) {
+    String tagDescr =
+    CategoryExtension.categoryToString[Category.values[index]];
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Checkbox(
           value: _tagCheckboxValues[index],
           onChanged: (bool value) {
-
-            if (!(_selectCount >= 2)) {
-              value ? _voteTags.add(tagDescr) : _voteTags.remove(tagDescr);
-              setState(() {
-                _tagCheckboxValues[index] = value;
-                value ? _selectCount++ : _selectCount--;
-                _showErrorMsg = false;
-              });
-            }
-            else if (_tagCheckboxValues[index]) {
-              _voteTags.remove(tagDescr);
-              setState(() {
-                _tagCheckboxValues[index] = value;
-                value ? _selectCount++ : _selectCount--;
-                _showErrorMsg = false;
-              });
-            }
+            value ? _voteTags.add(tagDescr) : _voteTags.remove(tagDescr);
+            print(_voteTags);
+            setState(() {
+              _tagCheckboxValues[index] = value;
+            });
           },
         ),
         Text(tagDescr),
@@ -117,7 +103,8 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
       body: SafeArea(
         child: Form(
           key: _addVoteFormKey,
-          child: ListView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Row(
                 children: [
@@ -159,7 +146,8 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 '?',
-                                style: TextStyle(color: Colors.white, fontSize: 24.0),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 24.0),
                               ),
                             ),
                             onTap: () {
@@ -221,47 +209,44 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   ),
                 ),
               ),
+              Container(
+                margin: EdgeInsets.only(top: 32.0),
+                child: GestureDetector(
+                  child: Text(
+                    'Choose category ->',
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono',
+                      fontSize: 24.0,
+                      color: ColorThemes.secondaryColorAccent,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onTap: () {
+                    print("category choose");
+                  },
+                ),
+              ),
 //              GridView.count(
 //                shrinkWrap: true,
 //                crossAxisCount: 2,
 //                childAspectRatio: 4.0,
 //                crossAxisSpacing: 20.0,
 //                padding: EdgeInsets.all(8.0),
-//                children: List.generate(
-//                  _tagCheckboxValues.length,
-//                  (index) => customCheckBox(
-//                    index,
-//                    CategoryExtension.categoryToString[Category.values[index]],
-//                  ),
-//                ),
+//                children: List.generate(_tagCheckboxValues.length,
+//                    (index) => customCheckBox(index)),
 //              ),
+//            DropdownButton(
+//              value: _selectedItem,
+//              items: _dropdownMenuItems,
+//              onChanged: (value) {
+//                setState(() {
+//                  _selectedItem = value;
+//                  _voteTags = _selectedItem.name;
+//                });
+//              },
+//            ),
               Container(
-                margin: EdgeInsets.all(16.0),
-                child: Center(
-                  child: Text('Choose categories ($_selectCount/2)', style: TextThemes.lightQuestionTextStyle,),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 4.0,
-                  crossAxisSpacing: 20.0,
-                  mainAxisSpacing: 4.0,
-                  padding: EdgeInsets.all(8.0),
-                  children: List.generate(
-                      _tagCheckboxValues.length,
-                      (index) => customCheckBox(
-                            index,
-                            CategoryExtension.categoryToString[Category.values[index]],
-                          )),
-                ),
-              ),
-              if(_showErrorMsg) Container(child: Text('SELECT 2 CATEGORIES PLS'),),
-              Container(
-                margin: EdgeInsets.only(top: 32.0, bottom: 32.0),
+                margin: EdgeInsets.only(top: 32.0),
                 height: 50.0,
                 alignment: Alignment.bottomCenter,
                 child: FractionallySizedBox(
@@ -275,15 +260,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     ),
                     onPressed: () {
                       if (_addVoteFormKey.currentState.validate()) {
-                        if (_selectCount != 2) {
-                          setState(() {
-                            _showErrorMsg = true;
-                          });
-                          return;
-                        }
                         _addVoteFormKey.currentState.save();
-                        widget.onSave(
-                            _voteTitle, _voteCategory, _voteOptionOne, _voteOptionTwo, _voteTags);
+                        widget.onSave(_voteTitle, _voteCategory, _voteOptionOne,
+                            _voteOptionTwo, _voteTags);
                         Navigator.pop(context);
                       }
                     },
@@ -309,20 +288,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
     return null;
   }
 
-//  Widget getOverlay() {
-//    return _showOverlay == true
-//        ? CategorySelectorOverlay(
-//            showOverlayCallback: (value) {
-//              setState(() {
-//                _showOverlay = value;
-//              });
-//            },
-//          )
-//        : Container(
-//            color: Colors.red,
-//            height: 0,
-//          );
-//  }
+  printCheckbox() {
+    print("");
+  }
 }
 
 class ListItem {
@@ -330,31 +298,4 @@ class ListItem {
   String name;
 
   ListItem(this.value, this.name);
-}
-
-class AddVoteScreenHeaderDelegate extends SliverPersistentHeaderDelegate {
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Color.fromRGBO(255, 253, 245, 1),
-      child: IconButton(
-        icon: Icon(Icons.arrow_back),
-        iconSize: 32.0,
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.all(12.0),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  @override
-  double get maxExtent => 90.0;
-
-  @override
-  double get minExtent => 80.0;
 }
