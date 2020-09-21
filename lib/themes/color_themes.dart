@@ -9,5 +9,4 @@ class ColorThemes extends Theme {
   static const Color secondaryColor = Color.fromRGBO(242, 242, 242, 1);
   static const Color secondaryColorAccent = Color.fromRGBO(68, 68, 68, 1);
   static const Color lightYellowBackgroundColor = Color.fromRGBO(255, 253, 245, 1);
-
 }

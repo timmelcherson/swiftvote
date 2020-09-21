@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:swiftvote/data/models.dart';
 
 @immutable
 abstract class ExploreEvent {
@@ -8,8 +9,17 @@ abstract class ExploreEvent {
   List<Object> get props => [];
 }
 
-class ExploreLoaded extends ExploreEvent {}
+class ExploreCategoriesLoadedEvent extends ExploreEvent {}
 
-class ExploreCategorySelected extends ExploreEvent {}
+class ExploreCategoriesUpdatedEvent extends ExploreEvent {
 
-class AllExploreCategoriesSelected extends ExploreEvent {}
+  final List<Vote> votes;
+
+  const ExploreCategoriesUpdatedEvent(this.votes);
+
+  @override
+  List<Object> get props => [votes];
+
+  @override
+  String toString() => 'ExploreCategoriesUpdatedEvent { votes: $votes }';
+}

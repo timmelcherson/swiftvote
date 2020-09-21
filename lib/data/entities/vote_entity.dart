@@ -5,7 +5,7 @@ class VoteEntity extends Equatable {
   final String id;
   final String title;
   final String author;
-  final String category;
+  final List<String> category;
   final String sponsor;
   final List<String> voteOptions;
   final List<int> votes;
@@ -40,12 +40,13 @@ class VoteEntity extends Equatable {
     List<String> voteOptionsList = new List<String>.from(json["voteOptions"]);
     List<int> votesList = new List<int>.from(json["votes"]);
     List<String> tagsList = new List<String>.from(json["tags"]);
+    List<String> categoryList = new List<String>.from(json["category"]);
 
     VoteEntity vote = VoteEntity(
         json["id"] as String,
         json["title"] as String,
         json["author"] as String,
-        json["category"] as String,
+        categoryList,
         json["sponsor"] as String,
         voteOptionsList,
         votesList,
@@ -58,16 +59,13 @@ class VoteEntity extends Equatable {
     List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
     List<int> _votes = new List<int>.from(snap.get('votes'));
     List<String> _tags = new List<String>.from(snap.get('tags'));
-
-    print(_voteOptions);
-    print(_votes);
-    print(_tags);
+    List<String> _categories = new List<String>.from(snap.get('category'));
 
     return VoteEntity(
       snap.id,
       snap.get('title'),
       snap.get('author'),
-      snap.get('category'),
+      _categories,
       snap.get('sponsor'),
       _voteOptions,
       _votes,

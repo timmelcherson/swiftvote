@@ -15,6 +15,7 @@ class SwiftvoteWidgetKeys {
   // widgets
   static const settingsWidget = Key('__settingsWidget__');
   static const exploreWidget = Key('__exploreWidget__');
+  static const exploreCategoryWidget = Key('__exploreCategoryWidget__');
   static const searchWidget = Key('__searchWidget__');
   static const notificationsWidget = Key('__notificationsWidget__');
   static const homeWidget = Key('__homeWidget__');

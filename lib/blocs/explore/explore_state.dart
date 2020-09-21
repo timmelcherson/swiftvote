@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:swiftvote/data/models.dart';
 
 @immutable
 abstract class ExploreState extends Equatable {
@@ -9,14 +10,14 @@ abstract class ExploreState extends Equatable {
   List<Object> get props => [];
 }
 
-class ExploreCategoriesLoadInProgress extends ExploreState {}
+class ExploreCategoriesLoadingState extends ExploreState {}
 
-class ExploreCategoriesLoadSuccess extends ExploreState {
+class ExploreCategoriesLoadedState extends ExploreState {
+  final List<Vote> votes;
   final List<String> categories;
   final List<String> categoryImagesPaths;
 
-  const ExploreCategoriesLoadSuccess(
-      [this.categories = const [], this.categoryImagesPaths = const []]);
+  const ExploreCategoriesLoadedState(this.votes, [this.categories, this.categoryImagesPaths]);
 
   @override
   List<Object> get props => [categories, categoryImagesPaths];
@@ -27,4 +28,4 @@ class ExploreCategoriesLoadSuccess extends ExploreState {
   }
 }
 
-class ExploreCategoriesLoadFailure extends ExploreState {}
+class ExploreCategoriesLoadFailureState extends ExploreState {}

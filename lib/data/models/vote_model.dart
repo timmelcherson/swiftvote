@@ -9,7 +9,7 @@ class Vote {
   final String id;
   final String title;
   final String author;
-  final String category;
+  final List<String> category;
   final String sponsor;
   final List<String> voteOptions;
   final List<int> votes;

@@ -60,7 +60,7 @@ class SwiftvoteApp extends StatelessWidget {
               BlocProvider<VoteBloc>(
                 create: (context) => VoteBloc(
                   voteRepository: FirebaseVoteRepository(),
-                )..add(LoadVotes()),
+                )..add(LoadVotesEvent()),
               ),
             ],
             child: MaterialApp(
@@ -73,10 +73,13 @@ class SwiftvoteApp extends StatelessWidget {
                         create: (context) => TabBloc(),
                       ),
                       BlocProvider<ExploreBloc>(
-                          create: (context) => ExploreBloc()
-                            ..add(
-                              ExploreLoaded(),
-                            ))
+                        create: (context) => ExploreBloc(
+                          voteBloc: BlocProvider.of<VoteBloc>(context),
+                        )
+                          ..add(
+                            ExploreCategoriesLoadedEvent(),
+                          ),
+                      ),
                     ],
                     child: AppScreen(),
                   );
@@ -86,7 +89,7 @@ class SwiftvoteApp extends StatelessWidget {
                     key: SwiftvoteWidgetKeys.addVoteScreen,
                     isEditing: false,
                     onSave: (title, category, voteOptionOne, voteOptionTwo, tags) {
-                      BlocProvider.of<VoteBloc>(context).add(AddVote(Vote(
+                      BlocProvider.of<VoteBloc>(context).add(AddVoteEvent(Vote(
                           title: title,
                           author: 'Swiftvote',
                           category: category,

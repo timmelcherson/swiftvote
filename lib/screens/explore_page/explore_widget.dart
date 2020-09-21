@@ -15,11 +15,15 @@ class ExploreWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ExploreBloc, ExploreState>(
       builder: (context, state) {
-        if (state is ExploreCategoriesLoadInProgress) {
+        if (state is ExploreCategoriesLoadingState) {
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
-        } else if (state is ExploreCategoriesLoadSuccess) {
+        } else if (state is ExploreCategoriesLoadedState) {
+          print('state: $state');
+          final votes = state.votes;
           final categories = state.categories;
           final categoryThumbnailAssetPath = state.categoryImagesPaths;
+
+          print('categoreis: $categories');
 
           return CustomScrollView(
             key: SwiftvoteWidgetKeys.exploreWidget,
@@ -48,9 +52,8 @@ class ExploreWidget extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => CategoryExplorer(
-                                              headerImagePath:
-                                                  categoryThumbnailAssetPath[
-                                                      index],
+                                              votes: votes,
+                                              headerImagePath: categoryThumbnailAssetPath[index],
                                               category: categories[index])),
                                     ),
                                   },
@@ -61,8 +64,7 @@ class ExploreWidget extends StatelessWidget {
                                         categoryThumbnailAssetPath[index],
                                       ),
                                       Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            8.0, 0, 0, 16.0),
+                                        margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
                                         child: Text(
                                           categories[index],
                                           style: TextStyle(
@@ -93,8 +95,7 @@ class ExploreWidget extends StatelessWidget {
 
 class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Color.fromRGBO(255, 253, 245, 1),
       child: Column(
@@ -120,8 +121,8 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
   @override
-  double get maxExtent => 90.0;
+  double get maxExtent => 150.0;
 
   @override
-  double get minExtent => 80.0;
+  double get minExtent => 70.0;
 }

@@ -6,7 +6,7 @@ import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/widgets/add_vote_widgets/category_select_overlay.dart';
 
 typedef OnSaveCallback = Function(
-    String title, String category, String voteOptionOne, String voteOptionTwo, List<String> tags);
+    String title, List<String> category, String voteOptionOne, String voteOptionTwo, List<String> tags);
 
 class AddVoteScreen extends StatefulWidget {
   final bool isEditing;
@@ -32,10 +32,10 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   bool _showErrorMsg = false;
 //  bool _showOverlay = false;
   String _voteTitle;
-  String _voteCategory;
   String _voteOptionOne;
   String _voteOptionTwo;
-  List<String> _voteTags = new List();
+  List<String> _voteCategory = new List();
+  List<String> _voteTags = ['#hashtag1', '#hashtag2'];  // Dummy list
 
 //  void _showOverlay(BuildContext context) =>
 //      Navigator.of(context).push(CategorySelectorOverlay());
@@ -87,7 +87,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
           onChanged: (bool value) {
 
             if (!(_selectCount >= 2)) {
-              value ? _voteTags.add(tagDescr) : _voteTags.remove(tagDescr);
+              value ? _voteCategory.add(tagDescr) : _voteCategory.remove(tagDescr);
               setState(() {
                 _tagCheckboxValues[index] = value;
                 value ? _selectCount++ : _selectCount--;
@@ -95,7 +95,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
               });
             }
             else if (_tagCheckboxValues[index]) {
-              _voteTags.remove(tagDescr);
+              _voteCategory.remove(tagDescr);
               setState(() {
                 _tagCheckboxValues[index] = value;
                 value ? _selectCount++ : _selectCount--;

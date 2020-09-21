@@ -1,73 +1,51 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/themes/themes.dart';
+import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'package:swiftvote/widgets/widgets.dart';
 
 class CategoryExplorer extends StatelessWidget {
+  final List<Vote> votes;
   final String headerImagePath;
   final String category;
 
-  CategoryExplorer({this.headerImagePath, this.category});
+  CategoryExplorer({this.votes, this.headerImagePath, this.category});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverOverlapAbsorber(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver: SliverAppBar(
-                expandedHeight: 250.0,
-                pinned: true,
-                iconTheme: innerBoxIsScrolled
-                    ? IconThemeData(color: Colors.black)
-                    : IconThemeData(color: Colors.white),
-                backgroundColor: ColorThemes.lightYellowBackgroundColor,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: AnimatedDefaultTextStyle(
-                    child: Text(category),
-                    style: innerBoxIsScrolled
-                        ? TextStyle(
-                            fontFamily: 'RobotoMono',
-                            color: Colors.black,
-                            fontSize: 18)
-                        : TextStyle(
-                            fontFamily: 'RobotoMono',
-                            color: Colors.white,
-                            fontSize: 24),
-                    duration: Duration(milliseconds: 100),
-                  ),
-                  titlePadding: EdgeInsets.fromLTRB(64.0, 0, 0, 16.0),
-                  background: Image.asset(
-                    headerImagePath,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ];
-        },
+    return SafeArea(
+      child: Scaffold(
         body: CustomScrollView(
+          key: SwiftvoteWidgetKeys.exploreCategoryWidget,
+          scrollDirection: Axis.vertical,
           slivers: <Widget>[
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: CategoryExplorerHeaderDelegate(headerImagePath, category),
+            ),
             SliverPadding(
               padding: EdgeInsets.all(16),
               sliver: SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 2,
+                  childAspectRatio: 1.2,
                 ),
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) => Row(
                           children: <Widget>[
                             Expanded(
                               flex: 1,
-                              child: Container(
-                                color: Colors.lightBlue[100 * (index % 9)],
+                              child: GestureDetector(
+                                onTap: () => print('TAP'),
+                                child: VoteThumbnail(votes[index].title),
                               ),
                             ),
                           ],
                         ),
-                    childCount: 20),
+                    childCount: votes.length),
               ),
             ),
           ],
@@ -84,35 +62,62 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
   CategoryExplorerHeaderDelegate(this.path, this.text);
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Color.fromRGBO(255, 253, 245, 1),
-      child: Column(
-        children: <Widget>[
-          Image.asset(
-            path,
-            height: 250,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+
+    double offsetFactor = shrinkOffset / maxExtent;
+    print('offsetFactor: $offsetFactor');
+    int colorValue = 230 - (offsetFactor * 210).toInt();
+
+    return Stack(
+      children: <Widget>[
+        Image.asset(
+          path,
+          height: maxExtent,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          height: maxExtent,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(offsetFactor),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey.withOpacity(offsetFactor),
+                spreadRadius: 2,
+                blurRadius: 15,
+                offset: Offset(0, 1),
+              ),
+            ],
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: ColorThemes.primaryColor,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 8.0, 12.0, 12.0),
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontFamily: 'RobotoMono',
-                  fontSize: 24.0,
-                  color: Colors.white,
-                ),
+        ),
+        IconButton(
+          alignment: Alignment.topLeft,
+          icon: Icon(
+            Icons.arrow_back,
+            size: 36.0,
+            color: Color.fromRGBO(colorValue, colorValue, colorValue, 1.0),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        Container(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
+            child: Text(
+              text,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 28.0,
+                fontFamily: 'RobotoMono',
+                color: Color.fromRGBO(colorValue, colorValue, colorValue, 1.0),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -120,8 +125,8 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
   @override
-  double get maxExtent => 350.0;
+  double get maxExtent => 220.0;
 
   @override
-  double get minExtent => 120.0;
+  double get minExtent => 55.0;
 }

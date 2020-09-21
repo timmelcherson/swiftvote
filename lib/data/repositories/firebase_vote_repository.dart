@@ -17,14 +17,17 @@ class FirebaseVoteRepository implements VoteRepository {
   }
 
   @override
+  Future<void> deleteVote(Vote vote) {
+    return voteCollection.doc(vote.id).update(vote.toEntity().toDocument());
+  }
+
+  @override
   Stream<List<Vote>> getVotes() {
+    print("GETTING VOTES FROM FIREBASE");
     return voteCollection.snapshots().map((snapshot) => snapshot.docs
         .map((doc) => Vote.fromEntity(VoteEntity.fromSnapshot(doc)))
         .toList());
   }
 
-  @override
-  Future<void> deleteVote(Vote vote) {
-    return voteCollection.doc(vote.id).update(vote.toEntity().toDocument());
-  }
+
 }

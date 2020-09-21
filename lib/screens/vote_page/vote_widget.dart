@@ -4,29 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
 import 'package:swiftvote/screens/vote_page/vote_barrel.dart';
+import 'package:swiftvote/themes/decoration_themes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/utils/routes.dart';
 
-class VoteWidget extends StatelessWidget {
+class VoteWidget extends StatefulWidget {
+  VoteWidget({Key key}) : super(key: key ?? SwiftvoteWidgetKeys.voteWidget);
 
-  final _randomIndex = Random();
+  @override
+  State createState() => _VoteWidgetState();
+}
 
-  VoteWidget({Key key}) : super(key: key);
+class _VoteWidgetState extends State<VoteWidget> {
+//  Random _randomIndex;
+//  VoteBloc _voteBloc;
+
+//  @override
+//  void initState() {
+//    super.initState();
+//    _voteBloc = BlocProvider.of<VoteBloc>(context);
+//    _randomIndex = Random();
+//  } //  VoteWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
-        if (state is VotesLoading) {
-          print("VotesLoading...");
+        if (state is VotesLoadingState) {
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
-        } else if (state is VotesLoaded) {
-          int index = _randomIndex.nextInt(state.votes.length);
-          print(index);
+        } else if (state is VotesLoadedState) {
+          final index = state.randomIndex;
           final vote = state.votes[index];
-          print(vote);
+
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
             child: Flex(
@@ -38,12 +49,7 @@ class VoteWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(255, 255, 255, 1),
                       boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                          offset: Offset(0, 5),
-                        ),
+                        DecorationThemes.cardBoxShadow,
                       ],
                     ),
                     child: Flex(
@@ -58,14 +64,11 @@ class VoteWidget extends StatelessWidget {
                               children: <Widget>[
                                 Container(
                                   margin: EdgeInsets.fromLTRB(2.0, 0, 2.0, 0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color.fromRGBO(
-                                              125, 125, 125, 1))),
+                                  decoration: DecorationThemes.categoryBorder,
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      vote.category,
+                                      vote.category[0],
                                       style: TextThemes.voteTagsTextStyle,
                                     ),
                                   ),
@@ -95,10 +98,19 @@ class VoteWidget extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 1,
-                          child: Center(
-                            child: Text(
-                              'Pass',
-                              style: TextStyle(fontSize: 20),
+                          child: GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<VoteBloc>(context)
+                                  .add(VotesUpdatedEvent(state.votes, index));
+//                              setState(() {
+//                                print("setting state");
+//                              });
+                            },
+                            child: Center(
+                              child: Text(
+                                'Pass',
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                           ),
                         ),

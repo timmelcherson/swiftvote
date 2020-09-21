@@ -1,28 +1,33 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:swiftvote/data/models.dart';
 
 @immutable
-abstract class VoteState extends Equatable{
+abstract class VoteState extends Equatable {
   const VoteState();
 
   @override
   List<Object> get props => [];
 }
 
-class VotesLoading extends VoteState {}
+@immutable
+class VotesLoadingState extends VoteState {}
 
-class VotesLoaded extends VoteState {
-
+@immutable
+class VotesLoadedState extends VoteState {
   final List<Vote> votes;
+  final int randomIndex;
 
-  const VotesLoaded([this.votes = const []]);
-
-  @override
-  List<Object> get props => [votes];
+  const VotesLoadedState(this.votes, [this.randomIndex = 0]);
 
   @override
-  String toString() => 'VotesLoaded{vote: $votes}';
+  List<Object> get props => [votes, randomIndex];
+
+  @override
+  String toString() => 'VotesLoaded{vote: $votes, index: $randomIndex}';
 }
 
-class VotesNotLoaded extends VoteState {}
+@immutable
+class VotesLoadFailureState extends VoteState {}

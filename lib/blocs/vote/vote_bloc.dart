@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
@@ -12,48 +13,57 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   VoteBloc({@required VoteRepository voteRepository})
       : assert(voteRepository != null),
         _voteRepository = voteRepository,
-        super(VotesLoading());
+        super(VotesLoadingState());
 
   @override
   Stream<VoteState> mapEventToState(
     VoteEvent event,
   ) async* {
-    if (event is LoadVotes) {
-      print("event is LoadVotes");
+    if (event is LoadVotesEvent) {
       yield* _mapLoadVotesToState();
-    } else if (event is AddVote) {
+    } else if (event is AddVoteEvent) {
       yield* _mapAddVoteToState(event);
-    } else if (event is UpdateVote) {
+    } else if (event is UpdateVoteEvent) {
       yield* _mapUpdateVoteToState(event);
-    } else if (event is DeleteVote) {
+    } else if (event is DeleteVoteEvent) {
       yield* _mapDeleteVoteToState(event);
-    } else if (event is VotesUpdated) {
-      print("event is VotesUpdated");
+    } else if (event is VotesUpdatedEvent) {
       yield* _mapVotesUpdatedToState(event);
+    } else if (event is PassVoteEvent) {
+      _mapPassVoteToState(event);
     }
   }
 
   Stream<VoteState> _mapLoadVotesToState() async* {
     _voteSubscription?.cancel();
     print("votesubscription");
-    _voteSubscription = _voteRepository.getVotes().listen((votes) => add(VotesUpdated(votes)));
+    _voteSubscription = _voteRepository.getVotes().listen((votes) => add(VotesUpdatedEvent(votes)));
   }
 
-  Stream<VoteState> _mapAddVoteToState(AddVote event) async* {
+  Stream<VoteState> _mapAddVoteToState(AddVoteEvent event) async* {
     _voteRepository.addNewVote(event.vote);
   }
 
-  Stream<VoteState> _mapUpdateVoteToState(UpdateVote event) async* {
+  Stream<VoteState> _mapUpdateVoteToState(UpdateVoteEvent event) async* {
     _voteRepository.updateVote(event.updatedVote);
   }
 
-  Stream<VoteState> _mapDeleteVoteToState(DeleteVote event) async* {
+  Stream<VoteState> _mapDeleteVoteToState(DeleteVoteEvent event) async* {
     _voteRepository.deleteVote(event.vote);
   }
 
-  Stream<VoteState> _mapVotesUpdatedToState(VotesUpdated event) async* {
-    yield VotesLoaded(event.votes);
+  Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
+    int _randomIndex;
+
+    do {
+      _randomIndex = Random().nextInt(event.votes.length);
+    } while (_randomIndex == event.newIndex);
+
+    yield VotesLoadedState(event.votes, _randomIndex);
   }
+
+  _mapPassVoteToState(PassVoteEvent event) =>
+      VotesLoadedState(event.votes, Random().nextInt(event.votes.length));
 
   @override
   Future<Function> close() {

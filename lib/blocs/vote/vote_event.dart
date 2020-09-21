@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:meta/meta.dart';
 import 'package:swiftvote/data/models.dart';
 
@@ -10,13 +12,13 @@ abstract class VoteEvent {
 }
 
 // ---------------------------------- //
-class LoadVotes extends VoteEvent {}
+class LoadVotesEvent extends VoteEvent {}
 
 // ---------------------------------- //
-class AddVote extends VoteEvent {
+class AddVoteEvent extends VoteEvent {
   final Vote vote;
 
-  const AddVote(this.vote);
+  const AddVoteEvent(this.vote);
 
   @override
   List<Object> get props => [vote];
@@ -26,10 +28,10 @@ class AddVote extends VoteEvent {
 }
 
 // ---------------------------------- //
-class UpdateVote extends VoteEvent {
+class UpdateVoteEvent extends VoteEvent {
   final Vote updatedVote;
 
-  const UpdateVote(this.updatedVote);
+  const UpdateVoteEvent(this.updatedVote);
 
   @override
   List<Object> get props => [updatedVote];
@@ -39,10 +41,10 @@ class UpdateVote extends VoteEvent {
 }
 
 // ---------------------------------- //
-class DeleteVote extends VoteEvent {
+class DeleteVoteEvent extends VoteEvent {
   final Vote vote;
 
-  const DeleteVote(this.vote);
+  const DeleteVoteEvent(this.vote);
 
   @override
   List<Object> get props => [vote];
@@ -52,11 +54,18 @@ class DeleteVote extends VoteEvent {
 }
 
 // ---------------------------------- //
-class VotesUpdated extends VoteEvent {
+class VotesUpdatedEvent extends VoteEvent {
   final List<Vote> votes;
+  final int newIndex;
 
-  const VotesUpdated(this.votes);
+  const VotesUpdatedEvent(this.votes, [this.newIndex = 0]);
 
   @override
   List<Object> get props => [votes];
+}
+
+class PassVoteEvent extends VoteEvent {
+  final List<Vote> votes;
+
+  const PassVoteEvent(this.votes);
 }

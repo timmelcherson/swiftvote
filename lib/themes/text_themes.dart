@@ -23,6 +23,12 @@ class TextThemes extends Theme {
     color: ColorThemes.secondaryColorAccent,
   );
 
+  static const mediumTitleBrightTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 28.0,
+    color: ColorThemes.secondaryColor,
+  );
+
   static const smallTitleTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 24.0,
@@ -45,5 +51,11 @@ class TextThemes extends Theme {
     fontFamily: 'RobotoMono',
     fontSize: 20.0,
     color: Color.fromRGBO(170, 170, 170, 1),
+  );
+
+  static const TextStyle thumbnailTitleTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 14.0,
+    color: ColorThemes.secondaryColorAccent,
   );
 }
