@@ -5,6 +5,7 @@ import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
+import 'package:swiftvote/widgets/tab_selector.dart';
 
 import 'explore_barrel.dart';
 

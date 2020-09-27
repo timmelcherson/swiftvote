@@ -23,7 +23,11 @@ class TabSelector extends StatelessWidget {
       child: BottomNavigationBar(
         key: SwiftvoteWidgetKeys.tabs,
         currentIndex: AppTab.values.indexOf(activeTab),
-        onTap: (index) => {onTabSelected(AppTab.values[index])},
+        onTap: (index) => {
+          if (AppTab.values[index] != activeTab) {
+            onTabSelected(AppTab.values[index])
+          }
+        },
         items: AppTab.values.map((tab) {
           return BottomNavigationBarItem(
               title: Text('title'),

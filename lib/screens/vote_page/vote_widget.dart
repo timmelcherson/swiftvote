@@ -2,41 +2,48 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/screens/vote_page/vote_barrel.dart';
 import 'package:swiftvote/themes/decoration_themes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/utils/routes.dart';
+import 'package:swiftvote/widgets/widgets.dart';
 
-class VoteWidget extends StatefulWidget {
-  VoteWidget({Key key}) : super(key: key ?? SwiftvoteWidgetKeys.voteWidget);
+class VoteWidget extends StatelessWidget {
+  final Vote vote;
 
-  @override
-  State createState() => _VoteWidgetState();
-}
+  VoteWidget({Key key, this.vote}) : super(key: key ?? SwiftvoteWidgetKeys.voteWidget);
 
-class _VoteWidgetState extends State<VoteWidget> {
 //  Random _randomIndex;
 //  VoteBloc _voteBloc;
-
-//  @override
-//  void initState() {
-//    super.initState();
-//    _voteBloc = BlocProvider.of<VoteBloc>(context);
-//    _randomIndex = Random();
-//  } //  VoteWidget({Key key}) : super(key: key);
+//   Vote _passedVote;
+//
+// //  @override
+//   void initState() {
+//     super.initState();
+//     _passedVote ??= widget.vote;
+//   } //  VoteWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // final Vote _passedVote = ModalRoute.of(context).settings.arguments;
+
+    // print('_passedVote: $_passedVote');
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
         if (state is VotesLoadingState) {
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadedState) {
-          final index = state.randomIndex;
-          final vote = state.votes[index];
+          // final index = state.randomIndex;
+          final _vote = vote ?? state.votes[state.randomIndex];
+
+
+
+
 
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
@@ -68,7 +75,7 @@ class _VoteWidgetState extends State<VoteWidget> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      vote.category[0],
+                                      _vote.category[0],
                                       style: TextThemes.voteTagsTextStyle,
                                     ),
                                   ),
@@ -86,7 +93,7 @@ class _VoteWidgetState extends State<VoteWidget> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  vote.title,
+                                  _vote.title,
                                   style: TextThemes.largeTitleTextStyle,
                                 ),
                               ],
@@ -94,14 +101,15 @@ class _VoteWidgetState extends State<VoteWidget> {
                           ),
                         ), // Vote Title
                         VoteItem(
-                          vote: vote,
+                          vote: _vote,
                         ),
                         Expanded(
                           flex: 1,
                           child: GestureDetector(
                             onTap: () {
                               BlocProvider.of<VoteBloc>(context)
-                                  .add(VotesUpdatedEvent(state.votes, index));
+                                  .add(VotesUpdatedEvent(state.votes, state.randomIndex));
+                              Navigator.of(context).pushReplacementNamed(Routes.home);
 //                              setState(() {
 //                                print("setting state");
 //                              });
@@ -134,7 +142,7 @@ class _VoteWidgetState extends State<VoteWidget> {
                           ),
                           child: MaterialButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, Routes.addVoteSCreen);
+                              Navigator.of(context, rootNavigator: true).pushNamed(Routes.addVoteSCreen);
                             },
                             child: Icon(
                               Icons.add,

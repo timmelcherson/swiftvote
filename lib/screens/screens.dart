@@ -1,5 +1,6 @@
 export 'app_screen.dart';
 export 'add_vote_screen.dart';
+export 'app_scaffold.dart';
 
 
 export 'explore_page/explore_barrel.dart';

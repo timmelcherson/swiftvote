@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/themes/themes.dart';
+import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/widgets/widgets.dart';
+
+import '../screens.dart';
 
 class CategoryExplorer extends StatelessWidget {
   final List<Vote> votes;
@@ -39,7 +42,12 @@ class CategoryExplorer extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: GestureDetector(
-                                onTap: () => print('TAP'),
+                                onTap: () => {
+                                  Navigator.of(context).pushNamed(
+                                    Routes.homeWithSelectedVote,
+                                    arguments: votes[index],
+                                  ),
+                                },
                                 child: VoteThumbnail(votes[index].title),
                               ),
                             ),
@@ -63,9 +71,7 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-
     double offsetFactor = shrinkOffset / maxExtent;
-    print('offsetFactor: $offsetFactor');
     int colorValue = 230 - (offsetFactor * 210).toInt();
 
     return Stack(

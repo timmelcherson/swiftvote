@@ -5,6 +5,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
+import 'package:swiftvote/screens/explore_page/explore_scaffold.dart';
+import 'package:swiftvote/screens/vote_page/vote_scaffold.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
 import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/widgets/widgets.dart';
@@ -57,33 +59,38 @@ class SwiftvoteApp extends StatelessWidget {
           print("ConnectionState is done");
           return MultiBlocProvider(
             providers: [
+              //   BlocBuilder<TabBloc, AppTab>(
+              //     builder: (context, activeTab) {
+              // return Scaffold(
+              // body: getWidget(activeTab),
+              // bottomNavigationBar: TabSelector(
+              // activeTab: activeTab,
+              // onTabSelected: (tab) =>
+              // {BlocProvider.of<TabBloc>(context).add(TabUpdated(tab))}),
+              // );
+              // },
+              // );
               BlocProvider<VoteBloc>(
                 create: (context) => VoteBloc(
                   voteRepository: FirebaseVoteRepository(),
                 )..add(LoadVotesEvent()),
               ),
+              BlocProvider<TabBloc>(
+                create: (context) => TabBloc(),
+              ),
+              BlocProvider<ExploreBloc>(
+                create: (context) => ExploreBloc(
+                  voteBloc: BlocProvider.of<VoteBloc>(context),
+                )..add(
+                    ExploreCategoriesLoadedEvent(),
+                  ),
+              ),
             ],
             child: MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'SwiftVote',
               routes: {
-                Routes.home: (context) {
-                  return MultiBlocProvider(
-                    providers: [
-                      BlocProvider<TabBloc>(
-                        create: (context) => TabBloc(),
-                      ),
-                      BlocProvider<ExploreBloc>(
-                        create: (context) => ExploreBloc(
-                          voteBloc: BlocProvider.of<VoteBloc>(context),
-                        )
-                          ..add(
-                            ExploreCategoriesLoadedEvent(),
-                          ),
-                      ),
-                    ],
-                    child: AppScreen(),
-                  );
-                },
+                Routes.home: (context) => AppScreen(),
                 Routes.addVoteSCreen: (context) {
                   return AddVoteScreen(
                     key: SwiftvoteWidgetKeys.addVoteScreen,
