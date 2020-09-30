@@ -23,63 +23,49 @@ class AppScreen extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
-          body: WillPopScope(
-            onWillPop: () async {
-              if (appScreenNavigatorKey.currentState.canPop()) {
-                appScreenNavigatorKey.currentState.pop();
-                return false;
-              }
-              return true;
-            },
-            child: Navigator(
-              key: appScreenNavigatorKey,
-              initialRoute: Routes.home,
-              onGenerateRoute: (RouteSettings settings) {
-                print('onGenerateRoute settings: $settings');
-                WidgetBuilder builder;
-                // Manage your route names here
-
-
-                // if (settings.arguments != null) {
-                //   print('has args: ${settings.arguments}');
-                //   builder = _getWidgetBuilderWithArgs(settings.name, settings.arguments);
-                // }
-                // else {
-                //   builder = _getWidgetBuilder(settings.name);
-                // }
-
-
-                BlocProvider.of<TabBloc>(context).add(TabUpdated(_getTabFromRoute(settings.name)));
-                // switch (settings.name) {
-                //   case '/':
-                //     builder = (BuildContext context) => VoteWidget();
-                //     break;
-                //   case '/explore':
-                //     builder = (BuildContext context) => ExploreWidget();
-                //     break;
-                //   case '/search':
-                //     builder = (BuildContext context) => SearchWidget();
-                //     break;
-                //   default:
-                //     throw Exception('Invalid route: ${settings.name}');
-                // }
-                // You can also return a PageRouteBuilder and
-                // define custom transitions between pages
-                return PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) => _getWidget(settings.name),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                  transitionDuration: Duration(milliseconds: 1000),
-                );
-                // return MaterialPageRoute(
-                //   builder: builder,
-                //   settings: settings,
-                // );
+          body: SafeArea(
+            child: WillPopScope(
+              onWillPop: () async {
+                if (appScreenNavigatorKey.currentState.canPop()) {
+                  appScreenNavigatorKey.currentState.pop();
+                  return false;
+                }
+                return true;
               },
+              child: Navigator(
+                key: appScreenNavigatorKey,
+                initialRoute: Routes.home,
+                onGenerateRoute: (RouteSettings settings) {
+                  print('onGenerateRoute settings: $settings');
+                  WidgetBuilder builder;
+                  Widget currentWidget;
+                  Widget nextWidget;
+
+                  // Manage your route names here
+
+                  if (settings.arguments != null) {
+                    currentWidget = _getWidgetWithArgs(settings.name, settings.arguments);
+                  }
+                  else {
+                    currentWidget = _getWidget(settings.name);
+                  }
+
+                  // nextWidget ??= currentWidget;
+
+                  BlocProvider.of<TabBloc>(context).add(TabUpdated(_getTabFromRoute(settings.name)));
+
+                  return PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) => currentWidget,
+                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 200),
+                  );
+                },
+              ),
             ),
           ),
           bottomNavigationBar: TabSelector(
@@ -186,17 +172,17 @@ class AppScreen extends StatelessWidget {
     return widget;
   }
 
-  WidgetBuilder _getWidgetBuilderWithArgs(String routeName, Object args) {
+  Widget _getWidgetWithArgs(String routeName, Object args) {
     print('PASSED ARGS ARE: $args');
     switch (routeName) {
       case '/selected_vote':
         if (args.runtimeType != Vote) {
           print('IT WAS NOT A VOTE, IT WAS A: ${args.runtimeType}');
-          return (BuildContext context) => VoteWidget();
+          return Container(child: Text('ERROR'),);
         }
         else {
           print('IT WAS A VOTE!!!');
-          return (BuildContext context) => VoteWidget(vote: args);
+          return VoteWidget(vote: args);
         }
         break;
 

@@ -97,15 +97,31 @@ class ExploreWidget extends StatelessWidget {
 class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    double offsetFactor = shrinkOffset / maxExtent;
+
     return Container(
-      color: Color.fromRGBO(255, 253, 245, 1),
-      child: Column(
+      color: ColorThemes.lightYellowBackgroundColor,
+      child: Stack(
         children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              margin: EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+          Container(
+            height: maxExtent,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: ColorThemes.lightYellowBackgroundColor,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Color.fromRGBO(20, 20, 20, offsetFactor),
+                  spreadRadius: 2,
+                  blurRadius: 15,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
               child: Text(
                 'Explore',
                 style: TextThemes.largeTitleTextStyle,
@@ -113,6 +129,28 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
               ),
             ),
           ),
+          // Expanded(
+          //   flex: 3,
+          //   child: Container(
+          //     alignment: Alignment.bottomLeft,
+          //     margin: EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+          //     decoration: BoxDecoration(
+          //       boxShadow: <BoxShadow>[
+          //         BoxShadow(
+          //           color: Colors.grey.withOpacity(offsetFactor),
+          //           spreadRadius: 2,
+          //           blurRadius: 15,
+          //           offset: Offset(0, 1),
+          //         ),
+          //       ],
+          //     ),
+          //     child: Text(
+          //       'Explore',
+          //       style: TextThemes.largeTitleTextStyle,
+          //       textAlign: TextAlign.end,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
