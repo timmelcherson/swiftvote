@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
@@ -13,20 +14,26 @@ import 'package:swiftvote/widgets/loading_indicator.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/widgets/widgets.dart';
 
-class VoteWidget extends StatelessWidget {
+class VoteWidget extends StatefulWidget {
   final Vote vote;
 
   VoteWidget({Key key, this.vote}) : super(key: key ?? SwiftvoteWidgetKeys.voteWidget);
 
-//  Random _randomIndex;
-//  VoteBloc _voteBloc;
-//   Vote _passedVote;
-//
-// //  @override
-//   void initState() {
-//     super.initState();
-//     _passedVote ??= widget.vote;
-//   } //  VoteWidget({Key key}) : super(key: key);
+  @override
+  State createState() {
+    return _VoteWidgetState();
+  }
+}
+
+class _VoteWidgetState extends State<VoteWidget> {
+  bool _hasVoteFromArgs;
+
+  @override
+  void initState() {
+    super.initState();
+    print('INITSTATE');
+    _hasVoteFromArgs = widget.vote != null ? true : false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +46,7 @@ class VoteWidget extends StatelessWidget {
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadedState) {
           // final index = state.randomIndex;
-          final _vote = vote ?? state.votes[state.randomIndex];
-
-
-
-
+          final _vote = _hasVoteFromArgs ? widget.vote : state.votes[state.randomIndex];
 
           return Container(
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
@@ -52,77 +55,83 @@ class VoteWidget extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   flex: 8,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      boxShadow: [
-                        DecorationThemes.cardBoxShadow,
-                      ],
-                    ),
-                    child: Flex(
-                      direction: Axis.vertical,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(2.0, 0, 2.0, 0),
-                                  decoration: DecorationThemes.categoryBorder,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      _vote.category[0],
-                                      style: TextThemes.voteTagsTextStyle,
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 300),
+                    child: Container(
+                      key: Key(_vote.id),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 255, 255, 1),
+                        boxShadow: [
+                          DecorationThemes.cardBoxShadow,
+                        ],
+                      ),
+                      child: Flex(
+                        direction: Axis.vertical,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0, 0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(2.0, 0, 2.0, 0),
+                                    decoration: DecorationThemes.categoryBorder,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        _vote.category[0],
+                                        style: TextThemes.voteTagsTextStyle,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ), // Related tags
-                        Expanded(
-                          flex: 4,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
+                          ), // Related tags
+                          Expanded(
+                            flex: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                // mainAxisSize: MainAxisSize.max,
+                                alignment: Alignment.topLeft,
+                                child: Text(
                                   _vote.title,
+                                  overflow: TextOverflow.clip,
                                   style: TextThemes.largeTitleTextStyle,
                                 ),
-                              ],
+                              ),
                             ),
+                          ), // Vote Title
+                          VoteItem(
+                            vote: _vote,
                           ),
-                        ), // Vote Title
-                        VoteItem(
-                          vote: _vote,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<VoteBloc>(context)
-                                  .add(VotesUpdatedEvent(state.votes, state.randomIndex));
-                              Navigator.of(context).pushReplacementNamed(Routes.home);
-//                              setState(() {
-//                                print("setting state");
-//                              });
-                            },
-                            child: Center(
-                              child: Text(
-                                'Pass',
-                                style: TextStyle(fontSize: 20),
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<VoteBloc>(context)
+                                    .add(VotesUpdatedEvent(state.votes, state.randomIndex));
+                                // Navigator.of(context).pushReplacementNamed(Routes.home);
+                                setState(() {
+                                  _hasVoteFromArgs = false;
+                                  print("setting state");
+                                });
+                              },
+                              child: Center(
+                                child: Text(
+                                  'Pass',
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -142,7 +151,8 @@ class VoteWidget extends StatelessWidget {
                           ),
                           child: MaterialButton(
                             onPressed: () {
-                              Navigator.of(context, rootNavigator: true).pushNamed(Routes.addVoteSCreen);
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushNamed(Routes.addVoteSCreen);
                             },
                             child: Icon(
                               Icons.add,

@@ -58,4 +58,10 @@ class TextThemes extends Theme {
     fontSize: 14.0,
     color: ColorThemes.secondaryColorAccent,
   );
+
+  static const TextStyle smallDarkTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 14.0,
+    color: ColorThemes.secondaryColorAccent,
+  );
 }

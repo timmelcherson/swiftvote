@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
+import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/widgets/widgets.dart';
@@ -23,6 +24,7 @@ class AppScreen extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
+          backgroundColor: ColorThemes.lightYellowBackgroundColor,
           body: SafeArea(
             child: WillPopScope(
               onWillPop: () async {
@@ -36,33 +38,38 @@ class AppScreen extends StatelessWidget {
                 key: appScreenNavigatorKey,
                 initialRoute: Routes.home,
                 onGenerateRoute: (RouteSettings settings) {
-                  print('onGenerateRoute settings: $settings');
-                  WidgetBuilder builder;
                   Widget currentWidget;
-                  Widget nextWidget;
 
-                  // Manage your route names here
+                  if (settings.name == null) {
+                    return null;
+                  }
 
                   if (settings.arguments != null) {
                     currentWidget = _getWidgetWithArgs(settings.name, settings.arguments);
-                  }
-                  else {
+                  } else {
                     currentWidget = _getWidget(settings.name);
                   }
 
-                  // nextWidget ??= currentWidget;
-
-                  BlocProvider.of<TabBloc>(context).add(TabUpdated(_getTabFromRoute(settings.name)));
+                  BlocProvider.of<TabBloc>(context)
+                      .add(TabUpdated(_getTabFromRoute(settings.name)));
 
                   return PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) => currentWidget,
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
+                      var begin = Offset(0.0, 0.05);
+                      var end = Offset.zero;
+                      var tween = Tween(begin: begin, end: end);
+                      var offsetAnimation = animation.drive(tween);
+
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        ),
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 200),
+                    transitionDuration: Duration(milliseconds: 300),
                   );
                 },
               ),
@@ -80,39 +87,7 @@ class AppScreen extends StatelessWidget {
     );
   }
 
-  // Widget getWidget(AppTab activeTab) {
-  //   Widget widget;
-  //   switch (activeTab) {
-  //     case AppTab.explore:
-  //       widget = ExploreWidget();
-  //       break;
-  //     case AppTab.search:
-  //       widget = SearchWidget();
-  //       break;
-  //     case AppTab.home:
-  //       widget = VoteWidget();
-  //       break;
-  //     case AppTab.notifications:
-  //       widget = NotificationsWidget();
-  //       break;
-  //     case AppTab.settings:
-  //       widget = SettingsWidget();
-  //       break;
-  //     default:
-  //       widget = VoteWidget();
-  //       break;
-  //   }
-  //
-  //   return SafeArea(
-  //     child: Container(
-  //       color: Color.fromRGBO(255, 253, 245, 1),
-  //       child: widget,
-  //     ),
-  //   );
-  // }
-
   AppTab _getTabFromRoute(String routeName) {
-    print('_getTabFromRoute: $routeName');
     switch (routeName) {
       case '/':
         return AppTab.home;
@@ -139,19 +114,6 @@ class AppScreen extends StatelessWidget {
         return Routes.home;
     }
   }
-  // WidgetBuilder _getWidgetBuilder(String routeName) {
-  //   Widget widget;
-  //   switch (routeName) {
-  //     case '/':
-  //       return (BuildContext context) => VoteWidget();
-  //     case '/explore':
-  //       return (BuildContext context) => ExploreWidget();
-  //     case '/search':
-  //       return (BuildContext context) => SearchWidget();
-  //     default:
-  //       throw Exception('Invalid route: ${routeName}');
-  //   }
-  // }
 
   Widget _getWidget(String routeName) {
     Widget widget;
@@ -168,28 +130,22 @@ class AppScreen extends StatelessWidget {
       default:
         throw Exception('Invalid route: ${routeName}');
     }
-
     return widget;
   }
 
   Widget _getWidgetWithArgs(String routeName, Object args) {
-    print('PASSED ARGS ARE: $args');
     switch (routeName) {
       case '/selected_vote':
         if (args.runtimeType != Vote) {
-          print('IT WAS NOT A VOTE, IT WAS A: ${args.runtimeType}');
-          return Container(child: Text('ERROR'),);
-        }
-        else {
-          print('IT WAS A VOTE!!!');
+          return Container(
+            child: Text('ERROR'),
+          );
+        } else {
           return VoteWidget(vote: args);
         }
         break;
-
       default:
         throw Exception('Invalid route: ${routeName}');
     }
   }
-
-
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'package:swiftvote/widgets/add_vote_widgets/category_select_overlay.dart';
 
 typedef OnSaveCallback = Function(
     String title, List<String> category, String voteOptionOne, String voteOptionTwo, List<String> tags);
@@ -27,31 +26,13 @@ class AddVoteScreen extends StatefulWidget {
 class _AddVoteScreenState extends State<AddVoteScreen> {
   static final _addVoteFormKey = GlobalKey<FormState>();
 
-  int _value = 1;
   int _selectCount = 0;
   bool _showErrorMsg = false;
-//  bool _showOverlay = false;
   String _voteTitle;
   String _voteOptionOne;
   String _voteOptionTwo;
   List<String> _voteCategory = new List();
   List<String> _voteTags = ['#hashtag1', '#hashtag2'];  // Dummy list
-
-//  void _showOverlay(BuildContext context) =>
-//      Navigator.of(context).push(CategorySelectorOverlay());
-
-//  List<ListItem> _dropDownItems = [
-//    ListItem(1, "First Item"),
-//    ListItem(2, "Second Item"),
-//    ListItem(3, "Third Item"),
-//    ListItem(4, "Fourth Item"),
-//  ];
-  List<ListItem> _dropDownItems = List.generate(Category.values.length,
-      (index) => ListItem(index, CategoryExtension.categoryToString[Category.values[index]]));
-
-//  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-//  ListItem _selectedItem;
-
   List<bool> _tagCheckboxValues;
 
   bool get isEditing => widget.isEditing;
@@ -59,24 +40,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   @override
   void initState() {
     super.initState();
-//    _dropdownMenuItems = buildDropDownMenuItems(_dropDow,nItems);
-//    _selectedItem = _dropdownMenuItems[0].value;
     _tagCheckboxValues = List.generate(Category.values.length, (index) => false);
-    print(_tagCheckboxValues);
   }
 
-//  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-//    List<DropdownMenuItem<ListItem>> items = List();
-//    for (ListItem listItem in listItems) {
-//      items.add(
-//        DropdownMenuItem(
-//          child: Text(listItem.name),
-//          value: listItem,
-//        ),
-//      );
-//    }
-//    return items;
-//  }
 
   Widget customCheckBox(int index, String tagDescr) {
     return Row(
@@ -113,7 +79,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: ColorThemes.secondaryColor,
+      backgroundColor: ColorThemes.lightYellowBackgroundColor,
       body: SafeArea(
         child: Form(
           key: _addVoteFormKey,
@@ -173,8 +139,10 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
+                margin: EdgeInsets.fromLTRB(24.0, 4.0, 24.0, 32.0),
                 child: TextFormField(
+                  maxLengthEnforced: true,
+                  maxLength: 70,
                   decoration: InputDecoration(
                     hintText: 'Type question',
                     hintStyle: TextThemes.textHintStyle,
@@ -221,20 +189,6 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   ),
                 ),
               ),
-//              GridView.count(
-//                shrinkWrap: true,
-//                crossAxisCount: 2,
-//                childAspectRatio: 4.0,
-//                crossAxisSpacing: 20.0,
-//                padding: EdgeInsets.all(8.0),
-//                children: List.generate(
-//                  _tagCheckboxValues.length,
-//                  (index) => customCheckBox(
-//                    index,
-//                    CategoryExtension.categoryToString[Category.values[index]],
-//                  ),
-//                ),
-//              ),
               Container(
                 margin: EdgeInsets.all(16.0),
                 child: Center(
@@ -308,21 +262,6 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 
     return null;
   }
-
-//  Widget getOverlay() {
-//    return _showOverlay == true
-//        ? CategorySelectorOverlay(
-//            showOverlayCallback: (value) {
-//              setState(() {
-//                _showOverlay = value;
-//              });
-//            },
-//          )
-//        : Container(
-//            color: Colors.red,
-//            height: 0,
-//          );
-//  }
 }
 
 class ListItem {

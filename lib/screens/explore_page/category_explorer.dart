@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/widgets/widgets.dart';

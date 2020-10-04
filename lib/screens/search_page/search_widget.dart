@@ -1,7 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 
@@ -23,17 +20,16 @@ class SearchWidget extends StatelessWidget {
             key: SwiftvoteWidgetKeys.searchWidget,
             scrollDirection: Axis.vertical,
             controller: _scrollController,
-            physics: _renderSearchResult
-                ? BouncingScrollPhysics()
-                : NeverScrollableScrollPhysics(),
+            physics: _renderSearchResult ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
             slivers: <Widget>[
               SliverPersistentHeader(
                 pinned: true,
-                floating: false,
+                floating: true,
                 delegate: SearchWidgetHeaderDelegate(
                     maxExtentValue: constraints.maxHeight,
                     searchCallback: searchCallback,
-                    isSearchMade: _renderSearchResult),
+                    isSearchMade: _renderSearchResult,
+                    searchQuery: searchQuery),
               ),
               SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -53,8 +49,7 @@ class SearchWidget extends StatelessWidget {
                                     color: Colors.lightBlue[100 * (index % 9)],
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
+                                    margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
                                     child: Text(
                                       'Search here',
                                       style: TextStyle(
@@ -80,11 +75,9 @@ class SearchWidget extends StatelessWidget {
 
   void searchCallback(String search) {
     if (!_renderSearchResult) {
-      _scrollController.animateTo(0,
-          duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+      _scrollController.animateTo(0, duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
     }
     _renderSearchResult = true;
-    print(search);
     searchQuery = search;
   }
 }
@@ -92,55 +85,75 @@ class SearchWidget extends StatelessWidget {
 class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double maxExtentValue;
   final bool isSearchMade;
+  final String searchQuery;
   final Function(String) searchCallback;
   final TextEditingController _editingController = TextEditingController();
 
   SearchWidgetHeaderDelegate(
-      {this.maxExtentValue, this.isSearchMade, this.searchCallback});
+      {this.maxExtentValue, this.isSearchMade, this.searchQuery, this.searchCallback});
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return FractionallySizedBox(
-      child: Container(
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: maxExtent,
+      decoration: BoxDecoration(
         color: ColorThemes.lightYellowBackgroundColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                constraints: BoxConstraints(minHeight: 80.0),
-                margin: EdgeInsets.all(16.0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Color.fromRGBO(20, 20, 20, isSearchMade ? 1.0 : 0.0),
+            spreadRadius: 2,
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
                 child: Text(
                   'Search',
                   style: TextThemes.largeTitleTextStyle,
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.end,
                 ),
               ),
             ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextField(
+                controller: _editingController,
+                decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.search),
+                  hintText: 'Search question...',
+                  hintStyle: TextStyle(fontSize: 18.0),
+                ),
+                onSubmitted: (String str) {
+                  searchCallback(str);
+                  _editingController.clear();
+                },
+                autofocus: false,
+              ),
+            ),
+          ),
+          if (isSearchMade)
             Expanded(
               flex: 1,
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 32.0),
-                child: TextField(
-                  controller: _editingController,
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    hintText: 'Search question...',
-                    hintStyle: TextStyle(fontSize: 18.0),
-                  ),
-                  onSubmitted: (String str) {
-                    print(isSearchMade);
-                    searchCallback(str);
-                    _editingController.clear();
-                  },
-                  autofocus: false,
+                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'Showing results for: $searchQuery',
+                  style: TextThemes.smallDarkTextStyle,
                 ),
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -149,7 +162,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 
   @override
-  double get maxExtent => isSearchMade ? 180.0 : maxExtentValue;
+  double get maxExtent => isSearchMade ? minExtent : maxExtentValue;
 
   @override
   double get minExtent => 180.0;
