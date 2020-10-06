@@ -27,6 +27,9 @@ class VoteWidget extends StatefulWidget {
 
 class _VoteWidgetState extends State<VoteWidget> {
   bool _hasVoteFromArgs;
+  bool _showResults;
+
+  double containerOpacity = 1.0;
 
   @override
   void initState() {
@@ -49,7 +52,9 @@ class _VoteWidgetState extends State<VoteWidget> {
           final _vote = _hasVoteFromArgs ? widget.vote : state.votes[state.randomIndex];
 
           return Container(
+            color: ColorThemes.lightYellowBackgroundColor,
             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
+            height: MediaQuery.of(context).size.height,
             child: Flex(
               direction: Axis.vertical,
               children: <Widget>[
@@ -60,7 +65,7 @@ class _VoteWidgetState extends State<VoteWidget> {
                     child: Container(
                       key: Key(_vote.id),
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(255, 255, 255, 1),
+                        color: ColorThemes.white,
                         boxShadow: [
                           DecorationThemes.cardBoxShadow,
                         ],
@@ -89,15 +94,12 @@ class _VoteWidgetState extends State<VoteWidget> {
                                 ],
                               ),
                             ),
-                          ), // Related tags
+                          ),
                           Expanded(
                             flex: 4,
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Container(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                // mainAxisSize: MainAxisSize.max,
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                   _vote.title,
@@ -106,7 +108,7 @@ class _VoteWidgetState extends State<VoteWidget> {
                                 ),
                               ),
                             ),
-                          ), // Vote Title
+                          ),
                           VoteItem(
                             vote: _vote,
                           ),
@@ -116,10 +118,8 @@ class _VoteWidgetState extends State<VoteWidget> {
                               onTap: () {
                                 BlocProvider.of<VoteBloc>(context)
                                     .add(VotesUpdatedEvent(state.votes, state.randomIndex));
-                                // Navigator.of(context).pushReplacementNamed(Routes.home);
                                 setState(() {
                                   _hasVoteFromArgs = false;
-                                  print("setting state");
                                 });
                               },
                               child: Center(
@@ -179,5 +179,11 @@ class _VoteWidgetState extends State<VoteWidget> {
         }
       },
     );
+  }
+
+  fadeOutWidget() {
+    setState(() {
+
+    });
   }
 }

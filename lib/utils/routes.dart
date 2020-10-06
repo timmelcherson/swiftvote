@@ -1,12 +1,13 @@
 
 class Routes {
-  static final home = '/';
-  static final explore = '/explore';
-  static final search = '/search';
-  static final notifications = '/notifications';
-  static final settings = '/settings';
+  static const home = '/';
+  static const explore = '/explore';
+  static const search = '/search';
+  static const notifications = '/notifications';
+  static const settings = '/settings';
 
-  static final addVoteSCreen = '/addVote';
+  static const addVoteSCreen = '/add_vote';
+  static const voteResult = '/vote_result';
 
-  static final homeWithSelectedVote = '/selected_vote';
+  static const homeWithSelectedVote = '/selected_vote';
 }

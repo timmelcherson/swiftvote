@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,9 +16,8 @@ class AppScreen extends StatelessWidget {
   final appScreenNavigatorKey = GlobalKey<NavigatorState>();
   final Vote vote;
   final AppTab tabFromRoute;
-  final Widget activeWidget;
 
-  AppScreen({Key key, this.vote, this.tabFromRoute, this.activeWidget})
+  AppScreen({Key key, this.vote, this.tabFromRoute})
       : super(key: key ?? SwiftvoteWidgetKeys.appScreen);
 
   @override
@@ -70,6 +71,7 @@ class AppScreen extends StatelessWidget {
                       );
                     },
                     transitionDuration: Duration(milliseconds: 300),
+                    maintainState: true,
                   );
                 },
               ),
@@ -89,14 +91,20 @@ class AppScreen extends StatelessWidget {
 
   AppTab _getTabFromRoute(String routeName) {
     switch (routeName) {
-      case '/':
+      case Routes.home:
         return AppTab.home;
       case '/selected_vote':
         return AppTab.home;
-      case '/explore':
+      case Routes.voteResult:
+        return AppTab.home;
+      case Routes.explore:
         return AppTab.explore;
-      case '/search':
+      case Routes.search:
         return AppTab.search;
+      case Routes.notifications:
+        return AppTab.notifications;
+      case Routes.settings:
+        return AppTab.settings;
       default:
         throw Exception('Invalid route: $routeName');
     }
@@ -110,6 +118,10 @@ class AppScreen extends StatelessWidget {
         return Routes.explore;
       case AppTab.search:
         return Routes.search;
+      case AppTab.notifications:
+        return Routes.notifications;
+      case AppTab.settings:
+        return Routes.settings;
       default:
         return Routes.home;
     }
@@ -118,14 +130,23 @@ class AppScreen extends StatelessWidget {
   Widget _getWidget(String routeName) {
     Widget widget;
     switch (routeName) {
-      case '/':
+      case Routes.home:
         widget = VoteWidget();
         break;
-      case '/explore':
+      case Routes.explore:
         widget = ExploreWidget();
         break;
-      case '/search':
+      case Routes.search:
         widget = SearchWidget();
+        break;
+      case Routes.notifications:
+        widget = NotificationsWidget();
+        break;
+      case Routes.settings:
+        widget = SettingsWidget();
+        break;
+      case Routes.voteResult:
+        widget = VoteResultWidget();
         break;
       default:
         throw Exception('Invalid route: ${routeName}');

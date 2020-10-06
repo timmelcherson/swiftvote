@@ -10,66 +10,69 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: CustomScrollView(
-            key: SwiftvoteWidgetKeys.searchWidget,
-            scrollDirection: Axis.vertical,
-            controller: _scrollController,
-            physics: _renderSearchResult ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: SearchWidgetHeaderDelegate(
-                    maxExtentValue: constraints.maxHeight,
-                    searchCallback: searchCallback,
-                    isSearchMade: _renderSearchResult,
-                    searchQuery: searchQuery),
-              ),
-              SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 4,
+    return Container(
+      color: ColorThemes.lightYellowBackgroundColor,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: CustomScrollView(
+              key: SwiftvoteWidgetKeys.searchWidget,
+              scrollDirection: Axis.vertical,
+              controller: _scrollController,
+              physics: _renderSearchResult ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  floating: true,
+                  delegate: SearchWidgetHeaderDelegate(
+                      maxExtentValue: constraints.maxHeight,
+                      searchCallback: searchCallback,
+                      isSearchMade: _renderSearchResult,
+                      searchQuery: searchQuery),
                 ),
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) => Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Stack(
-                                alignment: Alignment.bottomLeft,
-                                children: <Widget>[
-                                  Container(
-                                    color: Colors.lightBlue[100 * (index % 9)],
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                    child: Text(
-                                      'Search here',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'RobotoMono',
-                                        fontSize: 16.0,
-                                      ),
+                SliverGrid(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 4,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) => Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Stack(
+                                  alignment: Alignment.bottomLeft,
+                                  children: <Widget>[
+                                    Container(
+                                      color: Colors.lightBlue[100 * (index % 9)],
                                     ),
-                                  )
-                                ],
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
+                                      child: Text(
+                                        'Search here',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'RobotoMono',
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                    childCount: _renderSearchResult ? 20 : 0),
-              ),
-            ],
-          ),
-        );
-      },
+                            ],
+                          ),
+                      childCount: _renderSearchResult ? 20 : 0),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

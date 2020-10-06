@@ -11,8 +11,9 @@ class VoteThumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.0),
+      margin: EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 16.0),
       width: MediaQuery.of(context).size.width / (2.5),
-      height: 150.0,
+      height: 170.0,
       decoration: BoxDecoration(
         color: Color.fromRGBO(255, 255, 255, 1),
         boxShadow: [DecorationThemes.cardBoxShadow],

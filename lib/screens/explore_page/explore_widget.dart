@@ -21,68 +21,71 @@ class ExploreWidget extends StatelessWidget {
           final categories = state.categories;
           final categoryThumbnailAssetPath = state.categoryImagesPaths;
 
-          return CustomScrollView(
-            key: SwiftvoteWidgetKeys.exploreWidget,
-            scrollDirection: Axis.vertical,
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: ExploreWidgetHeaderDelegate(),
-              ),
-              SliverPadding(
-                padding: EdgeInsets.all(16),
-                sliver: SliverGrid(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) => Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: GestureDetector(
-                                  onTap: () => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CategoryExplorer(
-                                              votes: votes,
-                                              headerImagePath: categoryThumbnailAssetPath[index],
-                                              category: categories[index])),
-                                    ),
-                                  },
-                                  child: Container(
-                                    color: ColorThemes.lightYellowBackgroundColor,
-                                    child: Stack(
-                                      alignment: Alignment.bottomLeft,
-                                      children: <Widget>[
-                                        Image.asset(
-                                          categoryThumbnailAssetPath[index],
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                          child: Text(
-                                            categories[index],
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'RobotoMono',
-                                              fontSize: 16.0,
-                                            ),
+          return Container(
+            color: ColorThemes.lightYellowBackgroundColor,
+            child: CustomScrollView(
+              key: SwiftvoteWidgetKeys.exploreWidget,
+              scrollDirection: Axis.vertical,
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: ExploreWidgetHeaderDelegate(),
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.all(16),
+                  sliver: SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 4,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) => Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () => {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => CategoryExplorer(
+                                                votes: votes,
+                                                headerImagePath: categoryThumbnailAssetPath[index],
+                                                category: categories[index])),
+                                      ),
+                                    },
+                                    child: Container(
+                                      color: ColorThemes.lightYellowBackgroundColor,
+                                      child: Stack(
+                                        alignment: Alignment.bottomLeft,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            categoryThumbnailAssetPath[index],
                                           ),
-                                        )
-                                      ],
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
+                                            child: Text(
+                                              categories[index],
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'RobotoMono',
+                                                fontSize: 16.0,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                      childCount: categoryThumbnailAssetPath.length),
+                              ],
+                            ),
+                        childCount: categoryThumbnailAssetPath.length),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         } else {
           return Container();

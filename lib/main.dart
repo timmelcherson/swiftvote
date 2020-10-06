@@ -54,7 +54,9 @@ class SwiftvoteApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'SwiftVote',
               routes: {
-                Routes.home: (context) => AppScreen(),
+                Routes.home: (context) {
+                  return AppScreen();
+                },
                 Routes.addVoteSCreen: (context) {
                   return AddVoteScreen(
                     key: SwiftvoteWidgetKeys.addVoteScreen,

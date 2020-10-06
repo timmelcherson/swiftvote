@@ -31,8 +31,7 @@ class CategoryExplorer extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 8,
-                  mainAxisSpacing: 2,
-                  childAspectRatio: 1.2,
+                  childAspectRatio: 1,
                 ),
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) => Row(

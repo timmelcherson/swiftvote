@@ -1,2 +1,2 @@
 export 'vote_widget.dart';
-export 'vote_item.dart';
+export 'components/vote_item.dart';
