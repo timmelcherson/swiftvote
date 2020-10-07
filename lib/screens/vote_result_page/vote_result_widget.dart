@@ -7,16 +7,31 @@ class VoteResultWidget extends StatefulWidget {
   State createState() => _VoteResultWidgetState();
 }
 
-class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerProviderStateMixin  {
-  double _arcSecondRad = 1;
+class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerProviderStateMixin {
+  double _arcSecondRad = 0;
   AnimationController _animationController;
   Duration _arcAnimationDuration = Duration(milliseconds: 500);
-  Animation<double> _arcAnimation;
-
+  Animation<double> _arcAnimationPositive;
 
   @override
   void initState() {
-    _animationController =  AnimationController(vsync: this, duration: _arcAnimationDuration);
+    _animationController = AnimationController(vsync: this, duration: _arcAnimationDuration);
+
+    _arcAnimationPositive = Tween(
+      begin: _arcSecondRad,
+      end: _arcSecondRad + 0.5,
+    ).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    _arcAnimationPositive.addStatusListener((state) {
+      if (state == AnimationStatus.completed) {
+        _animationController.forward();
+      }
+    });
+
+    _animationController.forward();
   }
 
   @override
@@ -60,7 +75,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.width * 0.6,
                   child: CustomPaint(
-                    painter: ArcPainter(this._arcSecondRad),
+                    painter: ArcPainter(0, _arcAnimationPositive.value),
 
                     // painter: ArcPainter(_animationController, _arcSecondRad),
                   ),
@@ -70,21 +85,15 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
             FlatButton(
               color: Colors.blue[200],
               onPressed: () {
-                // _arcAnimation = Tween(begin: _arcSecondRad, end: _arcSecondRad + 0.5).animate(_animationController)
-                //   ..addListener(() {
-                //     setState(() {
-                //       _arcSecondRad = _arcAnimation.value;
-                //     });
-                //   });
                 setState(() {
                   _arcSecondRad += 0.1;
                 });
               },
               child: Text('+'),
-            ),FlatButton(
+            ),
+            FlatButton(
               color: Colors.red[300],
               onPressed: () {
-
                 setState(() {
                   _arcSecondRad -= 0.1;
                 });
@@ -114,14 +123,12 @@ class CirclePainter extends CustomPainter {
 }
 
 class ArcPainter extends CustomPainter {
-
   // final AnimationController controller;
   // final Animation<double> animation;
-  final double arcSecondRad;
+  final double _startAngle;
+  final double _endAngle;
 
-  ArcPainter(this.arcSecondRad);
-
-
+  ArcPainter(this._startAngle, this._endAngle);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -133,8 +140,8 @@ class ArcPainter extends CustomPainter {
     canvas.drawArc(
       Rect.fromCenter(
           center: Offset(size.height / 2, size.width / 2), height: size.height, width: size.width),
-      0,
-      arcSecondRad,
+      _startAngle,
+      _endAngle,
       true,
       paint1,
     );
