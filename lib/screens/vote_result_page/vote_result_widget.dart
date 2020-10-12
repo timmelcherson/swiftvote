@@ -1,37 +1,57 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class VoteResultWidget extends StatefulWidget {
+
+
+  final Duration arcAnimationDuration = Duration(milliseconds: 500);
+
   @override
   State createState() => _VoteResultWidgetState();
 }
 
 class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerProviderStateMixin {
-  double _arcSecondRad = 0;
+  double _startAngle = pi / 2;
+  double endAngle = pi / 2;
+
   AnimationController _animationController;
-  Duration _arcAnimationDuration = Duration(milliseconds: 500);
   Animation<double> _arcAnimationPositive;
+  Animation<double> _arcAnimation;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: _arcAnimationDuration);
+    print('init state');
+    _animationController = AnimationController(vsync: this, duration: widget.arcAnimationDuration);
 
-    _arcAnimationPositive = Tween(
-      begin: _arcSecondRad,
-      end: _arcSecondRad + 0.5,
-    ).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
+    // _arcAnimationPositive = Tween(
+    //   begin: _startAngle,
+    //   end: endAngle + 0.5,
+    // ).animate(_animationController)
+    //   ..addListener(() {
+    //     setState(() {});
+    //   });
+
+    // _animationController.addStatusListener((state) {
+    //   if (state == AnimationStatus.completed) {
+    //     print('animationstatus completed');
+    //     _animationController.forward();
+    //   }
+    //   setState(() {
+    //     print('_arcAnimation.value');
+    //   });
+    // });
+    //
+    // _animationController.forward();
+
+    _animationController.addListener(() {
+      setState(() {
+        print(_arcAnimation.value);
+        endAngle = _arcAnimation.value;
       });
-
-    _arcAnimationPositive.addStatusListener((state) {
-      if (state == AnimationStatus.completed) {
-        _animationController.forward();
-      }
     });
-
-    _animationController.forward();
   }
 
   @override
@@ -40,17 +60,28 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
     super.dispose();
   }
 
-  // void _arcAnimation() {
-  //   _animationController.drive(
-  //     Tween<double>(
-  //       begin: _arcSecondRad,
-  //       end: _arcSecondRad += 0.2,
-  //     ),
-  //   );
-  // }
+  void _runArcAnimation(double diff) {
+    _arcAnimation = _animationController.drive(
+      Tween<double>(
+        begin: _startAngle,
+        end: endAngle += diff,
+      ),
+    );
+
+    _animationController.animateTo(endAngle, curve: Curves.easeOut);
+  }
+
+  void adjustAngle(double diff) {
+    setState(() {
+      endAngle += diff;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    print('build');
+    print(endAngle);
     return Container(
       margin: EdgeInsets.fromLTRB(15, 15, 15, 15),
       child: Container(
@@ -75,7 +106,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.width * 0.6,
                   child: CustomPaint(
-                    painter: ArcPainter(0, _arcAnimationPositive.value),
+                    painter: ArcPainter(_startAngle, endAngle),
 
                     // painter: ArcPainter(_animationController, _arcSecondRad),
                   ),
@@ -85,18 +116,14 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
             FlatButton(
               color: Colors.blue[200],
               onPressed: () {
-                setState(() {
-                  _arcSecondRad += 0.1;
-                });
+                _runArcAnimation(0.2);
               },
               child: Text('+'),
             ),
             FlatButton(
               color: Colors.red[300],
               onPressed: () {
-                setState(() {
-                  _arcSecondRad -= 0.1;
-                });
+                _runArcAnimation(-0.2);
               },
               child: Text('--'),
             ),
@@ -110,7 +137,6 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
 class CirclePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    print('SIZE OF CirclePainter: $size');
     var paint1 = Paint()
       ..color = ColorThemes.primaryColor
       ..style = PaintingStyle.fill;
@@ -132,7 +158,6 @@ class ArcPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print('SIZE OF ArcPainter: $size');
     var paint1 = Paint()
       ..color = ColorThemes.silver
       ..style = PaintingStyle.fill;
