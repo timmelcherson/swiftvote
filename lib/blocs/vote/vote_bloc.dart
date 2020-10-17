@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import './vote.dart';
 
@@ -41,6 +40,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   Stream<VoteState> _mapAddVoteToState(AddVoteEvent event) async* {
+    print("votesubscription");
     _voteRepository.addNewVote(event.vote);
   }
 
@@ -55,9 +55,20 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
     int _randomIndex;
 
-    do {
-      _randomIndex = Random().nextInt(event.votes.length);
-    } while (_randomIndex == event.newIndex);
+    var freeIndexList = Iterable.generate(event.votes.length).toList();
+    freeIndexList.removeAt(event.newIndex);
+
+    print('freeIndexList');
+    print(freeIndexList);
+    _randomIndex = Random().nextInt(freeIndexList.length);
+    print('_randomIndex: $_randomIndex');
+
+    // var list = new List<int>.generate(10, (i) => i + 1);
+    // print('event.votes.length: ${event.votes.length}');
+    // do {
+    //   _randomIndex = Random().nextInt(event.votes.length);
+    //   print(_randomIndex);
+    // } while (_randomIndex == event.newIndex);
 
     yield VotesLoadedState(event.votes, _randomIndex);
   }

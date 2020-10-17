@@ -4,8 +4,8 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 
-typedef OnSaveCallback = Function(
-    String title, List<String> category, String voteOptionOne, String voteOptionTwo, List<String> tags);
+typedef OnSaveCallback = Function(String title, List<String> category, String voteOptionOne,
+    String voteOptionTwo, List<String> tags);
 
 class AddVoteScreen extends StatefulWidget {
   final bool isEditing;
@@ -32,7 +32,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   String _voteOptionOne;
   String _voteOptionTwo;
   List<String> _voteCategory = new List();
-  List<String> _voteTags = ['#hashtag1', '#hashtag2'];  // Dummy list
+  List<String> _voteTags = ['#hashtag1', '#hashtag2']; // Dummy list
   List<bool> _tagCheckboxValues;
 
   bool get isEditing => widget.isEditing;
@@ -43,7 +43,6 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
     _tagCheckboxValues = List.generate(Category.values.length, (index) => false);
   }
 
-
   Widget customCheckBox(int index, String tagDescr) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +50,6 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
         Checkbox(
           value: _tagCheckboxValues[index],
           onChanged: (bool value) {
-
             if (!(_selectCount >= 2)) {
               value ? _voteCategory.add(tagDescr) : _voteCategory.remove(tagDescr);
               setState(() {
@@ -59,8 +57,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 value ? _selectCount++ : _selectCount--;
                 _showErrorMsg = false;
               });
-            }
-            else if (_tagCheckboxValues[index]) {
+            } else if (_tagCheckboxValues[index]) {
               _voteCategory.remove(tagDescr);
               setState(() {
                 _tagCheckboxValues[index] = value;
@@ -70,7 +67,12 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
             }
           },
         ),
-        Text(tagDescr),
+        Flexible(
+          child: Text(
+            tagDescr,
+            overflow: TextOverflow.clip,
+          ),
+        ),
       ],
     );
   }
@@ -192,28 +194,34 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
               Container(
                 margin: EdgeInsets.all(16.0),
                 child: Center(
-                  child: Text('Choose categories ($_selectCount/2)', style: TextThemes.lightQuestionTextStyle,),
+                  child: Text(
+                    'Choose categories ($_selectCount/2)',
+                    style: TextThemes.lightQuestionTextStyle,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                 child: GridView.count(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
                   crossAxisCount: 2,
-                  childAspectRatio: 4.0,
-                  crossAxisSpacing: 20.0,
-                  mainAxisSpacing: 4.0,
+                  childAspectRatio: 3.5,
+                  crossAxisSpacing: 2.0,
                   padding: EdgeInsets.all(8.0),
                   children: List.generate(
-                      _tagCheckboxValues.length,
-                      (index) => customCheckBox(
-                            index,
-                            CategoryExtension.categoryToString[Category.values[index]],
-                          )),
+                    _tagCheckboxValues.length,
+                    (index) => customCheckBox(
+                      index,
+                      CategoryExtension.categoryToString[Category.values[index]],
+                    ),
+                  ),
                 ),
               ),
-              if(_showErrorMsg) Container(child: Text('SELECT 2 CATEGORIES PLS'),),
+              if (_showErrorMsg)
+                Container(
+                  child: Text('SELECT 2 CATEGORIES PLS'),
+                ),
               Container(
                 margin: EdgeInsets.only(top: 32.0, bottom: 32.0),
                 height: 50.0,

@@ -12,4 +12,5 @@ class ColorThemes extends Theme {
   static const Color silver = Color.fromRGBO(191, 191, 191, 1);
   static const Color lightYellowBackgroundColor = Color.fromRGBO(255, 253, 245, 1);
   static const Color white = Color.fromRGBO(255, 255, 255, 1);
+  static const Color darkGray = Color.fromRGBO(30, 30, 30, 1);
 }

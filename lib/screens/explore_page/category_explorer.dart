@@ -4,8 +4,6 @@ import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:swiftvote/widgets/widgets.dart';
 
-import '../screens.dart';
-
 class CategoryExplorer extends StatelessWidget {
   final List<Vote> votes;
   final String headerImagePath;

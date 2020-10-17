@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:swiftvote/data/entities.dart';
-import 'package:uuid/uuid.dart';
 
 @immutable
 class Vote {
   final String id;
   final String title;
   final String author;
-  final List<String> category;
+  final List<String> categories;
   final String sponsor;
   final List<String> voteOptions;
   final List<int> votes;
@@ -19,19 +16,19 @@ class Vote {
       {this.id,
       this.title,
       this.author,
-      this.category,
+      this.categories,
       this.sponsor,
       this.voteOptions,
       this.votes,
       this.tags});
 
-  Vote copyWith(String id, String title, String author, String category,
+  Vote copyWith(String id, String title, String author, String categories,
       List<String> voteOptions, List<int> votes, List<String> tags) {
     return Vote(
       id: id ?? this.id,
       title: title ?? this.title,
       author: author ?? this.author,
-      category: category ?? this.category,
+      categories: categories ?? this.categories,
       sponsor: sponsor ?? this.sponsor,
       voteOptions: voteOptions ?? this.voteOptions,
       votes: votes ?? this.votes,
@@ -49,12 +46,12 @@ class Vote {
 
   @override
   String toString() {
-    return 'Vote{id: $id, title: $title, author: $author, category: $category, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
+    return 'Vote{id: $id, title: $title, author: $author, categories: $categories, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
   }
 
   VoteEntity toEntity() {
     return VoteEntity(
-        id, title, author, category, sponsor, voteOptions, votes, tags);
+        id, title, author, categories, sponsor, voteOptions, votes, tags);
   }
 
   static Vote fromEntity(VoteEntity entity) {
@@ -62,7 +59,7 @@ class Vote {
         id: entity.id,
         title: entity.title,
         author: entity.author,
-        category: entity.category,
+        categories: entity.categories,
         sponsor: entity.sponsor,
         voteOptions: entity.voteOptions,
         votes: entity.votes,

@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
@@ -149,7 +145,7 @@ class AppScreen extends StatelessWidget {
         widget = VoteResultWidget();
         break;
       default:
-        throw Exception('Invalid route: ${routeName}');
+        throw Exception('Invalid route: $routeName');
     }
     return widget;
   }
@@ -166,7 +162,7 @@ class AppScreen extends StatelessWidget {
         }
         break;
       default:
-        throw Exception('Invalid route: ${routeName}');
+        throw Exception('Invalid route: $routeName');
     }
   }
 }

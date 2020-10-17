@@ -5,22 +5,22 @@ class VoteEntity extends Equatable {
   final String id;
   final String title;
   final String author;
-  final List<String> category;
+  final List<String> categories;
   final String sponsor;
   final List<String> voteOptions;
   final List<int> votes;
   final List<String> tags;
 
-  const VoteEntity(this.id, this.title, this.author, this.category,
+  const VoteEntity(this.id, this.title, this.author, this.categories,
       this.sponsor, this.voteOptions, this.votes, this.tags);
 
   @override
   List<Object> get props =>
-      [id, title, author, category, sponsor, voteOptions, votes, tags];
+      [id, title, author, categories, sponsor, voteOptions, votes, tags];
 
   @override
   String toString() {
-    return 'VoteEntity{id: $id, title: $title, author: $author, category: $category, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
+    return 'VoteEntity{id: $id, title: $title, author: $author, categories: $categories, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
   }
 
   Map<String, Object> toJson() {
@@ -28,7 +28,7 @@ class VoteEntity extends Equatable {
       "id": id,
       "title": title,
       "author": author,
-      "category": category,
+      "categories": categories,
       "sponsor": sponsor,
       "voteOptions": voteOptions,
       "votes": votes,
@@ -59,7 +59,7 @@ class VoteEntity extends Equatable {
     List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
     List<int> _votes = new List<int>.from(snap.get('votes'));
     List<String> _tags = new List<String>.from(snap.get('tags'));
-    List<String> _categories = new List<String>.from(snap.get('category'));
+    List<String> _categories = new List<String>.from(snap.get('categories'));
 
     return VoteEntity(
       snap.id,
@@ -77,7 +77,7 @@ class VoteEntity extends Equatable {
     return {
       'title': title,
       'author': author,
-      'category': category,
+      'categories': categories,
       'sponsor': sponsor,
       'voteOptions': voteOptions,
       'votes': votes,

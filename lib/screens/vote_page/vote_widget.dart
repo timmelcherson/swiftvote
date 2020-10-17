@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,12 +38,13 @@ class _VoteWidgetState extends State<VoteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // final Vote _passedVote = ModalRoute.of(context).settings.arguments;
+    final Vote _passedVote = ModalRoute.of(context).settings.arguments;
 
     // print('_passedVote: $_passedVote');
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
         if (state is VotesLoadingState) {
+          print(state);
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadedState) {
           // final index = state.randomIndex;
@@ -86,7 +85,7 @@ class _VoteWidgetState extends State<VoteWidget> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(2.0),
                                       child: Text(
-                                        _vote.category[0],
+                                        _vote.categories[0],
                                         style: TextThemes.voteTagsTextStyle,
                                       ),
                                     ),

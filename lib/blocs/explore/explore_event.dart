@@ -5,7 +5,6 @@ import 'package:swiftvote/data/models.dart';
 abstract class ExploreEvent {
   const ExploreEvent();
 
-  @override
   List<Object> get props => [];
 }
 

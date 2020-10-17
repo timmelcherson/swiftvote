@@ -6,7 +6,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   SearchBloc(SearchState initialState) : super(initialState);
 
-  @override
   SearchState get initialState => InitialSearchState();
 
   @override

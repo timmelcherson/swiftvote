@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:swiftvote/data/models.dart';

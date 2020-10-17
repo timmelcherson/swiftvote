@@ -24,13 +24,11 @@ class TabSelector extends StatelessWidget {
         key: SwiftvoteWidgetKeys.tabs,
         currentIndex: AppTab.values.indexOf(activeTab),
         onTap: (index) => {
-          if (AppTab.values[index] != activeTab) {
-            onTabSelected(AppTab.values[index])
-          }
+          if (AppTab.values[index] != activeTab) {onTabSelected(AppTab.values[index])}
         },
         items: AppTab.values.map((tab) {
           return BottomNavigationBarItem(
-              title: Text('title'),
+              label: 'Label',
               icon: tab == AppTab.home
                   ? (activeTab == AppTab.home
                       ? Container(
@@ -38,9 +36,7 @@ class TabSelector extends StatelessWidget {
                           width: 54,
                           decoration: BoxDecoration(
                             border: Border(
-                              bottom: BorderSide(
-                                  color: ColorThemes.primaryColorAccent,
-                                  width: 3),
+                              bottom: BorderSide(color: ColorThemes.primaryColorAccent, width: 3),
                             ),
                           ),
                           child: SvgPicture.asset(
@@ -62,9 +58,7 @@ class TabSelector extends StatelessWidget {
                           width: 50,
                           decoration: BoxDecoration(
                             border: Border(
-                              bottom: BorderSide(
-                                  color: ColorThemes.primaryColorAccent,
-                                  width: 3),
+                              bottom: BorderSide(color: ColorThemes.primaryColorAccent, width: 3),
                             ),
                           ),
                           child: Icon(

@@ -12,7 +12,6 @@ import 'blocs/blocs.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/screens/screens.dart';
 
-
 Future<void> main() async {
   Bloc.observer = SimpleBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +19,8 @@ Future<void> main() async {
 }
 
 class SwiftvoteApp extends StatelessWidget {
-  Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +61,11 @@ class SwiftvoteApp extends StatelessWidget {
                   return AddVoteScreen(
                     key: SwiftvoteWidgetKeys.addVoteScreen,
                     isEditing: false,
-                    onSave: (title, category, voteOptionOne, voteOptionTwo, tags) {
+                    onSave: (title, categories, voteOptionOne, voteOptionTwo, tags) {
                       BlocProvider.of<VoteBloc>(context).add(AddVoteEvent(Vote(
                           title: title,
                           author: 'Swiftvote',
-                          category: category,
+                          categories: categories,
                           sponsor: "",
                           voteOptions: [voteOptionOne, voteOptionTwo],
                           votes: [0, 0],

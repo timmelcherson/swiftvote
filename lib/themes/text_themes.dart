@@ -62,6 +62,38 @@ class TextThemes extends Theme {
   static const TextStyle smallDarkTextStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 14.0,
-    color: ColorThemes.secondaryColorAccent,
+    color: ColorThemes.darkGray,
+  );
+
+  static const TextStyle smallBrightTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 14.0,
+    color: ColorThemes.white,
+  );
+
+  static const TextStyle mediumDarkTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 18.0,
+    color: ColorThemes.darkGray,
+  );
+
+  static const TextStyle mediumBrightTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 18.0,
+    color: ColorThemes.white,
+  );
+
+  static const TextStyle largeDarkTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 22.0,
+    fontWeight: FontWeight.w300,
+    color: ColorThemes.darkGray,
+  );
+
+  static const TextStyle largeBrightTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 22.0,
+    fontWeight: FontWeight.w300,
+    color: ColorThemes.white,
   );
 }

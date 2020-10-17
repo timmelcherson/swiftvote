@@ -5,83 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class VoteResultWidget extends StatefulWidget {
-
-
-  final Duration arcAnimationDuration = Duration(milliseconds: 500);
-
   @override
   State createState() => _VoteResultWidgetState();
 }
 
-class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerProviderStateMixin {
-  double _startAngle = pi / 2;
-  double endAngle = pi / 2;
-
-  AnimationController _animationController;
-  Animation<double> _arcAnimationPositive;
-  Animation<double> _arcAnimation;
-
-  @override
-  void initState() {
-    print('init state');
-    _animationController = AnimationController(vsync: this, duration: widget.arcAnimationDuration);
-
-    // _arcAnimationPositive = Tween(
-    //   begin: _startAngle,
-    //   end: endAngle + 0.5,
-    // ).animate(_animationController)
-    //   ..addListener(() {
-    //     setState(() {});
-    //   });
-
-    // _animationController.addStatusListener((state) {
-    //   if (state == AnimationStatus.completed) {
-    //     print('animationstatus completed');
-    //     _animationController.forward();
-    //   }
-    //   setState(() {
-    //     print('_arcAnimation.value');
-    //   });
-    // });
-    //
-    // _animationController.forward();
-
-    _animationController.addListener(() {
-      setState(() {
-        print(_arcAnimation.value);
-        endAngle = _arcAnimation.value;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _runArcAnimation(double diff) {
-    _arcAnimation = _animationController.drive(
-      Tween<double>(
-        begin: _startAngle,
-        end: endAngle += diff,
-      ),
-    );
-
-    _animationController.animateTo(endAngle, curve: Curves.easeOut);
-  }
-
-  void adjustAngle(double diff) {
-    setState(() {
-      endAngle += diff;
-    });
-  }
+class _VoteResultWidgetState extends State<VoteResultWidget> {
+  double startAngle = 3/2 * pi;
+  double endAngle = 1/2 * pi;
 
   @override
   Widget build(BuildContext context) {
 
-    print('build');
+    double halfAngle = endAngle / 2;
+
+    print(startAngle);
     print(endAngle);
+    print(halfAngle);
+
+    print((cos(halfAngle) * 150));
     return Container(
       margin: EdgeInsets.fromLTRB(15, 15, 15, 15),
       child: Container(
@@ -93,37 +34,73 @@ class _VoteResultWidgetState extends State<VoteResultWidget> with SingleTickerPr
         ),
         child: Column(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                  child: CustomPaint(
-                    painter: CirclePainter(),
-                  ),
+            Container(
+              // color: Colors.red.withOpacity(0.5),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0),
+                child: Stack(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 300.0,
+                      height: 300.0,
+                      child: CustomPaint(
+                        painter: CirclePainter(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 300.0,
+                      height: 300.0,
+                      child: CustomPaint(
+                        painter: ArcPainter(startAngle, endAngle),
+                        // painter: ArcPainter(_animationController, _arcSecondRad),
+                      ),
+                    ),
+                    Positioned(
+                      top: 139.0 + (sin(halfAngle) * 150) * 0.7,
+                      left: 150.0 - (cos(halfAngle) * 150) * 0.7,
+                      child: Text(
+                        '50%',
+                        style: TextThemes.largeBrightTextStyle,
+                      ),
+                    ),
+                    Positioned(
+                      top: 139.0 - (sin(halfAngle) * 150) * 0.7,
+                      left: 150.0 + (cos(halfAngle) * 150) * 0.7,
+                      child: Text(
+                        '50%',
+                        style: TextThemes.largeDarkTextStyle,
+                      ),
+                    ),
+                    // Positioned.fill(
+                    //   child: Align(
+                    //     widthFactor: 0.1,
+                    //     heightFactor: 0.1,
+                    //     child: Container(
+                    //       width: 10,
+                    //       height: 10,
+                    //       color: Colors.red,
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                  child: CustomPaint(
-                    painter: ArcPainter(_startAngle, endAngle),
-
-                    // painter: ArcPainter(_animationController, _arcSecondRad),
-                  ),
-                ),
-              ],
+              ),
             ),
             FlatButton(
               color: Colors.blue[200],
               onPressed: () {
-                _runArcAnimation(0.2);
+                setState(() {
+                  endAngle += 0.1;
+                });
               },
               child: Text('+'),
             ),
             FlatButton(
               color: Colors.red[300],
               onPressed: () {
-                _runArcAnimation(-0.2);
+                setState(() {
+                  endAngle -= 0.1;
+                });
               },
               child: Text('--'),
             ),
@@ -149,8 +126,6 @@ class CirclePainter extends CustomPainter {
 }
 
 class ArcPainter extends CustomPainter {
-  // final AnimationController controller;
-  // final Animation<double> animation;
   final double _startAngle;
   final double _endAngle;
 
@@ -158,17 +133,31 @@ class ArcPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var paint1 = Paint()
+    var arcFillPaint = Paint()
       ..color = ColorThemes.silver
       ..style = PaintingStyle.fill;
-    //a circle
+
+    var arcStrokePaint = Paint()
+      ..color = ColorThemes.white
+      ..strokeWidth = 5.0
+      ..style = PaintingStyle.stroke;
+
     canvas.drawArc(
       Rect.fromCenter(
-          center: Offset(size.height / 2, size.width / 2), height: size.height, width: size.width),
+          center: Offset(size.width / 2, size.height / 2), height: size.height, width: size.width),
       _startAngle,
       _endAngle,
       true,
-      paint1,
+      arcStrokePaint,
+    );
+
+    canvas.drawArc(
+      Rect.fromCenter(
+          center: Offset(size.width / 2, size.height / 2), height: size.height, width: size.width),
+      _startAngle,
+      _endAngle,
+      true,
+      arcFillPaint,
     );
   }
 
