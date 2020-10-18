@@ -268,7 +268,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     },
                     child: Text(
                       'Submit',
-                      style: TextThemes.darkQuestionTextStyle,
+                      style: TextThemes.smallBrightTextStyle,
                     ),
                   ),
                 ),

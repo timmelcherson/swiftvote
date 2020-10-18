@@ -35,18 +35,6 @@ class TextThemes extends Theme {
     color: ColorThemes.secondaryColorAccent,
   );
 
-  static const TextStyle lightQuestionTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 20.0,
-    color: ColorThemes.secondaryColorAccent,
-  );
-
-  static const TextStyle darkQuestionTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 20.0,
-    color: Color.fromRGBO(255, 255, 255, 1),
-  );
-
   static const TextStyle textHintStyle = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: 20.0,

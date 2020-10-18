@@ -196,7 +196,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 child: Center(
                   child: Text(
                     'Choose categories ($_selectCount/2)',
-                    style: TextThemes.lightQuestionTextStyle,
+                    style: TextThemes.smallDarkTextStyle,
                   ),
                 ),
               ),
@@ -251,7 +251,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     },
                     child: Text(
                       'Submit',
-                      style: TextThemes.darkQuestionTextStyle,
+                      style: TextThemes.mediumBrightTextStyle,
                     ),
                   ),
                 ),

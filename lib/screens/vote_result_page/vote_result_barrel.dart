@@ -1,1 +1,1 @@
-export 'vote_result_widget.dart';
+export '../vote_page/vote_result_widget.dart';

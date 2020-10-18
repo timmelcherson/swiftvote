@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
-import 'package:swiftvote/widgets/widgets.dart';
 import 'screens.dart';
 
 class AppScreen extends StatelessWidget {

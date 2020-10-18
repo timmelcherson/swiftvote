@@ -10,12 +10,11 @@ class VoteResultWidget extends StatefulWidget {
 }
 
 class _VoteResultWidgetState extends State<VoteResultWidget> {
-  double startAngle = 3/2 * pi;
-  double endAngle = 1/2 * pi;
+  double startAngle = 3 / 2 * pi;
+  double endAngle = 1 / 2 * pi;
 
   @override
   Widget build(BuildContext context) {
-
     double halfAngle = endAngle / 2;
 
     print(startAngle);
@@ -56,32 +55,31 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                       ),
                     ),
                     Positioned(
-                      top: 139.0 + (sin(halfAngle) * 150) * 0.7,
-                      left: 150.0 - (cos(halfAngle) * 150) * 0.7,
-                      child: Text(
-                        '50%',
-                        style: TextThemes.largeBrightTextStyle,
+                      width: 50.0,
+                      height: 50.0,
+                      top: 125.0 + (cos(halfAngle) * 150) * 0.7,
+                      left: 125.0 - (sin(halfAngle) * 150) * 0.7,
+                      child: Center(
+                        child: Text(
+                          '50%',
+                          textAlign: TextAlign.center,
+                          style: TextThemes.largeBrightTextStyle,
+                        ),
                       ),
                     ),
                     Positioned(
-                      top: 139.0 - (sin(halfAngle) * 150) * 0.7,
-                      left: 150.0 + (cos(halfAngle) * 150) * 0.7,
-                      child: Text(
-                        '50%',
-                        style: TextThemes.largeDarkTextStyle,
+                      width: 50.0,
+                      height: 50.0,
+                      top: 125.0 - (cos(halfAngle) * 150) * 0.7,
+                      left: 125.0 + (sin(halfAngle) * 150) * 0.7,
+                      child: Center(
+                        child: Text(
+                          '50%',
+                          textAlign: TextAlign.center,
+                          style: TextThemes.largeDarkTextStyle,
+                        ),
                       ),
                     ),
-                    // Positioned.fill(
-                    //   child: Align(
-                    //     widthFactor: 0.1,
-                    //     heightFactor: 0.1,
-                    //     child: Container(
-                    //       width: 10,
-                    //       height: 10,
-                    //       color: Colors.red,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
