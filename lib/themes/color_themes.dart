@@ -6,7 +6,7 @@ class ColorThemes extends Theme {
 
   static const Color primaryColor = Color.fromRGBO(80, 92, 114, 1);
   static const Color primaryColorAccent = Color.fromRGBO(54, 46, 79, 1);
-  static const Color secondaryColor = Color.fromRGBO(242, 242, 242, 1);
+  static const Color secondaryColor = Color.fromRGBO(232, 232, 232, 1);
   static const Color secondaryColorAccent = Color.fromRGBO(68, 68, 68, 1);
 
   static const Color silver = Color.fromRGBO(191, 191, 191, 1);

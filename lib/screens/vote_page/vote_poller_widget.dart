@@ -4,11 +4,11 @@ import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/routes.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 
-// typedef OnPollerWidgetCallback = Function<Void>(bool showPollerWidget);
+typedef VoteReceivedCallback = Function(int index);
 
 class VotePollerWidget extends StatelessWidget {
   final VoidCallback votePassedCallback;
-  final VoidCallback votedCallback;
+  final VoteReceivedCallback votedCallback;
   final Vote vote;
 
   VotePollerWidget(
@@ -30,7 +30,7 @@ class VotePollerWidget extends StatelessWidget {
         ),
         onPressed: () => {
           // Navigator.of(context).pushNamed(Routes.voteResult)
-          votedCallback()
+          votedCallback(index)
         },
         color: bg,
       ),

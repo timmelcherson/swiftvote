@@ -61,6 +61,14 @@ class VotesUpdatedEvent extends VoteEvent {
   List<Object> get props => [votes];
 }
 
+class IncreaseVoteScoreEvent extends VoteEvent {
+
+  final Vote vote;
+  final int optionIndex;
+
+  IncreaseVoteScoreEvent(this.vote, this.optionIndex);
+}
+
 class PassVoteEvent extends VoteEvent {
   final List<Vote> votes;
 

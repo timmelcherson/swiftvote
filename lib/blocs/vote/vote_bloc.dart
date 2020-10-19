@@ -28,6 +28,9 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
       yield* _mapDeleteVoteToState(event);
     } else if (event is VotesUpdatedEvent) {
       yield* _mapVotesUpdatedToState(event);
+    } else if (event is IncreaseVoteScoreEvent) {
+      print('IncreaseVoteScoreEvent RECEIVED 2');
+      _mapIncreaseVoteScoreToState(event);
     } else if (event is PassVoteEvent) {
       _mapPassVoteToState(event);
     }
@@ -53,15 +56,13 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
-    int _randomIndex;
 
+    print('%%%%%%%%%%%%%%');
+    print('event.newIndex: ${event.newIndex}');
+    print('%%%%%%%%%%%%%%');
     var freeIndexList = Iterable.generate(event.votes.length).toList();
     freeIndexList.removeAt(event.newIndex);
-
-    print('freeIndexList');
-    print(freeIndexList);
-    _randomIndex = Random().nextInt(freeIndexList.length);
-    print('_randomIndex: $_randomIndex');
+    int _randomIndex = Random().nextInt(freeIndexList.length);
 
     // var list = new List<int>.generate(10, (i) => i + 1);
     // print('event.votes.length: ${event.votes.length}');
@@ -75,6 +76,11 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   _mapPassVoteToState(PassVoteEvent event) =>
       VotesLoadedState(event.votes, Random().nextInt(event.votes.length));
+
+  _mapIncreaseVoteScoreToState(IncreaseVoteScoreEvent event) {
+    event.vote.votes[event.optionIndex] += 1;
+    _voteRepository.updateVote(event.vote);
+  }
 
   @override
   Future<Function> close() {

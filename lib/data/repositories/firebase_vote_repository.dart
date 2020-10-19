@@ -13,12 +13,12 @@ class FirebaseVoteRepository implements VoteRepository {
 
   @override
   Future<void> updateVote(Vote vote) {
-    return voteCollection.doc(vote.id).delete();
+    return voteCollection.doc(vote.id).update(vote.toEntity().toDocument());
   }
 
   @override
   Future<void> deleteVote(Vote vote) {
-    return voteCollection.doc(vote.id).update(vote.toEntity().toDocument());
+    return voteCollection.doc(vote.id).delete();
   }
 
   @override

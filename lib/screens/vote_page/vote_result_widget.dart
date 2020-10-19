@@ -2,16 +2,43 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class VoteResultWidget extends StatefulWidget {
+  final Vote vote;
+
+  VoteResultWidget({@required this.vote});
+
   @override
   State createState() => _VoteResultWidgetState();
 }
 
 class _VoteResultWidgetState extends State<VoteResultWidget> {
+  Vote _vote;
   double startAngle = 3 / 2 * pi;
-  double endAngle = 1 / 2 * pi;
+  double endAngle;
+  String firstPercentage;
+  String secondPercentage;
+
+  @override
+  void initState() {
+    super.initState();
+    _vote = widget.vote;
+
+    print('INITIALIZING RESULTS WITH VOTE SCORES: ');
+    print(_vote.votes);
+
+    double firstOptionPercentage = _vote.votes[0] / (_vote.votes[0] + _vote.votes[1]);
+    double secondOptionPercentage = _vote.votes[1] / (_vote.votes[0] + _vote.votes[1]);
+    firstPercentage = (firstOptionPercentage * 100).floor().toString();
+    secondPercentage = (secondOptionPercentage * 100).floor().toString();
+
+    endAngle = 2 * pi * secondOptionPercentage;
+    print('startangle: $startAngle, calculated endangle: $endAngle');
+    print('angle difference: ${endAngle - startAngle}');
+    print(secondOptionPercentage);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +88,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                       left: 125.0 - (sin(halfAngle) * 150) * 0.7,
                       child: Center(
                         child: Text(
-                          '50%',
+                          firstPercentage + '%',
                           textAlign: TextAlign.center,
                           style: TextThemes.largeBrightTextStyle,
                         ),
@@ -74,7 +101,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                       left: 125.0 + (sin(halfAngle) * 150) * 0.7,
                       child: Center(
                         child: Text(
-                          '50%',
+                          secondPercentage + '%',
                           textAlign: TextAlign.center,
                           style: TextThemes.largeDarkTextStyle,
                         ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,35 +25,40 @@ class VoteWidget extends StatefulWidget {
 }
 
 class _VoteWidgetState extends State<VoteWidget> {
-  bool _hasVoteFromArgs;
+  VoteBloc _voteBloc;
+  Vote _vote;
+  int _randomIndex;
   bool _showResults;
-  bool _showPoller;
-
-  double containerOpacity = 1.0;
 
   @override
   void initState() {
     super.initState();
-    _hasVoteFromArgs = widget.vote != null ? true : false;
-    _showPoller = true;
+    _voteBloc = BlocProvider.of(context);
     _showResults = false;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<VoteBloc, VoteState>(
       builder: (context, state) {
         if (state is VotesLoadingState) {
           print(state);
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadedState) {
+          _randomIndex ??= state.randomIndex;
+          print('_randomIndex: $_randomIndex');
+          print('state.randomIndex: $state.randomIndex');
+          _vote = widget.vote ?? state.votes[state.randomIndex];
 
-          final _vote = widget.vote ?? state.votes[state.randomIndex];
-
-          return _showPoller
-              ? VotePollerWidget(vote: _vote, votedCallback: voteReceived, votePassedCallback: votePassed,)
-              : VoteResultWidget();
+          return _showResults
+              ? VoteResultWidget(vote: _vote)
+              : VotePollerWidget(
+            vote: _vote,
+            votedCallback: (int voteIndex) => voteReceived(voteIndex),
+            votePassedCallback: () {
+              votePassed(state.votes.length);
+            },
+          );
         } else {
           return Container();
         }
@@ -59,15 +66,20 @@ class _VoteWidgetState extends State<VoteWidget> {
     );
   }
 
-  void votePassed() {
+  void votePassed(int votesLength) {
     print('CALLBACK votePassed');
+    var freeIndexList = Iterable.generate(votesLength).toList();
+    freeIndexList.removeAt(_randomIndex);
+    int newRandomIndex = Random().nextInt(freeIndexList.length);
+    setState(() {
+      _randomIndex = newRandomIndex;
+    });
   }
 
-  void voteReceived() {
-    print('CALLBACK voteReceived');
+  void voteReceived(int voteIndex) {
+    _voteBloc.add(IncreaseVoteScoreEvent(_vote, voteIndex));
     setState(() {
       _showResults = true;
-      _showPoller = false;
     });
   }
 
