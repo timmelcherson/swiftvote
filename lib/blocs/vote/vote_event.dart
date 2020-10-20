@@ -53,9 +53,10 @@ class DeleteVoteEvent extends VoteEvent {
 // ---------------------------------- //
 class VotesUpdatedEvent extends VoteEvent {
   final List<Vote> votes;
-  final int newIndex;
+  // final int newIndex;
 
-  const VotesUpdatedEvent(this.votes, [this.newIndex = 0]);
+  const VotesUpdatedEvent(this.votes);
+  // const VotesUpdatedEvent(this.votes, [this.newIndex = 0]);
 
   @override
   List<Object> get props => [votes];

@@ -29,3 +29,8 @@ class VotesLoadedState extends VoteState {
 
 @immutable
 class VotesLoadFailureState extends VoteState {}
+
+@immutable
+class VotesEmptyState extends VoteState {}
+
+

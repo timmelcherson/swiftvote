@@ -19,9 +19,7 @@ class VoteWidget extends StatefulWidget {
   VoteWidget({Key key, this.vote}) : super(key: key ?? SwiftvoteWidgetKeys.voteWidget);
 
   @override
-  State createState() {
-    return _VoteWidgetState();
-  }
+  State createState() => _VoteWidgetState();
 }
 
 class _VoteWidgetState extends State<VoteWidget> {
@@ -46,18 +44,23 @@ class _VoteWidgetState extends State<VoteWidget> {
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadedState) {
           _randomIndex ??= state.randomIndex;
-          print('_randomIndex: $_randomIndex');
-          print('state.randomIndex: $state.randomIndex');
-          _vote = widget.vote ?? state.votes[state.randomIndex];
+          print('////////////////////////////////');
+          state.votes.forEach((element) => print(element.title));
+          print('////////////////////////////////');
+          _vote = widget.vote ?? state.votes[0];
 
           return _showResults
               ? VoteResultWidget(vote: _vote)
               : VotePollerWidget(
-            vote: _vote,
-            votedCallback: (int voteIndex) => voteReceived(voteIndex),
-            votePassedCallback: () {
-              votePassed(state.votes.length);
-            },
+                  vote: _vote,
+                  votedCallback: (int voteIndex) => voteReceived(voteIndex),
+                  votePassedCallback: () {
+                    votePassed(state.votes);
+                  },
+                );
+        } else if (state is VotesEmptyState) {
+          return Center(
+            child: Text('You have viewed all votes, well jobbed!'),
           );
         } else {
           return Container();
@@ -66,14 +69,18 @@ class _VoteWidgetState extends State<VoteWidget> {
     );
   }
 
-  void votePassed(int votesLength) {
+  void votePassed(List currentVotesInState) {
     print('CALLBACK votePassed');
-    var freeIndexList = Iterable.generate(votesLength).toList();
-    freeIndexList.removeAt(_randomIndex);
-    int newRandomIndex = Random().nextInt(freeIndexList.length);
+    _voteBloc.add(PassVoteEvent(currentVotesInState));
     setState(() {
-      _randomIndex = newRandomIndex;
+      print('setting state');
     });
+    // var freeIndexList = Iterable.generate(votesLength).toList();
+    // freeIndexList.removeAt(_randomIndex);
+    // int newRandomIndex = Random().nextInt(freeIndexList.length);
+    // setState(() {
+    //   _randomIndex = newRandomIndex;
+    // });
   }
 
   void voteReceived(int voteIndex) {

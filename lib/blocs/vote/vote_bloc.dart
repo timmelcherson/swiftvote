@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import './vote.dart';
 
@@ -32,7 +33,8 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
       print('IncreaseVoteScoreEvent RECEIVED 2');
       _mapIncreaseVoteScoreToState(event);
     } else if (event is PassVoteEvent) {
-      _mapPassVoteToState(event);
+      print('event is PassVoteEvent');
+      yield* _mapVotePassedToState(event);
     }
   }
 
@@ -57,25 +59,37 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
 
-    print('%%%%%%%%%%%%%%');
-    print('event.newIndex: ${event.newIndex}');
-    print('%%%%%%%%%%%%%%');
-    var freeIndexList = Iterable.generate(event.votes.length).toList();
-    freeIndexList.removeAt(event.newIndex);
-    int _randomIndex = Random().nextInt(freeIndexList.length);
+    List<Vote> newList = event.votes;
+    newList.shuffle();
+    print('-------------------------------------');
+    newList.forEach((element) => print(element.title));
+    print('-------------------------------------');
+    yield VotesLoadedState(newList);
+    // print('%%%%%%%%%%%%%%');
+    // print('event.newIndex: ${event.newIndex}');
+    // print('%%%%%%%%%%%%%%');
+    // event.votes.removeAt(index)
+    // var freeIndexList = Iterable.generate(event.votes.length).toList();
+    // freeIndexList.removeAt(event.newIndex);
+    // int _randomIndex = Random().nextInt(freeIndexList.length);
 
-    // var list = new List<int>.generate(10, (i) => i + 1);
-    // print('event.votes.length: ${event.votes.length}');
-    // do {
-    //   _randomIndex = Random().nextInt(event.votes.length);
-    //   print(_randomIndex);
-    // } while (_randomIndex == event.newIndex);
-
-    yield VotesLoadedState(event.votes, _randomIndex);
+    // yield VotesLoadedState(event.votes, _randomIndex);
   }
 
-  _mapPassVoteToState(PassVoteEvent event) =>
-      VotesLoadedState(event.votes, Random().nextInt(event.votes.length));
+  Stream<VoteState> _mapVotePassedToState(PassVoteEvent event) async* {
+
+    List<Vote> newList = event.votes;
+    newList.removeAt(0);
+
+    if (newList.length == 0 && newList.isEmpty) {
+      yield VotesEmptyState();
+    }
+    else {
+      newList.shuffle();
+      yield VotesLoadedState(newList);
+    }
+  }
+
 
   _mapIncreaseVoteScoreToState(IncreaseVoteScoreEvent event) {
     event.vote.votes[event.optionIndex] += 1;
