@@ -15,16 +15,16 @@ class VotesLoadingState extends VoteState {}
 
 @immutable
 class VotesLoadedState extends VoteState {
+  final List<Vote> fullVoteList;
   final List<Vote> votes;
-  final int randomIndex;
 
-  const VotesLoadedState(this.votes, [this.randomIndex = 0]);
-
-  @override
-  List<Object> get props => [votes, randomIndex];
+  const VotesLoadedState({@required this.votes, this.fullVoteList});
 
   @override
-  String toString() => 'VotesLoaded{vote: $votes, index: $randomIndex}';
+  List<Object> get props => [votes];
+
+  @override
+  String toString() => 'VotesLoaded{vote: $votes}';
 }
 
 @immutable
@@ -32,5 +32,8 @@ class VotesLoadFailureState extends VoteState {}
 
 @immutable
 class VotesEmptyState extends VoteState {}
+
+@immutable
+class VotesResetState extends VoteState {}
 
 

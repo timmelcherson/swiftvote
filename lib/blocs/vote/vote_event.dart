@@ -75,3 +75,9 @@ class PassVoteEvent extends VoteEvent {
 
   const PassVoteEvent(this.votes);
 }
+
+class ResetVotesEvent extends VoteEvent {
+  final List<Vote> fullVoteList;
+
+  const ResetVotesEvent(this.fullVoteList);
+}

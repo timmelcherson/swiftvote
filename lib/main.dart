@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/screens/intro_page/intro_widget.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,19 +20,21 @@ Future<void> main() async {
 }
 
 class SwiftvoteApp extends StatelessWidget {
-
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  // final Future<SharedPreferences> _sharedPrefs = SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) {
+
+    // initializePrefs();
+
     return FutureBuilder(
       future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
+      builder: (context, firebaseSnapshot) {
+        if (firebaseSnapshot.hasError) {
           return Container();
         }
-
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (firebaseSnapshot.connectionState == ConnectionState.done) {
           return MultiBlocProvider(
             providers: [
               BlocProvider<VoteBloc>(
@@ -54,7 +58,13 @@ class SwiftvoteApp extends StatelessWidget {
               title: 'SwiftVote',
               routes: {
                 Routes.home: (context) {
+
+
+                  // getBooleanPreference('intro_screen_has_been_presented')
+                  //   .then((result) => result ? AppScreen() : IntroWidget());
+
                   return AppScreen();
+                  // return _isIntroSeen ? AppScreen() : IntroWidget();
                 },
                 Routes.addVoteSCreen: (context) {
                   return AddVoteScreen(
@@ -76,9 +86,20 @@ class SwiftvoteApp extends StatelessWidget {
             ),
           );
         }
-
         return LoadingIndicator();
       },
     );
+  }
+
+  initializePrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey('intro_screen_has_been_presented'))
+      prefs.setBool('intro_screen_has_been_presented', false);
+    return;
+  }
+
+  Future<bool> getBooleanPreference(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(key);
   }
 }

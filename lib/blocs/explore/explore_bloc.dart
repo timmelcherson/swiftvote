@@ -13,14 +13,14 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
       : super(
           voteBloc.state is VotesLoadedState
               ? ExploreCategoriesLoadedState(
-                  (voteBloc.state as VotesLoadedState).votes,
+                  (voteBloc.state as VotesLoadedState).fullVoteList,
                   CategoryExtension.categoryToString.values.toList(),
                   CategoryExtension.categoryThumbnailAssetPath.values.toList())
               : ExploreCategoriesLoadingState(),
         ) {
     voteSubscription = voteBloc.listen((state) {
       if (state is VotesLoadedState) {
-        add(ExploreCategoriesUpdatedEvent((voteBloc.state as VotesLoadedState).votes));
+        add(ExploreCategoriesUpdatedEvent((voteBloc.state as VotesLoadedState).fullVoteList));
       }
     });
   }

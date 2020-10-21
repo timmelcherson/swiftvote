@@ -19,6 +19,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   Stream<VoteState> mapEventToState(
     VoteEvent event,
   ) async* {
+
     if (event is LoadVotesEvent) {
       yield* _mapLoadVotesToState();
     } else if (event is AddVoteEvent) {
@@ -30,11 +31,11 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     } else if (event is VotesUpdatedEvent) {
       yield* _mapVotesUpdatedToState(event);
     } else if (event is IncreaseVoteScoreEvent) {
-      print('IncreaseVoteScoreEvent RECEIVED 2');
       _mapIncreaseVoteScoreToState(event);
     } else if (event is PassVoteEvent) {
-      print('event is PassVoteEvent');
       yield* _mapVotePassedToState(event);
+    } else if (event is ResetVotesEvent) {
+      yield* _mapResetVotesToState(event);
     }
   }
 
@@ -59,12 +60,12 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
 
-    List<Vote> newList = event.votes;
+    List<Vote> newList = List.from(event.votes);
     newList.shuffle();
     print('-------------------------------------');
     newList.forEach((element) => print(element.title));
     print('-------------------------------------');
-    yield VotesLoadedState(newList);
+    yield VotesLoadedState(votes: newList, fullVoteList: event.votes);
     // print('%%%%%%%%%%%%%%');
     // print('event.newIndex: ${event.newIndex}');
     // print('%%%%%%%%%%%%%%');
@@ -72,24 +73,31 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     // var freeIndexList = Iterable.generate(event.votes.length).toList();
     // freeIndexList.removeAt(event.newIndex);
     // int _randomIndex = Random().nextInt(freeIndexList.length);
-
-    // yield VotesLoadedState(event.votes, _randomIndex);
   }
 
   Stream<VoteState> _mapVotePassedToState(PassVoteEvent event) async* {
 
     List<Vote> newList = event.votes;
     newList.removeAt(0);
+    newList.shuffle();
+    yield VotesLoadedState(votes: newList);
 
-    if (newList.length == 0 && newList.isEmpty) {
-      yield VotesEmptyState();
-    }
-    else {
-      newList.shuffle();
-      yield VotesLoadedState(newList);
-    }
+    // if (newList.length == 0 && newList.isEmpty) {
+    //   yield VotesEmptyState();
+    // }
+    // else {
+    //   newList.shuffle();
+    //   yield VotesLoadedState(votes: newList);
+    // }
   }
 
+  Stream<VoteState> _mapResetVotesToState(ResetVotesEvent event) async* {
+    print('YIELDING RESET STATE');
+    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+    event.fullVoteList.forEach((element) => print(element.title));
+    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+    yield VotesLoadedState(votes: event.fullVoteList, fullVoteList: event.fullVoteList);
+  }
 
   _mapIncreaseVoteScoreToState(IncreaseVoteScoreEvent event) {
     event.vote.votes[event.optionIndex] += 1;

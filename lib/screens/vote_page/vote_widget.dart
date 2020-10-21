@@ -25,7 +25,6 @@ class VoteWidget extends StatefulWidget {
 class _VoteWidgetState extends State<VoteWidget> {
   VoteBloc _voteBloc;
   Vote _vote;
-  int _randomIndex;
   bool _showResults;
 
   @override
@@ -43,10 +42,23 @@ class _VoteWidgetState extends State<VoteWidget> {
           print(state);
           return LoadingIndicator(key: SwiftvoteWidgetKeys.loadingIndicator);
         } else if (state is VotesLoadedState) {
-          _randomIndex ??= state.randomIndex;
-          print('////////////////////////////////');
-          state.votes.forEach((element) => print(element.title));
-          print('////////////////////////////////');
+
+          if (state.votes.length == 0 || state.votes.isEmpty) {
+            return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('You have viewed all votes, well jobbed!'),
+                  FlatButton(
+                    child: Text('Reset?'),
+                    color: Colors.blue[200],
+                    onPressed: () {
+                      _voteBloc.add(ResetVotesEvent(state.fullVoteList));
+                    },
+                  ),
+                ],
+              );
+          }
+
           _vote = widget.vote ?? state.votes[0];
 
           return _showResults
