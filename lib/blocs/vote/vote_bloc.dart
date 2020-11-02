@@ -105,7 +105,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   @override
-  Future<Function> close() {
+  Future<void> close() {
     _voteSubscription?.cancel();
     return super.close();
   }
