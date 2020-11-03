@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,8 @@ Future<void> main() async {
 
 class SwiftvoteApp extends StatelessWidget {
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _firebaseInit = Firebase.initializeApp();
+  // final Future<FirebaseAuth> _authInit = FirebaseAuth
   bool _skipLogin = false;
   // final Future<SharedPreferences> _sharedPrefs = SharedPreferences.getInstance();
 
@@ -37,7 +39,7 @@ class SwiftvoteApp extends StatelessWidget {
     // print('user has seen intro: $test');
     return FutureBuilder(
       future: Future.wait([
-        _initialization,
+        _firebaseInit,
         _initializeSharedPreferences(),
       ]),
       builder: (context, snapshot) {
@@ -98,16 +100,5 @@ class SwiftvoteApp extends StatelessWidget {
         return LoadingIndicator();
       },
     );
-  }
-
-  // initializePrefs() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   if (!prefs.containsKey('intro_screen_has_been_presented'))
-  //     prefs.setBool('intro_screen_has_been_presented', false);
-  //   return;
-  // }
-
-  Future<bool> getBooleanPreference(SharedPreferences prefs, String key) async {
-    return prefs.getBool(key);
   }
 }
