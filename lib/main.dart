@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
+import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/intro_page/intro_widget.dart';
 import 'package:swiftvote/utils/sharedpreferenceshandler.dart';
@@ -25,7 +26,7 @@ class SwiftvoteApp extends StatelessWidget {
 
   final Future<FirebaseApp> _firebaseInit = Firebase.initializeApp();
   // final Future<FirebaseAuth> _authInit = FirebaseAuth
-  bool _skipLogin = false;
+  // bool _skipLogin = false;
   // final Future<SharedPreferences> _sharedPrefs = SharedPreferences.getInstance();
 
   Future<bool> _initializeSharedPreferences() async {
@@ -48,11 +49,16 @@ class SwiftvoteApp extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done) {
 
-          if (snapshot.hasData) {
-            _skipLogin = snapshot.data[1];
-          }
+          // if (snapshot.hasData) {
+          //   _skipLogin = snapshot.data[1];
+          // }
           return MultiBlocProvider(
             providers: [
+              BlocProvider<AuthenticationBloc>(
+                create: (context) => AuthenticationBloc(
+                  userRepository: UserRepository(),
+                )..add(AuthenticationStartedEvent()),
+              ),
               BlocProvider<VoteBloc>(
                 create: (context) => VoteBloc(
                   voteRepository: FirebaseVoteRepository(),

@@ -21,5 +21,6 @@ class SwiftvoteWidgetKeys {
   static const notificationsWidget = Key('__notificationsWidget__');
   static const homeWidget = Key('__homeWidget__');
   static const voteWidget = Key('__voteWidget__');
-  static const loadingIndicator = Key('__loadingIndicator');
+  static const loadingIndicator = Key('__loadingIndicator__');
+  static const loginWidget = Key('__loginWidget__');
 }
