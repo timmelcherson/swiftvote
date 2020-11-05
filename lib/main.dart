@@ -7,7 +7,7 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
-import 'package:swiftvote/screens/intro_page/intro_widget.dart';
+import 'package:swiftvote/screens/intro_page/intro_screen.dart';
 import 'package:swiftvote/utils/sharedpreferenceshandler.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
 import 'package:swiftvote/utils/swiftvote_widget_keys.dart';

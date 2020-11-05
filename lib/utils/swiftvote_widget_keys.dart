@@ -1,11 +1,14 @@
 import 'package:flutter/widgets.dart';
 
 class SwiftvoteWidgetKeys {
+  // Screens
   static const homeScreen = Key('__homeScreen__');
   static const appScreen = Key('__appScreen__');
   static const addVoteScreen = Key('__addVoteScreen');
+  static const loginScreen = Key('__loginScreen__');
+  static const registerScreen = Key('__registerScreen__');
 
-  // tabs
+  // Tabs
   static const tabs = Key('__tabs__');
   static const searchTab = Key('__searchTab__');
   static const exploreTab = Key('__exploreTab__');
@@ -13,7 +16,7 @@ class SwiftvoteWidgetKeys {
   static const notificationsTab = Key('__notificationsTab__');
   static const settingsTab = Key('__settingsTab__');
 
-  // widgets
+  // Widgets
   static const settingsWidget = Key('__settingsWidget__');
   static const exploreWidget = Key('__exploreWidget__');
   static const exploreCategoryWidget = Key('__exploreCategoryWidget__');
@@ -22,5 +25,5 @@ class SwiftvoteWidgetKeys {
   static const homeWidget = Key('__homeWidget__');
   static const voteWidget = Key('__voteWidget__');
   static const loadingIndicator = Key('__loadingIndicator__');
-  static const loginWidget = Key('__loginWidget__');
+  static const loginForm = Key('__loginForm__');
 }

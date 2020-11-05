@@ -8,7 +8,7 @@ import 'login.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository _userRepository;
 
-  LoginBloc(UserRepository userRepository)
+  LoginBloc({UserRepository userRepository})
       : _userRepository = userRepository,
         super(LoginState.initial());
 
