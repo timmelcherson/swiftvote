@@ -4,8 +4,8 @@ import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'package:swiftvote/utils/routes.dart';
-import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/routes.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 import 'screens.dart';
 
 class AppScreen extends StatelessWidget {
@@ -36,6 +36,7 @@ class AppScreen extends StatelessWidget {
                 initialRoute: Routes.home,
                 onGenerateRoute: (RouteSettings settings) {
                   Widget currentWidget;
+                  print('IN HERE WITH ROUTE: ${settings.name}');
 
                   if (settings.name == null) {
                     return null;
@@ -88,11 +89,11 @@ class AppScreen extends StatelessWidget {
   AppTab _getTabFromRoute(String routeName) {
     switch (routeName) {
       case Routes.home:
-        return AppTab.home;
+        return AppTab.vote;
       case '/selected_vote':
-        return AppTab.home;
+        return AppTab.vote;
       case Routes.voteResult:
-        return AppTab.home;
+        return AppTab.vote;
       case Routes.explore:
         return AppTab.explore;
       case Routes.search:
@@ -108,7 +109,7 @@ class AppScreen extends StatelessWidget {
 
   String _getRouteName(AppTab tab) {
     switch (tab) {
-      case AppTab.home:
+      case AppTab.vote:
         return Routes.home;
       case AppTab.explore:
         return Routes.explore;
@@ -136,10 +137,10 @@ class AppScreen extends StatelessWidget {
         widget = SearchWidget();
         break;
       case Routes.notifications:
-        widget = NotificationsWidget();
+        widget = NotificationsScreen();
         break;
       case Routes.settings:
-        widget = SettingsWidget();
+        widget = SettingsScreen();
         break;
       case Routes.voteResult:
         widget = VoteResultWidget();

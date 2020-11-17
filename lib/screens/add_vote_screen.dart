@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 typedef OnSaveCallback = Function(String title, List<String> category, String voteOptionOne,

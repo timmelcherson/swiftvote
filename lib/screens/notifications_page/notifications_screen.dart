@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 
 
-class NotificationsWidget extends StatelessWidget {
+class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

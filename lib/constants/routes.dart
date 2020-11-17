@@ -3,6 +3,7 @@ class Routes {
 
   static const intro = '/intro';
   static const home = '/';
+  static const app = '/app';
   static const explore = '/explore';
   static const search = '/search';
   static const notifications = '/notifications';

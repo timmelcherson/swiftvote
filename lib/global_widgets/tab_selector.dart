@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/themes/themes.dart';
@@ -29,8 +29,8 @@ class TabSelector extends StatelessWidget {
         items: AppTab.values.map((tab) {
           return BottomNavigationBarItem(
               label: 'Label',
-              icon: tab == AppTab.home
-                  ? (activeTab == AppTab.home
+              icon: tab == AppTab.vote
+                  ? (activeTab == AppTab.vote
                       ? Container(
                           height: 57,
                           width: 54,

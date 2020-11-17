@@ -9,7 +9,12 @@ class RegisterState {
   bool get isFormValid => isEmailValid && isPasswordValid;
 
   RegisterState(
-      {this.isEmailValid, this.isPasswordValid, this.isConfirmPasswordValid, this.isSubmitting, this.isSuccess, this.isFailure});
+      {this.isEmailValid,
+      this.isPasswordValid,
+      this.isConfirmPasswordValid,
+      this.isSubmitting,
+      this.isSuccess,
+      this.isFailure});
 
   factory RegisterState.initial() {
     return RegisterState(

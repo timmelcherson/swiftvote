@@ -4,7 +4,7 @@ import 'package:swiftvote/blocs/tab/tab.dart';
 import 'package:swiftvote/data/models.dart';
 
 class TabBloc extends Bloc<TabEvent, AppTab> {
-  TabBloc() : super(AppTab.home);
+  TabBloc() : super(AppTab.vote);
 
   @override
   Stream<AppTab> mapEventToState(TabEvent event) async* {

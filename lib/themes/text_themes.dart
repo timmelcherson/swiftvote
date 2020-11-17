@@ -84,4 +84,17 @@ class TextThemes extends Theme {
     fontWeight: FontWeight.w300,
     color: ColorThemes.white,
   );
+
+  static const TextStyle largeGrayTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 22.0,
+    fontWeight: FontWeight.w300,
+    color: ColorThemes.charcoalGray,
+  );
+
+  static const TextStyle mediumGrayTextStyle = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: 18.0,
+    color: ColorThemes.charcoalGray,
+  );
 }

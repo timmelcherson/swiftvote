@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'package:swiftvote/utils/routes.dart';
+import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/routes.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -13,7 +13,6 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  final int _currentIndex = 3;
 
   bool get isPopulated => _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
 
@@ -32,74 +31,7 @@ class _RegisterFormState extends State<RegisterForm> {
     _confirmPasswordController.addListener(_confirmPasswordChangeHandler);
   }
 
-  List<Widget> renderProgressCircles() {
-    List<Widget> circleList = List();
 
-    for (int i = 0; i < 6; i++) {
-      Widget w;
-
-      if (i == _currentIndex) {
-        w = Container(
-          width: 20.0,
-          height: 20.0,
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-          decoration: new BoxDecoration(
-            color: ColorThemes.primaryColor,
-            shape: BoxShape.circle,
-          ),
-        );
-      }
-
-      if (i > _currentIndex) {
-        w = Container(
-          width: 20.0,
-          height: 20.0,
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-          decoration: new BoxDecoration(
-            color: ColorThemes.secondaryColor,
-            shape: BoxShape.circle,
-            border: Border.all(
-              width: 1,
-              color: Colors.black.withOpacity(0.2),
-            ),
-          ),
-        );
-      }
-
-      if (i < _currentIndex) {
-        w = Container(
-          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-          child: Stack(
-            children: [
-              Container(
-                width: 20.0,
-                height: 20.0,
-                decoration: new BoxDecoration(
-                  color: ColorThemes.primaryColor,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              Container(
-                width: 20.0,
-                height: 20.0,
-                child: Center(
-                  child: Icon(
-                    Icons.check,
-                    size: 20.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      }
-
-      circleList.add(w);
-    }
-
-    return circleList;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,121 +88,101 @@ class _RegisterFormState extends State<RegisterForm> {
       },
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+          return Form(
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 48.0),
+                  child: FractionallySizedBox(
+                    widthFactor: 1.0,
+                    child: Text(
+                      'Create account',
+                      style: TextThemes.largeTitleTextStyle,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(4.0, 4.0, 32.0, 0),
+                  margin: EdgeInsets.only(bottom: 32.0),
+                  child: FractionallySizedBox(
+                    widthFactor: 1.0,
+                    child: Text(
+                      "Don't worry, your account at swiftvote is completely anonymous.",
+                      style: TextThemes.smallDarkTextStyle,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    icon: Icon(
+                      Icons.email,
+                      color: ColorThemes.primaryColor,
+                    ),
+                    hintText: 'Email',
+                    hintStyle: TextThemes.textHintStyle,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  autocorrect: false,
+                  validator: (_) {
+                    return !state.isEmailValid ? 'Invalid Email' : null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    icon: Icon(
+                      Icons.vpn_key,
+                      color: ColorThemes.primaryColor,
+                    ),
+                    hintText: 'Password',
+                    hintStyle: TextThemes.textHintStyle,
+                  ),
+                  obscureText: true,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  autocorrect: false,
+                  validator: (_) {
+                    return !state.isPasswordValid ? 'Invalid password' : null;
+                  },
+                ),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  decoration: InputDecoration(
+                    icon: Icon(
+                      Icons.vpn_key,
+                      color: ColorThemes.primaryColor,
+                    ),
+                    hintText: 'Confirm password',
+                    hintStyle: TextThemes.textHintStyle,
+                  ),
+                  obscureText: true,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  autocorrect: false,
+                  validator: (_) {
+                    return !state.isPasswordValid ? 'Invalid confirm password' : null;
+                  },
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 32.0),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.9,
+                    child: FlatButton(
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      color: ColorThemes.primaryColor,
+                      child: Text(
+                        'Register',
+                        style: TextThemes.smallBrightTextStyle,
+                      ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed(Routes.login);
+                        _formSubmitHandler();
                       },
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: renderProgressCircles(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 32.0),
-                    child: FractionallySizedBox(
-                      widthFactor: 1.0,
-                      child: Text(
-                        'Create account',
-                        style: TextThemes.largeTitleTextStyle,
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(4.0, 4.0, 32.0, 0),
-                      child: FractionallySizedBox(
-                        widthFactor: 1.0,
-                        child: Text(
-                          "Don't worry, your account at Swiftvote is completely anonymous.",
-                          style: TextThemes.smallDarkTextStyle,
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.email,
-                        color: ColorThemes.primaryColor,
-                      ),
-                      hintText: 'Email',
-                      hintStyle: TextThemes.textHintStyle,
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isEmailValid ? 'Invalid Email' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.vpn_key,
-                        color: ColorThemes.primaryColor,
-                      ),
-                      hintText: 'Password',
-                      hintStyle: TextThemes.textHintStyle,
-                    ),
-                    obscureText: true,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid password' : null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _confirmPasswordController,
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.vpn_key,
-                        color: ColorThemes.primaryColor,
-                      ),
-                      hintText: 'Confirm password',
-                      hintStyle: TextThemes.textHintStyle,
-                    ),
-                    obscureText: true,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    autocorrect: false,
-                    validator: (_) {
-                      return !state.isPasswordValid ? 'Invalid confirm password' : null;
-                    },
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 32.0),
-                    child: FractionallySizedBox(
-                      widthFactor: 0.9,
-                      child: FlatButton(
-                        padding: EdgeInsets.symmetric(vertical: 12.0),
-                        color: ColorThemes.primaryColor,
-                        child: Text(
-                          'Register',
-                          style: TextThemes.smallBrightTextStyle,
-                        ),
-                        onPressed: () {
-                          _formSubmitHandler();
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

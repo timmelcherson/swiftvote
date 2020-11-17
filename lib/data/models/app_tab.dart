@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
 
-enum AppTab { explore, search, home, notifications, settings }
+enum AppTab { explore, search, vote, notifications, settings }
 
 extension AppTabIcon on AppTab {
 
   static const icons = {
     AppTab.explore: Icons.explore,
     AppTab.search: Icons.search,
-    AppTab.home: Icons.home,
+    AppTab.vote: Icons.home,
     AppTab.notifications: Icons.notifications,
     AppTab.settings: Icons.settings,
   };
@@ -16,7 +16,7 @@ extension AppTabIcon on AppTab {
   static const keys = {
     AppTab.explore: SwiftvoteWidgetKeys.exploreTab,
     AppTab.search: SwiftvoteWidgetKeys.searchTab,
-    AppTab.home: SwiftvoteWidgetKeys.homeTab,
+    AppTab.vote: SwiftvoteWidgetKeys.homeTab,
     AppTab.notifications: SwiftvoteWidgetKeys.notificationsTab,
     AppTab.settings: SwiftvoteWidgetKeys.settingsTab,
   };

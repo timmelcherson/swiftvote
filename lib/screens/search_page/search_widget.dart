@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/utils/swiftvote_widget_keys.dart';
+import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class SearchWidget extends StatelessWidget {

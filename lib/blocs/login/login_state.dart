@@ -26,7 +26,7 @@ class LoginState {
     return LoginState(
       isEmailValid: true,
       isPasswordValid: true,
-      isSubmitting: false,
+      isSubmitting: true,
       isSuccess: false,
       isFailure: false,
     );
@@ -38,7 +38,7 @@ class LoginState {
       isPasswordValid: true,
       isSubmitting: false,
       isSuccess: false,
-      isFailure: false,
+      isFailure: true,
     );
   }
 
@@ -47,7 +47,7 @@ class LoginState {
       isEmailValid: true,
       isPasswordValid: true,
       isSubmitting: false,
-      isSuccess: false,
+      isSuccess: true,
       isFailure: false,
     );
   }
