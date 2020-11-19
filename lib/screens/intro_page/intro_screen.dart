@@ -43,6 +43,10 @@ class IntroScreen extends StatelessWidget {
                   if (state is AuthenticationSuccessState) {
                     print("AUTHENTICATION STATE IS SUCCESS");
                     // return AppScreen();
+                    var user = state.props[0];
+                    print('-------------------');
+                    print(user);
+                    print('-------------------');
                     return _skipToHome
                         ? AppScreen()
                         : RegisterScreen(

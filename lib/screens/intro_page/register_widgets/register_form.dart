@@ -31,8 +31,6 @@ class _RegisterFormState extends State<RegisterForm> {
     _confirmPasswordController.addListener(_confirmPasswordChangeHandler);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterBloc, RegisterState>(
@@ -166,7 +164,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 32.0),
+                  margin: EdgeInsets.only(top: 24.0),
                   child: FractionallySizedBox(
                     widthFactor: 0.9,
                     child: FlatButton(

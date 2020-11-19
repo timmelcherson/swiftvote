@@ -45,80 +45,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return BlocProvider<RegisterBloc>(
       create: (context) => RegisterBloc(userRepository: _userRepository),
-      child: SizedBox.expand(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: renderProgressCircles(),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment:
-                    _activeIndex == 0 ? MainAxisAlignment.start : MainAxisAlignment.end,
-                children: [
-                  if (_activeIndex == 0)
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 28.0,
+      child: LayoutBuilder(
+        builder: (context, constraint) {
+          return SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: renderProgressCircles(),
                       ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(Routes.login);
-                      },
-                    ),
-                  if (_activeIndex != 0 && _activeIndex <= _activeWidget.length - 1)
-                    TextButton(
-                      onPressed: () {
-                        SharedPreferencesHandler.save(
-                            SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO, true);
-                        Navigator.of(context, rootNavigator: true).pushNamed(Routes.home);
-                      },
-                      child: Text(
-                        'Skip',
-                        style: TextThemes.smallDarkTextStyle,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment:
+                            _activeIndex == 0 ? MainAxisAlignment.start : MainAxisAlignment.end,
+                        children: [
+                          if (_activeIndex == 0)
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                size: 28.0,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(Routes.login);
+                              },
+                            ),
+                          if (_activeIndex != 0 && _activeIndex <= _activeWidget.length - 1)
+                            TextButton(
+                              onPressed: () {
+                                SharedPreferencesHandler.save(
+                                    SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO, true);
+                                Navigator.of(context, rootNavigator: true).pushNamed(Routes.home);
+                              },
+                              child: Text(
+                                'Skip',
+                                style: TextThemes.smallDarkTextStyle,
+                              ),
+                            ),
+                        ],
                       ),
-                    ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     print('skip intro');
-                  //   },
-                  //   child: Container(
-                  //     padding: EdgeInsets.only(right: 16.0),
-                  //     child: Text(
-                  //       'Skip',
-                  //       style: TextThemes.smallDarkTextStyle,
-                  //     ),
-                  //   ),
-                  // )
-                ],
-              ),
-              _activeIndex == 0 ? RegisterForm() : Expanded(child: _activeWidget[_activeIndex]),
-              if (_activeIndex != 0)
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  margin: EdgeInsets.only(bottom: 24.0),
-                  child: FractionallySizedBox(
-                    widthFactor: 0.9,
-                    child: FlatButton(
-                      padding: EdgeInsets.symmetric(vertical: 12.0),
-                      color: ColorThemes.primaryColor,
-                      child: Text(
-                        _activeIndex < (_activeWidget.length - 1) ? 'Next' : "Let's go",
-                        style: TextThemes.smallBrightTextStyle,
-                      ),
-                      onPressed: () {
-                        updateProgress();
-                      },
-                    ),
+                      _activeIndex == 0 ? RegisterForm() : _activeWidget[_activeIndex],
+
+                      if (_activeIndex != 0)
+                        FractionallySizedBox(
+                          widthFactor: 0.9,
+                          child: FlatButton(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
+                            color: ColorThemes.primaryColor,
+                            child: Text(
+                              _activeIndex < (_activeWidget.length - 1) ? 'Next' : "Let's go",
+                              style: TextThemes.smallBrightTextStyle,
+                            ),
+                            onPressed: () {
+                              updateProgress();
+                            },
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-            ],
-          ),
-        ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

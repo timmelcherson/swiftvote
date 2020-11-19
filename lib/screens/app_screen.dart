@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
@@ -11,9 +12,10 @@ import 'screens.dart';
 class AppScreen extends StatelessWidget {
   final appScreenNavigatorKey = GlobalKey<NavigatorState>();
   final Vote vote;
+  final User user;
   final AppTab tabFromRoute;
 
-  AppScreen({Key key, this.vote, this.tabFromRoute})
+  AppScreen({Key key, this.vote, this.user, this.tabFromRoute})
       : super(key: key ?? SwiftvoteWidgetKeys.appScreen);
 
   @override
