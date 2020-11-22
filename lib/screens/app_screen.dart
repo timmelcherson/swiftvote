@@ -35,7 +35,7 @@ class AppScreen extends StatelessWidget {
               },
               child: Navigator(
                 key: appScreenNavigatorKey,
-                initialRoute: Routes.home,
+                initialRoute: Routes.HOME,
                 onGenerateRoute: (RouteSettings settings) {
                   Widget currentWidget;
                   print('IN HERE WITH ROUTE: ${settings.name}');
@@ -90,19 +90,19 @@ class AppScreen extends StatelessWidget {
 
   AppTab _getTabFromRoute(String routeName) {
     switch (routeName) {
-      case Routes.home:
+      case Routes.HOME:
         return AppTab.vote;
       case '/selected_vote':
         return AppTab.vote;
-      case Routes.voteResult:
+      case Routes.VOTE_RESULT:
         return AppTab.vote;
-      case Routes.explore:
+      case Routes.EXPLORE:
         return AppTab.explore;
-      case Routes.search:
+      case Routes.SEARCH:
         return AppTab.search;
-      case Routes.notifications:
+      case Routes.NOTIFICATIONS:
         return AppTab.notifications;
-      case Routes.settings:
+      case Routes.SETTINGS:
         return AppTab.settings;
       default:
         throw Exception('Invalid route: $routeName');
@@ -112,39 +112,39 @@ class AppScreen extends StatelessWidget {
   String _getRouteName(AppTab tab) {
     switch (tab) {
       case AppTab.vote:
-        return Routes.home;
+        return Routes.HOME;
       case AppTab.explore:
-        return Routes.explore;
+        return Routes.EXPLORE;
       case AppTab.search:
-        return Routes.search;
+        return Routes.SEARCH;
       case AppTab.notifications:
-        return Routes.notifications;
+        return Routes.NOTIFICATIONS;
       case AppTab.settings:
-        return Routes.settings;
+        return Routes.SETTINGS;
       default:
-        return Routes.home;
+        return Routes.HOME;
     }
   }
 
   Widget _getWidget(String routeName) {
     Widget widget;
     switch (routeName) {
-      case Routes.home:
+      case Routes.HOME:
         widget = VoteWidget();
         break;
-      case Routes.explore:
+      case Routes.EXPLORE:
         widget = ExploreWidget();
         break;
-      case Routes.search:
+      case Routes.SEARCH:
         widget = SearchWidget();
         break;
-      case Routes.notifications:
+      case Routes.NOTIFICATIONS:
         widget = NotificationsScreen();
         break;
-      case Routes.settings:
+      case Routes.SETTINGS:
         widget = SettingsScreen();
         break;
-      case Routes.voteResult:
+      case Routes.VOTE_RESULT:
         widget = VoteResultWidget();
         break;
       default:

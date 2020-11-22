@@ -82,23 +82,25 @@ class SwiftvoteApp extends StatelessWidget {
               },
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
-                title: 'SwiftVote',
-                initialRoute: Routes.login,
+                title: 'swiftvote',
+                initialRoute: Routes.LOGIN,
                 routes: {
-                  Routes.login: (context) {
+                  Routes.LOGIN: (context) {
+                    print('MAIN ROUTE LOGIN');
                     return IntroScreen();
                   },
-                  Routes.home: (context) {
+                  Routes.HOME: (context) {
+                    print('MAIN ROUTE HOME');
                     return AppScreen();
                   },
-                  Routes.addVoteSCreen: (context) {
+                  Routes.ADD_VOTE_SCREEN: (context) {
                     return AddVoteScreen(
                       key: SwiftvoteWidgetKeys.addVoteScreen,
                       isEditing: false,
                       onSave: (title, categories, voteOptionOne, voteOptionTwo, tags) {
                         BlocProvider.of<VoteBloc>(context).add(AddVoteEvent(Vote(
                             title: title,
-                            author: 'Swiftvote',
+                            author: 'swiftvote',
                             categories: categories,
                             sponsor: "",
                             voteOptions: [voteOptionOne, voteOptionTwo],

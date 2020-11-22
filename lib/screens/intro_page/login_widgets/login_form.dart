@@ -4,15 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/routes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/routes.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
+
+
 
 class LoginForm extends StatefulWidget {
-  final UserRepository _userRepository;
-
-  LoginForm({UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(key: SwiftvoteWidgetKeys.loginForm);
 
   @override
   State createState() => _LoginFormState();
@@ -87,107 +84,89 @@ class _LoginFormState extends State<LoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return Container(
-            height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-            child: Form(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    child: FractionallySizedBox(
-                      widthFactor: 1.0,
-                      child: Text(
-                        'Log in',
-                        style: TextThemes.largeTitleTextStyle,
-                        textAlign: TextAlign.left,
-                      ),
+          return Form(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 32.0),
+                  child: FractionallySizedBox(
+                    widthFactor: 1.0,
+                    child: Text(
+                      'Log in',
+                      style: TextThemes.largeTitleTextStyle,
+                      textAlign: TextAlign.left,
                     ),
                   ),
-                  Column(
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.email,
-                            color: ColorThemes.primaryColor,
-                          ),
-                          hintText: 'Email',
-                          hintStyle: TextThemes.textHintStyle,
+                ),
+                Column(
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.email,
+                          color: ColorThemes.primaryColor,
                         ),
-                        keyboardType: TextInputType.emailAddress,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        autocorrect: false,
-                        validator: (_) {
-                          return !state.isEmailValid ? 'Invalid Email' : null;
-                        },
+                        hintText: 'Email',
+                        hintStyle: TextThemes.textHintStyle,
                       ),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.vpn_key,
-                            color: ColorThemes.primaryColor,
-                          ),
-                          suffix: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                            child: Text(
-                              _obscureText ? 'show' : 'hide',
-                              style: TextThemes.smallDarkTextStyle,
-                            ),
-                          ),
-                          hintText: 'Password',
-                          hintStyle: TextThemes.textHintStyle,
+                      keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: AutovalidateMode.disabled,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isEmailValid ? 'Invalid Email' : null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.vpn_key,
+                          color: ColorThemes.primaryColor,
                         ),
-                        obscureText: _obscureText,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        autocorrect: false,
-                        validator: (_) {
-                          return !state.isPasswordValid ? 'Invalid password' : null;
-                        },
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: FlatButton(
-                          padding: EdgeInsets.symmetric(vertical: 12.0),
-                          color: ColorThemes.secondaryColor,
+                        suffix: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
                           child: Text(
-                            'Register',
+                            _obscureText ? 'show' : 'hide',
                             style: TextThemes.smallDarkTextStyle,
                           ),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(Routes.register);
-                          },
                         ),
+                        hintText: 'Password',
+                        hintStyle: TextThemes.textHintStyle,
                       ),
-                      FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: FlatButton(
-                          padding: EdgeInsets.symmetric(vertical: 12.0),
-                          color: ColorThemes.primaryColor,
-                          child: Text(
-                            'Login',
-                            style: TextThemes.smallBrightTextStyle,
-                          ),
-                          onPressed: () {
-                            _formSubmitHandler();
-                          },
-                        ),
+                      obscureText: _obscureText,
+                      autovalidateMode: AutovalidateMode.disabled,
+                      autocorrect: false,
+                      validator: (_) {
+                        return !state.isPasswordValid ? 'Invalid password' : null;
+                      },
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 50.0,
+                  margin: EdgeInsets.only(bottom: 8.0),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.9,
+                    child: FlatButton(
+                      color: ColorThemes.primaryColor,
+                      child: Text(
+                        'Login',
+                        style: TextThemes.smallBrightTextStyle,
                       ),
-                    ],
+                      onPressed: () {
+                        _formSubmitHandler();
+                      },
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

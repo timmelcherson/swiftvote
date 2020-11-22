@@ -30,8 +30,10 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
     if (signedIn) {
       final user = await _userRepository.getUser();
+      print('GOT USER: $user');
       yield AuthenticationSuccessState(user);
     } else {
+      print('YIELDING FAIL STATE');
       yield AuthenticationFailState();
     }
   }

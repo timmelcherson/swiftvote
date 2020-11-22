@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
-class RegisterInterests extends StatefulWidget {
+class RegisterOptionalInterests extends StatefulWidget {
 
 
   @override
-  State createState() => _RegisterInterestsState();
+  State createState() => _RegisterOptionalInterestsState();
 }
 
-class _RegisterInterestsState extends State<RegisterInterests> {
+class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
 
 
   @override

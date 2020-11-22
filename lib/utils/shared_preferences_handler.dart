@@ -32,8 +32,10 @@ class SharedPreferencesHandler {
   }
 
   static save(String key, dynamic value) async {
+    print('SAVE PREFERENCE');
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
     if (value is bool) {
+      print(value);
       sharedPrefs.setBool(key, value);
     } else if (value is String) {
       sharedPrefs.setString(key, value);

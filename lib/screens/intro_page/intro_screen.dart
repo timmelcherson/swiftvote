@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,90 +8,96 @@ import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
 import 'package:swiftvote/screens/screens.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/routes.dart';
+import 'package:swiftvote/constants/routes.dart';
 
-class IntroScreen extends StatelessWidget {
-  final Key _introNavigatorKey = GlobalKey<NavigatorState>();
-  final UserRepository _userRepository = UserRepository();
-  bool _skipToHome;
+
+class IntroScreen extends StatefulWidget {
+
+  final UserRepository userRepository = UserRepository();
+
+  @override
+  State createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+
+  UserRepository _userRepository;
+  bool _showRegister = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _userRepository = widget.userRepository;
+  }
 
   Future<bool> _initializeSharedPreferences() async {
-    print('INITIALIZE SHARED PREFS');
-    _skipToHome =
-        await SharedPreferencesHandler.readBool(SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO);
-    return _skipToHome == null;
+    return await SharedPreferencesHandler.readBool(SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO);
+  }
+
+  Widget getChild(String route, [User user]) {
+    switch (route) {
+      case Routes.APP:
+        return AppScreen();
+      case Routes.REGISTER:
+        return RegisterScreen();
+      case Routes.REGISTER_OPTIONAL:
+        return RegisterOptionalScreen();
+    }
+  }
+
+  void onRegisterCallback(bool showRegister) {
+    print('INTRO SCREEN REGISTER CALLBACK');
+    setState(() {
+      _showRegister = showRegister;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder(
-          future: _initializeSharedPreferences(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Container();
+      body: FutureBuilder(
+        future: _initializeSharedPreferences(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Container();
+          }
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            bool _skipToHome;
+
+            if (snapshot.hasData) {
+              // _skipToHome = snapshot.data;
+              _skipToHome = false;
             }
 
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                _skipToHome = snapshot.data;
-                print(_skipToHome);
-                print('-----------');
-              }
-              return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                builder: (context, state) {
-                  if (state is AuthenticationSuccessState) {
-                    print("AUTHENTICATION STATE IS SUCCESS");
-                    // return AppScreen();
-                    var user = state.props[0];
-                    print('-------------------');
-                    print(user);
-                    print('-------------------');
-                    return _skipToHome
-                        ? AppScreen()
-                        : RegisterScreen(
-                            userRepository: _userRepository,
-                            hasRegistered: true,
-                          );
+            return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) {
+
+                if (state is AuthenticationSuccessState) {
+                  print("AUTHENTICATION STATE IS SUCCESS");
+                  // return AppScreen();
+                  var user = state.props[0];
+                  print('-------------------');
+                  print(state.props);
+                  print('-------------------');
+                  print(user);
+                  print('-------------------');
+                  print('SKIP TO HOME? $_skipToHome');
+                  return _skipToHome ? AppScreen() : RegisterOptionalScreen();
+                }
+                if (state is AuthenticationFailState) {
+                  if (_showRegister) {
+                    return RegisterScreen();
                   }
-
-                  if (state is AuthenticationFailState) {
-                    print("AUTHENTICATION STATE IS FAILURE");
-                    return Container(
-                      child: Navigator(
-                        key: _introNavigatorKey,
-                        initialRoute: Routes.login,
-                        onGenerateRoute: (RouteSettings settings) {
-                          print(settings);
-                          if (settings.name != null) {
-                            Widget displayWidget;
-                            if (settings.name == Routes.register) {
-                              displayWidget = RegisterScreen(
-                                userRepository: _userRepository,
-                                hasRegistered: false,
-                              );
-                            }
-                            if (settings.name == Routes.login || settings.name == "/") {
-                              displayWidget = LoginScreen(userRepository: _userRepository);
-                            }
-
-                            return MaterialPageRoute(builder: (context) => displayWidget);
-                          }
-
-                          return MaterialPageRoute(
-                              builder: (context) => Center(child: Text('SOMETHING WENT WRONG')));
-                        },
-                      ),
-                    );
-                  }
-                  return LoadingIndicator();
-                },
-              );
-            }
-            return LoadingIndicator();
-          },
-        ),
+                  return LoginScreen(userRepository: _userRepository, registerCallback: onRegisterCallback);
+                }
+                return LoadingIndicator();
+              },
+            );
+          }
+          return LoadingIndicator();
+        },
       ),
     );
   }

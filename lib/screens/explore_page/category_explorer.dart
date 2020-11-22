@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/routes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/routes.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 
 class CategoryExplorer extends StatelessWidget {
   final List<Vote> votes;
@@ -39,7 +39,7 @@ class CategoryExplorer extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () => {
                                   Navigator.of(context).pushNamed(
-                                    Routes.homeWithSelectedVote,
+                                    Routes.HOME_WITH_VOTE,
                                     arguments: votes[index],
                                   ),
                                 },

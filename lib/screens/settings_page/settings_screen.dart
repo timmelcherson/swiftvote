@@ -23,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
                 child: Text('Sign out'),
                 onPressed: () {
                   BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLogOutEvent());
-                  Navigator.of(context, rootNavigator: true).pushNamed(Routes.login);
+                  Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
                 },
               ),
             ],

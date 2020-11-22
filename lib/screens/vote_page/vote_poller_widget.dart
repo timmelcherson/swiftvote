@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/routes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/routes.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 
 typedef VoteReceivedCallback = Function(int index);
 
@@ -144,7 +144,7 @@ class VotePollerWidget extends StatelessWidget {
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(Routes.addVoteSCreen);
+                        Navigator.of(context, rootNavigator: true).pushNamed(Routes.ADD_VOTE_SCREEN);
                       },
                       child: Icon(
                         Icons.add,

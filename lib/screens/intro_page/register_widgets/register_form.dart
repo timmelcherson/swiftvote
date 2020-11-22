@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
@@ -81,16 +82,18 @@ class _RegisterFormState extends State<RegisterForm> {
           BlocProvider.of<AuthenticationBloc>(context).add(
             AuthenticationLogInEvent(),
           );
-          Navigator.pop(context);
+          Navigator.of(context).pop();
         }
       },
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
           return Form(
             child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 48.0),
+                  margin: EdgeInsets.only(top: 32.0),
                   child: FractionallySizedBox(
                     widthFactor: 1.0,
                     child: Text(
@@ -101,8 +104,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(4.0, 4.0, 32.0, 0),
-                  margin: EdgeInsets.only(bottom: 32.0),
+                  padding: EdgeInsets.only(right: 16.0),
                   child: FractionallySizedBox(
                     widthFactor: 1.0,
                     child: Text(
@@ -112,59 +114,67 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                   ),
                 ),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    icon: Icon(
-                      Icons.email,
-                      color: ColorThemes.primaryColor,
-                    ),
-                    hintText: 'Email',
-                    hintStyle: TextThemes.textHintStyle,
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.email,
+                            color: ColorThemes.primaryColor,
+                          ),
+                          hintText: 'Email',
+                          hintStyle: TextThemes.textHintStyle,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        autocorrect: false,
+                        validator: (_) {
+                          return !state.isEmailValid ? 'Invalid Email' : null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.vpn_key,
+                            color: ColorThemes.primaryColor,
+                          ),
+                          hintText: 'Password',
+                          hintStyle: TextThemes.textHintStyle,
+                        ),
+                        obscureText: true,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        autocorrect: false,
+                        validator: (_) {
+                          return !state.isPasswordValid ? 'Invalid password' : null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _confirmPasswordController,
+                        decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.vpn_key,
+                            color: ColorThemes.primaryColor,
+                          ),
+                          hintText: 'Confirm password',
+                          hintStyle: TextThemes.textHintStyle,
+                        ),
+                        obscureText: true,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        autocorrect: false,
+                        validator: (_) {
+                          return !state.isPasswordValid ? 'Invalid confirm password' : null;
+                        },
+                      ),
+                    ],
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                  autovalidateMode: AutovalidateMode.disabled,
-                  autocorrect: false,
-                  validator: (_) {
-                    return !state.isEmailValid ? 'Invalid Email' : null;
-                  },
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    icon: Icon(
-                      Icons.vpn_key,
-                      color: ColorThemes.primaryColor,
-                    ),
-                    hintText: 'Password',
-                    hintStyle: TextThemes.textHintStyle,
-                  ),
-                  obscureText: true,
-                  autovalidateMode: AutovalidateMode.disabled,
-                  autocorrect: false,
-                  validator: (_) {
-                    return !state.isPasswordValid ? 'Invalid password' : null;
-                  },
-                ),
-                TextFormField(
-                  controller: _confirmPasswordController,
-                  decoration: InputDecoration(
-                    icon: Icon(
-                      Icons.vpn_key,
-                      color: ColorThemes.primaryColor,
-                    ),
-                    hintText: 'Confirm password',
-                    hintStyle: TextThemes.textHintStyle,
-                  ),
-                  obscureText: true,
-                  autovalidateMode: AutovalidateMode.disabled,
-                  autocorrect: false,
-                  validator: (_) {
-                    return !state.isPasswordValid ? 'Invalid confirm password' : null;
-                  },
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 24.0),
+                  height: 50.0,
                   child: FractionallySizedBox(
                     widthFactor: 0.9,
                     child: FlatButton(
