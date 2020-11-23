@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/shared_preference_keys.dart';
@@ -6,12 +7,19 @@ import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
 
 class RegisterOptionalScreen extends StatefulWidget {
+
+  final User user;
+
+  RegisterOptionalScreen({this.user});
+
   @override
   State createState() => _RegisterOptionalScreenState();
 }
 
 class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
+
   int _activeIndex = 0;
+
 
   List<Widget> _widgetList = [
     RegisterOptionalGender(),
@@ -20,6 +28,13 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
     RegisterOptionalLanguages(),
     RegisterOptionalLocation(),
   ];
+
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {

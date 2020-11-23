@@ -84,7 +84,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   print(user);
                   print('-------------------');
                   print('SKIP TO HOME? $_skipToHome');
-                  return _skipToHome ? AppScreen() : RegisterOptionalScreen();
+                  return _skipToHome ? AppScreen() : RegisterOptionalScreen(user: user);
                 }
                 if (state is AuthenticationFailState) {
                   if (_showRegister) {

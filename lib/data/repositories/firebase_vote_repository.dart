@@ -3,7 +3,7 @@ import 'package:swiftvote/data/entities.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 
-class FirebaseVoteRepository implements VoteRepository {
+class FirebaseVoteRepository {
   final voteCollection = FirebaseFirestore.instance.collection('votes');
 
   @override
@@ -29,6 +29,4 @@ class FirebaseVoteRepository implements VoteRepository {
         .map((doc) => Vote.fromEntity(VoteEntity.fromSnapshot(doc)))
         .toList());
   }
-
-
 }
