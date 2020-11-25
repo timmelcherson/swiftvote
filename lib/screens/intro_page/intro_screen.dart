@@ -35,22 +35,8 @@ class _IntroScreenState extends State<IntroScreen> {
     return await SharedPreferencesHandler.readBool(SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO);
   }
 
-  Widget getChild(String route, [User user]) {
-    switch (route) {
-      case Routes.APP:
-        return AppScreen();
-      case Routes.REGISTER:
-        return RegisterScreen();
-      case Routes.REGISTER_OPTIONAL:
-        return RegisterOptionalScreen();
-    }
-  }
-
   void onRegisterCallback(bool showRegister) {
-    print('INTRO SCREEN REGISTER CALLBACK');
-    setState(() {
-      _showRegister = showRegister;
-    });
+    setState(() => _showRegister = showRegister);
   }
 
   @override
@@ -88,7 +74,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 }
                 if (state is AuthenticationFailState) {
                   if (_showRegister) {
-                    return RegisterScreen();
+                    return RegisterScreen(userRepository: _userRepository);
                   }
                   return LoginScreen(userRepository: _userRepository, registerCallback: onRegisterCallback);
                 }

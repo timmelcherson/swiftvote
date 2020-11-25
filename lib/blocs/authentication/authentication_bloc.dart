@@ -28,6 +28,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> _mapAuthenticationStartedEventToState() async* {
     final signedIn = await _userRepository.isSignedIn();
 
+    print('AUTHENTICATION STARTED EVENT TO STATE');
+    print(_userRepository);
+
     if (signedIn) {
       final user = await _userRepository.getUser();
       print('GOT USER: $user');

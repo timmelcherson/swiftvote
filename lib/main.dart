@@ -24,6 +24,7 @@ Future<void> main() async {
 class SwiftvoteApp extends StatelessWidget {
   final Future<FirebaseApp> _firebaseInit = Firebase.initializeApp();
 
+
   // final Future<FirebaseAuth> _authInit = FirebaseAuth
   // bool _skipLogin = false;
 
@@ -54,7 +55,7 @@ class SwiftvoteApp extends StatelessWidget {
               ),
               BlocProvider<VoteBloc>(
                 create: (context) => VoteBloc(
-                  voteRepository: FirebaseVoteRepository(),
+                  voteRepository: VoteRepository(),
                 )..add(LoadVotesEvent()),
               ),
               BlocProvider<TabBloc>(
@@ -87,6 +88,7 @@ class SwiftvoteApp extends StatelessWidget {
                 routes: {
                   Routes.LOGIN: (context) {
                     print('MAIN ROUTE LOGIN');
+                    print(_firebaseInit);
                     return IntroScreen();
                   },
                   Routes.HOME: (context) {

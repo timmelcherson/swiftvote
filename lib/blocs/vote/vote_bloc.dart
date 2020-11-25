@@ -7,10 +7,10 @@ import 'package:swiftvote/data/repositories.dart';
 import './vote.dart';
 
 class VoteBloc extends Bloc<VoteEvent, VoteState> {
-  final FirebaseVoteRepository _voteRepository;
+  final VoteRepository _voteRepository;
   StreamSubscription _voteSubscription;
 
-  VoteBloc({@required FirebaseVoteRepository voteRepository})
+  VoteBloc({@required VoteRepository voteRepository})
       : assert(voteRepository != null),
         _voteRepository = voteRepository,
         super(VotesLoadingState());

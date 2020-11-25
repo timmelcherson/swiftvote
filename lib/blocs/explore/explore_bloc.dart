@@ -46,7 +46,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
   }
 
   @override
-  Future<Function> close() {
+  Future<void> close() {
     voteSubscription.cancel();
     return super.close();
   }

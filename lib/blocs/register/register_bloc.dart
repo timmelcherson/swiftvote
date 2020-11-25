@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/utils/validators.dart';
 
@@ -40,7 +41,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> _mapRegisterSubmittedEventToState({String email, String password}) async* {
     yield RegisterState.loading();
     try {
+      print('11111');
+      print(_userRepository);
       await _userRepository.signUp(email: email, password: password);
+
       yield RegisterState.success();
     } catch (error) {
       print(error);

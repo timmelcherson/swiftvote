@@ -3,7 +3,7 @@ import 'package:swiftvote/data/entities.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 
-class FirebaseVoteRepository {
+class VoteRepository {
   final voteCollection = FirebaseFirestore.instance.collection('votes');
 
   @override
