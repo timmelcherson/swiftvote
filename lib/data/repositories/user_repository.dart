@@ -22,8 +22,8 @@ class UserRepository {
     try {
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       print('USER SIGNED UP, GOT CREDENTIALS: ');
-      print(userCredential);
-      return "Signed in";
+      print(userCredential.user.uid);
+      return userCredential.user.uid;
     } on FirebaseAuthException catch (e) {
       print('REGISTRATION FAILURE');
       print(e.message);

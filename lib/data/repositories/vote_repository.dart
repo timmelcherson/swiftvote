@@ -6,22 +6,18 @@ import 'package:swiftvote/data/repositories.dart';
 class VoteRepository {
   final voteCollection = FirebaseFirestore.instance.collection('votes');
 
-  @override
   Future<void> addNewVote(Vote vote) {
     return voteCollection.add(vote.toEntity().toDocument());
   }
 
-  @override
   Future<void> updateVote(Vote vote) {
     return voteCollection.doc(vote.id).update(vote.toEntity().toDocument());
   }
 
-  @override
   Future<void> deleteVote(Vote vote) {
     return voteCollection.doc(vote.id).delete();
   }
 
-  @override
   Stream<List<Vote>> getVotes() {
     print("GETTING VOTES FROM FIREBASE");
     print(voteCollection.snapshots());

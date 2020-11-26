@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:swiftvote/data/repositories/user_profile_repository.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/utils/validators.dart';
 
 import 'register.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final UserRepository _userRepository;
+  final UserRepository userRepository;
+  final UserProfileRepository userProfileRepository;
 
-  RegisterBloc({UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(RegisterState.initial());
+  RegisterBloc({@required this.userRepository, @required this.userProfileRepository})
+      : super(RegisterState.initial());
 
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
@@ -41,9 +43,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> _mapRegisterSubmittedEventToState({String email, String password}) async* {
     yield RegisterState.loading();
     try {
-      print('11111');
-      print(_userRepository);
-      await _userRepository.signUp(email: email, password: password);
+      String userId = await userRepository.signUp(email: email, password: password);
+      bool hasProfile = userProfileRepository.hasProfile(userId);
+      print('Registered user with ID: $userId');
+      print('User had a userprofile already: $hasProfile');
 
       yield RegisterState.success();
     } catch (error) {

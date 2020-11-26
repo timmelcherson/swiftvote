@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:swiftvote/data/repositories/user_repository.dart';
+import 'package:flutter/material.dart';
+import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/utils/validators.dart';
 
 import 'login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final UserRepository _userRepository;
+  final UserRepository userRepository;
+  final UserProfileRepository userProfileRepository;
 
-  LoginBloc({UserRepository userRepository})
-      : _userRepository = userRepository,
-        super(LoginState.initial());
+  LoginBloc({@required this.userRepository, @required this.userProfileRepository})
+      : super(LoginState.initial());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -34,7 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginWithCredentialsToState(String email, String password) async* {
     yield LoginState.loading();
     try {
-      await _userRepository.signInWithCredentials(email: email, password: password);
+      await userRepository.signInWithCredentials(email: email, password: password);
       yield LoginState.success();
     } catch (_) {
       yield LoginState.failure();

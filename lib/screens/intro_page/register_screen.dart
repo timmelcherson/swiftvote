@@ -2,20 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
-import 'package:swiftvote/constants/shared_preference_keys.dart';
-import 'package:swiftvote/data/repositories/user_repository.dart';
-import 'package:swiftvote/screens/intro_page/intro_barrel.dart';
+import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/screens/intro_page/register_widgets/register_form.dart';
-import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/constants/routes.dart';
-import 'package:swiftvote/utils/shared_preferences_handler.dart';
 
 class RegisterScreen extends StatefulWidget {
   final UserRepository userRepository;
+  final UserProfileRepository userProfileRepository;
 
-  const RegisterScreen({Key key, UserRepository userRepository})
-      : userRepository = userRepository,
-        super(key: key);
+  const RegisterScreen(
+      {Key key, @required this.userRepository, @required this.userProfileRepository})
+      : super(key: key);
 
   @override
   State createState() => _RegisterScreenState();
@@ -23,11 +20,13 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   UserRepository _userRepository;
+  UserProfileRepository _userProfileRepository;
 
   @override
   void initState() {
     super.initState();
     _userRepository = widget.userRepository;
+    _userProfileRepository = widget.userProfileRepository;
   }
 
   @override
@@ -35,7 +34,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double _safeAreaPadding = MediaQuery.of(context).padding.top;
 
     return BlocProvider<RegisterBloc>(
-      create: (context) => RegisterBloc(userRepository: _userRepository),
+      create: (context) => RegisterBloc(
+        userRepository: _userRepository,
+        userProfileRepository: _userProfileRepository,
+      ),
       child: LayoutBuilder(
         builder: (context, constraint) {
           return SingleChildScrollView(
