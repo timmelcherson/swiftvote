@@ -24,11 +24,8 @@ Future<void> main() async {
 class SwiftvoteApp extends StatelessWidget {
   final Future<FirebaseApp> _firebaseInit = Firebase.initializeApp();
 
-
   // final Future<FirebaseAuth> _authInit = FirebaseAuth
   // bool _skipLogin = false;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +48,7 @@ class SwiftvoteApp extends StatelessWidget {
               BlocProvider<AuthenticationBloc>(
                 create: (context) => AuthenticationBloc(
                   userRepository: UserRepository(),
+                  userProfileRepository: UserProfileRepository(),
                 )..add(AuthenticationStartedEvent()),
               ),
               BlocProvider<VoteBloc>(

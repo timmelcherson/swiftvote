@@ -7,6 +7,7 @@ class UserProfileRepository {
   final _userProfileCollection = FirebaseFirestore.instance.collection('user_profiles');
 
   Future<void> addNewUserProfile(UserProfile userProfile) {
+    print('CREATING A USER PROFILE');
     return _userProfileCollection.add(userProfile.toEntity().toDocument());
   }
 

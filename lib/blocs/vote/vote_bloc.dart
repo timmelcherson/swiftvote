@@ -19,7 +19,6 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   Stream<VoteState> mapEventToState(
     VoteEvent event,
   ) async* {
-
     if (event is LoadVotesEvent) {
       yield* _mapLoadVotesToState();
     } else if (event is AddVoteEvent) {
