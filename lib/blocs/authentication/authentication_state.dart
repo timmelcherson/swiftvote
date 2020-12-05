@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:swiftvote/data/models.dart';
 
 @immutable
 abstract class AuthenticationState extends Equatable {
@@ -15,12 +16,13 @@ class AuthenticationInitialState extends AuthenticationState {}
 
 class AuthenticationSuccessState extends AuthenticationState {
 
-  final User _user;
+  final User user;
+  final UserProfile userProfile;
 
-  AuthenticationSuccessState(this._user);
+  AuthenticationSuccessState(this.user, this.userProfile);
 
   @override
-  List<Object> get props => [_user];
+  List<Object> get props => [user, userProfile];
 }
 
 class  AuthenticationFailState extends AuthenticationState {}

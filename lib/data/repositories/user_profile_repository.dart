@@ -3,7 +3,6 @@ import 'package:swiftvote/data/entities/user_profile_entity.dart';
 import 'package:swiftvote/data/models/user_profile_model.dart';
 
 class UserProfileRepository {
-
   final _userProfileCollection = FirebaseFirestore.instance.collection('user_profiles');
 
   Future<void> addNewUserProfile(UserProfile userProfile) {
@@ -12,7 +11,9 @@ class UserProfileRepository {
   }
 
   Future<void> updateUserProfile(UserProfile userProfile) {
-    return _userProfileCollection.doc(userProfile.userId).update(userProfile.toEntity().toDocument());
+    return _userProfileCollection
+        .doc(userProfile.userId)
+        .update(userProfile.toEntity().toDocument());
   }
 
   Future<void> deleteUserProfile(UserProfile userProfile) {
@@ -23,6 +24,13 @@ class UserProfileRepository {
     return _userProfileCollection.doc(id) == null;
   }
 
+  Future<UserProfile> getUserProfileById(String id) {
+    return _userProfileCollection
+        .doc(id)
+        .get()
+        .then((snapshot) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot)));
+  }
+
   Stream<List<UserProfile>> getUserProfiles() {
     print("GETTING UserProfileS FROM FIREBASE");
     print(_userProfileCollection.snapshots());
@@ -30,5 +38,4 @@ class UserProfileRepository {
         .map((doc) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(doc)))
         .toList());
   }
-
 }

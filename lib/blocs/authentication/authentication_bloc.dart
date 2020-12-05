@@ -32,8 +32,10 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
     if (signedIn) {
       final user = await userRepository.getUser();
+      // final userProfile = await userProfileRepository.getUserProfileById(user.uid);
+      UserProfile userProfile;
       print('GOT USER: $user');
-      yield AuthenticationSuccessState(user);
+      yield AuthenticationSuccessState(user, userProfile);
     } else {
       print('YIELDING FAIL STATE');
       yield AuthenticationFailState();
@@ -42,6 +44,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   Stream<AuthenticationState> _mapAuthenticationLogInEventToState() async* {
     var user = await userRepository.getUser();
+    UserProfile userProfile;
     bool hasProfile = userProfileRepository.hasProfile(user.uid);
     print('Log in user with ID: ${user.uid}');
     print('User had a userprofile already: $hasProfile');
@@ -52,7 +55,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       // final String location;
       // final List<String> interests;
       // final List<String> languages;
-      UserProfile up = UserProfile(
+      userProfile = UserProfile(
         userId: user.uid,
         gender: "",
         dob: "",
@@ -60,9 +63,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         interests: <String>[],
         languages: <String>[],
       );
-      await userProfileRepository.addNewUserProfile(up);
+      await userProfileRepository.addNewUserProfile(userProfile);
     }
-    yield AuthenticationSuccessState(user);
+    yield AuthenticationSuccessState(user, userProfile);
   }
 
   Stream<AuthenticationState> _mapAuthenticationLogOutEventToState() async* {

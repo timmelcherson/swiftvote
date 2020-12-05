@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/shared_preference_keys.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/screens/intro_page/intro_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
@@ -9,8 +10,9 @@ import 'package:swiftvote/utils/shared_preferences_handler.dart';
 class RegisterOptionalScreen extends StatefulWidget {
 
   final User user;
+  final UserProfile userProfile;
 
-  RegisterOptionalScreen({this.user});
+  RegisterOptionalScreen({this.user, this.userProfile});
 
   @override
   State createState() => _RegisterOptionalScreenState();
@@ -19,7 +21,9 @@ class RegisterOptionalScreen extends StatefulWidget {
 class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
 
   int _activeIndex = 0;
+  UserProfile _userProfile;
 
+  String updatedGender;
 
   List<Widget> _widgetList = [
     RegisterOptionalGender(),
@@ -33,7 +37,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
   @override
   void initState() {
     super.initState();
-
+    _userProfile = widget.userProfile;
   }
 
   @override
@@ -113,6 +117,12 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
   progressBackward() {
     setState(() {
       _activeIndex--;
+    });
+  }
+
+  void profileCallback([String data]) {
+    setState(() {
+      updatedGender = data;
     });
   }
 

@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
+
+
+// typedef OnCallback = Function(String gender);
+
 class RegisterOptionalGender extends StatefulWidget {
+
+  // final OnCallback callback;
+  //
+  // RegisterOptionalGender({this.callback});
+
   @override
   State createState() => _RegisterOptionalGenderState();
 }
 
 class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
-  bool _checked = false;
+  List<bool> _checked = [false, false, false];
+  List<String> _genders = ['Male', 'Female', 'Other'];
+  String _selectedGender = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +42,26 @@ class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Male',
-                    style: TextThemes.mediumGrayTextStyle,
-                  ),
-                  Checkbox(value: _checked, onChanged: null),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Female',
-                    style: TextThemes.mediumGrayTextStyle,
-                  ),
-                  Checkbox(value: _checked, onChanged: null),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Other',
-                    style: TextThemes.mediumGrayTextStyle,
-                  ),
-                  Checkbox(value: _checked, onChanged: null),
-                ],
-              ),
+              for (var i = 0; i < _genders.length; i++)
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _genders[i],
+                      style: TextThemes.mediumGrayTextStyle,
+                    ),
+                    Checkbox(
+                      value: _checked[i],
+                      onChanged: (value) {
+                        // setState(() {
+                        //   _checked[i] = value;
+                        //   widget.callback(_genders[i]);
+                        // });
+                      },
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
