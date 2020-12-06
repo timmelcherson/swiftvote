@@ -25,10 +25,9 @@ class UserProfileRepository {
   }
 
   Future<UserProfile> getUserProfileById(String id) {
-    return _userProfileCollection
-        .doc(id)
-        .get()
-        .then((snapshot) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot)));
+    return _userProfileCollection.where('userId', isEqualTo: id).limit(1).get().then(
+        (querySnapshot) =>
+            UserProfile.fromEntity(UserProfileEntity.fromSnapshot(querySnapshot.docs.single)));
   }
 
   Stream<List<UserProfile>> getUserProfiles() {

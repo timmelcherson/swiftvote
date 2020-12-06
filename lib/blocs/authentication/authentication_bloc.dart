@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
@@ -25,17 +26,18 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Stream<AuthenticationState> _mapAuthenticationStartedEventToState() async* {
-    final signedIn = await userRepository.isSignedIn();
+    // final signedIn = await userRepository.isSignedIn();
+    var user = await userRepository.getUser();
+    print('GOT USER: $user');
 
-    print('AUTHENTICATION STARTED EVENT TO STATE');
-    print(userRepository);
+    if (user != null) {
+      final userProfile = await userProfileRepository.getUserProfileById(user.uid);
 
-    if (signedIn) {
-      final user = await userRepository.getUser();
-      // final userProfile = await userProfileRepository.getUserProfileById(user.uid);
-      UserProfile userProfile;
-      print('GOT USER: $user');
-      yield AuthenticationSuccessState(user, userProfile);
+      print('GOT USER PROFILE: $userProfile');
+      if (user != null && userProfile != null) {
+        print('AUTHENTICATION STARTED EVENT TO STATE WAS SUCCESS');
+        yield AuthenticationSuccessState(user, userProfile);
+      }
     } else {
       print('YIELDING FAIL STATE');
       yield AuthenticationFailState();
@@ -43,18 +45,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Stream<AuthenticationState> _mapAuthenticationLogInEventToState() async* {
-    var user = await userRepository.getUser();
     UserProfile userProfile;
+    var user = await userRepository.getUser();
+
     bool hasProfile = userProfileRepository.hasProfile(user.uid);
-    print('Log in user with ID: ${user.uid}');
-    print('User had a userprofile already: $hasProfile');
+
     if (!hasProfile) {
-      // final String userId;
-      // final String gender;
-      // final String dob;
-      // final String location;
-      // final List<String> interests;
-      // final List<String> languages;
       userProfile = UserProfile(
         userId: user.uid,
         gender: "",
@@ -65,7 +61,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       );
       await userProfileRepository.addNewUserProfile(userProfile);
     }
-    yield AuthenticationSuccessState(user, userProfile);
+    if (user != null && userProfile != null) {
+      print('LOGIN EVENT TO STATE WAS SUCCESS');
+      yield AuthenticationSuccessState(user, userProfile);
+    } else {
+      print('LOGIN EVENT TO STATE WAS FAIL');
+      yield AuthenticationFailState();
+    }
   }
 
   Stream<AuthenticationState> _mapAuthenticationLogOutEventToState() async* {
