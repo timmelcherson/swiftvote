@@ -38,6 +38,8 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
   void initState() {
     super.initState();
     _userProfile = widget.userProfile;
+    copy = _userProfile;
+    print('initialized register_optional_screen with userProfile: $_userProfile');
   }
 
   @override
@@ -120,9 +122,9 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
     });
   }
 
-  void profileCallback([String data]) {
+  void genderCallback([String data]) {
     setState(() {
-      updatedGender = data;
+      copy.gender = data;
     });
   }
 

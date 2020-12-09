@@ -87,7 +87,7 @@ class SwiftvoteApp extends StatelessWidget {
                   Routes.LOGIN: (context) {
                     print('MAIN ROUTE LOGIN');
                     print(_firebaseInit);
-                    return IntroScreen();
+                    return IntroScreen(userProfileRepository: UserProfileRepository());
                   },
                   Routes.HOME: (context) {
                     print('MAIN ROUTE HOME');

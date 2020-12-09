@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swiftvote/data/models/user_profile_model.dart';
 
 @immutable
 abstract class UserProfileEvent {
@@ -11,11 +12,11 @@ abstract class UserProfileEvent {
 
 class UserProfileLoadingEvent extends UserProfileEvent {}
 
-class UserProfileLoadEvent extends UserProfileEvent {
+class UserProfileUpdatedEvent extends UserProfileEvent {
 
-  final String userId;
+  final UserProfile userProfile;
 
-  const UserProfileLoadEvent({this.userId});
+  const UserProfileUpdatedEvent(this.userProfile);
 }
 
 class UserProfileFailureEvent extends UserProfileEvent {}

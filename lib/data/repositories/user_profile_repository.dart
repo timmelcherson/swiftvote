@@ -3,6 +3,7 @@ import 'package:swiftvote/data/entities/user_profile_entity.dart';
 import 'package:swiftvote/data/models/user_profile_model.dart';
 
 class UserProfileRepository {
+
   final _userProfileCollection = FirebaseFirestore.instance.collection('user_profiles');
 
   Future<void> addNewUserProfile(UserProfile userProfile) {
