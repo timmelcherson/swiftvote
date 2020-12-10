@@ -59,19 +59,10 @@ class _IntroScreenState extends State<IntroScreen> {
             return BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 if (state is AuthenticationSuccessState) {
-                  print("AUTHENTICATION STATE IS SUCCESS");
-                  // return AppScreen();
-                  var user = state.props[0];
-                  var userProfile = state.props[1];
-                  print('-------------------');
-                  print(state.props);
-                  print('-------------------');
-                  print(user);
-                  print('-------------------');
                   print('SKIP TO HOME? $_skipToHome');
                   return _skipToHome
                       ? AppScreen()
-                      : RegisterOptionalScreen(user: user, userProfile: userProfile);
+                      : RegisterOptionalScreen();
                 }
                 if (state is AuthenticationFailState) {
                   if (_showRegister) {

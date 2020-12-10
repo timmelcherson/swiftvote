@@ -48,8 +48,13 @@ class SwiftvoteApp extends StatelessWidget {
               BlocProvider<AuthenticationBloc>(
                 create: (context) => AuthenticationBloc(
                   userRepository: UserRepository(),
-                  userProfileRepository: UserProfileRepository(),
                 )..add(AuthenticationStartedEvent()),
+              ),
+              BlocProvider<UserProfileBloc>(
+                create: (context) => UserProfileBloc(
+                  authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+                  userProfileRepository: UserProfileRepository(),
+                )..add(UserProfileLoadingEvent()),
               ),
               BlocProvider<VoteBloc>(
                 create: (context) => VoteBloc(

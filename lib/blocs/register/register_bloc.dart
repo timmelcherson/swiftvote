@@ -43,11 +43,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> _mapRegisterSubmittedEventToState({String email, String password}) async* {
     yield RegisterState.loading();
     try {
-      String userId = await userRepository.signUp(email: email, password: password);
-      bool hasProfile = userProfileRepository.hasProfile(userId);
-      print('Registered user with ID: $userId');
-      print('User had a userprofile already: $hasProfile');
-
+      await userRepository.signUp(email: email, password: password);
       yield RegisterState.success();
     } catch (error) {
       print(error);

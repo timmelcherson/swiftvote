@@ -14,9 +14,9 @@ class UserProfileLoadingEvent extends UserProfileEvent {}
 
 class UserProfileUpdatedEvent extends UserProfileEvent {
 
-  final UserProfile userProfile;
+  final String userId;
 
-  const UserProfileUpdatedEvent(this.userProfile);
+  const UserProfileUpdatedEvent(this.userId);
 }
 
 class UserProfileFailureEvent extends UserProfileEvent {}

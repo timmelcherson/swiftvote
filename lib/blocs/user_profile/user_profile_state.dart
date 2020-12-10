@@ -13,9 +13,23 @@ abstract class UserProfileState extends Equatable {
 class UserProfileLoadingState extends UserProfileState {}
 
 class UserProfileLoadedState extends UserProfileState {
+  final String userId;
+
+  const UserProfileLoadedState(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+
+  @override
+  String toString() {
+    return 'UserProfileLoadedState{userId: $userId}';
+  }
+}
+
+class UserProfileCreatedState extends UserProfileState {
   final UserProfile userProfile;
 
-  const UserProfileLoadedState(this.userProfile);
+  const UserProfileCreatedState({this.userProfile});
 
   @override
   List<Object> get props => [userProfile];

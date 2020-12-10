@@ -20,11 +20,9 @@ class UserRepository {
 
   Future<String> signUp({String email, String password}) async {
     try {
-      UserCredential userCredential =
-          await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      print('USER SIGNED UP, GOT CREDENTIALS: ');
-      print(userCredential.user.uid);
-      return userCredential.user.uid;
+      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      print('USER SIGNED UP');
+      return 'success';
     } on FirebaseAuthException catch (e) {
       print('REGISTRATION FAILURE');
       print(e.message);

@@ -17,12 +17,11 @@ class AuthenticationInitialState extends AuthenticationState {}
 class AuthenticationSuccessState extends AuthenticationState {
 
   final User user;
-  final UserProfile userProfile;
 
-  AuthenticationSuccessState(this.user, this.userProfile);
+  AuthenticationSuccessState(this.user);
 
   @override
-  List<Object> get props => [user, userProfile];
+  List<Object> get props => [user];
 }
 
 class  AuthenticationFailState extends AuthenticationState {}
