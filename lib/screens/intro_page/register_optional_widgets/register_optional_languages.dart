@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/constants/supported_langs.dart';
 import 'package:swiftvote/themes/themes.dart';
 
+typedef void LanguagesScreenCallback(List<String> languages);
+
 class RegisterOptionalLanguages extends StatefulWidget {
+
+  final LanguagesScreenCallback languagesScreenCallback;
+
+  RegisterOptionalLanguages({@required this.languagesScreenCallback});
+
   @override
   State createState() => _RegisterOptionalLanguagesState();
 }
@@ -13,6 +20,14 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
     LangExt.languages[Lang.EN],
   ];
   int numberOfLangRows = 1;
+
+  Function _callback;
+
+  @override
+  void initState() {
+    super.initState();
+    _callback = widget.languagesScreenCallback;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
             widthFactor: 1.0,
             child: Text(
               'Languages',
-              style: TextThemes.largeTitleTextStyle,
+              style: TextThemes.TITLE_GRANITE_GRAY,
               textAlign: TextAlign.left,
             ),
           ),
@@ -37,10 +52,10 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
         Align(
           alignment: Alignment.centerLeft,
           child: FlatButton(
-            color: ColorThemes.secondaryColor,
+            color: ColorThemes.DIRTY_WHITE,
             child: Text(
               'Add more +',
-              style: TextThemes.smallDarkTextStyle,
+              style: TextThemes.TINY_DARK_GRAY,
             ),
             onPressed: () {
               addNewLangRow();
@@ -72,7 +87,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
         Expanded(
           child: DropdownButton<String>(
             value: _selectedLangs[index],
-            style: TextThemes.mediumDarkTextStyle,
+            style: TextThemes.MEDIUM_DARK_GRAY,
             icon: Icon(Icons.arrow_downward),
             onChanged: (value) {
               setState(() {

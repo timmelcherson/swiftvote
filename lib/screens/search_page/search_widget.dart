@@ -11,7 +11,7 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorThemes.lightYellowBackgroundColor,
+      color: ColorThemes.LIGHT_YELLOW,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return GestureDetector(
@@ -100,7 +100,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
     return Container(
       height: maxExtent,
       decoration: BoxDecoration(
-        color: ColorThemes.lightYellowBackgroundColor,
+        color: ColorThemes.LIGHT_YELLOW,
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Color.fromRGBO(20, 20, 20, isSearchMade ? 1.0 : 0.0),
@@ -120,7 +120,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                 padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
                 child: Text(
                   'Search',
-                  style: TextThemes.largeTitleTextStyle,
+                  style: TextThemes.TITLE_GRANITE_GRAY,
                   textAlign: TextAlign.end,
                 ),
               ),
@@ -152,7 +152,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   'Showing results for: $searchQuery',
-                  style: TextThemes.smallDarkTextStyle,
+                  style: TextThemes.TINY_DARK_GRAY,
                 ),
               ),
             ),

@@ -36,7 +36,7 @@ class TabSelector extends StatelessWidget {
                           width: 54,
                           decoration: BoxDecoration(
                             border: Border(
-                              bottom: BorderSide(color: ColorThemes.primaryColorAccent, width: 3),
+                              bottom: BorderSide(color: ColorThemes.DEEP_MARINE_BLUE, width: 3),
                             ),
                           ),
                           child: SvgPicture.asset(
@@ -58,7 +58,7 @@ class TabSelector extends StatelessWidget {
                           width: 50,
                           decoration: BoxDecoration(
                             border: Border(
-                              bottom: BorderSide(color: ColorThemes.primaryColorAccent, width: 3),
+                              bottom: BorderSide(color: ColorThemes.DEEP_MARINE_BLUE, width: 3),
                             ),
                           ),
                           child: Icon(
@@ -77,12 +77,12 @@ class TabSelector extends StatelessWidget {
                           ),
                         )));
         }).toList(),
-        backgroundColor: ColorThemes.secondaryColor,
+        backgroundColor: ColorThemes.DIRTY_WHITE,
         selectedFontSize: 0.0,
         unselectedFontSize: 0.0,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: ColorThemes.primaryColorAccent,
-        unselectedItemColor: ColorThemes.primaryColor,
+        selectedItemColor: ColorThemes.DEEP_MARINE_BLUE,
+        unselectedItemColor: ColorThemes.PRIMARY_BLUE,
       ),
     );
   }

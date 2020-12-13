@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/shared_preference_keys.dart';
+import 'package:swiftvote/data/models/user_profile_model.dart';
 import 'package:swiftvote/global_widgets/loading_indicator.dart';
 import 'package:swiftvote/screens/intro_page/intro_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
 
 class RegisterOptionalScreen extends StatefulWidget {
-
   @override
   State createState() => _RegisterOptionalScreenState();
 }
@@ -18,15 +18,16 @@ class RegisterOptionalScreen extends StatefulWidget {
 class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
   int _activeIndex = 0;
   UserProfileBloc _userProfileBloc;
+  UserProfile _userProfile;
 
   String updatedGender;
 
-  List<Widget> _widgetList = [
-    RegisterOptionalGender(),
-    RegisterOptionalDob(),
-    RegisterOptionalInterests(),
-    RegisterOptionalLanguages(),
-    RegisterOptionalLocation(),
+  List<String> _childWidgetIdentifiers = [
+    'GENDER_WIDGET',
+    'DOB_WIDGET',
+    'INTERESTS_WIDGET',
+    'LANGUAGES_WIDGET',
+    'LOCATION_WIDGET',
   ];
 
   @override
@@ -42,19 +43,20 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
 
+        print('IN SCREEN STATE IS: $state');
+
         if (state is UserProfileLoadingState) {
-          print('IN SCREEN STATE IS UserProfileLoadingState: $state');
           return LoadingIndicator();
         }
 
-        if (state is UserProfileLoadedState) {
-          print('IN SCREEN STATE IS UserProfileLoadedState: $state');
-          if (state.userId != null) _userProfileBloc.add(UserProfileUpdatedEvent(state.userId));
+        if (state is UserIdReceivedState) {
+          if (state.userId != null) _userProfileBloc.add(UserIdReceivedEvent(state.userId));
           return LoadingIndicator();
         }
 
         if (state is UserProfileCreatedState) {
-          print('IN SCREEN STATE IS UserProfileCreatedState WITH PROFILE: ${state.userProfile}');
+          _userProfile = state.userProfile;
+
           return Padding(
             padding: EdgeInsets.symmetric(vertical: _safeAreaPadding, horizontal: 16.0),
             child: Column(
@@ -67,7 +69,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment:
-                  _activeIndex > 0 ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                      _activeIndex > 0 ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                   children: [
                     if (_activeIndex > 0)
                       IconButton(
@@ -81,28 +83,29 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                       ),
                     TextButton(
                       onPressed: () {
+                        _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile, updateDB: true));
                         SharedPreferencesHandler.save(
                             SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO, true);
                         Navigator.of(context, rootNavigator: true).pushNamed(Routes.HOME);
                       },
                       child: Text(
                         'Skip',
-                        style: TextThemes.smallDarkTextStyle,
+                        style: TextThemes.TINY_DARK_GRAY,
                       ),
                     ),
                   ],
                 ),
                 Expanded(
-                  child: _widgetList[_activeIndex],
+                  child: getWidget(),
                 ),
                 FractionallySizedBox(
                   widthFactor: 0.9,
                   child: FlatButton(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    color: ColorThemes.primaryColor,
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    color: ColorThemes.PRIMARY_BLUE,
                     child: Text(
-                      _activeIndex < (_widgetList.length - 1) ? 'Next' : "Let's go",
-                      style: TextThemes.smallBrightTextStyle,
+                      _activeIndex < (_childWidgetIdentifiers.length - 1) ? 'Next' : "Let's go",
+                      style: TextThemes.TINY_WHITE,
                     ),
                     onPressed: () {
                       progressForward();
@@ -112,8 +115,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
               ],
             ),
           );
-        }
-        else {
+        } else {
           return Text('SOMETHING WENT WRONG');
         }
       },
@@ -121,8 +123,9 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
   }
 
   progressForward() {
-    if (_activeIndex == (_widgetList.length - 1)) {
+    if (_activeIndex == (_childWidgetIdentifiers.length - 1)) {
       SharedPreferencesHandler.save(SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO, true);
+      _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile, updateDB: true));
       Navigator.of(context, rootNavigator: true).pushNamed(Routes.HOME);
     } else {
       setState(() {
@@ -137,12 +140,62 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
     });
   }
 
-  void genderCallback([String data]) {}
+  void genderCallback(String gender) {
+    print('GENDER CALLBACK WITH: $gender');
+    if (_userProfile != null) {
+      var _updatedProfile = _userProfile.copyWith(gender: gender);
+      print('_updatedProfile: $_updatedProfile');
+      _userProfileBloc.add(UserProfileUpdatedEvent(_updatedProfile));
+    }
+  }
+
+  void dobCallback(String dob) {
+    print(dob);
+    if (_userProfile != null)
+      _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile.copyWith(dob: dob)));
+  }
+
+  void interestsCallback(List<String> interests) {
+    if (_userProfile != null)
+      _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile.copyWith(interests: interests)));
+  }
+
+  void languagesCallback(List<String> languages) {
+    if (_userProfile != null)
+      _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile.copyWith(languages: languages)));
+  }
+
+  void locationCallback(String location) {
+    if (_userProfile != null)
+      _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile.copyWith(location: location)));
+  }
+
+  Widget getWidget() {
+    switch (_childWidgetIdentifiers[_activeIndex]) {
+      case 'GENDER_WIDGET':
+        return RegisterOptionalGender(
+            genderScreenCallback: (String gender) => genderCallback(gender));
+      case 'DOB_WIDGET':
+        return RegisterOptionalDob(dobScreenCallback: (String dob) => dobCallback(dob));
+      case 'INTERESTS_WIDGET':
+        return RegisterOptionalInterests(
+            interestsScreenCallback: (List<String> interests) => interestsCallback(interests));
+      case 'LANGUAGES_WIDGET':
+        return RegisterOptionalLanguages(
+            languagesScreenCallback: (List<String> languages) => languagesCallback(languages));
+      case 'LOCATION_WIDGET':
+        return RegisterOptionalLocation(
+            locationScreenCallback: (String location) => locationCallback(location));
+      default:
+        return RegisterOptionalGender(
+            genderScreenCallback: (String gender) => genderCallback(gender));
+    }
+  }
 
   renderProgressCircles() {
     List<Widget> circleList = List();
 
-    for (int i = 0; i < _widgetList.length; i++) {
+    for (int i = 0; i < _childWidgetIdentifiers.length; i++) {
       Widget w;
 
       if (i == _activeIndex) {
@@ -151,7 +204,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
           height: 20.0,
           margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           decoration: new BoxDecoration(
-            color: ColorThemes.primaryColor,
+            color: ColorThemes.PRIMARY_BLUE,
             shape: BoxShape.circle,
           ),
         );
@@ -163,7 +216,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
           height: 20.0,
           margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           decoration: new BoxDecoration(
-            color: ColorThemes.secondaryColor,
+            color: ColorThemes.DIRTY_WHITE,
             shape: BoxShape.circle,
             border: Border.all(
               width: 1,
@@ -182,7 +235,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                 width: 20.0,
                 height: 20.0,
                 decoration: new BoxDecoration(
-                  color: ColorThemes.primaryColor,
+                  color: ColorThemes.PRIMARY_BLUE,
                   shape: BoxShape.circle,
                 ),
               ),

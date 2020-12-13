@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:swiftvote/themes/themes.dart';
+import 'package:intl/intl.dart';
+
+typedef void DobScreenCallback(String dob);
 
 class RegisterOptionalDob extends StatefulWidget {
+
+  final DobScreenCallback dobScreenCallback;
+
+  RegisterOptionalDob({@required this.dobScreenCallback});
+
   @override
   State createState() => _RegisterOptionalDobState();
 }
@@ -24,12 +32,13 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
     'November',
     'December'
   ];
-  final List<String> years = List.generate(100, (index) => '${1920 + index}');
+  final List<String> years = List.generate(90, (index) => '${2002 - index}');
 
   String _day;
   String _month;
   String _year;
-  DateTime _fullDate;
+  String _fullDate;
+  Function _callback;
 
   @override
   void initState() {
@@ -37,6 +46,7 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
     _day = days[0];
     _month = months[0];
     _year = years[0];
+    _callback = widget.dobScreenCallback;
   }
 
   @override
@@ -51,7 +61,7 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
             widthFactor: 1.0,
             child: Text(
               'Date of Birth',
-              style: TextThemes.largeTitleTextStyle,
+              style: TextThemes.TITLE_GRANITE_GRAY,
               textAlign: TextAlign.left,
             ),
           ),
@@ -67,14 +77,15 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                 children: [
                   Text(
                     'Day',
-                    style: TextThemes.mediumGrayTextStyle,
+                    style: TextThemes.MEDIUM_CHARCOAL_GRAY,
                   ),
                   DropdownButton<String>(
                     value: _day,
-                    style: TextThemes.smallDarkTextStyle,
+                    style: TextThemes.TINY_DARK_GRAY,
                     onChanged: (value) {
                       setState(() {
                         _day = value;
+                        setDate();
                       });
                     },
                     items: days.map<DropdownMenuItem<String>>((String value) {
@@ -92,14 +103,15 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                 children: [
                   Text(
                     'Month',
-                    style: TextThemes.mediumGrayTextStyle,
+                    style: TextThemes.MEDIUM_CHARCOAL_GRAY,
                   ),
                   DropdownButton<String>(
                     value: _month,
-                    style: TextThemes.smallDarkTextStyle,
+                    style: TextThemes.TINY_DARK_GRAY,
                     onChanged: (value) {
                       setState(() {
                         _month = value;
+                        setDate();
                       });
                     },
                     items: months.map<DropdownMenuItem<String>>((String value) {
@@ -117,14 +129,15 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                 children: [
                   Text(
                     'Year',
-                    style: TextThemes.mediumGrayTextStyle,
+                    style: TextThemes.MEDIUM_CHARCOAL_GRAY,
                   ),
                   DropdownButton<String>(
                     value: _year,
-                    style: TextThemes.smallDarkTextStyle,
+                    style: TextThemes.TINY_DARK_GRAY,
                     onChanged: (value) {
                       setState(() {
                         _year = value;
+                        setDate();
                       });
                     },
                     items: years.map<DropdownMenuItem<String>>((String value) {
@@ -146,9 +159,11 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
   void setDate() {
     DateTime date = DateTime.parse(
         _year + '-' + '${(months.indexOf(_month) + 1).toString().padLeft(2, '0')}' + '-' + _day);
-    print(date);
+
+    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    print('Formatted date: $formattedDate');
     setState(() {
-      _fullDate = date;
+      _callback(formattedDate);
     });
   }
 }

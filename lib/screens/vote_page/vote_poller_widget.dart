@@ -17,8 +17,8 @@ class VotePollerWidget extends StatelessWidget {
   Widget voteItem(String optionText, int index) {
 
     bool even = index % 2 == 0;
-    Color bg = even ? ColorThemes.primaryColor : ColorThemes.secondaryColor;
-    TextStyle textStyle = even ? TextThemes.mediumBrightTextStyle : TextThemes.mediumDarkTextStyle;
+    Color bg = even ? ColorThemes.PRIMARY_BLUE : ColorThemes.DIRTY_WHITE;
+    TextStyle textStyle = even ? TextThemes.MEDIUM_WHITE : TextThemes.MEDIUM_DARK_GRAY;
 
     return FractionallySizedBox(
       widthFactor: 0.7,
@@ -40,7 +40,7 @@ class VotePollerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorThemes.lightYellowBackgroundColor,
+      color: ColorThemes.LIGHT_YELLOW,
       margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
       height: MediaQuery.of(context).size.height,
       child: Flex(
@@ -53,7 +53,7 @@ class VotePollerWidget extends StatelessWidget {
               child: Container(
                 key: Key(vote.id),
                 decoration: BoxDecoration(
-                  color: ColorThemes.white,
+                  color: ColorThemes.WHITE,
                   boxShadow: [
                     DecorationThemes.cardBoxShadow,
                   ],
@@ -75,7 +75,7 @@ class VotePollerWidget extends StatelessWidget {
                                 padding: const EdgeInsets.all(2.0),
                                 child: Text(
                                   vote.categories[0],
-                                  style: TextThemes.voteTagsTextStyle,
+                                  style: TextThemes.FOOTNOTE_CHARCOAL_GRAY,
                                 ),
                               ),
                             ),
@@ -92,7 +92,7 @@ class VotePollerWidget extends StatelessWidget {
                           child: Text(
                             vote.title,
                             overflow: TextOverflow.clip,
-                            style: TextThemes.largeTitleTextStyle,
+                            style: TextThemes.TITLE_GRANITE_GRAY,
                           ),
                         ),
                       ),
@@ -118,7 +118,7 @@ class VotePollerWidget extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'PASS',
-                            style: TextThemes.mediumDarkTextStyle,
+                            style: TextThemes.MEDIUM_DARK_GRAY,
                           ),
                         ),
                       ),
@@ -152,11 +152,11 @@ class VotePollerWidget extends StatelessWidget {
                         size: 36,
                       ),
                       padding: EdgeInsets.all(0),
-                      color: ColorThemes.primaryColor,
-                      splashColor: ColorThemes.primaryColorAccent,
-                      focusColor: ColorThemes.primaryColorAccent,
-                      highlightColor: ColorThemes.primaryColorAccent,
-                      hoverColor: ColorThemes.primaryColorAccent,
+                      color: ColorThemes.PRIMARY_BLUE,
+                      splashColor: ColorThemes.DEEP_MARINE_BLUE,
+                      focusColor: ColorThemes.DEEP_MARINE_BLUE,
+                      highlightColor: ColorThemes.DEEP_MARINE_BLUE,
+                      hoverColor: ColorThemes.DEEP_MARINE_BLUE,
                     ),
                   ),
                 )

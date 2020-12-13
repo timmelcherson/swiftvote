@@ -5,96 +5,137 @@ import 'package:swiftvote/themes/color_themes.dart';
 
 class TextThemes extends Theme {
 
-  static const voteTagsTextStyle = TextStyle(
+  static const double FOOTNOTE = 11.0;
+  static const double TINY = 14.0;
+  static const double SMALL = 16.0;
+  static const double MEDIUM = 18.0;
+  static const double LARGE = 20.0;
+  static const double LARGER = 22.0;
+  static const double XLARGE = 24.0;
+  static const double HUGE = 28.0;
+  static const double TITLE = 32.0;
+
+
+  // FOOTNOTE styles
+  static const FOOTNOTE_CHARCOAL_GRAY = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 11.0,
-    color: Color.fromRGBO(135, 135, 135, 1),
+    fontSize: FOOTNOTE,
+    color: ColorThemes.CHARCOAL_GRAY,
   );
 
-  static const largeTitleTextStyle = TextStyle(
+  // TINY size styles
+  static const TextStyle TINY_CHARCOAL_GRAY = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 32.0,
-    color: ColorThemes.secondaryColorAccent,
+    fontSize: TINY,
+    color: ColorThemes.CHARCOAL_GRAY,
+  );
+  static const TextStyle TINY_DARK_GRAY = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: TINY,
+    color: ColorThemes.DARK_GRAY,
+  );
+  static const TextStyle TINY_WHITE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: TINY,
+    color: ColorThemes.WHITE,
+  );
+  static const TextStyle TINY_SILVER = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: TINY,
+    color: ColorThemes.SILVER,
   );
 
-  static const mediumTitleTextStyle = TextStyle(
+  // SMALL size styles
+  static const TextStyle SMALL_LIGHT_GRAY = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 28.0,
-    color: ColorThemes.secondaryColorAccent,
+    fontSize: SMALL,
+    color: ColorThemes.LIGHT_GRAY,
+  );
+  static const TextStyle SMALL_CHARCOAL_GRAY = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: SMALL,
+    color: ColorThemes.CHARCOAL_GRAY,
+  );
+  static const TextStyle SMALL_WHITE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: SMALL,
+    color: ColorThemes.WHITE,
+  );
+  static const TextStyle SMALL_SILVER = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: SMALL,
+    color: ColorThemes.SILVER,
   );
 
-  static const mediumTitleBrightTextStyle = TextStyle(
+  // MEDIUM size styles
+  static const TextStyle MEDIUM_DARK_GRAY = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 28.0,
-    color: ColorThemes.secondaryColor,
+    fontSize: MEDIUM,
+    color: ColorThemes.DARK_GRAY,
+  );
+  static const TextStyle MEDIUM_WHITE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: MEDIUM,
+    color: ColorThemes.WHITE,
+  );
+  static const TextStyle MEDIUM_CHARCOAL_GRAY = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: MEDIUM,
+    color: ColorThemes.CHARCOAL_GRAY,
   );
 
-  static const smallTitleTextStyle = TextStyle(
+  // LARGE size styles
+  static const TextStyle LARGE_LIGHT_GRAY = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 24.0,
-    color: ColorThemes.secondaryColorAccent,
+    fontSize: LARGE,
+    color: ColorThemes.LIGHT_GRAY,
   );
 
-  static const TextStyle textHintStyle = TextStyle(
+  // LARGER size styles
+  static const TextStyle LARGER_DARK_GRAY_BOLD = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 20.0,
-    color: Color.fromRGBO(170, 170, 170, 1),
-  );
-
-  static const TextStyle thumbnailTitleTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 14.0,
-    color: ColorThemes.secondaryColorAccent,
-  );
-
-  static const TextStyle smallDarkTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 14.0,
-    color: ColorThemes.darkGray,
-  );
-
-  static const TextStyle smallBrightTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 14.0,
-    color: ColorThemes.white,
-  );
-
-  static const TextStyle mediumDarkTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 18.0,
-    color: ColorThemes.darkGray,
-  );
-
-  static const TextStyle mediumBrightTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 18.0,
-    color: ColorThemes.white,
-  );
-
-  static const TextStyle largeDarkTextStyle = TextStyle(
-    fontFamily: 'RobotoMono',
-    fontSize: 22.0,
+    fontSize: LARGER,
     fontWeight: FontWeight.w300,
-    color: ColorThemes.darkGray,
+    color: ColorThemes.DARK_GRAY,
   );
-
-  static const TextStyle largeBrightTextStyle = TextStyle(
+  static const TextStyle LARGER_WHITE_BOLD = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 22.0,
+    fontSize: LARGER,
     fontWeight: FontWeight.w300,
-    color: ColorThemes.white,
+    color: ColorThemes.WHITE,
   );
-
-  static const TextStyle largeGrayTextStyle = TextStyle(
+  static const TextStyle LARGER_CHARCOAL_GRAY_BOLD = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 22.0,
+    fontSize: LARGER,
     fontWeight: FontWeight.w300,
-    color: ColorThemes.charcoalGray,
+    color: ColorThemes.CHARCOAL_GRAY,
   );
 
-  static const TextStyle mediumGrayTextStyle = TextStyle(
+  // XLARGE size styles
+  static const XLARGE_GRANITE_GRAY = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 18.0,
-    color: ColorThemes.charcoalGray,
+    fontSize: XLARGE,
+    color: ColorThemes.GRANITE_GRAY,
   );
+
+
+  // HUGE size styles
+  static const HUGE_GRANITE_GRAY = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: HUGE,
+    color: ColorThemes.GRANITE_GRAY,
+  );
+  static const HUGE_DIRTY_WHITE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: HUGE,
+    color: ColorThemes.DIRTY_WHITE,
+  );
+
+  // TITLE size styles
+  static const TITLE_GRANITE_GRAY = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: TITLE,
+    color: ColorThemes.GRANITE_GRAY,
+  );
+
 }

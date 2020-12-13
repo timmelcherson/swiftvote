@@ -21,7 +21,7 @@ class VoteThumbnail extends StatelessWidget {
       ),
       child: Text(
         _thumbnailTitle,
-        style: TextThemes.thumbnailTitleTextStyle,
+        style: TextThemes.TINY_CHARCOAL_GRAY,
       ),
     );
   }

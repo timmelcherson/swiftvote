@@ -3,23 +3,29 @@ import 'package:swiftvote/themes/themes.dart';
 
 
 
-// typedef OnCallback = Function(String gender);
+typedef void GenderScreenCallback(String gender);
 
 class RegisterOptionalGender extends StatefulWidget {
 
-  // final OnCallback callback;
-  //
-  // RegisterOptionalGender({this.callback});
+  final GenderScreenCallback genderScreenCallback;
+
+  RegisterOptionalGender({this.genderScreenCallback});
 
   @override
   State createState() => _RegisterOptionalGenderState();
 }
 
 class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
-  List<bool> _checked = [false, false, false];
-  List<String> _genders = ['Male', 'Female', 'Other'];
-  String _selectedGender = '';
 
+  int checkedIndex;
+  List<String> _genders = ['Male', 'Female', 'Other'];
+  Function _callback;
+
+  @override
+  void initState() {
+    super.initState();
+    _callback = widget.genderScreenCallback;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
             widthFactor: 1.0,
             child: Text(
               'Gender',
-              style: TextThemes.largeTitleTextStyle,
+              style: TextThemes.TITLE_GRANITE_GRAY,
               textAlign: TextAlign.left,
             ),
           ),
@@ -49,15 +55,15 @@ class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
                   children: [
                     Text(
                       _genders[i],
-                      style: TextThemes.mediumGrayTextStyle,
+                      style: TextThemes.MEDIUM_CHARCOAL_GRAY,
                     ),
                     Checkbox(
-                      value: _checked[i],
+                      value: checkedIndex == i,
                       onChanged: (value) {
-                        // setState(() {
-                        //   _checked[i] = value;
-                        //   widget.callback(_genders[i]);
-                        // });
+                        setState(() {
+                          checkedIndex = i;
+                          _callback(_genders[i]);
+                        });
                       },
                     ),
                   ],

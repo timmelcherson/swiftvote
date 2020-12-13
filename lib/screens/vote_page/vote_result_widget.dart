@@ -53,7 +53,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
       margin: EdgeInsets.fromLTRB(15, 15, 15, 15),
       child: Container(
         decoration: BoxDecoration(
-          color: ColorThemes.white,
+          color: ColorThemes.WHITE,
           boxShadow: [
             DecorationThemes.cardBoxShadow,
           ],
@@ -90,7 +90,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                         child: Text(
                           firstPercentage + '%',
                           textAlign: TextAlign.center,
-                          style: TextThemes.largeBrightTextStyle,
+                          style: TextThemes.LARGER_WHITE_BOLD,
                         ),
                       ),
                     ),
@@ -103,7 +103,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                         child: Text(
                           secondPercentage + '%',
                           textAlign: TextAlign.center,
-                          style: TextThemes.largeDarkTextStyle,
+                          style: TextThemes.LARGER_DARK_GRAY_BOLD,
                         ),
                       ),
                     ),
@@ -140,7 +140,7 @@ class CirclePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint1 = Paint()
-      ..color = ColorThemes.primaryColor
+      ..color = ColorThemes.PRIMARY_BLUE
       ..style = PaintingStyle.fill;
     //a circle
     canvas.drawCircle(Offset(size.height / 2, size.width / 2), size.width / 2, paint1);
@@ -159,11 +159,11 @@ class ArcPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var arcFillPaint = Paint()
-      ..color = ColorThemes.silver
+      ..color = ColorThemes.SILVER
       ..style = PaintingStyle.fill;
 
     var arcStrokePaint = Paint()
-      ..color = ColorThemes.white
+      ..color = ColorThemes.WHITE
       ..strokeWidth = 5.0
       ..style = PaintingStyle.stroke;
 

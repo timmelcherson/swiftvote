@@ -81,7 +81,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: ColorThemes.lightYellowBackgroundColor,
+      backgroundColor: ColorThemes.LIGHT_YELLOW,
       body: SafeArea(
         child: Form(
           key: _addVoteFormKey,
@@ -111,7 +111,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                         margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
                         child: Text(
                           'Start a vote',
-                          style: TextThemes.mediumTitleTextStyle,
+                          style: TextThemes.HUGE_GRANITE_GRAY,
                         ),
                       ),
                     ),
@@ -119,7 +119,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                       flex: 1,
                       child: ClipOval(
                         child: Material(
-                          color: ColorThemes.primaryColor,
+                          color: ColorThemes.PRIMARY_BLUE,
                           child: InkWell(
                             child: Container(
                               width: 32,
@@ -147,7 +147,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   maxLength: 70,
                   decoration: InputDecoration(
                     hintText: 'Type question',
-                    hintStyle: TextThemes.textHintStyle,
+                    hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(),
                     ),
@@ -165,7 +165,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Answer',
-                      hintStyle: TextThemes.textHintStyle,
+                      hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                     ),
                     validator: (value) {
                       return validateTextField(value);
@@ -182,7 +182,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(0.0),
                       hintText: 'Answer',
-                      hintStyle: TextThemes.textHintStyle,
+                      hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                     ),
                     validator: (value) {
                       return validateTextField(value);
@@ -196,7 +196,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 child: Center(
                   child: Text(
                     'Choose categories ($_selectCount/2)',
-                    style: TextThemes.smallDarkTextStyle,
+                    style: TextThemes.TINY_DARK_GRAY,
                   ),
                 ),
               ),
@@ -229,7 +229,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 child: FractionallySizedBox(
                   widthFactor: 0.6,
                   child: RaisedButton(
-                    color: ColorThemes.primaryColor,
+                    color: ColorThemes.PRIMARY_BLUE,
                     textColor: Colors.white,
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     shape: RoundedRectangleBorder(
@@ -251,7 +251,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     },
                     child: Text(
                       'Submit',
-                      style: TextThemes.mediumBrightTextStyle,
+                      style: TextThemes.MEDIUM_WHITE,
                     ),
                   ),
                 ),

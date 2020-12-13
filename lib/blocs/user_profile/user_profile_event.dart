@@ -12,11 +12,21 @@ abstract class UserProfileEvent {
 
 class UserProfileLoadingEvent extends UserProfileEvent {}
 
-class UserProfileUpdatedEvent extends UserProfileEvent {
+class UserIdReceivedEvent extends UserProfileEvent {
 
   final String userId;
 
-  const UserProfileUpdatedEvent(this.userId);
+  const UserIdReceivedEvent(this.userId);
 }
+
+class UserProfileUpdatedEvent extends UserProfileEvent {
+
+  final UserProfile userProfile;
+  final bool updateDB;
+
+  const UserProfileUpdatedEvent(this.userProfile, {this.updateDB = false});
+}
+
+// class UserProfilePersistEvent extends UserProfileEvent {}
 
 class UserProfileFailureEvent extends UserProfileEvent {}

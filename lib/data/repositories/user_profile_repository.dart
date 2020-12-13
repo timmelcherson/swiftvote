@@ -7,7 +7,7 @@ class UserProfileRepository {
 
   Future<void> addNewUserProfile(UserProfile userProfile) async {
     print('CREATING A USER PROFILE');
-    return _userProfileCollection.add(userProfile.toEntity().toDocument());
+    return _userProfileCollection.doc(userProfile.userId).set(userProfile.toEntity().toDocument());
   }
 
   Future<void> updateUserProfile(UserProfile userProfile) async {
@@ -25,16 +25,25 @@ class UserProfileRepository {
   }
 
   Future<UserProfile> getUserProfileById(String id) async {
-    return _userProfileCollection
-        .where('userId', isEqualTo: id)
-        .limit(1)
+    return await _userProfileCollection
+        .doc(id)
         .get()
-        .then((querySnapshot) => querySnapshot.size > 0
-            ? UserProfile.fromEntity(UserProfileEntity.fromSnapshot(querySnapshot.docs.single))
-            : null)
+        .then((snapshot) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot)))
         .catchError((onError) {
-      print('Query to getUserProfileById failed with message: $onError');
+      print('COULD NOT FIND USERPROFILE IN FIRESTORE: $onError');
+      return null;
     });
+    // return UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot));
+    // return _userProfileCollection
+    //     .where('userId', isEqualTo: id)
+    //     .limit(1)
+    //     .get()
+    //     .then((querySnapshot) => querySnapshot.size > 0
+    //         ? UserProfile.fromEntity(UserProfileEntity.fromSnapshot(querySnapshot.docs.single))
+    //         : null)
+    //     .catchError((onError) {
+    //   print('Query to getUserProfileById failed with message: $onError');
+    // });
   }
 
   Stream<List<UserProfile>> getUserProfiles() {

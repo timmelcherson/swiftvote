@@ -46,7 +46,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   children: <Widget>[
                     Text(
                       'Register Failure',
-                      style: TextThemes.smallBrightTextStyle,
+                      style: TextThemes.TINY_WHITE,
                     ),
                     Icon(Icons.error),
                   ],
@@ -66,14 +66,14 @@ class _RegisterFormState extends State<RegisterForm> {
                   children: <Widget>[
                     Text(
                       'Registering...',
-                      style: TextThemes.smallBrightTextStyle,
+                      style: TextThemes.TINY_WHITE,
                     ),
                     CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
                   ],
                 ),
-                backgroundColor: ColorThemes.primaryColor,
+                backgroundColor: ColorThemes.PRIMARY_BLUE,
               ),
             );
         }
@@ -98,7 +98,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     widthFactor: 1.0,
                     child: Text(
                       'Create account',
-                      style: TextThemes.largeTitleTextStyle,
+                      style: TextThemes.TITLE_GRANITE_GRAY,
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -109,7 +109,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     widthFactor: 1.0,
                     child: Text(
                       "Don't worry, your account at swiftvote is completely anonymous.",
-                      style: TextThemes.smallDarkTextStyle,
+                      style: TextThemes.TINY_DARK_GRAY,
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -124,10 +124,10 @@ class _RegisterFormState extends State<RegisterForm> {
                         decoration: InputDecoration(
                           icon: Icon(
                             Icons.email,
-                            color: ColorThemes.primaryColor,
+                            color: ColorThemes.PRIMARY_BLUE,
                           ),
                           hintText: 'Email',
-                          hintStyle: TextThemes.textHintStyle,
+                          hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                         ),
                         keyboardType: TextInputType.emailAddress,
                         autovalidateMode: AutovalidateMode.disabled,
@@ -141,10 +141,10 @@ class _RegisterFormState extends State<RegisterForm> {
                         decoration: InputDecoration(
                           icon: Icon(
                             Icons.vpn_key,
-                            color: ColorThemes.primaryColor,
+                            color: ColorThemes.PRIMARY_BLUE,
                           ),
                           hintText: 'Password',
-                          hintStyle: TextThemes.textHintStyle,
+                          hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                         ),
                         obscureText: true,
                         autovalidateMode: AutovalidateMode.disabled,
@@ -158,10 +158,10 @@ class _RegisterFormState extends State<RegisterForm> {
                         decoration: InputDecoration(
                           icon: Icon(
                             Icons.vpn_key,
-                            color: ColorThemes.primaryColor,
+                            color: ColorThemes.PRIMARY_BLUE,
                           ),
                           hintText: 'Confirm password',
-                          hintStyle: TextThemes.textHintStyle,
+                          hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                         ),
                         obscureText: true,
                         autovalidateMode: AutovalidateMode.disabled,
@@ -179,10 +179,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     widthFactor: 0.9,
                     child: FlatButton(
                       padding: EdgeInsets.symmetric(vertical: 12.0),
-                      color: ColorThemes.primaryColor,
+                      color: ColorThemes.PRIMARY_BLUE,
                       child: Text(
                         'Register',
-                        style: TextThemes.smallBrightTextStyle,
+                        style: TextThemes.TINY_WHITE,
                       ),
                       onPressed: () {
                         _formSubmitHandler();

@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 
 class ColorThemes extends Theme {
 
-  static const Color primaryColor = Color.fromRGBO(80, 92, 114, 1);
-  static const Color primaryColorAccent = Color.fromRGBO(54, 46, 79, 1);
-  static const Color secondaryColor = Color.fromRGBO(232, 232, 232, 1);
-  static const Color secondaryColorAccent = Color.fromRGBO(68, 68, 68, 1);
+  // Blue
+  static const Color PRIMARY_BLUE = Color.fromRGBO(80, 92, 114, 1);
+  static const Color DEEP_MARINE_BLUE = Color.fromRGBO(54, 46, 79, 1);
 
-  static const Color silver = Color.fromRGBO(191, 191, 191, 1);
-  static const Color lightYellowBackgroundColor = Color.fromRGBO(255, 253, 245, 1);
-  static const Color white = Color.fromRGBO(255, 255, 255, 1);
-  static const Color darkGray = Color.fromRGBO(30, 30, 30, 1);
-  static const Color charcoalGray = Color.fromRGBO(91, 105, 110, 1);
+  // White
+  static const Color LIGHT_YELLOW = Color.fromRGBO(255, 253, 245, 1);
+  static const Color WHITE = Color.fromRGBO(255, 255, 255, 1);
+  static const Color DIRTY_WHITE = Color.fromRGBO(232, 232, 232, 1);
+
+  // Gray
+  static const Color SILVER = Color.fromRGBO(191, 191, 191, 1);
+  static const Color LIGHT_GRAY = Color.fromRGBO(170, 170, 170, 1);
+  static const Color CHARCOAL_GRAY = Color.fromRGBO(91, 105, 110, 1);
+  static const Color GRANITE_GRAY = Color.fromRGBO(68, 68, 68, 1);
+  static const Color DARK_GRAY = Color.fromRGBO(30, 30, 30, 1);
 }

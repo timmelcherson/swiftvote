@@ -13,10 +13,14 @@ class UserProfile {
   const UserProfile(
       {this.userId, this.gender, this.dob, this.location, this.interests, this.languages});
 
-  UserProfile copyWith(String userId, String gender, String dob, String location,
-      List<String> interests, List<String> languages) {
+  UserProfile copyWith(
+      {String gender,
+      String dob,
+      String location,
+      List<String> interests,
+      List<String> languages}) {
     return UserProfile(
-        userId: userId ?? this.userId,
+        userId: this.userId,
         gender: gender ?? this.gender,
         dob: dob ?? this.dob,
         location: location ?? this.location,

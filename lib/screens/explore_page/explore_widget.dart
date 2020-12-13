@@ -22,7 +22,7 @@ class ExploreWidget extends StatelessWidget {
           final categoryThumbnailAssetPath = state.categoryImagesPaths;
 
           return Container(
-            color: ColorThemes.lightYellowBackgroundColor,
+            color: ColorThemes.LIGHT_YELLOW,
             child: CustomScrollView(
               key: SwiftvoteWidgetKeys.exploreWidget,
               scrollDirection: Axis.vertical,
@@ -56,7 +56,7 @@ class ExploreWidget extends StatelessWidget {
                                       ),
                                     },
                                     child: Container(
-                                      color: ColorThemes.lightYellowBackgroundColor,
+                                      color: ColorThemes.LIGHT_YELLOW,
                                       child: Stack(
                                         alignment: Alignment.bottomLeft,
                                         children: <Widget>[
@@ -67,11 +67,7 @@ class ExploreWidget extends StatelessWidget {
                                             margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
                                             child: Text(
                                               categories[index],
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'RobotoMono',
-                                                fontSize: 16.0,
-                                              ),
+                                              style: TextThemes.SMALL_WHITE,
                                             ),
                                           )
                                         ],
@@ -107,7 +103,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
             height: maxExtent,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: ColorThemes.lightYellowBackgroundColor,
+              color: ColorThemes.LIGHT_YELLOW,
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Color.fromRGBO(20, 20, 20, offsetFactor),
@@ -124,7 +120,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
               padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
               child: Text(
                 'Explore',
-                style: TextThemes.largeTitleTextStyle,
+                style: TextThemes.TITLE_GRANITE_GRAY,
                 textAlign: TextAlign.end,
               ),
             ),

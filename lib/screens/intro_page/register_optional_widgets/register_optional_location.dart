@@ -2,14 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:location/location.dart';
 
+typedef void LocationScreenCallback(String gender);
+
 class RegisterOptionalLocation extends StatefulWidget {
+
+  final LocationScreenCallback locationScreenCallback;
+
+  RegisterOptionalLocation({@required this.locationScreenCallback});
+
   @override
   State createState() => _RegisterOptionalLocationState();
 }
 
 class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
+
+  Function _callback;
+
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+    _callback = widget.locationScreenCallback;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +41,7 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
                 widthFactor: 1.0,
                 child: Text(
                   'Location',
-                  style: TextThemes.largeTitleTextStyle,
+                  style: TextThemes.TITLE_GRANITE_GRAY,
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -39,10 +52,10 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
                 decoration: InputDecoration(
                   suffixIcon: Icon(
                     Icons.search,
-                    color: ColorThemes.primaryColor,
+                    color: ColorThemes.PRIMARY_BLUE,
                   ),
                   hintText: 'Search',
-                  hintStyle: TextThemes.textHintStyle,
+                  hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                 ),
                 autovalidateMode: AutovalidateMode.disabled,
                 autocorrect: false,

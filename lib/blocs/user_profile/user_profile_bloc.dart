@@ -15,7 +15,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc({@required this.authenticationBloc, @required this.userProfileRepository})
       : super(
           authenticationBloc.state is AuthenticationSuccessState
-              ? UserProfileLoadedState(
+              ? UserIdReceivedState(
                   (authenticationBloc.state as AuthenticationSuccessState).user.uid)
               : UserProfileLoadingState(),
         ) {
@@ -24,7 +24,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       print('STATE IS: $state');
       if (state is AuthenticationSuccessState) {
         print('LISTENER FIRED');
-        add(UserProfileUpdatedEvent(
+        add(UserIdReceivedEvent(
             (authenticationBloc.state as AuthenticationSuccessState).user.uid));
       }
     });
@@ -32,13 +32,18 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
   @override
   Stream<UserProfileState> mapEventToState(UserProfileEvent event) async* {
-    if (event is UserProfileUpdatedEvent) {
+    if (event is UserIdReceivedEvent) {
+      yield* _mapUserIdReceivedEventToState(event);
+    } else if (event is UserProfileUpdatedEvent) {
       yield* _mapUserProfileUpdatedEventToState(event);
     }
+    // else if (event is UserProfilePersistEvent) {
+    //   yield* _mapUserProfilePersistEventToState();
+    // }
   }
 
-  Stream<UserProfileState> _mapUserProfileUpdatedEventToState(
-      UserProfileUpdatedEvent event) async* {
+  Stream<UserProfileState> _mapUserIdReceivedEventToState(
+      UserIdReceivedEvent event) async* {
     UserProfile _userProfile = await userProfileRepository.getUserProfileById(event.userId);
     print('_mapUserProfileUpdatedEventToState WITH ID: ${event.userId}');
     print('GOT USER PROFILE: $_userProfile');
@@ -63,6 +68,37 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       yield UserProfileLoadFailureState();
     }
   }
+
+  Stream<UserProfileState> _mapUserProfileUpdatedEventToState(UserProfileUpdatedEvent event) async* {
+
+    if (state is UserProfileCreatedState) {
+      print('state is UserProfileCreatedState');
+      try {
+        if (event.updateDB) {
+          print('updating DATABASE with new userProfile');
+          userProfileRepository.updateUserProfile(event.userProfile);
+        }
+        print('YIELDING UserProfileCreatedState with event.userProfile: ${event.userProfile}');
+        yield UserProfileCreatedState(userProfile: event.userProfile);
+      } catch (_) {
+        print('Could not yield UserProfileCreatedState, error caught with message: $_');
+        yield UserProfileLoadFailureState();
+      }
+    } else {
+      yield UserProfileLoadFailureState();
+    }
+  }
+
+  // Stream<UserProfileState> _mapUserProfilePersistEventToState() async* {
+  //   if (state is UserProfileCreatedState) {
+  //     try {
+  //       userProfileRepository.updateUserProfile((state as UserProfileCreatedState).userProfile);
+  //       yield UserProfileCreatedState(userProfile: (state as UserProfileCreatedState).userProfile);
+  //     } catch (_) {
+  //       print('Could not save user profile to database');
+  //     }
+  //   }
+  // }
 
   @override
   Future<void> close() {
