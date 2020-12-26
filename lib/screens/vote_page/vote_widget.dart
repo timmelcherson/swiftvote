@@ -9,7 +9,7 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_page/vote_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 
 typedef OnResultWidgetCallback = Function(bool showResultWidget);
 

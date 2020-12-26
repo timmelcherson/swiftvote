@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/routes.dart';
+import 'package:swiftvote/constants/routes.dart';
 
 class RegisterForm extends StatefulWidget {
   @override

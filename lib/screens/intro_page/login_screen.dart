@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 import 'package:swiftvote/screens/screens.dart';
 import 'package:swiftvote/themes/themes.dart';
 

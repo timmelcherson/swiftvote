@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/themes/themes.dart';
