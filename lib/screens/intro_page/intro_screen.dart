@@ -53,7 +53,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
             if (snapshot.hasData) {
               // _skipToHome = snapshot.data;
-              _skipToHome = false;
+              _skipToHome = true;
             }
 
             return BlocBuilder<AuthenticationBloc, AuthenticationState>(

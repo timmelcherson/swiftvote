@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'file:///C:/Users/Tim/Documents/Programmering/flutter/swiftvote/swiftvote/lib/constants/swiftvote_widget_keys.dart';
+import 'package:swiftvote/constants/swiftvote_widget_keys.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'explore_barrel.dart';
 

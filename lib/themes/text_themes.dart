@@ -56,6 +56,11 @@ class TextThemes extends Theme {
     fontSize: SMALL,
     color: ColorThemes.CHARCOAL_GRAY,
   );
+  static const TextStyle SMALL_DARK_GRAY = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: SMALL,
+    color: ColorThemes.DARK_GRAY,
+  );
   static const TextStyle SMALL_WHITE = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: SMALL,
