@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:location/location.dart';
+import 'package:swiftvote/constants/credentials.dart';
+import 'package:http/http.dart' as http;
 
 typedef void LocationScreenCallback(String gender);
 
 class RegisterOptionalLocation extends StatefulWidget {
-
   final LocationScreenCallback locationScreenCallback;
 
   RegisterOptionalLocation({@required this.locationScreenCallback});
@@ -15,13 +18,43 @@ class RegisterOptionalLocation extends StatefulWidget {
 }
 
 class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
-
   Function _callback;
+  final TextEditingController _searchController = TextEditingController();
+  final String baseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  final String rest = 'input=1600+Amphitheatre&key=<API_KEY>';
+  final String type = '(regions)';
+  final int searchRadius = 3000;
+  final String session = '&sessiontoken=1234567890';
+  String _searchString;
+
+  // https://maps.googleapis.com/maps/api/place/autocomplete/xml?input=Amoeba&types=establishment&location=37.76999,-122.44696&radius=500&strictbounds&key=YOUR_API_KEY
 
   @override
   void initState() {
     super.initState();
     _callback = widget.locationScreenCallback;
+    _searchController.addListener(_searchInputHandler);
+  }
+
+  void _searchInputHandler() async {
+    if (_searchController.text.length < 3) return;
+
+    var input = _searchController.text;
+
+    var url =
+        '$baseUrl?input=$input&type=$type&radius=$searchRadius&language=sv&key=$PLACES_API_KEY';
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      print('GOT RESPONSE');
+      print(response.statusCode);
+      print(response.body);
+      // var jsonResponse = jsonDecode(response.body);
+      // var itemCount = jsonResponse['totalItems'];
+    } else {
+      print('Request failed with status: ${response.statusCode} and response was: $response');
+    }
+    // print('SEND TO APi: ${_searchController.text}');
   }
 
   @override
@@ -30,8 +63,8 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
 
     return SingleChildScrollView(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height - 2 * _safeAreaPadding),
+        constraints:
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height - 2 * _safeAreaPadding),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -49,21 +82,28 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
             Container(
               margin: EdgeInsets.only(top: 32.0),
               child: TextFormField(
+                autocorrect: false,
+                autovalidateMode: AutovalidateMode.disabled,
+                controller: _searchController,
                 decoration: InputDecoration(
                   suffixIcon: Icon(
                     Icons.search,
                     color: ColorThemes.PRIMARY_BLUE,
                   ),
-                  hintText: 'Search',
+                  hintText: 'Search location',
                   hintStyle: TextThemes.LARGE_LIGHT_GRAY,
                 ),
-                autovalidateMode: AutovalidateMode.disabled,
-                autocorrect: false,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
   }
 }
