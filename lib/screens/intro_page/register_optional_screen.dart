@@ -216,7 +216,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
           height: 20.0,
           margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           decoration: new BoxDecoration(
-            color: ColorThemes.DIRTY_WHITE,
+            color: ColorThemes.OFF_WHITE,
             shape: BoxShape.circle,
             border: Border.all(
               width: 1,

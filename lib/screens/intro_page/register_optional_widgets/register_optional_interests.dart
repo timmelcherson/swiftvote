@@ -129,7 +129,7 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                   width: 20.0,
                   height: 20.0,
                   decoration: new BoxDecoration(
-                    color: ColorThemes.DIRTY_WHITE,
+                    color: ColorThemes.OFF_WHITE,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -199,7 +199,7 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                   onPressed: () {
                     selectAllCallback();
                   },
-                  color: ColorThemes.DIRTY_WHITE,
+                  color: ColorThemes.OFF_WHITE,
                   child: Text(
                     'Select all',
                     style: TextThemes.TINY_DARK_GRAY,
@@ -211,7 +211,7 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                   onPressed: () {
                     clearCallback();
                   },
-                  color: ColorThemes.DIRTY_WHITE,
+                  color: ColorThemes.OFF_WHITE,
                   child: Text(
                     'Clear',
                     style: TextThemes.TINY_DARK_GRAY,

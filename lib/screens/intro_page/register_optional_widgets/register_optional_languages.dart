@@ -52,7 +52,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
         Align(
           alignment: Alignment.centerLeft,
           child: FlatButton(
-            color: ColorThemes.DIRTY_WHITE,
+            color: ColorThemes.OFF_WHITE,
             child: Text(
               'Add more +',
               style: TextThemes.TINY_DARK_GRAY,

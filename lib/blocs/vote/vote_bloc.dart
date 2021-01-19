@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
@@ -62,7 +61,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     List<Vote> newList = List.from(event.votes);
     newList.shuffle();
     print('-------------------------------------');
-    newList.forEach((element) => print(element.title));
+    newList.forEach((vote) => print(vote));
     print('-------------------------------------');
     yield VotesLoadedState(votes: newList, fullVoteList: event.votes);
     // print('%%%%%%%%%%%%%%');
@@ -99,8 +98,8 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   _mapIncreaseVoteScoreToState(IncreaseVoteScoreEvent event) {
-    event.vote.votes[event.optionIndex] += 1;
-    _voteRepository.updateVote(event.vote);
+    // event.vote.votes[event.optionIndex] += 1;
+    // _voteRepository.updateVote(event.vote);
   }
 
   @override

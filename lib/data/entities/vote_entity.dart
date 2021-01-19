@@ -8,19 +8,35 @@ class VoteEntity extends Equatable {
   final List<String> categories;
   final String sponsor;
   final List<String> voteOptions;
-  final List<int> votes;
+  final int totalVotes;
   final List<String> tags;
 
-  const VoteEntity(this.id, this.title, this.author, this.categories,
-      this.sponsor, this.voteOptions, this.votes, this.tags);
+  const VoteEntity(
+      {this.id,
+      this.title,
+      this.author,
+      this.categories,
+      this.sponsor,
+      this.voteOptions,
+      this.totalVotes,
+      this.tags});
 
   @override
-  List<Object> get props =>
-      [id, title, author, categories, sponsor, voteOptions, votes, tags];
+  List<Object> get props => [
+        id,
+        title,
+        author,
+        categories,
+        sponsor,
+        voteOptions,
+        totalVotes,
+        tags,
+      ];
 
   @override
   String toString() {
-    return 'VoteEntity{id: $id, title: $title, author: $author, categories: $categories, sponsor: $sponsor, voteOptions: $voteOptions, votes: $votes, tags: $tags}';
+    return 'VoteEntity{id: $id, title: $title, author: $author, categories: $categories, '
+        'sponsor: $sponsor, voteOptions: $voteOptions, totalVotes: $totalVotes, tags: $tags}';
   }
 
   Map<String, Object> toJson() {
@@ -31,45 +47,42 @@ class VoteEntity extends Equatable {
       "categories": categories,
       "sponsor": sponsor,
       "voteOptions": voteOptions,
-      "votes": votes,
+      "totalVotes": totalVotes,
       "tags": tags,
     };
   }
 
   static VoteEntity fromJson(Map<String, Object> json) {
     List<String> voteOptionsList = new List<String>.from(json["voteOptions"]);
-    List<int> votesList = new List<int>.from(json["votes"]);
     List<String> tagsList = new List<String>.from(json["tags"]);
     List<String> categoryList = new List<String>.from(json["category"]);
 
-    VoteEntity vote = VoteEntity(
-        json["id"] as String,
-        json["title"] as String,
-        json["author"] as String,
-        categoryList,
-        json["sponsor"] as String,
-        voteOptionsList,
-        votesList,
-        tagsList);
-
-    return vote;
+    return VoteEntity(
+      id: json["id"] as String,
+      title: json["title"] as String,
+      author: json["author"] as String,
+      categories: categoryList,
+      sponsor: json["sponsor"] as String,
+      voteOptions: voteOptionsList,
+      totalVotes: json["totalVotes"],
+      tags: tagsList,
+    );
   }
 
   static VoteEntity fromSnapshot(DocumentSnapshot snap) {
     List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
-    List<int> _votes = new List<int>.from(snap.get('votes'));
     List<String> _tags = new List<String>.from(snap.get('tags'));
     List<String> _categories = new List<String>.from(snap.get('categories'));
 
     return VoteEntity(
-      snap.id,
-      snap.get('title'),
-      snap.get('author'),
-      _categories,
-      snap.get('sponsor'),
-      _voteOptions,
-      _votes,
-      _tags,
+      id: snap.id,
+      title: snap.get('title'),
+      author: snap.get('author'),
+      categories: _categories,
+      sponsor: snap.get('sponsor'),
+      voteOptions: _voteOptions,
+      totalVotes: snap.get('totalVotes'),
+      tags: _tags,
     );
   }
 
@@ -80,7 +93,7 @@ class VoteEntity extends Equatable {
       'categories': categories,
       'sponsor': sponsor,
       'voteOptions': voteOptions,
-      'votes': votes,
+      'totalVotes': totalVotes,
       'tags': tags,
     };
   }

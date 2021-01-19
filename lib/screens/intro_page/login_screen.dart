@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                         child: FractionallySizedBox(
                           widthFactor: 0.9,
                           child: FlatButton(
-                            color: ColorThemes.DIRTY_WHITE,
+                            color: ColorThemes.OFF_WHITE,
                             child: Text(
                               'Register',
                               style: TextThemes.TINY_DARK_GRAY,

@@ -15,24 +15,25 @@ class VotePollerWidget extends StatelessWidget {
       {@required this.vote, @required this.votePassedCallback, @required this.votedCallback});
 
   Widget voteItem(String optionText, int index) {
-
-    bool even = index % 2 == 0;
-    Color bg = even ? ColorThemes.PRIMARY_BLUE : ColorThemes.DIRTY_WHITE;
-    TextStyle textStyle = even ? TextThemes.MEDIUM_WHITE : TextThemes.MEDIUM_DARK_GRAY;
-
-    return FractionallySizedBox(
-      widthFactor: 0.7,
-      child: FlatButton(
-        padding: EdgeInsets.symmetric(vertical: 4.0),
-        child: Text(
-          optionText,
-          style: textStyle,
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4.0),
+      child: FractionallySizedBox(
+        widthFactor: 0.7,
+        child: FlatButton(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Text(
+            optionText,
+            style: TextThemes.MEDIUM_DARK_GRAY,
+          ),
+          onPressed: () => {
+            // Navigator.of(context).pushNamed(Routes.voteResult)
+            votedCallback(index)
+          },
+          color: ColorThemes.OFF_WHITE,
         ),
-        onPressed: () => {
-          // Navigator.of(context).pushNamed(Routes.voteResult)
-          votedCallback(index)
-        },
-        color: bg,
       ),
     );
   }
@@ -40,7 +41,6 @@ class VotePollerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorThemes.LIGHT_YELLOW,
       margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
       height: MediaQuery.of(context).size.height,
       child: Flex(
@@ -52,12 +52,6 @@ class VotePollerWidget extends StatelessWidget {
               duration: Duration(milliseconds: 300),
               child: Container(
                 key: Key(vote.id),
-                decoration: BoxDecoration(
-                  color: ColorThemes.WHITE,
-                  boxShadow: [
-                    DecorationThemes.cardBoxShadow,
-                  ],
-                ),
                 child: Flex(
                   direction: Axis.vertical,
                   children: <Widget>[
@@ -92,7 +86,7 @@ class VotePollerWidget extends StatelessWidget {
                           child: Text(
                             vote.title,
                             overflow: TextOverflow.clip,
-                            style: TextThemes.TITLE_GRANITE_GRAY,
+                            style: TextThemes.HUGE_OFF_WHITE,
                           ),
                         ),
                       ),
@@ -117,8 +111,8 @@ class VotePollerWidget extends StatelessWidget {
                         },
                         child: Center(
                           child: Text(
-                            'PASS',
-                            style: TextThemes.MEDIUM_DARK_GRAY,
+                            'pass',
+                            style: TextThemes.SMALL_WHITE,
                           ),
                         ),
                       ),
@@ -144,7 +138,8 @@ class VotePollerWidget extends StatelessWidget {
                     ),
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pushNamed(Routes.ADD_VOTE_SCREEN);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushNamed(Routes.ADD_VOTE_SCREEN);
                       },
                       child: Icon(
                         Icons.add,

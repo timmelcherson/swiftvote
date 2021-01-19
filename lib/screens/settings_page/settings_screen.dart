@@ -19,14 +19,14 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Text('Settings Widget'),
               FlatButton(
-                color: ColorThemes.DIRTY_WHITE,
+                color: ColorThemes.OFF_WHITE,
                 child: Text('Intro Screen'),
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
                 },
               ),
               FlatButton(
-                color: ColorThemes.DIRTY_WHITE,
+                color: ColorThemes.OFF_WHITE,
                 child: Text('Sign out'),
                 onPressed: () {
                   BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLogOutEvent());

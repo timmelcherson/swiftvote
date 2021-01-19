@@ -23,7 +23,7 @@ class AppScreen extends StatelessWidget {
     return BlocBuilder<TabBloc, AppTab>(
       builder: (context, activeTab) {
         return Scaffold(
-          backgroundColor: ColorThemes.LIGHT_YELLOW,
+          backgroundColor: ColorThemes.DEEP_BLUE_BG,
           body: SafeArea(
             child: WillPopScope(
               onWillPop: () async {

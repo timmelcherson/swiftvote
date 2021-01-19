@@ -7,11 +7,14 @@ class ColorThemes extends Theme {
   // Blue
   static const Color PRIMARY_BLUE = Color.fromRGBO(80, 92, 114, 1);
   static const Color DEEP_MARINE_BLUE = Color.fromRGBO(54, 46, 79, 1);
+  static const Color MARINE_BLUE = Color.fromRGBO(31, 38, 51, 1);
+  static const Color DEEP_BLUE_BG = Color.fromRGBO(31, 38, 51, 1);
+  static const Color LIGHT_BLUE = Color.fromRGBO(129, 207, 224, 1);
 
   // White
   static const Color LIGHT_YELLOW = Color.fromRGBO(255, 253, 245, 1);
   static const Color WHITE = Color.fromRGBO(255, 255, 255, 1);
-  static const Color DIRTY_WHITE = Color.fromRGBO(232, 232, 232, 1);
+  static const Color OFF_WHITE = Color.fromRGBO(232, 232, 232, 1);
 
   // Gray
   static const Color SILVER = Color.fromRGBO(191, 191, 191, 1);

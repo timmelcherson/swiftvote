@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'package:location/location.dart';
 import 'package:swiftvote/constants/credentials.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,13 +18,18 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
   Function _callback;
   final TextEditingController _searchController = TextEditingController();
   final String baseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-  final String rest = 'input=1600+Amphitheatre&key=<API_KEY>';
   final String type = '(regions)';
   final int searchRadius = 3000;
   final String session = '&sessiontoken=1234567890';
   String _searchString;
 
-  // https://maps.googleapis.com/maps/api/place/autocomplete/xml?input=Amoeba&types=establishment&location=37.76999,-122.44696&radius=500&strictbounds&key=YOUR_API_KEY
+  // Example
+  // https://maps.googleapis.com/maps/api/place/autocomplete/xml
+  // ?input=Amoeba
+  // &types=establishment
+  // &location=37.76999,-122.44696
+  // &radius=500&strictbounds
+  // &key=YOUR_API_KEY
 
   @override
   void initState() {
@@ -54,7 +56,6 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
     } else {
       print('Request failed with status: ${response.statusCode} and response was: $response');
     }
-    // print('SEND TO APi: ${_searchController.text}');
   }
 
   @override

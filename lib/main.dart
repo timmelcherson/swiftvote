@@ -61,6 +61,9 @@ class SwiftvoteApp extends StatelessWidget {
                   voteRepository: VoteRepository(),
                 )..add(LoadVotesEvent()),
               ),
+              BlocProvider<VoteResultBloc>(
+                create: (context) => VoteResultBloc(voteRepository: VoteRepository()),
+              ),
               BlocProvider<TabBloc>(
                 create: (context) => TabBloc(),
               ),
@@ -103,14 +106,19 @@ class SwiftvoteApp extends StatelessWidget {
                       key: SwiftvoteWidgetKeys.addVoteScreen,
                       isEditing: false,
                       onSave: (title, categories, voteOptionOne, voteOptionTwo, tags) {
-                        BlocProvider.of<VoteBloc>(context).add(AddVoteEvent(Vote(
-                            title: title,
-                            author: 'swiftvote',
-                            categories: categories,
-                            sponsor: "",
-                            voteOptions: [voteOptionOne, voteOptionTwo],
-                            votes: [0, 0],
-                            tags: tags)));
+                        BlocProvider.of<VoteBloc>(context).add(
+                          AddVoteEvent(
+                            Vote(
+                              title: title,
+                              author: 'swiftvote',
+                              categories: categories,
+                              sponsor: "",
+                              voteOptions: [voteOptionOne, voteOptionTwo],
+                              totalVotes: 0,
+                              tags: tags,
+                            ),
+                          ),
+                        );
                       },
                     );
                   },

@@ -130,10 +130,10 @@ class TextThemes extends Theme {
     fontSize: HUGE,
     color: ColorThemes.GRANITE_GRAY,
   );
-  static const HUGE_DIRTY_WHITE = TextStyle(
+  static const HUGE_OFF_WHITE = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: HUGE,
-    color: ColorThemes.DIRTY_WHITE,
+    color: ColorThemes.OFF_WHITE,
   );
 
   // TITLE size styles
