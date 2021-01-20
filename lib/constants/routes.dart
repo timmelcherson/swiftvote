@@ -6,6 +6,7 @@ class Routes {
   static const APP = 'app';
   static const EXPLORE = 'explore';
   static const SEARCH = 'search';
+  static const VOTE = 'vote';
   static const NOTIFICATIONS = 'notifications';
   static const SETTINGS = 'settings';
   static const LOGIN = 'login';

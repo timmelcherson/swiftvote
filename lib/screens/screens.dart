@@ -1,10 +1,10 @@
 export 'app_screen.dart';
-export 'add_vote_screen.dart';
-
-export 'explore_page/explore_barrel.dart';
-export 'intro_page/intro_barrel.dart';
-export 'notifications_page/notifications_screen.dart';
-export 'search_page/search_widget.dart';
-export 'settings_page/settings_screen.dart';
-export 'vote_page/vote_barrel.dart';
-export 'vote_result_page/vote_result_barrel.dart';
+export 'add_vote_screen/add_vote_screen.dart';
+export 'login_screen/login_barrel.dart';
+export 'register_screen/register_barrel.dart';
+export 'explore_screen/explore_barrel.dart';
+export 'intro_screen/intro_screen.dart';
+export 'notifications_screen/notifications_screen.dart';
+export 'search_screen/search_screen.dart';
+export 'settings_screen/settings_screen.dart';
+export 'vote_screen/vote_barrel.dart';

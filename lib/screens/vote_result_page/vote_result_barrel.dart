@@ -1,1 +1,0 @@
-export '../vote_page/vote_result_widget.dart';

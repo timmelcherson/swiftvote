@@ -1,3 +1,3 @@
 export 'loading_indicator.dart';
-export 'tab_selector.dart';
+export 'main_nav_bar.dart';
 export 'vote_thumbnail.dart';
