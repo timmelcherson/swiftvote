@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum Category {
   ART_AND_LITERATURE,
   ECONOMY,
@@ -48,6 +50,23 @@ extension CategoryExtension on Category {
     Category.TRAVEL: 'assets/category_thumbnails/travel_thumbnail.png',
   };
 
+  static const categoryThumbnails = {
+    Category.ART_AND_LITERATURE: Icons.book_outlined,
+    Category.ECONOMY: Icons.attach_money_outlined,
+    Category.E_SPORTS: Icons.sports_esports_outlined,
+    Category.HEALTH_AND_BODY: Icons.healing_outlined,
+    Category.HOUSEHOLD: Icons.house_outlined,
+    Category.MOVIES_AND_SERIES: Icons.movie_outlined,
+    Category.MUSIC: Icons.music_note_outlined,
+    Category.POLITICS_AND_SOCIETY: Icons.people_outlined,
+    Category.SCIENCE: Icons.science_outlined,
+    Category.SEX_AND_RELATIONS: Icons.arrow_upward_outlined,
+    Category.SPORTS: Icons.sports_handball_outlined,
+    Category.TECHNOLOGY: Icons.biotech_outlined,
+    Category.TRAVEL: Icons.airplanemode_active_outlined,
+  };
+
   String get categories => categoryToString[this];
   String get getThumbnailAssetPath => categoryThumbnailAssetPath[this];
+  IconData get getCategoryThumbnails => categoryThumbnails[this];
 }

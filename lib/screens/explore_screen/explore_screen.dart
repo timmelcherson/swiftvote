@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/screens/explore_screen/category_card.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/blocs/blocs.dart';
@@ -18,10 +19,10 @@ class ExploreScreen extends StatelessWidget {
           if (state is ExploreCategoriesLoadingState) {
             return LoadingIndicator(key: Keys.loadingIndicator);
           } else if (state is ExploreCategoriesLoadedState) {
-
             final votes = state.votes;
             final categories = state.categories;
-            final categoryThumbnailAssetPath = state.categoryImagesPaths;
+            final categoryThumbnails = state.categoryThumbnails;
+            // final categoryThumbnailAssetPath = state.categoryImagesPaths;
 
             return CustomScrollView(
               key: Keys.exploreWidget,
@@ -42,42 +43,50 @@ class ExploreScreen extends StatelessWidget {
                     delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) => Row(
                               children: <Widget>[
+                                // Expanded(
+                                //   flex: 1,
+                                //   child: GestureDetector(
+                                //     onTap: () => {
+                                //       Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //           builder: (context) => CategoryExplorer(
+                                //             votes: votes,
+                                //             headerImagePath: categoryThumbnailAssetPath[index],
+                                //             category: categories[index],
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     },
+                                //     child: Container(
+                                //       color: ColorThemes.LIGHT_YELLOW,
+                                //       child: Stack(
+                                //         alignment: Alignment.bottomLeft,
+                                //         children: <Widget>[
+                                //           Image.asset(
+                                //             categoryThumbnailAssetPath[index],
+                                //           ),
+                                //           Container(
+                                //             margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
+                                //             child: Text(
+                                //               categories[index],
+                                //               style: TextThemes.SMALL_WHITE,
+                                //             ),
+                                //           )
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
-                                  flex: 1,
-                                  child: GestureDetector(
-                                    onTap: () => {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => CategoryExplorer(
-                                                votes: votes,
-                                                headerImagePath: categoryThumbnailAssetPath[index],
-                                                category: categories[index])),
-                                      ),
-                                    },
-                                    child: Container(
-                                      color: ColorThemes.LIGHT_YELLOW,
-                                      child: Stack(
-                                        alignment: Alignment.bottomLeft,
-                                        children: <Widget>[
-                                          Image.asset(
-                                            categoryThumbnailAssetPath[index],
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                            child: Text(
-                                              categories[index],
-                                              style: TextThemes.SMALL_WHITE,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                  child: CategoryCard(
+                                    title: categories[index],
+                                    icon: categoryThumbnails[index],
                                   ),
                                 ),
                               ],
                             ),
-                        childCount: categoryThumbnailAssetPath.length),
+                        childCount: categories.length),
                   ),
                 ),
               ],

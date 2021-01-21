@@ -21,10 +21,6 @@ class MainNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationBloc, NavigationState>(builder: (context, state) {
       if (state is MainNavBarState) {
-        print('********************');
-        print(state);
-        print(state.index);
-        print('********************');
         return Hero(
           tag: Tags.MAIN_NAV_BAR_TAG,
           child: SizedBox(
@@ -35,7 +31,7 @@ class MainNavBar extends StatelessWidget {
                 border: Border(
                   top: BorderSide(
                     width: 1.0,
-                    color: Color.fromRGBO(241, 130, 141, 1),
+                    color: Color.fromRGBO(239, 152, 154, 1),
                   ),
                 ),
               ),
@@ -56,7 +52,7 @@ class MainNavBar extends StatelessWidget {
                     icon: Icon(
                       Icons.explore,
                       size: 24,
-                      color: Color.fromRGBO(241, 130, 141, 1),
+                      color: Color.fromRGBO(239, 152, 154, 1),
                     ),
                     activeIcon: Icon(
                       Icons.explore,
@@ -69,7 +65,7 @@ class MainNavBar extends StatelessWidget {
                     icon: Icon(
                       Icons.search,
                       size: 24,
-                      color: Color.fromRGBO(241, 130, 141, 1),
+                      color: Color.fromRGBO(239, 152, 154, 1),
                     ),
                     activeIcon: Icon(
                       Icons.search,
@@ -82,7 +78,7 @@ class MainNavBar extends StatelessWidget {
                     icon: Icon(
                       Icons.home,
                       size: 24,
-                      color: Color.fromRGBO(241, 130, 141, 1),
+                      color: Color.fromRGBO(239, 152, 154, 1),
                     ),
                     activeIcon: Icon(
                       Icons.home,
@@ -95,7 +91,7 @@ class MainNavBar extends StatelessWidget {
                     icon: Icon(
                       Icons.notifications,
                       size: 24,
-                      color: Color.fromRGBO(241, 130, 141, 1),
+                      color: Color.fromRGBO(239, 152, 154, 1),
                     ),
                     activeIcon: Icon(
                       Icons.notifications,
@@ -108,7 +104,7 @@ class MainNavBar extends StatelessWidget {
                     icon: Icon(
                       Icons.settings,
                       size: 24,
-                      color: Color.fromRGBO(241, 130, 141, 1),
+                      color: Color.fromRGBO(239, 152, 154, 1),
                     ),
                     activeIcon: Icon(
                       Icons.settings,

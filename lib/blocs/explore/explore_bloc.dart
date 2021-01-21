@@ -13,9 +13,9 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
       : super(
           voteBloc.state is VotesLoadedState
               ? ExploreCategoriesLoadedState(
-                  (voteBloc.state as VotesLoadedState).fullVoteList,
-                  CategoryExtension.categoryToString.values.toList(),
-                  CategoryExtension.categoryThumbnailAssetPath.values.toList())
+                  votes: (voteBloc.state as VotesLoadedState).fullVoteList,
+                  categories: CategoryExtension.categoryToString.values.toList(),
+                  categoryThumbnails: CategoryExtension.categoryThumbnails.values.toList())
               : ExploreCategoriesLoadingState(),
         ) {
     voteSubscription = voteBloc.listen((state) {
@@ -38,8 +38,10 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
       ExploreCategoriesUpdatedEvent event) async* {
     try {
       final categories = CategoryExtension.categoryToString.values.toList();
-      final categoryImagePaths = CategoryExtension.categoryThumbnailAssetPath.values.toList();
-      yield ExploreCategoriesLoadedState(event.votes, categories, categoryImagePaths);
+      final categoryThumbnails = CategoryExtension.categoryThumbnails.values.toList();
+      // final categoryImagePaths = CategoryExtension.categoryThumbnailAssetPath.values.toList();
+      yield ExploreCategoriesLoadedState(
+          votes: event.votes, categories: categories, categoryThumbnails: categoryThumbnails);
     } catch (_) {
       yield ExploreCategoriesLoadFailureState();
     }

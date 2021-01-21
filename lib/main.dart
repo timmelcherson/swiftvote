@@ -91,7 +91,7 @@ class SwiftvoteApp extends StatelessWidget {
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'swiftvote',
-                initialRoute: Routes.VOTE,
+                initialRoute: Routes.EXPLORE,
                 theme: primaryAppTheme,
                 routes: {
                   Routes.LOGIN: (context) {
