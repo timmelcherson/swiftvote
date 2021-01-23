@@ -6,7 +6,6 @@ class UserProfileRepository {
   final _userProfileCollection = FirebaseFirestore.instance.collection('user_profiles');
 
   Future<void> addNewUserProfile(UserProfile userProfile) async {
-    print('CREATING A USER PROFILE');
     return _userProfileCollection.doc(userProfile.userId).set(userProfile.toEntity().toDocument());
   }
 
@@ -47,8 +46,6 @@ class UserProfileRepository {
   }
 
   Stream<List<UserProfile>> getUserProfiles() {
-    print("GETTING UserProfileS FROM FIREBASE");
-    print(_userProfileCollection.snapshots());
     return _userProfileCollection.snapshots().map((snapshot) => snapshot.docs
         .map((doc) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(doc)))
         .toList());

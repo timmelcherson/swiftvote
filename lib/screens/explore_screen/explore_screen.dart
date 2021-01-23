@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/data/entities/vote_entity.dart';
+import 'package:swiftvote/data/models/vote_model.dart';
+import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/explore_screen/category_card.dart';
 import 'package:swiftvote/themes/themes.dart';
@@ -7,11 +10,60 @@ import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'explore_barrel.dart';
 
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({Key key}) : super(key: key);
 
+  // REMOVE WHEN VOTES ARE ADDED
+  Future<void> loadAsset(context) async {
+    print('loading asset');
+    String votesStr = await DefaultAssetBundle.of(context).loadString('assets/votes.txt');
+    List<String> allVotes = votesStr.split(",-");
+    // print("firt vote found in TSRING FILE: ${votesStr.split("-").first}");
+
+    Vote voteModel;
+    allVotes.forEach((result) {
+      if (result.split(",").length == 3) {
+        print(result.split(","));
+      }
+      // List<String> voteStr = allVotes.first.split(",");
+      // print(result);
+
+      // if (voteStr.length > 4) {
+      //   voteModel = Vote(
+      //       title: voteStr[0],
+      //       author: 'swiftvote',
+      //       categories: [voteStr[3], voteStr[4]],
+      //       sponsor: '',
+      //       voteOptions: [voteStr[1], voteStr[2]],
+      //       totalVotes: 0,
+      //       tags: ['']
+      //   );
+      // } else if (voteStr.length == 4){
+      //   voteModel = Vote(
+      //       title: voteStr[0],
+      //       author: 'swiftvote',
+      //       categories: [voteStr[3]],
+      //       sponsor: '',
+      //       voteOptions: [voteStr[1], voteStr[2]],
+      //       totalVotes: 0,
+      //       tags: ['']
+      //   );
+      // }
+    });
+    // VoteRepository vr = VoteRepository();
+    // vr.addNewVote(voteModel);
+    // print('Created a Vote model:');
+    // print(voteModel.toString().replaceAll("[", ""));
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadAsset(context);
+
     return Scaffold(
       bottomNavigationBar: MainNavBar(),
       body: BlocBuilder<ExploreBloc, ExploreState>(
@@ -19,7 +71,6 @@ class ExploreScreen extends StatelessWidget {
           if (state is ExploreCategoriesLoadingState) {
             return LoadingIndicator(key: Keys.loadingIndicator);
           } else if (state is ExploreCategoriesLoadedState) {
-            final votes = state.votes;
             final categories = state.categories;
             final categoryThumbnails = state.categoryThumbnails;
             // final categoryThumbnailAssetPath = state.categoryImagesPaths;
@@ -43,50 +94,22 @@ class ExploreScreen extends StatelessWidget {
                     delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) => Row(
                               children: <Widget>[
-                                // Expanded(
-                                //   flex: 1,
-                                //   child: GestureDetector(
-                                //     onTap: () => {
-                                //       Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //           builder: (context) => CategoryExplorer(
-                                //             votes: votes,
-                                //             headerImagePath: categoryThumbnailAssetPath[index],
-                                //             category: categories[index],
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     },
-                                //     child: Container(
-                                //       color: ColorThemes.LIGHT_YELLOW,
-                                //       child: Stack(
-                                //         alignment: Alignment.bottomLeft,
-                                //         children: <Widget>[
-                                //           Image.asset(
-                                //             categoryThumbnailAssetPath[index],
-                                //           ),
-                                //           Container(
-                                //             margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                //             child: Text(
-                                //               categories[index],
-                                //               style: TextThemes.SMALL_WHITE,
-                                //             ),
-                                //           )
-                                //         ],
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
                                 Expanded(
-                                  child: CategoryCard(
-                                    title: categories[index],
-                                    icon: categoryThumbnails[index],
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<ExploreBloc>(context).add(
+                                          ExploreCategoryTappedEvent(
+                                              category: state.categories[index]));
+                                    },
+                                    child: CategoryCard(
+                                      title: state.categories[index],
+                                      icon: categoryThumbnails[index],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                        childCount: categories.length),
+                        childCount: state.categories.length),
                   ),
                 ),
               ],

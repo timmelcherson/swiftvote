@@ -43,6 +43,7 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/category_thumbnails/
+    - assets/votes.txt
 
   fonts:
     - family: RobotoMono

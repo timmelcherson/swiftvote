@@ -41,7 +41,6 @@ class _VoteScreenState extends State<VoteScreen> {
       body: BlocBuilder<VoteBloc, VoteState>(
         builder: (context, state) {
           if (state is VotesLoadingState) {
-            print(state);
             return LoadingIndicator(key: Keys.loadingIndicator);
           } else if (state is VotesLoadedState) {
             if (state.votes.length == 0 || state.votes.isEmpty) {

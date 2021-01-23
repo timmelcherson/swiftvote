@@ -32,3 +32,18 @@ class ExploreCategoriesLoadedState extends ExploreState {
 }
 
 class ExploreCategoriesLoadFailureState extends ExploreState {}
+
+
+class ExploreCategoryLoadState extends ExploreState {
+  final String category;
+
+  ExploreCategoryLoadState({this.category});
+}
+
+class ExploreCategoryLoadedState extends ExploreState {
+  final String category;
+
+  ExploreCategoryLoadedState({this.category});
+}
+
+class ExploreCategoryLoadFailState extends ExploreState {}

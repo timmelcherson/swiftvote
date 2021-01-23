@@ -20,10 +20,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
               : UserProfileLoadingState(),
         ) {
     authSubscription = authenticationBloc.listen((state) {
-      print('LISTENER STARTING');
-      print('STATE IS: $state');
       if (state is AuthenticationSuccessState) {
-        print('LISTENER FIRED');
         add(UserIdReceivedEvent(
             (authenticationBloc.state as AuthenticationSuccessState).user.uid));
       }
@@ -45,12 +42,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   Stream<UserProfileState> _mapUserIdReceivedEventToState(
       UserIdReceivedEvent event) async* {
     UserProfile _userProfile = await userProfileRepository.getUserProfileById(event.userId);
-    print('_mapUserProfileUpdatedEventToState WITH ID: ${event.userId}');
-    print('GOT USER PROFILE: $_userProfile');
     try {
       // UserProfileCreatedState
       if (_userProfile == null) {
-        print('profile didnt exist, creating one for user with id: ${event.userId}');
         _userProfile = UserProfile(
           userId: event.userId,
           gender: "",
@@ -61,10 +55,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         );
         await userProfileRepository.addNewUserProfile(_userProfile);
       }
-      print('_mapUserProfileUpdatedEventToState YIELDING SUCCESS');
       yield UserProfileCreatedState(userProfile: _userProfile);
     } catch (_) {
-      print('_mapUserProfileUpdatedEventToState YIELDING FAILURE');
       yield UserProfileLoadFailureState();
     }
   }
@@ -72,16 +64,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   Stream<UserProfileState> _mapUserProfileUpdatedEventToState(UserProfileUpdatedEvent event) async* {
 
     if (state is UserProfileCreatedState) {
-      print('state is UserProfileCreatedState');
       try {
         if (event.updateDB) {
-          print('updating DATABASE with new userProfile');
           userProfileRepository.updateUserProfile(event.userProfile);
         }
-        print('YIELDING UserProfileCreatedState with event.userProfile: ${event.userProfile}');
         yield UserProfileCreatedState(userProfile: event.userProfile);
       } catch (_) {
-        print('Could not yield UserProfileCreatedState, error caught with message: $_');
         yield UserProfileLoadFailureState();
       }
     } else {

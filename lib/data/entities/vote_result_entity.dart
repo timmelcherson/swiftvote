@@ -29,7 +29,6 @@ class VoteResultEntity extends Equatable {
   }
 
   static VoteResultEntity fromJson(Map<String, Object> json) {
-    print(json);
     return VoteResultEntity(
       totalVotes: json["totalVotes"] as int,
       maleVotes: json["maleVotes"] as int,
@@ -39,7 +38,6 @@ class VoteResultEntity extends Equatable {
   }
 
   static VoteResultEntity fromSnapshot(DocumentSnapshot snap) {
-    print(snap.data());
     return VoteResultEntity(
       totalVotes: snap.get('totalVotes'),
       maleVotes: snap.get('maleVotes'),

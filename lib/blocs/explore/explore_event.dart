@@ -22,3 +22,9 @@ class ExploreCategoriesUpdatedEvent extends ExploreEvent {
   @override
   String toString() => 'ExploreCategoriesUpdatedEvent { votes: $votes }';
 }
+
+class ExploreCategoryTappedEvent extends ExploreEvent {
+  final String category;
+
+  ExploreCategoryTappedEvent({this.category});
+}

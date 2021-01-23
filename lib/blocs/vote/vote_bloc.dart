@@ -39,12 +39,10 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   Stream<VoteState> _mapLoadVotesToState() async* {
     _voteSubscription?.cancel();
-    print("votesubscription");
     _voteSubscription = _voteRepository.getVotes().listen((votes) => add(VotesUpdatedEvent(votes)));
   }
 
   Stream<VoteState> _mapAddVoteToState(AddVoteEvent event) async* {
-    print("votesubscription");
     _voteRepository.addNewVote(event.vote);
   }
 
@@ -60,9 +58,9 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
     List<Vote> newList = List.from(event.votes);
     newList.shuffle();
-    print('-------------------------------------');
-    newList.forEach((vote) => print(vote));
-    print('-------------------------------------');
+    // print('-------------------------------------');
+    // newList.forEach((vote) => print(vote));
+    // print('-------------------------------------');
     yield VotesLoadedState(votes: newList, fullVoteList: event.votes);
     // print('%%%%%%%%%%%%%%');
     // print('event.newIndex: ${event.newIndex}');
@@ -90,10 +88,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   Stream<VoteState> _mapResetVotesToState(ResetVotesEvent event) async* {
-    print('YIELDING RESET STATE');
-    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
     event.fullVoteList.forEach((element) => print(element.title));
-    print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
     yield VotesLoadedState(votes: event.fullVoteList, fullVoteList: event.fullVoteList);
   }
 

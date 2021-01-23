@@ -16,6 +16,7 @@ import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/screens/screens.dart';
 
+
 Future<void> main() async {
   Bloc.observer = SimpleBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,9 @@ class SwiftvoteApp extends StatelessWidget {
 
   // final Future<FirebaseAuth> _authInit = FirebaseAuth
   // bool _skipLogin = false;
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,103 +48,113 @@ class SwiftvoteApp extends StatelessWidget {
           // if (snapshot.hasData) {
           //   _skipLogin = snapshot.data[1];
           // }
-          return MultiBlocProvider(
+          return MultiRepositoryProvider(
             providers: [
-              BlocProvider<AuthenticationBloc>(
-                create: (context) => AuthenticationBloc(
-                  userRepository: UserRepository(),
-                )..add(AuthenticationStartedEvent()),
+              RepositoryProvider<UserRepository>(
+                create: (context) => UserRepository(),
               ),
-              BlocProvider<UserProfileBloc>(
-                create: (context) => UserProfileBloc(
-                  authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-                  userProfileRepository: UserProfileRepository(),
-                )..add(UserProfileLoadingEvent()),
+              RepositoryProvider<UserProfileRepository>(
+                create: (context) => UserProfileRepository(),
               ),
-              BlocProvider<NavigationBloc>(
-                create: (context) => NavigationBloc(),
-              ),
-              BlocProvider<VoteBloc>(
-                create: (context) => VoteBloc(
-                  voteRepository: VoteRepository(),
-                )..add(LoadVotesEvent()),
-              ),
-              BlocProvider<VoteResultBloc>(
-                create: (context) => VoteResultBloc(
-                  voteRepository: VoteRepository(),
-                ),
-              ),
-              BlocProvider<ExploreBloc>(
-                create: (context) => ExploreBloc(
-                  voteBloc: BlocProvider.of<VoteBloc>(context),
-                )..add(ExploreCategoriesLoadedEvent()),
+              RepositoryProvider<VoteRepository>(
+                create: (context) => VoteRepository(),
               ),
             ],
-            child: GestureDetector(
-              onTap: () {
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                print(currentFocus.focusedChild);
-                print(currentFocus.hasPrimaryFocus);
-                if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-                  currentFocus.focusedChild.unfocus();
-                }
-                // if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-                //   FocusManager.instance.primaryFocus.unfocus();
-                // }
-              },
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'swiftvote',
-                initialRoute: Routes.EXPLORE,
-                theme: primaryAppTheme,
-                routes: {
-                  Routes.LOGIN: (context) {
-                    print('MAIN ROUTE LOGIN');
-                    print(_firebaseInit);
-                    return IntroScreen(userProfileRepository: UserProfileRepository());
-                  },
-                  // Routes.HOME: (context) {
-                  //   print('MAIN ROUTE HOME');
-                  //   return AppScreen();
-                  // },
-                  // Routes.VOTE_RESULT: {},
-                  Routes.EXPLORE: (context) {
-                    return ExploreScreen();
-                  },
-                  Routes.SEARCH: (context) {
-                    return SearchScreen();
-                  },
-                  Routes.VOTE: (context) {
-                    return VoteScreen();
-                  },
-                  Routes.NOTIFICATIONS: (context) {
-                    return NotificationsScreen();
-                  },
-                  Routes.SETTINGS: (context) {
-                    return SettingsScreen();
-                  },
-                  Routes.ADD_VOTE_SCREEN: (context) {
-                    return AddVoteScreen(
-                      key: Keys.addVoteScreen,
-                      isEditing: false,
-                      onSave: (title, categories, voteOptionOne, voteOptionTwo, tags) {
-                        BlocProvider.of<VoteBloc>(context).add(
-                          AddVoteEvent(
-                            Vote(
-                              title: title,
-                              author: 'swiftvote',
-                              categories: categories,
-                              sponsor: "",
-                              voteOptions: [voteOptionOne, voteOptionTwo],
-                              totalVotes: 0,
-                              tags: tags,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider<AuthenticationBloc>(
+                  create: (context) => AuthenticationBloc(
+                    userRepository: RepositoryProvider.of<UserRepository>(context),
+                  )..add(AuthenticationStartedEvent()),
+                ),
+                BlocProvider<UserProfileBloc>(
+                  create: (context) => UserProfileBloc(
+                    authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+                    userProfileRepository: RepositoryProvider.of<UserProfileRepository>(context),
+                  )..add(UserProfileLoadingEvent()),
+                ),
+                BlocProvider<NavigationBloc>(
+                  create: (context) => NavigationBloc(),
+                ),
+                BlocProvider<VoteBloc>(
+                  create: (context) => VoteBloc(
+                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                  )..add(LoadVotesEvent()),
+                ),
+                BlocProvider<VoteResultBloc>(
+                  create: (context) => VoteResultBloc(
+                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                  ),
+                ),
+                BlocProvider<ExploreBloc>(
+                  create: (context) => ExploreBloc(
+                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    voteBloc: BlocProvider.of<VoteBloc>(context),
+                  )..add(ExploreCategoriesLoadedEvent()),
+                ),
+              ],
+              child: GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                    currentFocus.focusedChild.unfocus();
+                  }
+                  // if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                  //   FocusManager.instance.primaryFocus.unfocus();
+                  // }
                 },
+                child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'swiftvote',
+                  initialRoute: Routes.EXPLORE,
+                  theme: primaryAppTheme,
+                  routes: {
+                    Routes.LOGIN: (context) {
+                      return IntroScreen(userProfileRepository: UserProfileRepository());
+                    },
+                    // Routes.HOME: (context) {
+                    //   print('MAIN ROUTE HOME');
+                    //   return AppScreen();
+                    // },
+                    // Routes.VOTE_RESULT: {},
+                    Routes.EXPLORE: (context) {
+                      return ExploreScreen();
+                    },
+                    Routes.SEARCH: (context) {
+                      return SearchScreen();
+                    },
+                    Routes.VOTE: (context) {
+                      return VoteScreen();
+                    },
+                    Routes.NOTIFICATIONS: (context) {
+                      return NotificationsScreen();
+                    },
+                    Routes.SETTINGS: (context) {
+                      return SettingsScreen();
+                    },
+                    Routes.ADD_VOTE_SCREEN: (context) {
+                      return AddVoteScreen(
+                        key: Keys.addVoteScreen,
+                        isEditing: false,
+                        onSave: (title, categories, voteOptionOne, voteOptionTwo, tags) {
+                          BlocProvider.of<VoteBloc>(context).add(
+                            AddVoteEvent(
+                              Vote(
+                                title: title,
+                                author: 'swiftvote',
+                                categories: categories,
+                                sponsor: "",
+                                voteOptions: [voteOptionOne, voteOptionTwo],
+                                totalVotes: 0,
+                                tags: tags,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  },
+                ),
               ),
             ),
           );

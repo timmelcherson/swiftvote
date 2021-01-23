@@ -3,13 +3,15 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/repositories.dart';
 import './explore.dart';
 
 class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
+  final VoteRepository voteRepository;
   final VoteBloc voteBloc;
   StreamSubscription voteSubscription;
 
-  ExploreBloc({@required this.voteBloc})
+  ExploreBloc({@required this.voteRepository, @required this.voteBloc})
       : super(
           voteBloc.state is VotesLoadedState
               ? ExploreCategoriesLoadedState(
@@ -32,6 +34,9 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
     if (event is ExploreCategoriesUpdatedEvent) {
       yield* _mapExploreCategoriesUpdatedEventToState(event);
     }
+    if (event is ExploreCategoryTappedEvent) {
+      yield* _mapExploreCategoryTappedEventToState(event);
+    }
   }
 
   Stream<ExploreState> _mapExploreCategoriesUpdatedEventToState(
@@ -44,6 +49,18 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
           votes: event.votes, categories: categories, categoryThumbnails: categoryThumbnails);
     } catch (_) {
       yield ExploreCategoriesLoadFailureState();
+    }
+  }
+
+  Stream<ExploreState> _mapExploreCategoryTappedEventToState(ExploreCategoryTappedEvent event) async* {
+
+    // event.category
+    // get votes where category contains event.category from voteRepository
+    try {
+      voteRepository.getVotesByCategory(event.category);
+    } catch (error) {
+      print('Could not get votes for category ${event.category}, got error: $error');
+      yield ExploreCategoryLoadFailState();
     }
   }
 

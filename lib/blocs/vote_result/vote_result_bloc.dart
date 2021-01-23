@@ -26,8 +26,6 @@ class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
   Stream<VoteResultState> _mapVoteResultRequestedEventToState(
       VoteResultRequestedEvent event) async* {
     List<VoteResult> voteResults = await _voteRepository.getVoteResultsByVoteId(event.voteId);
-    print('got vote results in voteResultBloc:');
-    print(voteResults);
     if (voteResults != null && voteResults.length > 0) {
       int totalVotesForAllOptions =
           voteResults.fold(0, (prev, element) => prev + element.totalVotes);

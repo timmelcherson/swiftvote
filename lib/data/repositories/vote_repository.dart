@@ -29,15 +29,12 @@ class VoteRepository {
   }
 
   Future<List<VoteResult>> getVoteResultsByVoteId(String voteId) async {
-    print('voteRepository getVoteResultsByVoteId for id: $voteId');
+    // print('voteRepository getVoteResultsByVoteId for id: $voteId');
     return await voteCollection
         .doc(voteId)
         .collection('vote_results')
         .get()
         .then((querySnapshot) => querySnapshot.docs.map((doc) {
-              print(doc);
-              print(VoteResultEntity.fromSnapshot(doc));
-              print(VoteResult.fromEntity(VoteResultEntity.fromSnapshot(doc)));
               return VoteResult.fromEntity(VoteResultEntity.fromSnapshot(doc));
             }).toList())
         .catchError((error) {
@@ -45,16 +42,18 @@ class VoteRepository {
     });
     // VoteResult.fromEntity(VoteResultEntity.fromSnapshot(voteResult))
   }
+  
+  Future<List<Vote>> getVotesByCategory(String category) async {
+    QuerySnapshot qSnaps = await voteCollection.where("categories", arrayContains: category).get();
+    print(qSnaps);
+      //   .snapshots().map((snapshot) => snapshot.docs.map((vote) {
+      // Vote.fromEntity(VoteEntity.fromSnapshot(snapshot))
+    // }));
+  }
 
   Stream<List<Vote>> getVotes() {
-    print("GETTING VOTES FROM FIREBASE");
-    print(voteCollection.snapshots());
     return voteCollection.snapshots().map((snapshot) => snapshot.docs.map((vote) {
-          print('%%%%%%%%%%%%%%% GOT VOTE');
-          print(VoteEntity.fromSnapshot(vote));
-          Vote v = Vote.fromEntity(VoteEntity.fromSnapshot(vote));
-          print(v);
-          return v;
+          return Vote.fromEntity(VoteEntity.fromSnapshot(vote));
         }).toList());
   }
 }

@@ -130,7 +130,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                               ),
                             ),
                             onTap: () {
-                              print('HELP ME');
+                              print('HELP');
                             },
                           ),
                         ),

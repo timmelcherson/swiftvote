@@ -1,0 +1,1440 @@
+Who is the GOAT?,
+Lionel Messi,
+Cristiano Ronaldo,
+Sports,
+*
+Who is the GOAT?,
+Lebron James,
+Michael Jordan,
+Sports,
+*
+Who is the GOAT?,
+Kobe Bryant,
+Michael Jordan,
+Sports,
+*
+Who is the GOAT?,
+Marta,
+Alex Morgan,
+Sports,
+*
+Who is the GOAT?,
+Roger Federer,
+Novak Djokovic,
+Sports,
+*
+Who is better?,
+Pele,
+Diego Maradona,
+Sports,
+*
+Is VAR good?,
+Yes,
+No,
+Sports,
+*
+Which sport?,
+Football,
+Hockey,
+Sports,
+*
+Should female football players earn the same as male football players?,
+Yes,
+No,
+Sports,
+Politics & Society,
+*
+Which team?,
+FC Barcelona,
+Real Madrid,
+Sports,
+*
+Which sport?,
+Rugby,
+American football,
+Sports,
+*
+Which game?,
+UCL Final,
+World Cup Final,
+Sports,
+*
+Which training?,
+Weights,
+Cardio,
+Sports,
+Health & Body,
+*
+Is James Rodriguez underrated?,
+Yes,
+No,
+Sports,
+*
+Will any country ever be better than the USA in basketball?,
+Yes,
+No,
+Sports,
+*
+Should Qatar get to host the World Cup 2022?,
+Yes,
+No,
+Sports,
+Politics & Society,
+*
+Should sporting events get to hav audience despite a pandemic?,
+Yes,
+No,
+Sports,
+*
+Who is better?,
+Pep Guardiola,
+Jose Mourinho,
+Sports,
+*
+Which team?,
+AIK,
+Djurgården,
+Sports,
+*
+Do you go to the gym?,
+Yes,
+No,
+Sports,
+Health & Body,
+*
+Do you use a condom?,
+With condom,
+Without condom,
+Sex & Relations,
+Health & Body,
+*
+Do you have a condom with you at all times?,
+Yes,
+No,
+Sex & Relations,
+*
+Do you have sex on the first date?,
+Yes,
+No,
+Sex & Relations,
+*
+Have you had anal sex?,
+Yes,
+No,
+Sex & Relations,
+*
+Which is better?,
+Missionary,
+Doggy style,
+Sex & Relations,
+*
+Does size matter?,
+Yes,
+No,
+Sex & Relations,
+*
+Are you happy with your current partner?,
+Yes,
+No,
+Sex & Relations,
+*
+Morning sex or evening sex?,
+Morning sex,
+Evening sex,
+Sex & Relations,
+*
+Have you ever had sex with the same gender?,
+Yes,
+No,
+Sex & Relations,
+*
+Do you trust your partner?,
+Yes,
+No,
+Sex & Relations,
+*
+Do you go down on your partner?,
+Yes,
+No,
+Sex & Relations,
+*
+Have you ever cheated on your partner?,
+Yes,
+No,
+Sex & Relations,
+*
+Are you single or in a relationship?,
+Single,
+Relationship,
+Sex & Relations,
+*
+Are you a virgin?,
+Yes,
+No,
+Sex & Relations,
+*
+Have you ever been in love?,
+Yes,
+No,
+Sex & Relations,
+*
+Have you ever tried online dating?,
+Yes,
+No,
+Sex & Relations,
+Technology & IT,
+*
+Do you believe in love at first sight?,
+Yes,
+No,
+Sex & Relations,
+*
+Do you believe everyone has a soulmate?,
+Yes,
+No,
+Sex & Relations,
+*
+Do you like to cuddle?,
+Yes,
+No,
+Sex & Relations,
+*
+Do you masturbate?,
+Yes,
+No,
+Sex & Relations,
+*
+Which series?,
+Friends,
+How I Met Your Mother,
+Movies & TV,
+*
+Do you think Game of Thrones ended well?,
+Yes,
+No,
+Movies & TV,
+*
+Which The Office?,
+The Office US,
+The Office UK,
+Movies & TV,
+*
+Which director?,
+Christopher Nolan,
+Quentin Tarantino?,
+Movies & TV,
+*
+What do you prefer?,
+Cinema,
+Home,
+Movies & TV,
+*
+Best snack?,
+Popcorn,
+Potato chips,
+Movies & TV,
+Food & Drink,
+*
+Which rating system?,
+IMDB,
+Rotten Tomatoes,
+Movies & TV,
+*
+Which one?,
+Hollywood,
+Bollywood?,
+Movies & TV,
+*
+What do you prefer?,
+Movies,
+Series,
+Movies & TV,
+*
+Does he look like a bitch?,
+Yes,
+No,
+Movies & TV,
+*
+Were they on a break?,
+Yes, THEY WERE ON A BREAK!!!,
+No,
+Movies & TV,
+*
+Which character?,
+Dwight Schrute?,
+Jim Halpert?,
+Movies & TV,
+*
+Who is better for Pam Beesly?,
+Toby Flendersson,
+Jim Halpert?,
+Movies & TV,
+*
+Which team?,
+Team Edward,
+Team Jacob,
+Movies & TV,
+*
+Do you like Swedish movies?,
+Yes,
+No,
+Movies & TV,
+*
+Which fantasy movie series?,
+Lord of the rings?,
+Harry Potter?,
+Movies & TV,
+*
+Classic movies or Modern movies?,
+Classic,
+Modern,
+Movies & TV,
+*
+Family Guy or The Simpsons?,
+Family Guy,
+The Simpsons,
+Movies & TV,
+*
+Marvel Universe or DC universe?,
+Marvel Universe,
+DC universe,
+Movies & TV,
+*
+Left wing or Right wing?,
+Left wing,
+Right wing,
+Politics & Society,
+*
+Is Stefan Löfven a good prime minister?,
+Yes,
+No,
+Politics & Society,
+*
+Are you in favor of monarchy?,
+Yes,
+No,
+Politics & Society,
+*
+Is Donald Trump a good president?,
+Yes,
+No,
+Politics & Society,
+*
+Do you think taxes are too high?,
+Yes,
+No,
+Politics & Society,
+*
+Should marijuana be legalized?,
+Yes,
+No,
+Politics & Society,
+*
+Are you in favor of the death penalty?,
+Yes,
+No,
+Politics & Society,
+*
+Should euthanasia be available?,
+Yes,
+No,
+Politics & Society,
+*
+Is immigration to high?,
+Yes,
+No,
+Politics & Society,
+*
+Do you think everything can be joked about?,
+Yes,
+No,
+Politics & Society,
+*
+Should your country be a part of the European Union?,
+Yes,
+No,
+Politics & Society,
+*
+Would you rather live in the city or country side?,
+City,
+Country side,
+*
+Should Private Schools be available?,
+Yes,
+No,
+Politics & Society,
+*
+Are you religious?,
+Yes,
+No,
+Politics & Society,
+*
+Should your country be a member in NATO?,
+Yes,
+No,
+Politics & Society,
+*
+Do you believe in life after death?,
+Yes,
+No,
+Politics & Society,
+*
+Are you worried about a third world war breaking out?,
+Yes,
+No,
+Politics & Society,
+*
+Is the justice system fair?,
+Yes,
+No,
+Politics & Society,
+*
+Do you trust your government?,
+Yes,
+No,
+Politics & Society,
+*
+Do you think kids under 15 should have homework?,
+Yes,
+No,
+Politics & Society,
+*
+Should the government raise prices on cigarettes?,	Yes,
+No,
+Politics & Society,
+Health & Body,
+*
+Do corporations more harm to society than good?,
+Yes,
+No,
+Politics & Society,
+*
+Which drink?,
+Wine,
+Beer,
+Food & Drink,
+*
+Cooking food or ordering food?,
+Cooking,
+Ordering,
+Food & Drink,
+*
+Which drink?,
+Coca-Cola,
+Pepsi,
+Food & Drink,
+*
+Do you eat meat?,
+Yes,
+No,
+Food & Drink,
+*
+Do you eat breakfast?,
+Yes,
+No,
+Food & Drink,
+*
+Do you drink alcohol?,
+Yes,
+No,
+Food & Drink,
+*
+Which food?,
+Pizza,
+Hamburger,
+Food & Drink,
+*
+Which kitchen do you prefer?,
+Italian,
+French,
+Food & Drink,
+*
+Which kitchen do you prefer?,
+Indian,
+Thai,
+Food & Drink,
+*
+Which carb?,
+Potato,
+Pasta,
+Food & Drink,
+*
+Which protein?,
+Fish,
+Meat,
+Food & Drink,
+*
+Have you ever fasted?,
+Yes,
+No,
+Food & Drink,
+Health & Body,
+*
+Have you ever ordered food from a food truck?,
+Yes,
+No,
+Food & Drink,
+*
+Which fast food chain?,
+McDonald's,
+Burger King,
+Food &, Drink,
+*
+Which fast food chain?,
+McDonald's,
+Subway,
+Food & Drink,
+*
+Do you rather drink soda or alcohol with dinner?
+Soda,
+Alcohol,
+Food & Drink,
+*
+Which beverage?,
+Coffee,
+Tea,
+Food & Drink,
+*
+Do you drink coffee?,
+Yes,
+No,
+Food & Drink,
+*
+Sparkling or still water?,
+Sparkling,
+Still,
+Food & Drink,
+*
+Do you have any food allergies?,
+Yes,
+No,
+Food & Drink,
+Health & Body,
+*
+Which operative system?,
+iOS,
+Android,
+Technology & IT,
+*
+Which operative system?,
+Windows,
+Mac,
+Technology & IT,
+Gaming,
+*
+Have you ever tried Virtual Reality?,
+Yes,
+No,
+Technology & IT,
+*
+Laptop or Desktop?,
+Laptop,
+Desktop,
+Technology & IT,
+Gaming,
+*
+Mouse or Mousepad?,
+Mouse,
+Mousepad,
+Technology & IT,
+Gaming,
+*
+Are you afraid of Artificial Intelligence?,
+Yes,
+No,
+Technology & IT,
+Science,
+*
+Are you afraid of 5G?,
+Yes,
+No,
+Technology & IT,
+*
+Which console?,
+Playstation,
+Xbox,
+Technology & IT,
+Gaming,
+*
+Do you use TikTok?,
+Yes,
+No,
+Technology & IT,
+*
+Which Social Media?,
+Facebook,
+Instagram,
+Technology & IT,
+*
+Do you trust virtual home assistants?,
+Yes,
+No,
+Technology & IT,
+*
+Do you think your phone is listening to you all the time?,
+Yes,
+No,
+Technology & IT,
+*
+Have you ever covered your web cam?,
+Yes,
+No,
+Technology & IT,
+*
+Do you use a smart watch?,
+Yes,
+No,
+Technology & IT,
+*
+Do you use Air Pods?,
+Yes,
+No,
+Technology & IT,
+*
+Should electric cars be subsidized?,
+Yes,
+No,
+Technology & IT,
+*
+Will powerful corporations take over the world in the future?,
+Yes,
+No,
+Technology & IT,
+*
+Do you have security cameras in your home?,
+Yes,
+No,
+Technology & IT,
+*
+Do you know what a VHS is?,
+Yes,
+No,
+Technology & IT,
+*
+Do you miss having buttons on your phone?,
+Yes,
+No,
+Technology & IT,
+*
+Which game?,
+League of Legends (LoL),
+Heroes of Newerth (HoN),
+Gaming,
+*
+Which game?,
+League of Legends (LoL),
+DOTA,
+Gaming,
+*
+Which game?,
+Call of Duty,
+Battlefield,
+Gaming,
+*
+Which game?,
+FIFA,
+Pro Evolution Soccer (PES),
+Gaming,
+*
+Computer or Console?,
+Computer,
+Console,
+Gaming,
+*
+Which game?,
+Super Smash Bros,
+Mario Kart,
+Gaming,
+*
+Are the characters of Mario and Luigi racist?,
+Yes,
+No,
+Gaming,
+*
+In general, is the representation of female characters in games sexist?,
+Yes,
+No,
+Gaming,
+*
+Have you ever owned a Game Boy?,
+Yes,
+No,
+Gaming,
+*
+Did you play Flappy Bird?,
+Yes,
+No,
+Gaming,
+*
+Do you play Pokemon GO?,
+Yes,
+No,
+Gaming,
+*
+Which Battle Royale?,
+Call of Duty: Warzone,
+Fortnite,
+Gaming,
+*
+Have you ever made an in-game purchase?,
+Yes,
+No,
+Gaming,
+*
+Would you consider yourself a gamer?,
+Yes,
+No,
+Gaming,
+*
+Do you think gaming should be available as an education?,
+Yes,
+No,
+Gaming,
+*
+Would you say gaming could be a profession?,
+Yes,
+No,
+Gaming,
+*
+Have you ever been to Dreamhack?,
+Yes,
+No,
+Gaming,
+*
+Do you see Multiplayer Gaming as a Social Activity?,
+Yes,
+No,
+Gaming,
+*
+Do you think violent games encourage violence in society?,
+Yes,
+No,
+Gaming,
+*
+Do you think gaming could be beneficial for learning?,
+Yes,
+No,
+Gaming,
+*
+Do you smoke cigarettes?,
+Yes,
+No,
+Health & Body,
+*
+Have you successfully quit smoking?,
+Yes,
+No,
+Health & Body,
+*
+Do you use illegal drugs?,
+Yes,
+No,
+Health & Body,
+*
+Do you see alcohol as a drug?,
+Yes,
+No,
+Health & Body,
+*
+Have you ever tried a specific diet?,
+Yes,
+No,
+Health & Body,
+*
+Have you ever had a STD?,
+Yes,
+No,
+Health & Body,
+*
+Are parents responsible for their kids mental health?,
+Yes,
+No,
+Health & Body,
+*
+Have you ever self-diagnosed yourself with a mental health issue?,
+Yes,
+No,
+Health & Body,
+*
+Is medicine prescribed to easily?,
+Yes,
+No,
+Health & Body,
+*
+Have you ever donated blood?,
+Yes,
+No,
+Health & Body,
+*
+Have you ever had any tattoos?,
+Yes,
+No,
+Health & Body,
+*
+How do you feel about vaccines?,
+Pro,
+Against,
+Health & Body,
+*
+Do you shower every day?,
+Yes,
+No,
+Health & Body,
+*
+Do you believe there are more than two genders?,
+Yes,
+No,
+Health & Body,
+*
+Have you ever used Performance Enhancing drugs?,
+Yes,
+No,
+Health & Body,
+*
+Should Mental Health be discussed more?,
+Yes,
+No,
+Health & Body,
+*
+Do you excercise regularly?,
+Yes,
+No,
+Health & Body,
+*
+Do you shave or trim any part of your body hair, face excluded?,
+Yes,
+No,
+Health & Body,
+*
+How do you prefer to pee?,
+Standing up,
+Sitting down,
+Health & Body,
+*
+Do you wash your hands every time you go to the bathroom?,
+Yes,
+No,
+Health & Body,
+*
+Do you read books?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Do you paint?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Do you understand abstract art?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Do you rather read?,
+Fiction,
+Non-fiction,
+Litteratur & Konst,
+*
+Is Harry Potter a good book series?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Is Lord of the Rings a good book series?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Is Game of Thrones a good book series?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Would rather read or watch a movie of the same story?,
+Read,
+Watch movie,
+Litteratur & Konst,
+Movies & TV,
+*
+Do you borrow books at the library?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Would you consider music as art?,
+Yes,
+No,
+Litteratur & Konst,
+Music,
+*
+Would you consider movies as art?,
+Yes,
+No,
+Litteratur & Konst,
+Movies & TV,
+*
+Would you consider graffiti as art?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Do you read poetry?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Modern Art or Classic Art?,
+Modern Art,
+Classic Art,
+Litteratur & Konst,
+*
+George R.R Martin or J.R.R Tolkien?,
+George R.R Martin,
+J.R.R Tolkien,
+Litteratur & Konst,
+*
+Should art be a part of education?,
+Yes,
+No,
+Litteratur & Konst,
+*
+Do you prefer books with long chapters or short chapters?,
+Long chapters,
+Short chapters,
+Litteratur & Konst,
+*
+Which comic book universe do you prefer?,
+Marvel,
+DC,
+Litteratur & Konst,
+*
+Do you prefer pocket books or hard cover books?,
+Pocket,
+Hard Cover,
+Litteratur & Konst,
+*
+Do you prefer reading or listening to a book?,
+Reading,
+Listening,
+Litteratur & Konst,
+*
+Would you prefer to live in a house or an apartment?,
+House,
+Apartment,
+Household,
+*
+Do you prefer to live by yourself or with room mates?,
+By yourself,
+Room mate,
+Household,
+*
+Do you own property?,
+Yes,
+No,
+Household,
+*
+Do you have second hand furniture in your home?,
+Yes,
+No,
+Household,
+*
+Do you recycle?,
+Yes,
+No,
+Household,
+*
+Would you consider yourself a good cook?,
+Yes,
+No,
+Household,
+*
+Do you have a good relationship with your neighbors?,
+Yes,
+No,
+Household,
+*
+Would you rather have a top floor or basement?,
+Top floor,
+Basement,
+Household,
+*
+Do you prefer to live with or without neighbors?,
+With,
+Without,
+Household,
+*
+Do you usually eat meals in front of the TV?,
+Yes,
+No,
+Household,
+*
+Could the lack of a balcony be decisive when you want to move somewhere?,
+Yes,
+No,
+Household,
+*
+Do you walk around naked at home?,
+Yes,
+No,
+Household,
+*
+Are you worried that people will se what you are doing through the window?,
+Yes,
+No,
+Household,
+*
+When someone is at the door, have you ever acted like you are not home?,
+Yes,
+No,
+Household,
+*
+Have you ever had a paranormal experience at home?,
+Yes,
+No,
+Household,
+*
+Have you ever done laundry on someone elses booking?,
+Yes,
+No,
+Household,
+*
+Have you ever opened someone elses mail?,
+Yes,
+No,
+Household,
+*
+Have you ever clogged the toilet?,
+Yes,
+No,
+Household,
+*
+Do you prefer to listen to music through headphones or speakers when you are home?,
+Headphones,
+Speakers,
+Household,
+*
+Do you pee in the shower?,
+Yes,
+No,
+Household,
+*
+Have you ever been outside your country?,
+Yes,
+No,
+Travel,
+*
+Have you ever been outside your continent?,
+Yes,
+No,
+Travel,
+*
+If possible, would you travel to outer space?,
+Yes,
+No,
+Travel,
+*
+Should plane tickets be more expensive?,
+Yes,
+No,
+Travel,
+*
+Hotel or AirBnB?,
+Hotel,
+AirBnB,
+Travel,
+Household,
+*
+Do you prefer to travel alone or with company?,
+Alone,
+With company,
+Travel,
+*
+Do you prefer warm destinations or cold destinations?,
+Warm destinations,
+Cold destinations,
+Travel,
+*
+Do you prefer to hike or lay on the beach?,
+Hike,
+Beach,
+Travel,
+*
+Do you prefer explore multiple destinations on the surface or one destination in depth?,
+Multiple,
+One,
+Travel,
+*
+Which transport do you prefer?,
+Airplane,
+Train,
+Travel,
+*
+Would you drive in a country where the traffic runs on the opposite side from your home country?,
+Yes,
+No,
+Travel,
+*
+Should people pay more for airline tickes if they are overweight?,
+Yes,
+No,
+Travel,
+*
+Do you prefer tourist attractions or hidden gems?	Tourist attractions,
+Hidden gems,
+Travel,
+*
+Would you couchsurf?,
+Yes,
+No,
+Travel,
+*
+Would you rent out your home to travelers?,
+Yes,
+No,
+Travel,
+*
+Would you rather visit?,
+Paris,
+London,
+Travel,
+*
+Would you rather visit?,
+Rome,
+Athens,
+Travel,
+*
+Do you prefer?,
+Relaxing holiday,
+Active holiday,
+Travel,
+*
+Do you prefer?,
+Carry-on,
+Check-in,
+Travel,
+*
+Do you prefer?,
+Window seat,
+Aisle seat,
+Travel,
+*
+Do you believe we are alone in the universe?,
+Yes,
+No,
+Science,
+*
+Do you think humanity will inhabit another planet?,
+Yes,
+No,
+Science,
+*
+Do you think robots will take over the planet?,
+Yes,
+No,
+Science,
+*
+Do you believe in Climate Change?,
+Yes,
+FAKE NEWS,
+Science,
+*
+Do you believe in evolution?,
+Yes,
+No,
+Science,
+*
+Do you believe humanity has been on the moon?,
+Yes,
+No,
+Science,
+*
+Will we ever find the cure for cancer?,
+Yes,
+No,
+Science,
+*
+If possible, would you want to be immortal?,
+Yes,
+No,
+Science,
+*
+Do you believe humanity will find the key to immortality?,
+Yes,
+No,
+Science,
+*
+Do you believe time travel is possible?,
+Yes,
+No,
+Science,
+*
+Do you think cloning of humans is or will be possible?,
+Yes,
+No,
+Science,
+*
+Would you cryo freeze yourself?,
+Yes,
+No,
+Science,
+*
+Do you think humanity will be immune to anti-biotics?,
+Yes,
+No,
+Science,
+*
+Do you think the earth is flat?,
+Yes,
+No,
+Science,
+*
+Do you believe we will find the cure for Aids?,
+Yes,
+No,
+Science,
+*
+What is your opinion of animal testing?,
+Good,
+Bad,
+Science,
+*
+Do you think scientists should have had control over the strategy for the COVID-19 pandemic instead of politicians?,
+Yes,
+No,
+Science,
+*
+Do you believe everything can be explained through science?,
+Yes,
+No,
+Science,
+*
+Do you prefer?,
+Biology,
+Physics,
+Science,
+*
+Do you think we will prevent Global Warming?,
+Yes,
+No,
+Science,
+*
+Is Tupac still alive?,
+Yes,
+No,
+Music,
+*
+Who is the better Hip-Hop Artist?,
+Tupac,
+Notorius B.I.G,
+Music,
+*
+Who is the better Hip-Hop Artist?,
+Nas,
+Jay-Z,
+Music,
+*
+Which side?,
+East,
+West,
+Music,
+*
+Who is better?,
+Rihanna,
+Beyoncé,
+Music,
+*
+Which band is better?,
+Rolling Stones,
+The Beatles,
+Music,
+*
+Who is the king of pop?,
+Prince,
+Michael Jackson,
+Music,
+*
+Who is better?,
+Justin Timberlake,
+Michael Jackson,
+Music,
+*
+Would you rather sit or stand at a concert?,
+Sit,
+Stand,
+Music,
+*
+Have you ever been to a music festival?,
+Yes,
+No,
+Music,
+*
+Are you ashamed of your taste in music?,
+Yes,
+No,
+Music,
+*
+Do you sing in the shower?,
+Yes,
+No,
+Music,
+*
+Who is the better Hip-Hop Artist?,
+Kendrick Lamar,
+J Cole,
+Music,
+*
+Do you think Justin Bieber sings good?,
+Yes,
+No,
+Music,
+*
+Do you enjoy singing kareoke?,
+Yes,
+No,
+Music,
+*
+Do you listen to classical music?,
+Yes,
+No,
+Music,
+*
+Should we ban music containing lyrics that glorify violent and criminal lifestyles?,
+Yes,
+No,
+Music,
+Politics & Society,
+*
+Should students be able listen to music in class?,
+Yes,
+No,
+Music,
+*
+Which side?,
+Taylor Swift,
+Kanye West,
+Music,
+*
+Who is better?,
+Daniel Adams-Ray,
+Oskar Linnros,
+Music,
+*
+Do you prefer?,
+Socialism,
+Capitalism,
+Economy,
+Politics & Society,
+*
+Should women be paid the same as men?,
+Yes,
+No,
+Economy,
+Politics & Society,
+*
+Is sugar tax a good idea?,
+Yes,
+No,
+Economy,
+Politics & Society,
+*
+Is taxation fair in Sweden?,
+Yes,
+No,
+Economy,
+Politics & Society,
+*
+Inherited money?,
+Yes,
+No,
+Economy,
+Politics & Society,
+*
+Economical assets?,
+Yes,
+No,
+Economy,
+*
+Can money buy happiness?,
+Yes,
+No,
+Economy,
+Health & Body,
+*
+Have you started saving for retirement?,
+Yes,
+No,
+Economy,
+Politics & Society,
+*
+Would you want to have Euro as your countries currency?,
+Yes,
+No,
+Economy,
+*
+Have you evere bought Bitcoint?,
+Yes,
+No,
+Economy,
+*
+Do you invest your money in stocks?
+Yes,
+No,
+Economy,
+*
+Do you think there should be a Universal currency?,
+Yes,
+No,
+Economy,
+*
+Are you still using cash?,
+Yes,
+No,
+Economy,
+*
+Do you invest?,
+Yes,
+No,
+Economy,
+*
+Do you use mobile payment method (apple pay, samsung pay, etc)?,
+Yes,
+No,
+Economy,
+*
+Are you in Financil debt?,
+Yes,
+No,
+Economy,
+*
+Have you ever commited a finacial fraud?,
+Yes,
+No,
+Economy,
+*
+Have you ever dodged taxes on purpose?,
+Yes,
+No,
+Economy,
+*
+Do you believe a cashless society is a good idea?,
+Yes,
+No,
+Economy,
+*
+Do you support free trade?,
+Yes,
+No,
+Economy,
+Politics & Society,
+
+
+
+
+
+
+
+
+
+
+
