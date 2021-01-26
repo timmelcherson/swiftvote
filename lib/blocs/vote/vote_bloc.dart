@@ -58,9 +58,10 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
     List<Vote> newList = List.from(event.votes);
     newList.shuffle();
-    // print('-------------------------------------');
-    // newList.forEach((vote) => print(vote));
-    // print('-------------------------------------');
+    print('NEW LIST LENGTH: ${newList.length}');
+    print('-------------------------------------');
+    newList.forEach((vote) => print({...vote.categories}));
+    print('-------------------------------------');
     yield VotesLoadedState(votes: newList, fullVoteList: event.votes);
     // print('%%%%%%%%%%%%%%');
     // print('event.newIndex: ${event.newIndex}');

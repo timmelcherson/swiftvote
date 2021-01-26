@@ -7,3 +7,4 @@ export 'authentication/authentication.dart';
 export 'user_profile/user_profile.dart';
 export 'vote_result/vote_result.dart';
 export 'navigation/navigation.dart';
+export 'search/search.dart';

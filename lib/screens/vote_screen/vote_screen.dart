@@ -58,6 +58,7 @@ class _VoteScreenState extends State<VoteScreen> {
                 ],
               );
             }
+            print('state.votes length: ${state.votes.length}');
 
             _vote = widget.vote ?? state.votes[0];
 

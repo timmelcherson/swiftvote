@@ -14,55 +14,47 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
 class ExploreScreen extends StatelessWidget {
-  ExploreScreen({Key key}) : super(key: key);
+  final VoteRepository voteRepository;
+
+  ExploreScreen({Key key, this.voteRepository}) : super(key: key);
 
   // REMOVE WHEN VOTES ARE ADDED
-  Future<void> loadAsset(context) async {
-    print('loading asset');
-    String votesStr = await DefaultAssetBundle.of(context).loadString('assets/votes.txt');
-    List<String> allVotes = votesStr.split(",-");
-    // print("firt vote found in TSRING FILE: ${votesStr.split("-").first}");
-
-    Vote voteModel;
-    allVotes.forEach((result) {
-      if (result.split(",").length == 3) {
-        print(result.split(","));
-      }
-      // List<String> voteStr = allVotes.first.split(",");
-      // print(result);
-
-      // if (voteStr.length > 4) {
-      //   voteModel = Vote(
-      //       title: voteStr[0],
-      //       author: 'swiftvote',
-      //       categories: [voteStr[3], voteStr[4]],
-      //       sponsor: '',
-      //       voteOptions: [voteStr[1], voteStr[2]],
-      //       totalVotes: 0,
-      //       tags: ['']
-      //   );
-      // } else if (voteStr.length == 4){
-      //   voteModel = Vote(
-      //       title: voteStr[0],
-      //       author: 'swiftvote',
-      //       categories: [voteStr[3]],
-      //       sponsor: '',
-      //       voteOptions: [voteStr[1], voteStr[2]],
-      //       totalVotes: 0,
-      //       tags: ['']
-      //   );
-      // }
-    });
-    // VoteRepository vr = VoteRepository();
-    // vr.addNewVote(voteModel);
-    // print('Created a Vote model:');
-    // print(voteModel.toString().replaceAll("[", ""));
-
-  }
+  // Future<void> loadAsset(context) async {
+  //   print('loading asset');
+  //   String votesStr = await DefaultAssetBundle.of(context).loadString('assets/votes.txt');
+  //   List<String> allVotes = votesStr.split("*");
+  //
+  //   allVotes.forEach((result) async {
+  //     List<String> voteData = result.split(',');
+  //
+  //     if (voteData.length > 4) {
+  //       await voteRepository.addNewVote(new Vote(
+  //           title: voteData[0],
+  //           author: 'swiftvote',
+  //           categories: [voteData[3], voteData[4]],
+  //           sponsor: '',
+  //           voteOptions: [voteData[1], voteData[2]],
+  //           totalVotes: 0,
+  //           tags: ['']));
+  //     } else if (voteData.length == 4) {
+  //       await voteRepository.addNewVote(new Vote(
+  //           title: voteData[0],
+  //           author: 'swiftvote',
+  //           categories: [voteData[3]],
+  //           sponsor: '',
+  //           voteOptions: [voteData[1], voteData[2]],
+  //           totalVotes: 0,
+  //           tags: ['']));
+  //     } else {
+  //       print(result.split(","));
+  //       print('Saw a vote with length: ${result.split(",").length}');
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    loadAsset(context);
+    // loadAsset(context);
 
     return Scaffold(
       bottomNavigationBar: MainNavBar(),

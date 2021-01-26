@@ -57,7 +57,8 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
     // event.category
     // get votes where category contains event.category from voteRepository
     try {
-      voteRepository.getVotesByCategory(event.category);
+      List<Vote> votes = await voteRepository.getVotesByCategory(event.category);
+      // print('finally in explore bloc, votes list length is: ${votes.length}');
     } catch (error) {
       print('Could not get votes for category ${event.category}, got error: $error');
       yield ExploreCategoryLoadFailState();

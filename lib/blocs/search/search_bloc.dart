@@ -1,17 +1,32 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:swiftvote/data/repositories.dart';
 import './search.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
-  SearchBloc(SearchState initialState) : super(initialState);
+  final VoteRepository voteRepository;
 
-  SearchState get initialState => InitialSearchState();
+  SearchBloc({this.voteRepository}) : super(SearchInitialState());
 
   @override
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
-    // TODO: Add Logic
+    if (event is SearchSubmittedEvent) {
+      yield* _mapSearchSubmittedEventToState(event);
+    }
+  }
+
+  Stream<SearchState> _mapSearchSubmittedEventToState(SearchSubmittedEvent event) async* {
+    try {
+
+      // await voteRepository.getVotesByTitle();
+
+      yield SearchCompletedState();
+    } catch (error) {
+      print('Search fail in BLOC: $error');
+      yield SearchFailedState();
+    }
   }
 }

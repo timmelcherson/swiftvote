@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +29,6 @@ class SwiftvoteApp extends StatelessWidget {
 
   // final Future<FirebaseAuth> _authInit = FirebaseAuth
   // bool _skipLogin = false;
-
-
 
 
   @override
@@ -92,6 +91,11 @@ class SwiftvoteApp extends StatelessWidget {
                     voteBloc: BlocProvider.of<VoteBloc>(context),
                   )..add(ExploreCategoriesLoadedEvent()),
                 ),
+                BlocProvider<SearchBloc>(
+                  create: (context) => SearchBloc(
+                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                  ),
+                ),
               ],
               child: GestureDetector(
                 onTap: () {
@@ -118,7 +122,7 @@ class SwiftvoteApp extends StatelessWidget {
                     // },
                     // Routes.VOTE_RESULT: {},
                     Routes.EXPLORE: (context) {
-                      return ExploreScreen();
+                      return ExploreScreen(voteRepository: RepositoryProvider.of<VoteRepository>(context));
                     },
                     Routes.SEARCH: (context) {
                       return SearchScreen();
