@@ -5,6 +5,7 @@ class Routes {
   static const REGISTER_OPTIONAL = 'register_optional';
   static const APP = 'app';
   static const EXPLORE = 'explore';
+  static const EXPLORE_CATEGORY = 'explore_category';
   static const SEARCH = 'search';
   static const VOTE = 'vote';
   static const NOTIFICATIONS = 'notifications';

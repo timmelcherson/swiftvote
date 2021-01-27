@@ -55,15 +55,17 @@ class VoteRepository {
 
   Future<List<Vote>> getVotesByCategory(String category) async {
     print('getVotesByCategory: $category');
-    QuerySnapshot querySnapshot =
-        await voteCollection.where('categories', arrayContains: category).limit(5).get().catchError((error) {
-      print('query got error: $error');
+    QuerySnapshot querySnapshot = await voteCollection
+        .where('categories', arrayContains: category)
+        .limit(20)
+        .get()
+        .catchError((error) {
+          print('Got error fetching votes by category: $error');
     });
-    print('got query snapshot of size: ${querySnapshot.size}');
-    querySnapshot.docs.map((item) => print(item));
-    //   .snapshots().map((snapshot) => snapshot.docs.map((vote) {
-    // Vote.fromEntity(VoteEntity.fromSnapshot(snapshot))
-    // }));
+
+    return querySnapshot.docs.map((snap) {
+      return Vote.fromEntity(VoteEntity.fromQuerySnapshot(snap));
+    }).toList();
   }
 
   // Future<List<Vote>> getVotesByTitle(String searchQuery) async {

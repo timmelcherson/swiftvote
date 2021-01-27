@@ -14,13 +14,10 @@ abstract class ExploreState extends Equatable {
 class ExploreCategoriesLoadingState extends ExploreState {}
 
 class ExploreCategoriesLoadedState extends ExploreState {
-  final List<Vote> votes;
   final List<String> categories;
-  // final List<String> categoryImagesPaths;
   final List<IconData> categoryThumbnails;
 
-  const ExploreCategoriesLoadedState(
-      {this.votes, this.categories, this.categoryThumbnails});
+  const ExploreCategoriesLoadedState({this.categories, this.categoryThumbnails});
 
   @override
   List<Object> get props => [categories];
@@ -29,10 +26,19 @@ class ExploreCategoriesLoadedState extends ExploreState {
   String toString() {
     return 'ExploreCategoriesLoadSuccess{categories: $categories}';
   }
+
+  ExploreCategoriesLoadedState copyWith({
+    List<String> categories,
+    List<IconData> categoryThumbnails,
+  }) {
+    return ExploreCategoriesLoadedState(
+      categories: categories ?? this.categories,
+      categoryThumbnails: categoryThumbnails ?? this.categoryThumbnails,
+    );
+  }
 }
 
 class ExploreCategoriesLoadFailureState extends ExploreState {}
-
 
 class ExploreCategoryLoadState extends ExploreState {
   final String category;
@@ -42,8 +48,9 @@ class ExploreCategoryLoadState extends ExploreState {
 
 class ExploreCategoryLoadedState extends ExploreState {
   final String category;
+  final List<Vote> votes;
 
-  ExploreCategoryLoadedState({this.category});
+  ExploreCategoryLoadedState({this.category, this.votes});
 }
 
 class ExploreCategoryLoadFailState extends ExploreState {}

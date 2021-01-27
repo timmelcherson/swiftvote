@@ -124,6 +124,9 @@ class SwiftvoteApp extends StatelessWidget {
                     Routes.EXPLORE: (context) {
                       return ExploreScreen(voteRepository: RepositoryProvider.of<VoteRepository>(context));
                     },
+                    Routes.EXPLORE_CATEGORY: (context) {
+                      return CategoryExplorer();
+                    },
                     Routes.SEARCH: (context) {
                       return SearchScreen();
                     },

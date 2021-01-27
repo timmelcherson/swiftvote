@@ -39,7 +39,7 @@ class VoteEntity extends Equatable {
         'sponsor: $sponsor, voteOptions: $voteOptions, totalVotes: $totalVotes, tags: $tags}';
   }
 
-  Map<String, Object> toJson() {
+  Map<String, Object> toMap() {
     return {
       "id": id,
       "title": title,
@@ -52,24 +52,46 @@ class VoteEntity extends Equatable {
     };
   }
 
-  static VoteEntity fromJson(Map<String, Object> json) {
-    List<String> voteOptionsList = new List<String>.from(json["voteOptions"]);
-    List<String> tagsList = new List<String>.from(json["tags"]);
-    List<String> categoryList = new List<String>.from(json["category"]);
+  static VoteEntity fromMap(Map<String, Object> map) {
+    List<String> voteOptionsList = new List<String>.from(map["voteOptions"]);
+    List<String> tagsList = new List<String>.from(map["tags"]);
+    List<String> categoryList = new List<String>.from(map["category"]);
 
-    return VoteEntity(
-      id: json["id"] as String,
-      title: json["title"] as String,
-      author: json["author"] as String,
+    VoteEntity entity = VoteEntity(
+      id: map["id"] as String,
+      title: map["title"] as String,
+      author: map["author"] as String,
       categories: categoryList,
-      sponsor: json["sponsor"] as String,
+      sponsor: map["sponsor"] as String,
       voteOptions: voteOptionsList,
-      totalVotes: json["totalVotes"],
+      totalVotes: map["totalVotes"],
       tags: tagsList,
     );
+
+    print('CREATED ENTITY');
+    print(entity);
+    print('%%%%%%%%%%%%%%%%%');
+    return entity;
   }
 
   static VoteEntity fromSnapshot(DocumentSnapshot snap) {
+    List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
+    List<String> _tags = new List<String>.from(snap.get('tags'));
+    List<String> _categories = new List<String>.from(snap.get('categories'));
+
+    return VoteEntity(
+      id: snap.id,
+      title: snap.get('title'),
+      author: snap.get('author'),
+      categories: _categories,
+      sponsor: snap.get('sponsor'),
+      voteOptions: _voteOptions,
+      totalVotes: snap.get('totalVotes'),
+      tags: _tags,
+    );
+  }
+
+  static VoteEntity fromQuerySnapshot(QueryDocumentSnapshot snap) {
     List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
     List<String> _tags = new List<String>.from(snap.get('tags'));
     List<String> _categories = new List<String>.from(snap.get('categories'));

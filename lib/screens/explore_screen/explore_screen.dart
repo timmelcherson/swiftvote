@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/data/entities/vote_entity.dart';
 import 'package:swiftvote/data/models/vote_model.dart';
 import 'package:swiftvote/data/repositories.dart';
@@ -18,6 +19,10 @@ class ExploreScreen extends StatelessWidget {
 
   ExploreScreen({Key key, this.voteRepository}) : super(key: key);
 
+  String formatStr(String string) {
+    return string.trim().replaceAll("[", "").replaceAll("]", "");
+  }
+
   // REMOVE WHEN VOTES ARE ADDED
   // Future<void> loadAsset(context) async {
   //   print('loading asset');
@@ -27,27 +32,40 @@ class ExploreScreen extends StatelessWidget {
   //   allVotes.forEach((result) async {
   //     List<String> voteData = result.split(',');
   //
+  //     Vote vote = new Vote(
+  //       title: formatStr(voteData[0]),
+  //       author: 'swiftvote',
+  //       categories: [formatStr(voteData[3]), formatStr(voteData[4])],
+  //       sponsor: '',
+  //       voteOptions: [formatStr(voteData[1]), formatStr(voteData[2])],
+  //       totalVotes: 0,
+  //       tags: [''],
+  //     );
+  //
+  //     print(vote);
+  //
   //     if (voteData.length > 4) {
-  //       await voteRepository.addNewVote(new Vote(
-  //           title: voteData[0],
-  //           author: 'swiftvote',
-  //           categories: [voteData[3], voteData[4]],
-  //           sponsor: '',
-  //           voteOptions: [voteData[1], voteData[2]],
-  //           totalVotes: 0,
-  //           tags: ['']));
+  //       Vote vote = new Vote(
+  //         title: formatStr(voteData[0]),
+  //         author: 'swiftvote',
+  //         categories: [formatStr(voteData[3]), formatStr(voteData[4])],
+  //         sponsor: '',
+  //         voteOptions: [formatStr(voteData[1]), formatStr(voteData[2])],
+  //         totalVotes: 0,
+  //         tags: [''],
+  //       );
+  //       await voteRepository.addNewVote(vote);
   //     } else if (voteData.length == 4) {
-  //       await voteRepository.addNewVote(new Vote(
-  //           title: voteData[0],
-  //           author: 'swiftvote',
-  //           categories: [voteData[3]],
-  //           sponsor: '',
-  //           voteOptions: [voteData[1], voteData[2]],
-  //           totalVotes: 0,
-  //           tags: ['']));
-  //     } else {
-  //       print(result.split(","));
-  //       print('Saw a vote with length: ${result.split(",").length}');
+  //       Vote vote = new Vote(
+  //         title: formatStr(voteData[0]),
+  //         author: 'swiftvote',
+  //         categories: [formatStr(voteData[3]), ""],
+  //         sponsor: '',
+  //         voteOptions: [formatStr(voteData[1]), formatStr(voteData[2])],
+  //         totalVotes: 0,
+  //         tags: [''],
+  //       );
+  //       await voteRepository.addNewVote(vote);
   //     }
   //   });
   // }
@@ -62,7 +80,9 @@ class ExploreScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is ExploreCategoriesLoadingState) {
             return LoadingIndicator(key: Keys.loadingIndicator);
-          } else if (state is ExploreCategoriesLoadedState) {
+          }
+
+          if (state is ExploreCategoriesLoadedState) {
             final categories = state.categories;
             final categoryThumbnails = state.categoryThumbnails;
             // final categoryThumbnailAssetPath = state.categoryImagesPaths;
@@ -90,25 +110,27 @@ class ExploreScreen extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () {
                                       BlocProvider.of<ExploreBloc>(context).add(
-                                          ExploreCategoryTappedEvent(
-                                              category: state.categories[index]));
+                                        ExploreCategoryTappedEvent(
+                                          category: categories[index],
+                                        ),
+                                      );
+                                      Navigator.of(context).pushNamed(Routes.EXPLORE_CATEGORY);
                                     },
                                     child: CategoryCard(
-                                      title: state.categories[index],
+                                      title: categories[index],
                                       icon: categoryThumbnails[index],
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                        childCount: state.categories.length),
+                        childCount: categories.length),
                   ),
                 ),
               ],
             );
-          } else {
-            return Container();
           }
+          return LoadingIndicator();
         },
       ),
     );

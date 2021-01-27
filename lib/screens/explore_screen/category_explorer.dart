@@ -1,57 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/blocs/explore/explore.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 
 class CategoryExplorer extends StatelessWidget {
-  final List<Vote> votes;
-  final String headerImagePath;
-  final String category;
+  // final String headerImagePath;
 
-  CategoryExplorer({this.votes, this.headerImagePath, this.category});
+  // CategoryExplorer({this.headerImagePath});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-          key: Keys.exploreCategoryWidget,
-          scrollDirection: Axis.vertical,
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: CategoryExplorerHeaderDelegate(headerImagePath, category),
-            ),
-            SliverPadding(
-              padding: EdgeInsets.all(16),
-              sliver: SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  childAspectRatio: 1,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) => Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: GestureDetector(
-                                onTap: () => {
-                                  Navigator.of(context).pushNamed(
-                                    Routes.HOME_WITH_VOTE,
-                                    arguments: votes[index],
+        body: BlocBuilder<ExploreBloc, ExploreState>(
+          builder: (context, state) {
+            if (state is ExploreCategoryLoadState) {
+              return LoadingIndicator();
+            }
+
+            if (state is ExploreCategoryLoadedState) {
+              return CustomScrollView(
+                key: Keys.exploreCategoryWidget,
+                scrollDirection: Axis.vertical,
+                slivers: <Widget>[
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: CategoryExplorerHeaderDelegate(
+                      text: state.category,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: EdgeInsets.all(16),
+                    sliver: SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        childAspectRatio: 1,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) => Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: GestureDetector(
+                                      onTap: () => {
+                                        Navigator.of(context).pushNamed(
+                                          Routes.HOME_WITH_VOTE,
+                                          arguments: state.votes[index],
+                                        ),
+                                      },
+                                      child: VoteThumbnail(state.votes[index].title),
+                                    ),
                                   ),
-                                },
-                                child: VoteThumbnail(votes[index].title),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                    childCount: votes.length),
-              ),
-            ),
-          ],
+                          childCount: state.votes.length),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            if (state is ExploreCategoryLoadFailState) {
+              return Center(
+                child: Text('FAILED'),
+              );
+            }
+
+            return LoadingIndicator();
+          },
         ),
       ),
     );
@@ -62,7 +82,7 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
   final String path;
   final String text;
 
-  CategoryExplorerHeaderDelegate(this.path, this.text);
+  CategoryExplorerHeaderDelegate({this.path, this.text});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -71,12 +91,12 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
 
     return Stack(
       children: <Widget>[
-        Image.asset(
-          path,
-          height: maxExtent,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
-        ),
+        // Image.asset(
+        //   path,
+        //   height: maxExtent,
+        //   width: MediaQuery.of(context).size.width,
+        //   fit: BoxFit.cover,
+        // ),
         Container(
           height: maxExtent,
           width: MediaQuery.of(context).size.width,
@@ -100,6 +120,7 @@ class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
             color: Color.fromRGBO(colorValue, colorValue, colorValue, 1.0),
           ),
           onPressed: () {
+            BlocProvider.of<ExploreBloc>(context).add(ExploreCategoryReturnEvent());
             Navigator.pop(context);
           },
         ),
