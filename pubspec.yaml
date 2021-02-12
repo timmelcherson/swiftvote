@@ -13,6 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   bloc: ^6.0.2
   flutter_bloc: ^6.0.2
   equatable: ^1.2.0
@@ -44,6 +46,9 @@ flutter:
     - assets/icons/
     - assets/category_thumbnails/
     - assets/votes.txt
+    - assets/lang_files/sv.json
+    - assets/lang_files/en.json
+
 
   fonts:
     - family: RobotoMono

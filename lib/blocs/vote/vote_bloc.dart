@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:swiftvote/blocs/explore/explore.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import './vote.dart';
@@ -55,7 +56,6 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
-
     List<Vote> newList = List.from(event.votes);
     newList.shuffle();
     print('NEW LIST LENGTH: ${newList.length}');
@@ -73,7 +73,6 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   Stream<VoteState> _mapVotePassedToState(PassVoteEvent event) async* {
-
     List<Vote> newList = event.votes;
     newList.removeAt(0);
     newList.shuffle();
@@ -97,6 +96,11 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     // event.vote.votes[event.optionIndex] += 1;
     // _voteRepository.updateVote(event.vote);
   }
+
+  // Stream<VoteState> _mapCategoryTapEventToVotesLoadedState () async* {
+  //   _categorySubscription?.cancel();
+  //   _categorySubscription = exploreBloc.listen(() { })
+  // }
 
   @override
   Future<void> close() {

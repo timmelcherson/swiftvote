@@ -139,7 +139,7 @@ class VotePollerWidget extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true)
-                            .pushNamed(Routes.ADD_VOTE_SCREEN);
+                            .pushNamed(Routes.ADD_VOTE);
                       },
                       child: Icon(
                         Icons.add,

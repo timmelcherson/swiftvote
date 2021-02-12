@@ -53,7 +53,8 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
   
   Stream<ExploreState> _mapExploreCategorySelectedEventToState(
       ExploreCategorySelectedEvent event) async* {
-    yield VotesLoadedState(votes: null)
+    print('_mapExploreCategorySelectedEventToState');
+    // yield VotesLoadedState(votes: null);
   }
 
   @override

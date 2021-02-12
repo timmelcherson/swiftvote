@@ -12,7 +12,7 @@ class Routes {
   static const SETTINGS = 'settings';
   static const LOGIN = 'login';
   static const REGISTER = 'register';
-  static const ADD_VOTE_SCREEN = 'add_vote';
+  static const ADD_VOTE = 'add_vote';
   static const VOTE_RESULT = 'vote_result';
   static const HOME_WITH_VOTE = 'selected_vote';
 }

@@ -1,4 +1,3 @@
-export 'app_screen.dart';
 export 'add_vote_screen/add_vote_screen.dart';
 export 'login_screen/login_barrel.dart';
 export 'register_screen/register_barrel.dart';

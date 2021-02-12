@@ -22,6 +22,11 @@ class TextThemes extends Theme {
     fontSize: FOOTNOTE,
     color: ColorThemes.CHARCOAL_GRAY,
   );
+  static const FOOTNOTE_SILVER = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: FOOTNOTE,
+    color: ColorThemes.SILVER,
+  );
 
   // TINY size styles
   static const TextStyle TINY_CHARCOAL_GRAY = TextStyle(
@@ -44,6 +49,16 @@ class TextThemes extends Theme {
     fontSize: TINY,
     color: ColorThemes.SILVER,
   );
+  static const TextStyle TINY_LIGHT_YELLOW = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: TINY,
+    color: ColorThemes.LIGHT_YELLOW,
+  );
+  static const TextStyle TINY_LIGHT_BLUE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: TINY,
+    color: ColorThemes.LIGHT_BLUE,
+  );
 
   // SMALL size styles
   static const TextStyle SMALL_LIGHT_GRAY = TextStyle(
@@ -61,6 +76,8 @@ class TextThemes extends Theme {
     fontSize: SMALL,
     color: ColorThemes.DARK_GRAY,
   );
+
+  /// Font size: [SMALL], Color: [ColorThemes.WHITE]
   static const TextStyle SMALL_WHITE = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: SMALL,
@@ -78,6 +95,8 @@ class TextThemes extends Theme {
     fontSize: MEDIUM,
     color: ColorThemes.DARK_GRAY,
   );
+
+  /// Font size: 18.0, Color: white
   static const TextStyle MEDIUM_WHITE = TextStyle(
     fontFamily: 'RobotoMono',
     fontSize: MEDIUM,
@@ -94,6 +113,11 @@ class TextThemes extends Theme {
     fontFamily: 'RobotoMono',
     fontSize: LARGE,
     color: ColorThemes.LIGHT_GRAY,
+  );
+  static const TextStyle LARGE_WHITE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: LARGE,
+    color: ColorThemes.WHITE,
   );
 
   // LARGER size styles
@@ -134,6 +158,11 @@ class TextThemes extends Theme {
     fontFamily: 'RobotoMono',
     fontSize: HUGE,
     color: ColorThemes.OFF_WHITE,
+  );
+  static const HUGE_WHITE = TextStyle(
+    fontFamily: 'RobotoMono',
+    fontSize: HUGE,
+    color: ColorThemes.WHITE,
   );
 
   // TITLE size styles

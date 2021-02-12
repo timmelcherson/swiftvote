@@ -8,7 +8,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   @override
   Stream<NavigationState> mapEventToState(NavigationEvent event) async* {
     if (event is MainNavBarTapEvent) {
-      yield MainNavBarState(index: event.selectedIndex);
+      yield MainNavBarState(index: event.index);
     }
   }
 }

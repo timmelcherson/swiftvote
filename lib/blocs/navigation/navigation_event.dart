@@ -9,7 +9,7 @@ abstract class NavigationEvent {
 
 class MainNavBarTapEvent extends NavigationEvent {
 
-  final int selectedIndex;
+  final int index;
 
-  MainNavBarTapEvent({this.selectedIndex});
+  MainNavBarTapEvent({this.index});
 }
