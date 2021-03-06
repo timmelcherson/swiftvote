@@ -31,7 +31,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   String _voteTitle;
   String _voteOptionOne;
   String _voteOptionTwo;
-  List<String> _voteCategory = new List();
+  List<String> _voteCategory = [];
   List<String> _voteTags = ['#hashtag1', '#hashtag2']; // Dummy list
   List<bool> _tagCheckboxValues;
 
@@ -80,7 +80,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Form(
           key: _addVoteFormKey,

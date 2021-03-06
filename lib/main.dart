@@ -35,6 +35,7 @@ class SwiftvoteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // bool test = _sharedPrefs.getBool("device_has_displayed_intro") ?? false;
     // print('user has seen intro: $test');
+
     return FutureBuilder(
       future: Future.wait([
         _firebaseInit,

@@ -45,7 +45,8 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
 
     var url =
         '$baseUrl?input=$input&type=$type&radius=$searchRadius&language=sv&key=$PLACES_API_KEY';
-    var response = await http.get(url);
+
+    var response = await http.get(Uri.dataFromString(url));
 
     if (response.statusCode == 200) {
       print('GOT RESPONSE');

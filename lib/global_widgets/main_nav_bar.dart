@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/navigation/navigation.dart';
 import 'package:swiftvote/constants/routes.dart';
-import 'package:swiftvote/constants/widget_keys.dart';
-import 'package:swiftvote/constants/widget_tags.dart';
-import 'package:swiftvote/data/models.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/global_widgets/main_navbar_item.dart';
 import 'package:swiftvote/themes/themes.dart';
@@ -16,30 +12,35 @@ class MainNavBar extends StatefulWidget {
 }
 
 class _MainNavBarState extends State<MainNavBar> {
-  final List<Map<String, dynamic>> itemProps = [
+  final List<Map<String, dynamic>> navItems = [
     {
       'route': Routes.EXPLORE,
-      'iconPath': 'assets/icons/home.svg',
+      'iconData': Icons.explore_outlined,
+      'iconPath': 'assets/icons/explore_icon.svg',
       'name': 'HOME_SCREEN_NAVBAR_ITEM',
     },
     {
       'route': Routes.ADD_VOTE,
-      'iconPath': 'assets/icons/invoices.svg',
+      'iconData': Icons.add,
+      'iconPath': 'assets/icons/add_icon.svg',
       'name': 'INVOICES_SCREEN_NAVBAR_ITEM',
     },
     {
       'route': Routes.VOTE,
-      'iconPath': 'assets/icons/create_invoice.svg',
+      'iconData': Icons.home_outlined,
+      'iconPath': 'assets/icons/vote_list_icon.svg',
       'name': 'ORDER_TOOL_SCREEN_NAVBAR_ITEM',
     },
     {
       'route': Routes.NOTIFICATIONS,
-      'iconPath': 'assets/icons/payments.svg',
+      'iconData': Icons.notifications_none_outlined,
+      'iconPath': 'assets/icons/notifications_icon.svg',
       'name': 'PAYMENTS_SCREEN_NAVBAR_ITEM',
     },
     {
       'route': Routes.SETTINGS,
-      'iconPath': 'assets/icons/menu.svg',
+      'iconData': Icons.settings_applications_outlined,
+      'iconPath': 'assets/icons/settings_icon.svg',
       'name': 'MENU_SCREEN_NAVBAR_ITEM',
     },
   ];
@@ -57,20 +58,22 @@ class _MainNavBarState extends State<MainNavBar> {
   }
 
   void onTapHandler(int tappedIndex) {
-    if (ModalRoute.of(context).settings.name != itemProps[tappedIndex]['route']) {
+    if (ModalRoute.of(context).settings.name != navItems[tappedIndex]['route']) {
       BlocProvider.of<NavigationBloc>(context).add(MainNavBarTapEvent(index: tappedIndex));
-      Navigator.of(context).pushNamed(itemProps[tappedIndex]['route']);
+      Navigator.of(context).pushNamed(navItems[tappedIndex]['route']);
     }
   }
 
   List<Widget> listWidget(int selectedIndex) {
     List<Widget> list = List.generate(
-      itemProps.length,
+      navItems.length,
       (index) {
         return MainNavbarItem(
+          iconData: navItems[index]['iconData'],
+          iconPath: navItems[index]['iconPath'],
           isActive: selectedIndex == index,
           onTapCallback: () => onTapHandler(index),
-          tag: itemProps[index]['name'],
+          tag: navItems[index]['name'],
         );
       },
     );
@@ -79,26 +82,28 @@ class _MainNavBarState extends State<MainNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
+    return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
         if (state is MainNavBarState) {
           return Material(
-            color: Colors.transparent,
+            color: ColorThemes.DEEP_BLUE_BG,
             child: SizedBox(
               height: _navbarBorderHeight,
               width: MediaQuery.of(context).size.width,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: _navbarBorderHeight,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border(
-                        top: BorderSide(
-                          width: 1.0,
-                          color: Colors.white,
+                  Hero(
+                    tag: '123123',
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: _navbarBorderHeight,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            width: 1.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -137,26 +142,19 @@ class _MainNavBarState extends State<MainNavBar> {
     //             child: BottomNavigationBar(
     //               key: Keys.tabs,
     //               currentIndex: state.index,
-    //               // onTap: (index) => {
-    //               //   if (index != state.index)
-    //               //     {
-    //               //       BlocProvider.of<NavigationBloc>(context)
-    //               //           .add(MainNavBarTapEvent(selectedIndex: index)),
-    //               //       Navigator.of(context).pushNamed(mainNavBarRoutes[index])
-    //               //     }
-    //               // },
+    //               onTap: onTapHandler,
     //               items: [
     //                 BottomNavigationBarItem(
     //                   label: 'label',
     //                   icon: Icon(
-    //                     Icons.explore,
+    //                     Icons.explore_outlined,
     //                     color: Color.fromRGBO(239, 152, 154, 1),
     //                   ),
     //                 ),
     //                 BottomNavigationBarItem(
     //                   label: 'label',
     //                   icon: Icon(
-    //                     Icons.search,
+    //                     Icons.add,
     //                     size: 24,
     //                     color: Color.fromRGBO(239, 152, 154, 1),
     //                   ),
@@ -164,7 +162,7 @@ class _MainNavBarState extends State<MainNavBar> {
     //                 BottomNavigationBarItem(
     //                   label: 'label',
     //                   icon: Icon(
-    //                     Icons.home,
+    //                     Icons.home_outlined,
     //                     size: 24,
     //                     color: Color.fromRGBO(239, 152, 154, 1),
     //                   ),
@@ -172,7 +170,7 @@ class _MainNavBarState extends State<MainNavBar> {
     //                 BottomNavigationBarItem(
     //                   label: 'label',
     //                   icon: Icon(
-    //                     Icons.notifications,
+    //                     Icons.notifications_none_outlined,
     //                     size: 24,
     //                     color: Color.fromRGBO(239, 152, 154, 1),
     //                   ),
@@ -180,7 +178,7 @@ class _MainNavBarState extends State<MainNavBar> {
     //                 BottomNavigationBarItem(
     //                   label: 'label',
     //                   icon: Icon(
-    //                     Icons.settings,
+    //                     Icons.settings_applications_outlined,
     //                     size: 24,
     //                     color: Color.fromRGBO(239, 152, 154, 1),
     //                   ),
