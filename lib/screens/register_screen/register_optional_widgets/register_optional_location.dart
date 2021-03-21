@@ -76,7 +76,7 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
                 widthFactor: 1.0,
                 child: Text(
                   'Location',
-                  style: TextThemes.TITLE_GRANITE_GRAY,
+                  style: largeTitleStyle(color: DARK_GRAY),
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -90,10 +90,10 @@ class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
                 decoration: InputDecoration(
                   suffixIcon: Icon(
                     Icons.search,
-                    color: ColorThemes.PRIMARY_BLUE,
+                    color: PRIMARY_BLUE,
                   ),
                   hintText: 'Search location',
-                  hintStyle: TextThemes.LARGE_LIGHT_GRAY,
+                  hintStyle: hintStyle(),
                 ),
               ),
             ),

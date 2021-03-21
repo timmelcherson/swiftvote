@@ -19,10 +19,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
                   (authenticationBloc.state as AuthenticationSuccessState).user.uid)
               : UserProfileLoadingState(),
         ) {
-    authSubscription = authenticationBloc.listen((state) {
+    authSubscription = authenticationBloc.stream.listen((state) {
       if (state is AuthenticationSuccessState) {
-        add(UserIdReceivedEvent(
-            (authenticationBloc.state as AuthenticationSuccessState).user.uid));
+        add(UserIdReceivedEvent((authenticationBloc.state as AuthenticationSuccessState).user.uid));
       }
     });
   }
@@ -39,8 +38,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     // }
   }
 
-  Stream<UserProfileState> _mapUserIdReceivedEventToState(
-      UserIdReceivedEvent event) async* {
+  Stream<UserProfileState> _mapUserIdReceivedEventToState(UserIdReceivedEvent event) async* {
     UserProfile _userProfile = await userProfileRepository.getUserProfileById(event.userId);
     try {
       // UserProfileCreatedState
@@ -61,8 +59,8 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     }
   }
 
-  Stream<UserProfileState> _mapUserProfileUpdatedEventToState(UserProfileUpdatedEvent event) async* {
-
+  Stream<UserProfileState> _mapUserProfileUpdatedEventToState(
+      UserProfileUpdatedEvent event) async* {
     if (state is UserProfileCreatedState) {
       try {
         if (event.updateDB) {

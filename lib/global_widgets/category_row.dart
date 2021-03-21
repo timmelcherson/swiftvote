@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/themes/color_themes.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class CategoryRow extends StatelessWidget {
@@ -21,12 +20,12 @@ class CategoryRow extends StatelessWidget {
                 margin: EdgeInsets.all(4.0),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  border: Border.all(color: ColorThemes.SILVER),
+                  border: Border.all(color: SILVER),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Text(
                   categories[index],
-                  style: TextThemes.FOOTNOTE_SILVER,
+                  style: footnoteStyle(color: SILVER),
                 ),
               );
             else

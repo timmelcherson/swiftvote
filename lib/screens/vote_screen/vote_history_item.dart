@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/themes/text_themes.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 class VoteHistoryItem extends StatefulWidget {
   final Vote vote;
@@ -25,6 +25,7 @@ class _VoteHistoryItemState extends State<VoteHistoryItem> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.2,
       width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -33,66 +34,47 @@ class _VoteHistoryItemState extends State<VoteHistoryItem> {
           ),
         ),
       ),
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
+          Text(
+            _vote.title,
+            style: footnoteStyle(),
+            textAlign: TextAlign.center,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  _vote.title,
-                  style: TextThemes.TINY_WHITE,
-                  textAlign: TextAlign.center,
-                ),
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            _vote.voteOptions[0],
-                            style: TextThemes.TINY_LIGHT_YELLOW,
-                          ),
-                        ),
-                        Text('58%'),
-                      ],
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Text(
+                      _vote.voteOptions[0],
+                      style: footnoteStyle(color: LIGHT_YELLOW),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            _vote.voteOptions[1],
-                            style: TextThemes.TINY_LIGHT_BLUE,
-                          ),
-                        ),
-                        Text('42%'),
-                      ],
-                    ),
-                  ),
+                  Text('58%', style: footnoteStyle()),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Text(
-                  '3453 votes',
-                  style: TextThemes.FOOTNOTE_SILVER,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Text(
+                      _vote.voteOptions[1],
+                      style: footnoteStyle(color: LIGHT_BLUE),
+                    ),
+                  ),
+                  Text('42%', style: footnoteStyle()),
+                ],
               ),
             ],
           ),
+          Text('3453 votes', style: footnoteStyle(color: SILVER)),
         ],
       ),
     );

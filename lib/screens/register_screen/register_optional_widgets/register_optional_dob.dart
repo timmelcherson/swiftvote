@@ -61,7 +61,7 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
             widthFactor: 1.0,
             child: Text(
               'Date of Birth',
-              style: TextThemes.TITLE_GRANITE_GRAY,
+              style: largeTitleStyle(color: GRANITE_GRAY),
               textAlign: TextAlign.left,
             ),
           ),
@@ -77,11 +77,11 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                 children: [
                   Text(
                     'Day',
-                    style: TextThemes.MEDIUM_CHARCOAL_GRAY,
+                    style: smallTitleStyle(color: CHARCOAL_GRAY),
                   ),
                   DropdownButton<String>(
                     value: _day,
-                    style: TextThemes.TINY_DARK_GRAY,
+                    style: bodyStyle(color: DARK_GRAY),
                     onChanged: (value) {
                       setState(() {
                         _day = value;
@@ -103,11 +103,11 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                 children: [
                   Text(
                     'Month',
-                    style: TextThemes.MEDIUM_CHARCOAL_GRAY,
+                    style: smallTitleStyle(color: CHARCOAL_GRAY),
                   ),
                   DropdownButton<String>(
                     value: _month,
-                    style: TextThemes.TINY_DARK_GRAY,
+                    style: bodyStyle(color: DARK_GRAY),
                     onChanged: (value) {
                       setState(() {
                         _month = value;
@@ -129,11 +129,11 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                 children: [
                   Text(
                     'Year',
-                    style: TextThemes.MEDIUM_CHARCOAL_GRAY,
+                    style: smallTitleStyle(color: CHARCOAL_GRAY),
                   ),
                   DropdownButton<String>(
                     value: _year,
-                    style: TextThemes.TINY_DARK_GRAY,
+                    style: bodyStyle(color: DARK_GRAY),
                     onChanged: (value) {
                       setState(() {
                         _year = value;

@@ -41,7 +41,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
             widthFactor: 1.0,
             child: Text(
               'Languages',
-              style: TextThemes.TITLE_GRANITE_GRAY,
+              style: largeTitleStyle(color: GRANITE_GRAY),
               textAlign: TextAlign.left,
             ),
           ),
@@ -52,10 +52,10 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
         Align(
           alignment: Alignment.centerLeft,
           child: FlatButton(
-            color: ColorThemes.OFF_WHITE,
+            color: OFF_WHITE,
             child: Text(
               'Add more +',
-              style: TextThemes.TINY_DARK_GRAY,
+              style: bodyStyle(color: DARK_GRAY),
             ),
             onPressed: () {
               addNewLangRow();
@@ -87,7 +87,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
         Expanded(
           child: DropdownButton<String>(
             value: _selectedLangs[index],
-            style: TextThemes.MEDIUM_DARK_GRAY,
+            style: bodyStyle(color: DARK_GRAY),
             icon: Icon(Icons.arrow_downward),
             onChanged: (value) {
               setState(() {

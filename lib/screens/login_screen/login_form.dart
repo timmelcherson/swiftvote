@@ -7,10 +7,7 @@ import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 
-
-
 class LoginForm extends StatefulWidget {
-
   @override
   State createState() => _LoginFormState();
 }
@@ -71,7 +68,7 @@ class _LoginFormState extends State<LoginForm> {
                     )
                   ],
                 ),
-                backgroundColor: ColorThemes.PRIMARY_BLUE,
+                backgroundColor: PRIMARY_BLUE,
               ),
             );
         }
@@ -95,7 +92,7 @@ class _LoginFormState extends State<LoginForm> {
                     widthFactor: 1.0,
                     child: Text(
                       'Log in',
-                      style: TextThemes.TITLE_GRANITE_GRAY,
+                      style: largeTitleStyle(color: GRANITE_GRAY),
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -107,10 +104,10 @@ class _LoginFormState extends State<LoginForm> {
                       decoration: InputDecoration(
                         icon: Icon(
                           Icons.email,
-                          color: ColorThemes.PRIMARY_BLUE,
+                          color: PRIMARY_BLUE,
                         ),
                         hintText: 'Email',
-                        hintStyle: TextThemes.LARGE_LIGHT_GRAY,
+                        hintStyle: smallTitleStyle(color: LIGHT_GRAY),
                       ),
                       keyboardType: TextInputType.emailAddress,
                       autovalidateMode: AutovalidateMode.disabled,
@@ -124,7 +121,7 @@ class _LoginFormState extends State<LoginForm> {
                       decoration: InputDecoration(
                         icon: Icon(
                           Icons.vpn_key,
-                          color: ColorThemes.PRIMARY_BLUE,
+                          color: PRIMARY_BLUE,
                         ),
                         suffix: GestureDetector(
                           onTap: () {
@@ -134,11 +131,11 @@ class _LoginFormState extends State<LoginForm> {
                           },
                           child: Text(
                             _obscureText ? 'show' : 'hide',
-                            style: TextThemes.TINY_DARK_GRAY,
+                            style: bodyStyle(color: DARK_GRAY),
                           ),
                         ),
                         hintText: 'Password',
-                        hintStyle: TextThemes.LARGE_LIGHT_GRAY,
+                        hintStyle: hintStyle(),
                       ),
                       obscureText: _obscureText,
                       autovalidateMode: AutovalidateMode.disabled,
@@ -155,14 +152,12 @@ class _LoginFormState extends State<LoginForm> {
                   child: FractionallySizedBox(
                     widthFactor: 0.9,
                     child: FlatButton(
-                      color: ColorThemes.PRIMARY_BLUE,
+                      color: PRIMARY_BLUE,
                       child: Text(
                         'Login',
-                        style: TextThemes.TINY_WHITE,
+                        style: buttonStyle(),
                       ),
-                      onPressed: () {
-                        _formSubmitHandler();
-                      },
+                      onPressed: _formSubmitHandler,
                     ),
                   ),
                 ),
@@ -191,6 +186,10 @@ class _LoginFormState extends State<LoginForm> {
 
   void _formSubmitHandler() {
     _loginBloc.add(
-        LoginWithCredentials(email: _emailController.text, password: _passwordController.text));
+      LoginWithCredentials(
+        email: _emailController.text,
+        password: _passwordController.text,
+      ),
+    );
   }
 }

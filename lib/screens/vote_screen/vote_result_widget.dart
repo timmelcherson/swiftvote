@@ -81,7 +81,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                   padding: EdgeInsets.fromLTRB(8.0, 0, 0, 24.0),
                   child: Text(
                     _vote.title,
-                    style: TextThemes.MEDIUM_WHITE,
+                    style: bodyStyle(),
                   ),
                 ),
                 Stack(
@@ -109,7 +109,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                       height: 140.0,
                       child: CustomPaint(
                         painter: CirclePainter(
-                          fillColor: ColorThemes.DEEP_BLUE_BG,
+                          fillColor: DEEP_BLUE_BG,
                         ),
                         // painter: ArcPainter(_animationController, _arcSecondRad),
                       ),
@@ -123,11 +123,11 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                         children: [
                           Text(
                             '$firstPercentage%',
-                            style: TextThemes.SMALL_WHITE,
+                            style: bodyStyle(),
                           ),
                           Text(
                             '$secondPercentage%',
-                            style: TextThemes.SMALL_WHITE,
+                            style: bodyStyle(),
                           ),
                         ],
                       ),
@@ -154,7 +154,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                           ),
                           Text(
                             '${_vote.voteOptions[0]}',
-                            style: TextThemes.SMALL_WHITE,
+                            style: bodyStyle(),
                           ),
                         ],
                       ),
@@ -171,7 +171,7 @@ class _VoteResultWidgetState extends State<VoteResultWidget> {
                           ),
                           Text(
                             '${_vote.voteOptions[1]}',
-                            style: TextThemes.SMALL_WHITE,
+                            style: bodyStyle(),
                           ),
                         ],
                       ),

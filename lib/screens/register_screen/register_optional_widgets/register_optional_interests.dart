@@ -87,7 +87,7 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                             _callback(_selectedCategories);
                           },
                           child: Container(
-                            color: ColorThemes.LIGHT_YELLOW,
+                            color: LIGHT_YELLOW,
                             child: Stack(
                               alignment: Alignment.bottomLeft,
                               children: <Widget>[
@@ -98,7 +98,7 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                                   margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
                                   child: Text(
                                     _categories[index],
-                                    style: TextThemes.SMALL_WHITE,
+                                    style: bodyStyle()
                                   ),
                                 ),
                                 if (_selectedIndices[index]) selectedOverlay()
@@ -117,7 +117,7 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
 
   Widget selectedOverlay() {
     return Container(
-      color: ColorThemes.WHITE.withOpacity(0.5),
+      color: Colors.white.withOpacity(0.5),
       child: SizedBox.expand(
         child: Align(
           alignment: Alignment.topRight,
@@ -129,7 +129,7 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                   width: 20.0,
                   height: 20.0,
                   decoration: new BoxDecoration(
-                    color: ColorThemes.OFF_WHITE,
+                    color: OFF_WHITE,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -140,7 +140,7 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                     child: Icon(
                       Icons.check,
                       size: 20.0,
-                      color: ColorThemes.PRIMARY_BLUE,
+                      color: PRIMARY_BLUE,
                     ),
                   ),
                 ),
@@ -166,7 +166,7 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: ColorThemes.WHITE,
+      color: Colors.white,
       child: Column(
         children: <Widget>[
           Container(
@@ -174,7 +174,7 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
               widthFactor: 1.0,
               child: Text(
                 'Interests',
-                style: TextThemes.TITLE_GRANITE_GRAY,
+                style: largeTitleStyle(color: GRANITE_GRAY),
                 textAlign: TextAlign.left,
               ),
             ),
@@ -185,7 +185,7 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
               widthFactor: 1.0,
               child: Text(
                 'Select your preferred categories',
-                style: TextThemes.SMALL_CHARCOAL_GRAY,
+                style: bodyStyle(color: CHARCOAL_GRAY),
                 textAlign: TextAlign.left,
               ),
             ),
@@ -199,10 +199,10 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                   onPressed: () {
                     selectAllCallback();
                   },
-                  color: ColorThemes.OFF_WHITE,
+                  color: OFF_WHITE,
                   child: Text(
                     'Select all',
-                    style: TextThemes.TINY_DARK_GRAY,
+                    style: bodyStyle(size: 14.0, color: DARK_GRAY),
                   ),
                 ),
               ),
@@ -211,10 +211,10 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                   onPressed: () {
                     clearCallback();
                   },
-                  color: ColorThemes.OFF_WHITE,
+                  color: OFF_WHITE,
                   child: Text(
                     'Clear',
-                    style: TextThemes.TINY_DARK_GRAY,
+                    style: bodyStyle(size: 14.0, color: DARK_GRAY),
                   ),
                 ),
             ],

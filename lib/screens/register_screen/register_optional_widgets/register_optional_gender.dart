@@ -38,7 +38,7 @@ class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
             widthFactor: 1.0,
             child: Text(
               'Gender',
-              style: TextThemes.TITLE_GRANITE_GRAY,
+              style: smallTitleStyle(color: CHARCOAL_GRAY),
               textAlign: TextAlign.left,
             ),
           ),
@@ -55,7 +55,7 @@ class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
                   children: [
                     Text(
                       _genders[i],
-                      style: TextThemes.MEDIUM_CHARCOAL_GRAY,
+                      style: bodyStyle(color: CHARCOAL_GRAY),
                     ),
                     Checkbox(
                       value: checkedIndex == i,

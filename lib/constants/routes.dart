@@ -14,5 +14,6 @@ class Routes {
   static const REGISTER = 'register';
   static const ADD_VOTE = 'add_vote';
   static const VOTE_RESULT = 'vote_result';
+  static const VOTE_COMMENTS = 'vote_comments';
   static const HOME_WITH_VOTE = 'selected_vote';
 }

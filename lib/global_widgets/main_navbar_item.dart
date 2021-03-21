@@ -30,7 +30,7 @@ class MainNavbarItem extends StatelessWidget {
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeOutCubic,
-            padding: EdgeInsets.all(isActive ? 16.0 : 18.0),
+            padding: EdgeInsets.all(isActive ? 16.0 : 20.0),
             child: Hero(
               tag: tag,
               child: SvgPicture.asset(

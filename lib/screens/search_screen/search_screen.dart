@@ -53,7 +53,7 @@ class SearchScreen extends StatelessWidget {
                                     ),
                                     Container(
                                       margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                      child: Text('Search here', style: TextThemes.SMALL_WHITE),
+                                      child: Text('Search here', style: bodyStyle()),
                                     )
                                   ],
                                 ),
@@ -113,7 +113,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                 padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
                 child: Text(
                   'Search',
-                  style: TextThemes.HUGE_OFF_WHITE,
+                  style: largeTitleStyle(color: OFF_WHITE),
                   textAlign: TextAlign.end,
                 ),
               ),
@@ -140,7 +140,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                     color: Colors.white,
                   ),
                   hintText: 'Search question...',
-                  hintStyle: TextThemes.SMALL_WHITE,
+                  hintStyle: hintStyle(),
                 ),
                 onSubmitted: (String str) {
                   searchCallback(str);
@@ -157,7 +157,7 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   'Showing results for: $searchQuery',
-                  style: TextThemes.TINY_DARK_GRAY,
+                  style: bodyStyle(color: DARK_GRAY, size: 14.0),
                 ),
               ),
             ),

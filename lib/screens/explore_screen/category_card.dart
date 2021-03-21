@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/themes/text_themes.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -13,7 +12,7 @@ class CategoryCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(6.0),
       decoration: BoxDecoration(
-        color: ColorThemes.LIGHT_GRAY,
+        color: LIGHT_GRAY,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
@@ -27,7 +26,7 @@ class CategoryCard extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextThemes.SMALL_CHARCOAL_GRAY,
+            style: bodyStyle(color: CHARCOAL_GRAY),
           ),
         ],
       ),

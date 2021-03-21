@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:swiftvote/data/entities.dart';
+import 'package:swiftvote/data/entities/vote_comment_entity.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 
@@ -60,7 +61,7 @@ class VoteRepository {
         .limit(20)
         .get()
         .catchError((error) {
-          print('Got error fetching votes by category: $error');
+      print('Got error fetching votes by category: $error');
     });
 
     return querySnapshot.docs.map((snap) {
@@ -77,11 +78,48 @@ class VoteRepository {
   // }
 
   Stream<List<Vote>> getVotes() {
-    return voteCollection.limit(20).snapshots(includeMetadataChanges: true).map((snapshot) {
-      print('GTOM FROM CACHEEEEE??? : ${snapshot.metadata.isFromCache}');
+    return voteCollection.limit(5).snapshots(includeMetadataChanges: true).map((snapshot) {
+      print('GOT FROM CACHE??? : ${snapshot.metadata.isFromCache}');
       return snapshot.docs.map((vote) {
         return Vote.fromEntity(VoteEntity.fromSnapshot(vote));
       }).toList();
     });
+  }
+
+  Stream<List<VoteComment>> getVoteCommentsByVoteId({String voteId}) {
+    print('getVoteCommentsByVoteId');
+    return voteCollection.doc(voteId).collection('comments').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return VoteComment.fromSnapshot(doc);
+      }).toList();
+    });
+  }
+
+  Future<void> addCommentToVote({
+    String voteId,
+    VoteComment comment,
+  }) async {
+    try {
+      await voteCollection.doc(voteId).collection('comments').add(comment.toMap());
+      print('COMMENT ADDED');
+      // DocumentReference docRef = await voteCollection.add(vote.toEntity().toDocument());
+      // if (docRef != null) {
+      //   vote.voteOptions.asMap().forEach((index, voteOption) {
+      //     VoteResult voteResult = VoteResult(
+      //       totalVotes: 0,
+      //       femaleVotes: 0,
+      //       maleVotes: 0,
+      //       unknownGenderVotes: 0,
+      //     );
+      //     voteCollection
+      //         .doc(vote.id)
+      //         .collection('vote_results')
+      //         .doc(index.toString())
+      //         .set(voteResult.toEntity().toDocument()); // add each vote option
+      //   });
+      // }
+    } catch (error) {
+      print("Could not add vote, got error: $error");
+    }
   }
 }

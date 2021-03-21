@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
@@ -110,7 +109,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                         margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
                         child: Text(
                           'Start a vote',
-                          style: TextThemes.HUGE_OFF_WHITE,
+                          style: largeTitleStyle(color: OFF_WHITE),
                         ),
                       ),
                     ),
@@ -118,7 +117,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                       flex: 1,
                       child: ClipOval(
                         child: Material(
-                          color: ColorThemes.PRIMARY_BLUE,
+                          color: PRIMARY_BLUE,
                           child: InkWell(
                             child: Container(
                               width: 32,
@@ -142,14 +141,11 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
               Container(
                 margin: EdgeInsets.fromLTRB(24.0, 4.0, 24.0, 32.0),
                 child: TextFormField(
-                  maxLengthEnforced: true,
                   maxLength: 70,
                   decoration: InputDecoration(
                     hintText: 'Type question',
-                    hintStyle: TextThemes.LARGE_LIGHT_GRAY,
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(),
-                    ),
+                    hintStyle: bodyStyle(color: LIGHT_GRAY),
+                    border: OutlineInputBorder(borderSide: const BorderSide()),
                   ),
                   validator: (value) {
                     return validateTextField(value);
@@ -164,7 +160,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Answer',
-                      hintStyle: TextThemes.LARGE_LIGHT_GRAY,
+                      hintStyle: bodyStyle(color: LIGHT_GRAY),
                     ),
                     validator: (value) {
                       return validateTextField(value);
@@ -181,7 +177,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(0.0),
                       hintText: 'Answer',
-                      hintStyle: TextThemes.LARGE_LIGHT_GRAY,
+                      hintStyle: bodyStyle(color: LIGHT_GRAY),
                     ),
                     validator: (value) {
                       return validateTextField(value);
@@ -195,7 +191,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 child: Center(
                   child: Text(
                     'Choose categories ($_selectCount/2)',
-                    style: TextThemes.TINY_DARK_GRAY,
+                    style: footnoteStyle(color: DARK_GRAY),
                   ),
                 ),
               ),
@@ -228,7 +224,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                 child: FractionallySizedBox(
                   widthFactor: 0.6,
                   child: RaisedButton(
-                    color: ColorThemes.PRIMARY_BLUE,
+                    color: PRIMARY_BLUE,
                     textColor: Colors.white,
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     shape: RoundedRectangleBorder(
@@ -250,7 +246,7 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     },
                     child: Text(
                       'Submit',
-                      style: TextThemes.MEDIUM_WHITE,
+                      style: buttonStyle(),
                     ),
                   ),
                 ),

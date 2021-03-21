@@ -50,10 +50,10 @@ class LoginScreen extends StatelessWidget {
                         child: FractionallySizedBox(
                           widthFactor: 0.9,
                           child: FlatButton(
-                            color: ColorThemes.OFF_WHITE,
+                            color: OFF_WHITE,
                             child: Text(
                               'Register',
-                              style: TextThemes.TINY_DARK_GRAY,
+                              style: bodyStyle(color: DARK_GRAY),
                             ),
                             onPressed: () {
                               print('LOGIN SCREEN REGISTER CALLBACK');

@@ -149,7 +149,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
             height: maxExtent,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: ColorThemes.DEEP_BLUE_BG,
+              color: DEEP_BLUE_BG,
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Color.fromRGBO(255, 255, 255, offsetFactor),
@@ -166,7 +166,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
               padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
               child: Text(
                 'Explore',
-                style: TextThemes.HUGE_OFF_WHITE,
+                style: largeTitleStyle(color: OFF_WHITE),
                 textAlign: TextAlign.end,
               ),
             ),

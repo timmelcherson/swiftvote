@@ -6,10 +6,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/navigation/navigation.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
+import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/screens/vote_screen/vote_comments_screen.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
@@ -86,6 +88,11 @@ class SwiftvoteApp extends StatelessWidget {
                     voteRepository: RepositoryProvider.of<VoteRepository>(context),
                   ),
                 ),
+                BlocProvider<VoteCommentsBloc>(
+                  create: (context) => VoteCommentsBloc(
+                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                  ),
+                ),
                 BlocProvider<ExploreBloc>(
                   create: (context) => ExploreBloc(
                     voteRepository: RepositoryProvider.of<VoteRepository>(context),
@@ -153,6 +160,9 @@ class SwiftvoteApp extends StatelessWidget {
                     },
                     Routes.VOTE: (context) {
                       return VoteScreen();
+                    },
+                    Routes.VOTE_COMMENTS: (context) {
+                      return VoteCommentsScreen();
                     },
                     Routes.NOTIFICATIONS: (context) {
                       return NotificationsScreen();

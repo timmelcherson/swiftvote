@@ -90,7 +90,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                       },
                       child: Text(
                         'Skip',
-                        style: TextThemes.TINY_DARK_GRAY,
+                        style: bodyStyle(color: DARK_GRAY),
                       ),
                     ),
                   ],
@@ -102,10 +102,10 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                   widthFactor: 0.9,
                   child: FlatButton(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
-                    color: ColorThemes.PRIMARY_BLUE,
+                    color: PRIMARY_BLUE,
                     child: Text(
                       _activeIndex < (_childWidgetIdentifiers.length - 1) ? 'Next' : "Let's go",
-                      style: TextThemes.TINY_WHITE,
+                      style: bodyStyle(),
                     ),
                     onPressed: () {
                       progressForward();
@@ -204,7 +204,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
           height: 20.0,
           margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           decoration: new BoxDecoration(
-            color: ColorThemes.PRIMARY_BLUE,
+            color: PRIMARY_BLUE,
             shape: BoxShape.circle,
           ),
         );
@@ -216,7 +216,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
           height: 20.0,
           margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           decoration: new BoxDecoration(
-            color: ColorThemes.OFF_WHITE,
+            color: OFF_WHITE,
             shape: BoxShape.circle,
             border: Border.all(
               width: 1,
@@ -235,7 +235,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                 width: 20.0,
                 height: 20.0,
                 decoration: new BoxDecoration(
-                  color: ColorThemes.PRIMARY_BLUE,
+                  color: PRIMARY_BLUE,
                   shape: BoxShape.circle,
                 ),
               ),
