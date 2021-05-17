@@ -8,11 +8,26 @@ abstract class VoteResultEvent {
   List<Object> get props => [];
 }
 
-class VoteResultRequestedEvent extends VoteResultEvent {
+class LoadVoteResultByVoteIdEvent extends VoteResultEvent {
 
+  final Vote vote;
+
+  LoadVoteResultByVoteIdEvent({@required this.vote});
+}
+
+class VoteResultUpdatedEvent extends VoteResultEvent {
+  final Vote vote;
+  final List<VoteResult> results;
+
+  VoteResultUpdatedEvent({@required this.vote, @required this.results});
+}
+
+class AddVoteResultEvent extends VoteResultEvent {
   final String voteId;
+  final int votedIndex;
+  final UserProfile voter;
 
-  const VoteResultRequestedEvent({this.voteId});
+  const AddVoteResultEvent({@required this.voteId, this.votedIndex, this.voter});
 
   @override
   List<Object> get props => [voteId];

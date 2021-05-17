@@ -4,20 +4,20 @@ import 'package:equatable/equatable.dart';
 class UserProfileEntity extends Equatable {
   final String userId;
   final String gender;
-  final String dob;
+  final int age;
   final String location;
   final List<String> interests;
   final List<String> languages;
 
   const UserProfileEntity(
-      this.userId, this.gender, this.dob, this.location, this.interests, this.languages);
+      this.userId, this.gender, this.age, this.location, this.interests, this.languages);
 
   @override
-  List<Object> get props => [userId, gender, dob, location, interests, languages];
+  List<Object> get props => [userId, gender, age, location, interests, languages];
 
   @override
   String toString() {
-    return 'UserProfileEntity{userId: $userId, gender: $gender, dob: $dob, location: '
+    return 'UserProfileEntity{userId: $userId, gender: $gender, age: $age, location: '
         '$location, interests: $interests, languages: $languages}';
   }
 
@@ -25,7 +25,7 @@ class UserProfileEntity extends Equatable {
     return {
       "userId": userId,
       "gender": gender,
-      "dob": dob,
+      "age": age,
       "location": location,
       "interests": interests,
       "languages": languages,
@@ -39,7 +39,7 @@ class UserProfileEntity extends Equatable {
     UserProfileEntity userProfile = UserProfileEntity(
         json["userId"] as String,
         json["gender"] as String,
-        json["dob"] as String,
+        json["age"] as int,
         json["location"] as String,
         _interests,
         _languages,
@@ -54,7 +54,7 @@ class UserProfileEntity extends Equatable {
     return UserProfileEntity(
       snap.get('userId'),
       snap.get('gender'),
-      snap.get('dob'),
+      snap.get('age'),
       snap.get('location'),
       _interests,
       _languages,
@@ -65,7 +65,7 @@ class UserProfileEntity extends Equatable {
     return {
       'userId': userId,
       'gender': gender,
-      'dob': dob,
+      'age': age,
       'location': location,
       'interests': interests,
       'languages': languages,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
 import 'package:swiftvote/constants/routes.dart';
-import 'package:swiftvote/data/models/vote_model.dart';
+import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_outlined_button.dart';
 import 'package:swiftvote/global_widgets/category_row.dart';
 import 'package:swiftvote/themes/themes.dart';
@@ -23,6 +24,20 @@ class _VoteActiveItemState extends State<VoteActiveItem> {
   void initState() {
     _vote = widget.vote;
     super.initState();
+  }
+
+  void handleVoteOptionTap(int index) {
+    if (BlocProvider.of<UserProfileBloc>(context).state is UserProfileReadyState) {
+      print('goes in here');
+      UserProfile userProfile =
+          (BlocProvider.of<UserProfileBloc>(context).state as UserProfileReadyState).userProfile;
+      print(BlocProvider.of<VoteResultBloc>(context));
+      BlocProvider.of<VoteResultBloc>(context)
+        ..add(AddVoteResultEvent(voteId: _vote.id, votedIndex: index, voter: userProfile))
+        ..add(LoadVoteResultByVoteIdEvent(vote: _vote));
+
+      Navigator.of(context).pushNamed(Routes.VOTE_RESULT);
+    }
   }
 
   @override
@@ -60,13 +75,13 @@ class _VoteActiveItemState extends State<VoteActiveItem> {
                     buttonText: _vote.voteOptions[0],
                     buttonTextStyle: buttonStyle(size: 14.0),
                     margin: EdgeInsets.all(0),
-                    onPressFunction: () {},
+                    onPress: () => handleVoteOptionTap(0),
                   ),
                   CustomOutlinedButton(
                     buttonText: _vote.voteOptions[1],
                     buttonTextStyle: buttonStyle(size: 14.0),
                     margin: EdgeInsets.all(0),
-                    onPressFunction: () {},
+                    onPress: () => handleVoteOptionTap(1),
                   ),
                 ],
               ),
@@ -117,7 +132,7 @@ class _VoteActiveItemState extends State<VoteActiveItem> {
                       topLeft: Radius.circular(40.0),
                     ),
                     onTap: () {
-                      print('comments');
+                      print('report');
                     },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(24.0, 24.0, 12.0, 12.0),

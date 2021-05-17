@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:swiftvote/themes/color_themes.dart';
 
 class MainNavbarItem extends StatelessWidget {
   final bool isActive;
@@ -35,7 +36,7 @@ class MainNavbarItem extends StatelessWidget {
               tag: tag,
               child: SvgPicture.asset(
                 iconPath,
-                color: isActive ? Colors.pink : Colors.white,
+                color: isActive ? SECONDARY_PINK : PRIMARY_BLUE,
               ),
             ),
           ),

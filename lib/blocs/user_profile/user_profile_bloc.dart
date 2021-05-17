@@ -1,27 +1,28 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/blocs/authentication/authentication.dart';
+import 'package:swiftvote/blocs/authentication/auth.dart';
 import 'package:swiftvote/blocs/user_profile/user_profile.dart';
 import 'package:swiftvote/data/models/user_profile_model.dart';
 import 'package:swiftvote/data/repositories.dart';
 
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
-  final AuthenticationBloc authenticationBloc;
+  final AuthBloc authBloc;
   final UserProfileRepository userProfileRepository;
 
   StreamSubscription authSubscription;
 
-  UserProfileBloc({@required this.authenticationBloc, @required this.userProfileRepository})
+  UserProfileBloc({@required this.authBloc, @required this.userProfileRepository})
       : super(
-          authenticationBloc.state is AuthenticationSuccessState
-              ? UserIdReceivedState(
-                  (authenticationBloc.state as AuthenticationSuccessState).user.uid)
+          authBloc.state is AuthSuccessState
+              ? UserIdReceivedState((authBloc.state as AuthSuccessState).user.uid)
               : UserProfileLoadingState(),
         ) {
-    authSubscription = authenticationBloc.stream.listen((state) {
-      if (state is AuthenticationSuccessState) {
-        add(UserIdReceivedEvent((authenticationBloc.state as AuthenticationSuccessState).user.uid));
+    authSubscription = authBloc.stream.listen((state) {
+      print('SETTING UP AUTH SUBSCRIPTION');
+      if (state is AuthSuccessState) {
+        print('USERPROFILEBLOC RECEIVED AuthSuccessState');
+        add(UserIdReceivedEvent((authBloc.state as AuthSuccessState).user.uid));
       }
     });
   }
@@ -41,19 +42,16 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   Stream<UserProfileState> _mapUserIdReceivedEventToState(UserIdReceivedEvent event) async* {
     UserProfile _userProfile = await userProfileRepository.getUserProfileById(event.userId);
     try {
-      // UserProfileCreatedState
-      if (_userProfile == null) {
-        _userProfile = UserProfile(
-          userId: event.userId,
-          gender: "",
-          dob: "",
-          location: "",
-          interests: <String>[],
-          languages: <String>[],
-        );
-        await userProfileRepository.addNewUserProfile(_userProfile);
-      }
-      yield UserProfileCreatedState(userProfile: _userProfile);
+      _userProfile ??= UserProfile(
+        userId: event.userId,
+        gender: "",
+        age: null,
+        location: "",
+        interests: <String>[],
+        languages: <String>[],
+      );
+      await userProfileRepository.addNewUserProfile(_userProfile);
+      yield UserProfileReadyState(userProfile: _userProfile);
     } catch (_) {
       yield UserProfileLoadFailureState();
     }
@@ -61,12 +59,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
   Stream<UserProfileState> _mapUserProfileUpdatedEventToState(
       UserProfileUpdatedEvent event) async* {
-    if (state is UserProfileCreatedState) {
+    if (state is UserProfileReadyState) {
       try {
         if (event.updateDB) {
           userProfileRepository.updateUserProfile(event.userProfile);
         }
-        yield UserProfileCreatedState(userProfile: event.userProfile);
+        yield UserProfileReadyState(userProfile: event.userProfile);
       } catch (_) {
         yield UserProfileLoadFailureState();
       }

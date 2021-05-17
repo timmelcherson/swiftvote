@@ -4,10 +4,10 @@ import 'package:swiftvote/themes/color_themes.dart';
 final ThemeData primaryAppTheme = ThemeData(
   // Define the default brightness and colors.
   brightness: Brightness.dark,
-  primaryColor: DEEP_BLUE_BG,
-  accentColor: SILVER,
-  backgroundColor: DEEP_BLUE_BG,
-  scaffoldBackgroundColor: DEEP_BLUE_BG,
+  // primaryColor: PRIMARY_BG,
+  // accentColor: SILVER,
+  // backgroundColor: PRIMARY_BG,
+  // scaffoldBackgroundColor: PRIMARY_BG,
 
   // Define the default font family.
   fontFamily: 'RobotoMono',

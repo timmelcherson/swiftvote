@@ -15,9 +15,8 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
 class ExploreScreen extends StatelessWidget {
-  final VoteRepository voteRepository;
 
-  ExploreScreen({Key key, this.voteRepository}) : super(key: key);
+  ExploreScreen({Key key}) : super(key: key);
 
   String formatStr(String string) {
     return string.trim().replaceAll("[", "").replaceAll("]", "");
@@ -149,7 +148,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
             height: maxExtent,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: DEEP_BLUE_BG,
+              color: PRIMARY_BG,
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Color.fromRGBO(255, 255, 255, offsetFactor),

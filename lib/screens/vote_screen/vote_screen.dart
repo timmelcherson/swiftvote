@@ -11,6 +11,8 @@ import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_screen/vote_active_item.dart';
 import 'package:swiftvote/screens/vote_screen/vote_history_item.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
+import 'package:swiftvote/screens/vote_screen/vote_list_item.dart';
+import 'package:swiftvote/themes/color_themes.dart';
 
 typedef OnResultWidgetCallback = Function(bool showResultWidget);
 
@@ -58,8 +60,8 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: MainNavBar(),
       body: SafeArea(
         child: BlocBuilder<VoteBloc, VoteState>(
@@ -75,11 +77,14 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
                 controller: _controller,
                 itemCount: state.votes.length,
                 itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return VoteActiveItem(vote: state.votes[index]);
-                  } else {
-                    return VoteHistoryItem(vote: state.votes[index]);
-                  }
+                  return VoteListItem(
+                    vote: state.votes[index],
+                  );
+                  // if (index == 0) {
+                  //   return VoteActiveItem(vote: state.votes[index]);
+                  // } else {
+                  //   return VoteHistoryItem(vote: state.votes[index]);
+                  // }
                 },
               );
             }

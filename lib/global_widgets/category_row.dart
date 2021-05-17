@@ -9,7 +9,7 @@ class CategoryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         children: List.generate(
           categories.length,
@@ -20,12 +20,12 @@ class CategoryRow extends StatelessWidget {
                 margin: EdgeInsets.all(4.0),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  border: Border.all(color: SILVER),
+                  border: Border.all(color: LIGHT_GRAY),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Text(
                   categories[index],
-                  style: footnoteStyle(color: SILVER),
+                  style: footnoteStyle(color: LIGHT_GRAY),
                 ),
               );
             else

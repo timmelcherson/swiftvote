@@ -13,16 +13,16 @@ class VoteCommentsHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(bottom: 16.0),
       margin: const EdgeInsets.only(bottom: 8.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.white, width: 1.0),
-        ),
-      ),
+      // decoration: BoxDecoration(
+      //   border: Border(
+      //     bottom: BorderSide(color: Colors.white, width: 1.0),
+      //   ),
+      // ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              padding: const EdgeInsets.symmetric(vertical: 32.0),
+              padding: const EdgeInsets.symmetric(vertical: 24.0),
               margin: const EdgeInsets.only(bottom: 16.0),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -37,17 +37,17 @@ class VoteCommentsHeader extends StatelessWidget {
                   children: [
                     Text(
                       'Comments',
-                      style: smallTitleStyle(),
+                      style: bodyStyle(),
                     ),
                     Text(
                       '180 000',
-                      style: smallTitleStyle(),
+                      style: bodyStyle(),
                     ),
                   ],
                 ),
               )),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
             child: Text(
               vote.title,
               style: bodyStyle(),

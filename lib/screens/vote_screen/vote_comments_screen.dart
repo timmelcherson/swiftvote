@@ -31,6 +31,7 @@ class _VoteCommentsScreenState extends State<VoteCommentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: BlocBuilder<VoteCommentsBloc, VoteCommentsState>(
           builder: (context, state) {
@@ -43,54 +44,78 @@ class _VoteCommentsScreenState extends State<VoteCommentsScreen> {
               return Stack(
                 alignment: Alignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      VoteCommentsHeader(vote: state.vote),
-                      if (state.timeSortedComments.length > 0)
-                        Expanded(
-                          child: ListView.builder(
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 40.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        VoteCommentsHeader(vote: state.vote),
+                        if (state.timeSortedComments.length > 0)
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: state.timeSortedComments.length,
+                              itemBuilder: (context, index) {
+                                return VoteCommentItem(
+                                  content: state.timeSortedComments[index].content,
+                                  commentIndex: index,
+                                  createdAt: state.timeSortedComments[index].createdAt,
+                                );
+                              },
+                            ),
+                          ),
+                        if (state.timeSortedComments.length <= 0)
+                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            itemCount: state.timeSortedComments.length,
-                            itemBuilder: (context, index) {
-                              return VoteCommentItem(
-                                content: state.timeSortedComments[index].content,
-                                commentIndex: index,
-                                createdAt: state.timeSortedComments[index].createdAt,
-                              );
-                            },
+                            child: Text('There are no comments yet!', style: bodyStyle(size: 14.0)),
                           ),
-                        ),
-                      if (state.timeSortedComments.length <= 0)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('There are no comments yet!', style: bodyStyle(size: 14.0)),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
+                  Positioned(
+                    bottom: 0,
                     child: Container(
-                      width: 60.0,
-                      height: 60.0,
-                      margin: const EdgeInsets.only(bottom: 16.0),
-                      child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        splashRadius: 25.0,
-                        splashColor: LIGHT_BLUE,
-                        icon: Icon(
-                          Icons.add_circle_outline_rounded,
-                          color: Colors.white,
-                          size: 60.0,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Colors.white),
                         ),
-                        onPressed: () => Navigator.of(context).push(
-                          AddCommentOverlay(
-                            callback: (content) => addCommentCallback(content),
-                          ),
+                        color: PRIMARY_BG,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width,
+                      child: TextField(
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          hintText: 'Write comment',
+                          hintStyle: hintStyle(),
+                          border: UnderlineInputBorder(borderSide: BorderSide(color: LIGHT_GRAY)),
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  // Align(
+                  //   alignment: Alignment.bottomCenter,
+                  //   child: Container(
+                  //     width: 60.0,
+                  //     height: 60.0,
+                  //     margin: const EdgeInsets.only(bottom: 16.0),
+                  //     child: IconButton(
+                  //       padding: const EdgeInsets.all(0),
+                  //       splashRadius: 25.0,
+                  //       splashColor: LIGHT_BLUE,
+                  //       icon: Icon(
+                  //         Icons.add_circle_outline_rounded,
+                  //         color: Colors.white,
+                  //         size: 60.0,
+                  //       ),
+                  //       onPressed: () => Navigator.of(context).push(
+                  //         AddCommentOverlay(
+                  //           callback: (content) => addCommentCallback(content),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               );
             }

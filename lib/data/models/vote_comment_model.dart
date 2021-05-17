@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/entities.dart';
-import 'package:swiftvote/data/entities/vote_comment_entity.dart';
+import 'package:intl/intl.dart';
 
 @immutable
 class VoteComment {
   final String content;
-  final DateTime createdAt;
+  final String createdAt;
 
   const VoteComment({
     this.content,
@@ -43,24 +43,21 @@ class VoteComment {
   }
 
   static VoteComment fromMap(Map<String, Object> map) {
-
     VoteComment entity = VoteComment(
       content: map["content"] as String,
-      createdAt: DateTime.parse(map["createdAt"] as String),
+      createdAt: DateTime.parse(map["createdAt"] as String).toString(),
     );
-
-    print('CREATED ENTITY');
-    print(entity);
-    print('%%%%%%%%%%%%%%%%%');
     return entity;
   }
 
   static VoteComment fromSnapshot(DocumentSnapshot snap) {
-    print('FROM SNAPSHOT ----------');
-    print(DateTime.fromMillisecondsSinceEpoch((snap.get('createdAt') as Timestamp).millisecondsSinceEpoch));
-    print(snap.get('createdAt').runtimeType);
+    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+    DateTime createdAt = DateTime.fromMillisecondsSinceEpoch(
+      (snap.get('createdAt') as Timestamp).millisecondsSinceEpoch,
+    );
+
     return VoteComment(
-      createdAt: DateTime.fromMillisecondsSinceEpoch((snap.get('createdAt') as Timestamp).millisecondsSinceEpoch),
+      createdAt: formatter.format(createdAt),
       content: snap.get('content') as String,
     );
   }

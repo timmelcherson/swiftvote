@@ -1,6 +1,5 @@
 
 class Routes {
-  static const HOME = '/';
   static const INTRO = 'intro';
   static const REGISTER_OPTIONAL = 'register_optional';
   static const APP = 'app';

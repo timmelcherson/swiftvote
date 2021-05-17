@@ -11,6 +11,7 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/screens/vote_result/vote_result_screen.dart';
 import 'package:swiftvote/screens/vote_screen/vote_comments_screen.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
@@ -65,18 +66,21 @@ class SwiftvoteApp extends StatelessWidget {
             child: MultiBlocProvider(
               providers: [
                 BlocProvider<NavigationBloc>(
+                  lazy: false,
                   create: (context) => NavigationBloc(),
                 ),
-                BlocProvider<AuthenticationBloc>(
-                  create: (context) => AuthenticationBloc(
+                BlocProvider<AuthBloc>(
+                  lazy: false,
+                  create: (context) => AuthBloc(
                     userRepository: RepositoryProvider.of<UserRepository>(context),
-                  )..add(AuthenticationStartedEvent()),
+                  ),
                 ),
                 BlocProvider<UserProfileBloc>(
+                  lazy: false,
                   create: (context) => UserProfileBloc(
-                    authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+                    authBloc: BlocProvider.of<AuthBloc>(context),
                     userProfileRepository: RepositoryProvider.of<UserProfileRepository>(context),
-                  )..add(UserProfileLoadingEvent()),
+                  ),
                 ),
                 BlocProvider<VoteBloc>(
                   create: (context) => VoteBloc(
@@ -86,6 +90,7 @@ class SwiftvoteApp extends StatelessWidget {
                 BlocProvider<VoteResultBloc>(
                   create: (context) => VoteResultBloc(
                     voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    userProfileBloc: BlocProvider.of<UserProfileBloc>(context),
                   ),
                 ),
                 BlocProvider<VoteCommentsBloc>(
@@ -141,7 +146,10 @@ class SwiftvoteApp extends StatelessWidget {
                   initialRoute: Routes.VOTE,
                   routes: {
                     Routes.LOGIN: (context) {
-                      return IntroScreen(userProfileRepository: UserProfileRepository());
+                      return LoginScreen();
+                    },
+                    Routes.REGISTER: (context) {
+                      return RegisterScreen();
                     },
                     // Routes.HOME: (context) {
                     //   print('MAIN ROUTE HOME');
@@ -149,8 +157,7 @@ class SwiftvoteApp extends StatelessWidget {
                     // },
                     // Routes.VOTE_RESULT: {},
                     Routes.EXPLORE: (context) {
-                      return ExploreScreen(
-                          voteRepository: RepositoryProvider.of<VoteRepository>(context));
+                      return ExploreScreen();
                     },
                     Routes.EXPLORE_CATEGORY: (context) {
                       return CategoryExplorer();
@@ -163,6 +170,9 @@ class SwiftvoteApp extends StatelessWidget {
                     },
                     Routes.VOTE_COMMENTS: (context) {
                       return VoteCommentsScreen();
+                    },
+                    Routes.VOTE_RESULT: (context) {
+                      return VoteResultScreen();
                     },
                     Routes.NOTIFICATIONS: (context) {
                       return NotificationsScreen();

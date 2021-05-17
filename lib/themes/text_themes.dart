@@ -32,7 +32,7 @@ TextStyle generateStyle({
 }
 
 TextStyle largeTitleStyle({
-  Color color = Colors.white,
+  Color color = DARK_GRAY,
   double size = 28.0,
   FontWeight weight = MEDIUM,
 }) {
@@ -40,7 +40,7 @@ TextStyle largeTitleStyle({
 }
 
 TextStyle mediumTitleStyle({
-  Color color = Colors.white,
+  Color color = DARK_GRAY,
   double size = 24.0,
   FontWeight weight = MEDIUM,
 }) {
@@ -48,7 +48,7 @@ TextStyle mediumTitleStyle({
 }
 
 TextStyle smallTitleStyle({
-  Color color = Colors.white,
+  Color color = DARK_GRAY,
   double size = 20.0,
   FontWeight weight = MEDIUM,
 }) {
@@ -56,7 +56,7 @@ TextStyle smallTitleStyle({
 }
 
 TextStyle bodyStyle({
-  Color color = Colors.white,
+  Color color = DARK_GRAY,
   double size = 16.0,
   FontWeight weight = NORMAL,
 }) {
@@ -64,7 +64,7 @@ TextStyle bodyStyle({
 }
 
 TextStyle footnoteStyle({
-  Color color = Colors.white,
+  Color color = DARK_GRAY,
   double size = 12.0,
   FontWeight weight = LIGHT,
 }) {
@@ -73,7 +73,7 @@ TextStyle footnoteStyle({
 
 TextStyle hintStyle({
   Color color = LIGHT_GRAY,
-  double size = 14.0,
+  double size = 16.0,
   FontWeight weight = NORMAL,
 }) {
   return generateStyle(color: color, size: size, weight: weight);

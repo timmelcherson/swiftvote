@@ -6,6 +6,7 @@ import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/shared_preference_keys.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/themes/color_themes.dart';
 import 'package:swiftvote/utils/shared_preferences_handler.dart';
 import 'package:swiftvote/screens/screens.dart';
 
@@ -42,6 +43,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: PRIMARY_BG,
       body: FutureBuilder(
         future: _initializeSharedPreferences(),
         builder: (context, snapshot) {
@@ -57,27 +59,35 @@ class _IntroScreenState extends State<IntroScreen> {
               _skipToHome = true;
             }
 
-            return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            return BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
-                if (state is AuthenticationSuccessState) {
+                print('INTRO SCREEN STATE: $state');
+
+                if (state is AuthInitialState) {
+                  return LoginScreen();
+                }
+                if (state is AuthSuccessState) {
                   print('SKIP TO HOME? $_skipToHome');
                   if (_skipToHome) {
                     return LoadingIndicator();
                   }
                   return RegisterOptionalScreen();
                 }
-                if (state is AuthenticationFailState) {
-                  if (_showRegister) {
-                    return RegisterScreen(
-                      userRepository: _userRepository,
-                      userProfileRepository: _userProfileRepository,
-                    );
-                  }
-                  return LoginScreen(
-                    userRepository: _userRepository,
-                    userProfileRepository: _userProfileRepository,
-                    registerCallback: onRegisterCallback,
+                if (state is AuthFailState) {
+                  return Center(
+                    child: Text('AUTH FAIL'),
                   );
+                  // if (_showRegister) {
+                  //   return RegisterScreen(
+                  //     userRepository: _userRepository,
+                  //     userProfileRepository: _userProfileRepository,
+                  //   );
+                  // }
+                  // return LoginScreen(
+                  //   userRepository: _userRepository,
+                  //   userProfileRepository: _userProfileRepository,
+                  //   registerCallback: onRegisterCallback,
+                  // );
                 }
                 return LoadingIndicator();
               },

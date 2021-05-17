@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
-class CustomOutlinedButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final Alignment buttonAlignment;
   final String buttonText;
   final TextStyle buttonTextStyle;
   final double width;
   final double height;
   final double borderRadius;
-  final Border border;
   final Color backgroundColor;
   final VoidCallback onPress;
   final EdgeInsets margin;
@@ -16,16 +15,15 @@ class CustomOutlinedButton extends StatelessWidget {
   final Widget leadingIcon;
   final Widget trailingIcon;
 
-  const CustomOutlinedButton({
+  const CustomButton({
     this.buttonAlignment,
     this.buttonText,
     this.buttonTextStyle,
     this.width,
-    this.height = 40.0,
+    this.height = 48.0,
     this.borderRadius = 8.0,
-    this.border,
     this.margin = const EdgeInsets.all(16.0),
-    this.backgroundColor = Colors.transparent,
+    this.backgroundColor = PRIMARY_BLUE,
     this.onPress,
     this.submittable = true,
     this.leadingIcon,
@@ -51,20 +49,16 @@ class CustomOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: buttonAlignment ?? Alignment.center,
-      decoration: BoxDecoration(
-        border: border ?? Border.all(color: PRIMARY_BLUE, width: 2.0),
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
       height: height,
       margin: margin,
-      child: OutlinedButton(
+      child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(backgroundColor),
           overlayColor: MaterialStateProperty.resolveWith(getOverlayColor),
           minimumSize: MaterialStateProperty.all<Size>(
             Size(width ?? MediaQuery.of(context).size.width, height),
           ),
-          shape: MaterialStateProperty.all<OutlinedBorder>(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
@@ -82,7 +76,7 @@ class CustomOutlinedButton extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 16.0),
                     child: leadingIcon,
                   ),
-                Text(buttonText, style: buttonTextStyle ?? buttonStyle()),
+                Text(buttonText, style: buttonTextStyle ?? buttonStyle(color: Colors.white)),
               ],
             ),
             if (trailingIcon != null)

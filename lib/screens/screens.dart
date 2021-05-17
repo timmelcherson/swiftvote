@@ -6,4 +6,4 @@ export 'intro_screen/intro_screen.dart';
 export 'notifications_screen/notifications_screen.dart';
 export 'search_screen/search_screen.dart';
 export 'settings_screen/settings_screen.dart';
-export 'vote_screen/vote_barrel.dart';
+export 'vote_screen/vote_screen_barrel.dart';

@@ -1,49 +1,59 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/entities.dart';
 
 @immutable
 class VoteResult {
-
-  final String voteResultId;
-  final int totalVotes;
-  final int maleVotes;
-  final int femaleVotes;
-  final int unknownGenderVotes;
+  final String voterId;
+  final int votedOptionIndex;
+  final String voterGender;
+  final int voterAge;
 
   const VoteResult({
-    this.voteResultId,
-    this.totalVotes,
-    this.maleVotes,
-    this.femaleVotes,
-    this.unknownGenderVotes,
+    this.voterId,
+    this.voterAge,
+    this.voterGender,
+    this.votedOptionIndex,
   });
 
-  VoteResult copyWith(String voteResultId, int totalVotes, int maleVotes, int femaleVotes, int unknownGenderVotes) {
+  VoteResult copyWith(
+    String voterId,
+    int votedOptionIndex,
+    String voterGender,
+    int voterAge,
+  ) {
     return VoteResult(
-      voteResultId: voteResultId ?? this.voteResultId,
-      totalVotes: totalVotes ?? this.totalVotes,
-      maleVotes: maleVotes ?? this.maleVotes,
-      femaleVotes: femaleVotes ?? this.femaleVotes,
-      unknownGenderVotes: unknownGenderVotes ?? this.unknownGenderVotes,
+      voterAge: voterAge ?? this.voterAge,
+      voterGender: voterGender ?? this.voterGender,
+      votedOptionIndex: votedOptionIndex ?? this.votedOptionIndex,
     );
   }
 
-
-  VoteResultEntity toEntity() {
-    return VoteResultEntity(
-      totalVotes: totalVotes,
-      maleVotes: maleVotes,
-      femaleVotes: femaleVotes,
-      unknownGenderVotes: unknownGenderVotes,
-    );
+  Map<String, Object> toMap() {
+    return {
+      "voterId": this.voterId,
+      "voterAge": this.voterAge,
+      "voterGender": this.voterGender,
+      "votedOptionIndex": this.votedOptionIndex,
+    };
   }
 
-  static VoteResult fromEntity(VoteResultEntity entity) {
+  static VoteResult fromMap(Map<String, Object> map) {
+    VoteResult entity = VoteResult(
+      voterId: map["voterId"] as String,
+      voterAge: map["voterAge"] as int,
+      voterGender: map["voterGender"] as String,
+      votedOptionIndex: map["voterAge"] as int,
+    );
+    return entity;
+  }
+
+  static VoteResult fromSnapshot(DocumentSnapshot snap) {
     return VoteResult(
-      totalVotes: entity.totalVotes,
-      maleVotes: entity.maleVotes,
-      femaleVotes: entity.femaleVotes,
-      unknownGenderVotes: entity.unknownGenderVotes,
+      voterId: snap.id,
+      voterAge: snap.get('voterAge') as int,
+      voterGender: snap.get('voterGender') as String,
+      votedOptionIndex: snap.get('votedOptionIndex') as int,
     );
   }
 }

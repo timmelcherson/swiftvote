@@ -86,7 +86,7 @@ class _MainNavBarState extends State<MainNavBar> {
       builder: (context, state) {
         if (state is MainNavBarState) {
           return Material(
-            color: DEEP_BLUE_BG,
+            color: PRIMARY_BG,
             child: SizedBox(
               height: _navbarBorderHeight,
               width: MediaQuery.of(context).size.width,
@@ -102,7 +102,7 @@ class _MainNavBarState extends State<MainNavBar> {
                         border: Border(
                           top: BorderSide(
                             width: 1.0,
-                            color: Colors.white,
+                            color: PRIMARY_BLUE,
                           ),
                         ),
                       ),

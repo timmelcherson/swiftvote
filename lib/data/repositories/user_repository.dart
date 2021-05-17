@@ -9,24 +9,28 @@ class UserRepository {
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<String> signInWithCredentials({String email, String password}) async {
+  Future<Map<String, dynamic>> signInWithCredentials({String email, String password}) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      return "Signed in";
+      UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return {'success': true, 'value': credential};
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      return {'success': false, 'value': e.message};
     }
   }
 
-  Future<String> signUp({String email, String password}) async {
+  Future<Map<String, dynamic>> signUp({String email, String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      print('USER SIGNED UP');
-      return 'success';
+      UserCredential credential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return {'success': true, 'value': credential};
     } on FirebaseAuthException catch (e) {
-      print('REGISTRATION FAILURE');
-      print(e.message);
-      return e.message;
+      return {'success': false, 'value': e.message};
     }
   }
 

@@ -24,7 +24,7 @@ class _FullScreenInputOverlayState extends State<FullScreenInputOverlay> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: DEEP_BLUE_BG,
+      color: PRIMARY_BG,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       padding: const EdgeInsets.all(16.0),
@@ -64,7 +64,7 @@ class _FullScreenInputOverlayState extends State<FullScreenInputOverlay> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: CustomOutlinedButton(
               buttonText: widget.buttonText,
-              onPressFunction: () {
+              onPress: () {
                 print('unfocus');
                 FocusScope.of(context).unfocus();
                 widget.callback(_controller.value.text);

@@ -2,6 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
+String trans(BuildContext context, String key) {
+  return AppLocalizations.of(context)._localizedStrings[key];
+}
+
 class AppLocalizations {
   final Locale locale;
 
@@ -27,10 +32,6 @@ class AppLocalizations {
 
   String translate(String key) {
     return _localizedStrings[key];
-  }
-
-  static String trans(BuildContext context, String key) {
-    return AppLocalizations.of(context)._localizedStrings[key];
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();

@@ -7,12 +7,11 @@ import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 
 class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
-  final VoteRepository _voteRepository;
+  final VoteRepository voteRepository;
   StreamSubscription _voteSubscription;
 
-  VoteCommentsBloc({@required VoteRepository voteRepository})
+  VoteCommentsBloc({@required this.voteRepository})
       : assert(voteRepository != null),
-        _voteRepository = voteRepository,
         super(VoteCommentsLoadingState());
 
   @override
@@ -34,11 +33,8 @@ class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
     LoadVoteCommentsByVoteIdEvent event,
   ) async* {
     _voteSubscription?.cancel();
-    _voteSubscription = _voteRepository
-        .getVoteCommentsByVoteId(
-          voteId: event.vote.id,
-        )
-        .listen(
+    print('_mapLoadVoteCommentsByVoteIdEventToState for voteId: ${event.vote.id}');
+    _voteSubscription = voteRepository.getVoteCommentsByVoteId(voteId: event.vote.id).listen(
           (comments) => add(
             VoteCommentsUpdatedEvent(
               vote: event.vote,
@@ -57,9 +53,9 @@ class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
   Stream<VoteCommentsState> _mapAddVoteCommentEventToState(AddVoteCommentEvent event) async* {
     VoteComment comment = VoteComment(
       content: event.content,
-      createdAt: DateTime.now(),
+      createdAt: DateTime.now().toString(),
     );
-    _voteRepository.addCommentToVote(
+    voteRepository.addVoteComment(
       voteId: (state as VoteCommentsLoadedState).vote.id,
       comment: comment,
     );

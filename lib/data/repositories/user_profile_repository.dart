@@ -24,11 +24,11 @@ class UserProfileRepository {
   }
 
   Future<UserProfile> getUserProfileById(String id) async {
-    return await _userProfileCollection
-        .doc(id)
-        .get()
-        .then((snapshot) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot)))
-        .catchError((onError) {
+    return await _userProfileCollection.doc(id).get().then((snapshot) {
+      return snapshot.exists
+          ? UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot))
+          : null;
+    }).catchError((onError) {
       print('COULD NOT FIND USERPROFILE IN FIRESTORE: $onError');
       return null;
     });

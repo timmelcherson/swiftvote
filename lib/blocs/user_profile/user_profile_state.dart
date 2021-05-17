@@ -26,10 +26,10 @@ class UserIdReceivedState extends UserProfileState {
   }
 }
 
-class UserProfileCreatedState extends UserProfileState {
+class UserProfileReadyState extends UserProfileState {
   final UserProfile userProfile;
 
-  const UserProfileCreatedState({this.userProfile});
+  const UserProfileReadyState({this.userProfile});
 
   @override
   List<Object> get props => [userProfile];

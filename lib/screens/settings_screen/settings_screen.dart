@@ -31,12 +31,12 @@ class SettingsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                AppLocalizations.trans(context, 'title.settings'),
+                trans(context, 'title.settings'),
                 style: largeTitleStyle(),
               ),
             ),
             for (var title in titles)
-              SettingsListItem(title: AppLocalizations.trans(context, title)),
+              SettingsListItem(title: trans(context, title)),
             FlatButton(
               color: OFF_WHITE,
               child: Text('Intro Screen'),
@@ -48,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
               color: OFF_WHITE,
               child: Text('Sign out'),
               onPressed: () {
-                BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLogOutEvent());
+                BlocProvider.of<AuthBloc>(context).add(AuthLogOutEvent());
                 Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
               },
             ),

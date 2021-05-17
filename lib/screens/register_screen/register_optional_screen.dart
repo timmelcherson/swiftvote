@@ -54,7 +54,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
           return LoadingIndicator();
         }
 
-        if (state is UserProfileCreatedState) {
+        if (state is UserProfileReadyState) {
           _userProfile = state.userProfile;
 
           return Padding(
@@ -86,7 +86,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
                         _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile, updateDB: true));
                         SharedPreferencesHandler.save(
                             SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO, true);
-                        Navigator.of(context, rootNavigator: true).pushNamed(Routes.HOME);
+                        Navigator.of(context, rootNavigator: true).pushNamed(Routes.VOTE);
                       },
                       child: Text(
                         'Skip',
@@ -126,7 +126,7 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
     if (_activeIndex == (_childWidgetIdentifiers.length - 1)) {
       SharedPreferencesHandler.save(SharedPreferenceKeys.DEVICE_HAS_DISPLAYED_INTRO, true);
       _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile, updateDB: true));
-      Navigator.of(context, rootNavigator: true).pushNamed(Routes.HOME);
+      Navigator.of(context, rootNavigator: true).pushNamed(Routes.VOTE);
     } else {
       setState(() {
         _activeIndex++;
@@ -151,8 +151,8 @@ class _RegisterOptionalScreenState extends State<RegisterOptionalScreen> {
 
   void dobCallback(String dob) {
     print(dob);
-    if (_userProfile != null)
-      _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile.copyWith(dob: dob)));
+    // if (_userProfile != null)
+    //   _userProfileBloc.add(UserProfileUpdatedEvent(_userProfile.copyWith(dob: dob)));
   }
 
   void interestsCallback(List<String> interests) {

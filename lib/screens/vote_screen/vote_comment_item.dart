@@ -5,17 +5,14 @@ import 'package:swiftvote/themes/text_themes.dart';
 class VoteCommentItem extends StatelessWidget {
   final String content;
   final int commentIndex;
-  final DateTime createdAt;
+  final String createdAt;
 
   VoteCommentItem({this.content, this.commentIndex, this.createdAt});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.white38)),
-      ),
+      padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,23 +20,24 @@ class VoteCommentItem extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                height: 20,
-                width: 20,
-                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.white,
+                ),
+                height: 24,
+                width: 24,
+                margin: const EdgeInsets.only(left: 16.0, right: 8.0),
                 child: Text(
                   (commentIndex + 1).toString(),
-                  style: bodyStyle(color: DEEP_BLUE_BG, size: 14.0),
+                  style: bodyStyle(color: PRIMARY_BG, size: 14.0),
                   textAlign: TextAlign.center,
                 ),
               ),
-              Text(
-                createdAt.toString(),
-                style: footnoteStyle(),
-              ),
+              Text(createdAt, style: footnoteStyle(color: CHARCOAL_GRAY)),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.fromLTRB(40.0, 8.0, 16.0, 0),
             child: Text(
               content,
               style: bodyStyle(size: 14.0),
