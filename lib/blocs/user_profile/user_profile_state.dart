@@ -10,6 +10,8 @@ abstract class UserProfileState extends Equatable {
   List<Object> get props => [];
 }
 
+class UserProfileInitialState extends UserProfileState {}
+
 class UserProfileLoadingState extends UserProfileState {}
 
 class UserIdReceivedState extends UserProfileState {
@@ -40,4 +42,6 @@ class UserProfileReadyState extends UserProfileState {
   }
 }
 
-class UserProfileLoadFailureState extends UserProfileState {}
+class UserProfileCreateFailState extends UserProfileState {}
+
+class UserProfileFetchFailState extends UserProfileState {}

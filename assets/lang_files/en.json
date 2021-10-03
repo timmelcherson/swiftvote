@@ -15,6 +15,9 @@
   "input.city": "City",
   "input.country": "Country",
   "input.email_address": "Email address",
+  "input.age": "Age",
+  "input.gender": "Gender",
+  "input.location": "Location",
   "login_screen.header": "Welcome to the swiftvote app!",
   "title.settings": "Settings",
   "title.interests": "Interests",
@@ -24,5 +27,8 @@
   "title.help_and_support": "Help and support",
   "title.notifications": "Notifications",
   "interest.music": "Music",
-  "interest.sports": "Sports"
+  "interest.sports": "Sports",
+  "register.sign_up": "Sign up",
+  "register.lets_go": "Let's go",
+  "register.info": "Don't worry, your swiftvote info is completely anonymous."
 }

@@ -32,7 +32,7 @@ TextStyle generateStyle({
 }
 
 TextStyle largeTitleStyle({
-  Color color = DARK_GRAY,
+  Color color = Colors.white,
   double size = 28.0,
   FontWeight weight = MEDIUM,
 }) {
@@ -40,7 +40,7 @@ TextStyle largeTitleStyle({
 }
 
 TextStyle mediumTitleStyle({
-  Color color = DARK_GRAY,
+  Color color = Colors.white,
   double size = 24.0,
   FontWeight weight = MEDIUM,
 }) {
@@ -48,7 +48,7 @@ TextStyle mediumTitleStyle({
 }
 
 TextStyle smallTitleStyle({
-  Color color = DARK_GRAY,
+  Color color = Colors.white,
   double size = 20.0,
   FontWeight weight = MEDIUM,
 }) {

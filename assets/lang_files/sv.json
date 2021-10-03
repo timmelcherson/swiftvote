@@ -15,6 +15,9 @@
   "input.city": "Ort",
   "input.country": "Land",
   "input.email_address": "E-postaddress",
+  "input.age": "Ålder",
+  "input.gender": "Kön",
+  "input.location": "Plats",
   "login_screen.header": "Välkommen till swiftvote app!",
   "title.settings": "Inställningar",
   "title.interests": "Intressen",
@@ -24,5 +27,8 @@
   "title.help_and_support": "Hjälp och support",
   "title.notifications": "Notifikationer",
   "interest.music": "Musik",
-  "interest.sports": "Sport"
+  "interest.sports": "Sport",
+  "register.sign_up": "Registrera",
+  "register.lets_go": "Kör på",
+  "register.info": "Oroa dig inte, din swiftvote-info är fullständigt anonym."
 }

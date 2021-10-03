@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/blocs.dart';
+import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/constants/routes.dart';
 
@@ -88,33 +90,8 @@ class _RegisterFormState extends State<RegisterForm> {
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
           return Form(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 32.0),
-                  child: FractionallySizedBox(
-                    widthFactor: 1.0,
-                    child: Text(
-                      'Create account',
-                      style: largeTitleStyle(color: GRANITE_GRAY),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 16.0),
-                  child: FractionallySizedBox(
-                    widthFactor: 1.0,
-                    child: Text(
-                      "Don't worry, your account at swiftvote is completely anonymous.",
-                      style: bodyStyle(),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Expanded(
+            child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -122,10 +99,6 @@ class _RegisterFormState extends State<RegisterForm> {
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.email,
-                            color: PRIMARY_BLUE,
-                          ),
                           hintText: 'Email',
                           hintStyle: hintStyle(),
                         ),
@@ -139,10 +112,6 @@ class _RegisterFormState extends State<RegisterForm> {
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.vpn_key,
-                            color: PRIMARY_BLUE,
-                          ),
                           hintText: 'Password',
                           hintStyle: hintStyle(),
                         ),
@@ -156,10 +125,6 @@ class _RegisterFormState extends State<RegisterForm> {
                       TextFormField(
                         controller: _confirmPasswordController,
                         decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.vpn_key,
-                            color: PRIMARY_BLUE,
-                          ),
                           hintText: 'Confirm password',
                           hintStyle: hintStyle(),
                         ),
@@ -170,28 +135,12 @@ class _RegisterFormState extends State<RegisterForm> {
                           return !state.isPasswordValid ? 'Invalid confirm password' : null;
                         },
                       ),
+                      CustomButton(
+                        buttonText: trans(context, "register.lets_go"),
+                      ),
                     ],
                   ),
                 ),
-                Container(
-                  height: 50.0,
-                  child: FractionallySizedBox(
-                    widthFactor: 0.9,
-                    child: FlatButton(
-                      padding: EdgeInsets.symmetric(vertical: 12.0),
-                      color: PRIMARY_BLUE,
-                      child: Text(
-                        'Register',
-                        style: buttonStyle(),
-                      ),
-                      onPressed: () {
-                        _formSubmitHandler();
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
           );
         },
       ),

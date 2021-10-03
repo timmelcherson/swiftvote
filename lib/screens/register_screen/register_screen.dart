@@ -1,78 +1,146 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/blocs.dart';
-import 'package:swiftvote/data/repositories.dart';
-import 'package:swiftvote/constants/routes.dart';
+import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
 import 'package:swiftvote/screens/register_screen/register_barrel.dart';
+import 'package:swiftvote/themes/themes.dart';
 
 class RegisterScreen extends StatefulWidget {
-  final UserRepository userRepository;
-  final UserProfileRepository userProfileRepository;
-
-  const RegisterScreen(
-      {Key key, @required this.userRepository, @required this.userProfileRepository})
-      : super(key: key);
+  const RegisterScreen({Key key}) : super(key: key);
 
   @override
   State createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  UserRepository _userRepository;
-  UserProfileRepository _userProfileRepository;
+  UserProfileBloc _userProfileBloc;
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
+  final TextEditingController _locationController =
+      TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _userRepository = widget.userRepository;
-    _userProfileRepository = widget.userProfileRepository;
+    _userProfileBloc = BlocProvider.of<UserProfileBloc>(context);
+    _ageController.addListener(_ageChangeHandler);
+    _genderController.addListener(_genderChangeHandler);
+    _locationController.addListener(_locationChangeHandler);
+  }
+
+  void _ageChangeHandler() {
+    print(_ageController.text);
+  }
+
+  void _genderChangeHandler() {
+    print(_genderController.text);
+  }
+
+  void _locationChangeHandler() {
+    print(_locationController.text);
+  }
+
+  void _formSubmitHandler() {
+    print("ADD USERPROFILE");
+    // if (_passwordController.text == _confirmPasswordController.text) {
+    //   _userProfileBloc.add(UserProfileCreateEvent());
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     double _safeAreaPadding = MediaQuery.of(context).padding.top;
 
-    return BlocProvider<RegisterBloc>(
-      create: (context) => RegisterBloc(
-        userRepository: _userRepository,
-        userProfileRepository: _userProfileRepository,
-      ),
-      child: LayoutBuilder(
-        builder: (context, constraint) {
+    return Scaffold(
+      backgroundColor: SECONDARY_BG,
+      body: SafeArea(
+        child: BlocBuilder<UserProfileBloc, UserProfileState>(
+            builder: (context, state) {
           return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: _safeAreaPadding, horizontal: 16.0),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height - 2 * _safeAreaPadding),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_back,
-                              size: 28.0,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(Routes.LOGIN);
-                            },
-                          ),
-                        ],
-                      ),
-                      Expanded(child: RegisterForm()),
-                    ],
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+                  child: Text(
+                    trans(context, 'register.sign_up'),
+                    style: smallTitleStyle(),
+                    textAlign: TextAlign.left,
                   ),
                 ),
-              ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.all(16.0),
+                  child: Text(
+                    trans(context, 'register.info'),
+                    style: bodyStyle(),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Form(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 32.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: _ageController,
+                          decoration: InputDecoration(
+                            hintText: trans(context, 'input.age'),
+                            hintStyle: hintStyle(),
+                          ),
+                          keyboardType: TextInputType.number,
+                          autovalidateMode: AutovalidateMode.disabled,
+                          autocorrect: false,
+                          // validator: (_) {
+                          //   return !state.isEmailValid ? 'Invalid Email' : null;
+                          // },
+                        ),
+                        TextFormField(
+                          controller: _genderController,
+                          decoration: InputDecoration(
+                            hintText: trans(context, 'input.gender'),
+                            hintStyle: hintStyle(),
+                          ),
+                          autovalidateMode: AutovalidateMode.disabled,
+                          autocorrect: false,
+                          // validator: (_) {
+                          //   return !state.isPasswordValid
+                          //       ? 'Invalid password'
+                          //       : null;
+                          // },
+                        ),
+                        TextFormField(
+                          controller: _locationController,
+                          decoration: InputDecoration(
+                            hintText: trans(context, 'input.location'),
+                            hintStyle: hintStyle(),
+                          ),
+                          autovalidateMode: AutovalidateMode.disabled,
+                          autocorrect: false,
+                          // validator: (_) {
+                          //   return !state.isPasswordValid
+                          //       ? 'Invalid confirm password'
+                          //       : null;
+                          // },
+                        ),
+                        CustomButton(
+                          buttonText: trans(context, "register.lets_go"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
-        },
+        }),
       ),
     );
   }

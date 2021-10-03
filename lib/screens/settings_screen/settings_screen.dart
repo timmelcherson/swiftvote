@@ -23,29 +23,32 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: true,),
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: SECONDARY_BG,
+        title: Text("Settings")
+      ),
       key: Keys.settingsWidget,
-      backgroundColor: Colors.white,
+      backgroundColor: SECONDARY_BG,
       body: SafeArea(
         child: CustomScrollView(
           key: Keys.exploreWidget,
           scrollDirection: Axis.vertical,
           slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              collapsedHeight: 60.0,
-              expandedHeight: 60.0,
-              backgroundColor: Colors.white,
-              title: Text(
-                trans(context, 'title.settings'),
-                style: largeTitleStyle(),
-              ),
-            ),
+            // SliverAppBar(
+            //   pinned: true,
+            //   collapsedHeight: 60.0,
+            //   expandedHeight: 60.0,
+            //   title: Text(
+            //     trans(context, 'title.settings'),
+            //     style: largeTitleStyle(),
+            //   ),
+            // ),
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  SettingsListItem(title: trans(context, _titles[0]), listItems: [InterestsList()]),
-                  SettingsListItem(title: trans(context, _titles[1]), listItems: [InterestsList()]),
+                  // SettingsListItem(title: trans(context, _titles[0]), listItems: [InterestsList()]),
+                  // SettingsListItem(title: trans(context, _titles[1]), listItems: [InterestsList()]),
                   SettingsListItem(title: trans(context, _titles[2]), listItems: [MyInformation()]),
                   SettingsListItem(title: 'My discussions', listItems: [Text('Who is best artist', style: bodyStyle(),)]),
                 ],

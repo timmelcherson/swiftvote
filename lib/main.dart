@@ -1,22 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/navigation/navigation.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
 import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
-import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/data/repositories/user_repository.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_result/vote_result_screen.dart';
 import 'package:swiftvote/screens/vote_screen/vote_comments_screen.dart';
 import 'package:swiftvote/themes/themes.dart';
-import 'package:swiftvote/utils/shared_preferences_handler.dart';
 import 'package:swiftvote/utils/simple_bloc_observer.dart';
-import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/constants/routes.dart';
@@ -28,21 +24,36 @@ Future<void> main() async {
   runApp(SwiftvoteApp());
 }
 
-class SwiftvoteApp extends StatelessWidget {
-  final Future<FirebaseApp> _firebaseInit = Firebase.initializeApp();
+class SwiftvoteApp extends StatefulWidget {
+  @override
+  _SwiftvoteAppState createState() => _SwiftvoteAppState();
+}
 
-  // final Future<FirebaseAuth> _authInit = FirebaseAuth
-  // bool _skipLogin = false;
+class _SwiftvoteAppState extends State<SwiftvoteApp> {
+  final Future<FirebaseApp> _firebaseInit = Firebase.initializeApp();
+  bool _hasRegisteredInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSharedPreferences();
+  }
+
+  //Loading counter value on start
+  void _loadSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _hasRegisteredInfo =
+          (prefs.getBool('device_has_displayed_intro') ?? false);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // bool test = _sharedPrefs.getBool("device_has_displayed_intro") ?? false;
     // print('user has seen intro: $test');
 
     return FutureBuilder(
-      future: Future.wait([
-        _firebaseInit,
-      ]),
+      future: Future.wait([_firebaseInit]),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Container();
@@ -51,6 +62,9 @@ class SwiftvoteApp extends StatelessWidget {
           // if (snapshot.hasData) {
           //   _skipLogin = snapshot.data[1];
           // }
+
+          print("-------------------");
+          print(_hasRegisteredInfo);
           return MultiRepositoryProvider(
             providers: [
               RepositoryProvider<UserRepository>(
@@ -69,17 +83,9 @@ class SwiftvoteApp extends StatelessWidget {
                   lazy: false,
                   create: (context) => NavigationBloc(),
                 ),
-                BlocProvider<AuthBloc>(
-                  lazy: false,
-                  create: (context) => AuthBloc(
-                    userRepository:
-                        RepositoryProvider.of<UserRepository>(context),
-                  ),
-                ),
                 BlocProvider<UserProfileBloc>(
                   lazy: false,
                   create: (context) => UserProfileBloc(
-                    authBloc: BlocProvider.of<AuthBloc>(context),
                     userProfileRepository:
                         RepositoryProvider.of<UserProfileRepository>(context),
                   ),
@@ -151,11 +157,12 @@ class SwiftvoteApp extends StatelessWidget {
                     // English locale fallback
                     return supportedLocales.first;
                   },
-                  initialRoute: Routes.VOTE,
+                  initialRoute:
+                      _hasRegisteredInfo ? Routes.VOTE : Routes.REGISTER,
                   routes: {
-                    Routes.LOGIN: (context) {
-                      return LoginScreen();
-                    },
+                    // Routes.LOGIN: (context) {
+                    //   return LoginScreen();
+                    // },
                     Routes.REGISTER: (context) {
                       return RegisterScreen();
                     },
@@ -170,9 +177,9 @@ class SwiftvoteApp extends StatelessWidget {
                     // Routes.EXPLORE_CATEGORY: (context) {
                     //   return CategoryExplorer();
                     // },
-                    Routes.SEARCH: (context) {
-                      return SearchScreen();
-                    },
+                    // Routes.SEARCH: (context) {
+                    //   return SearchScreen();
+                    // },
                     Routes.VOTE: (context) {
                       print("ROUTE VOTE");
                       return VoteScreen();

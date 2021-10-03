@@ -1,6 +1,5 @@
 export 'vote/vote.dart';
 export 'explore/explore.dart';
-export 'intro/intro.dart';
 export 'register/register.dart';
 export 'authentication/auth.dart';
 export 'user_profile/user_profile.dart';

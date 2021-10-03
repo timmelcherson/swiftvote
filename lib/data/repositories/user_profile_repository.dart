@@ -1,12 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiftvote/data/entities/user_profile_entity.dart';
 import 'package:swiftvote/data/models/user_profile_model.dart';
 
 class UserProfileRepository {
-  final _userProfileCollection = FirebaseFirestore.instance.collection('user_profiles');
+  final _userProfileCollection =
+      FirebaseFirestore.instance.collection('user_profiles');
 
-  Future<void> addNewUserProfile(UserProfile userProfile) async {
-    return _userProfileCollection.doc(userProfile.userId).set(userProfile.toEntity().toDocument());
+  Future<String> addNewUserProfile(
+      {String age, String gender, String location}) async {
+    final doc = await _userProfileCollection.add({
+      age: age,
+      gender: gender,
+      location: location,
+    });
+    return doc.id;
   }
 
   Future<void> updateUserProfile(UserProfile userProfile) async {
@@ -23,7 +31,7 @@ class UserProfileRepository {
     return _userProfileCollection.doc(id) == null;
   }
 
-  Future<UserProfile> getUserProfileById(String id) async {
+  Future<UserProfile> fetchUserProfileById({String id}) async {
     return await _userProfileCollection.doc(id).get().then((snapshot) {
       return snapshot.exists
           ? UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot))
@@ -47,7 +55,8 @@ class UserProfileRepository {
 
   Stream<List<UserProfile>> getUserProfiles() {
     return _userProfileCollection.snapshots().map((snapshot) => snapshot.docs
-        .map((doc) => UserProfile.fromEntity(UserProfileEntity.fromSnapshot(doc)))
+        .map((doc) =>
+            UserProfile.fromEntity(UserProfileEntity.fromSnapshot(doc)))
         .toList());
   }
 }

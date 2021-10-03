@@ -4,21 +4,18 @@ import 'package:equatable/equatable.dart';
 class UserProfileEntity extends Equatable {
   final String userId;
   final String gender;
-  final int age;
+  final String age;
   final String location;
-  final List<String> interests;
-  final List<String> languages;
 
-  const UserProfileEntity(
-      this.userId, this.gender, this.age, this.location, this.interests, this.languages);
+  const UserProfileEntity(this.userId, this.gender, this.age, this.location);
 
   @override
-  List<Object> get props => [userId, gender, age, location, interests, languages];
+  List<Object> get props => [userId, gender, age, location];
 
   @override
   String toString() {
     return 'UserProfileEntity{userId: $userId, gender: $gender, age: $age, location: '
-        '$location, interests: $interests, languages: $languages}';
+        '$location }';
   }
 
   Map<String, Object> toJson() {
@@ -27,38 +24,21 @@ class UserProfileEntity extends Equatable {
       "gender": gender,
       "age": age,
       "location": location,
-      "interests": interests,
-      "languages": languages,
     };
   }
 
   static UserProfileEntity fromJson(Map<String, Object> json) {
-    List<String> _interests = new List<String>.from(json["interests"]);
-    List<String> _languages = new List<String>.from(json["languages"]);
-
     UserProfileEntity userProfile = UserProfileEntity(
         json["userId"] as String,
         json["gender"] as String,
-        json["age"] as int,
-        json["location"] as String,
-        _interests,
-        _languages,
-    );
+        json["age"] as String,
+        json["location"] as String);
     return userProfile;
   }
 
   static UserProfileEntity fromSnapshot(DocumentSnapshot snap) {
-    List<String> _interests = new List<String>.from(snap.get('interests'));
-    List<String> _languages = new List<String>.from(snap.get('languages'));
-
-    return UserProfileEntity(
-      snap.get('userId'),
-      snap.get('gender'),
-      snap.get('age'),
-      snap.get('location'),
-      _interests,
-      _languages,
-    );
+    return UserProfileEntity(snap.get('userId'), snap.get('gender'),
+        snap.get('age'), snap.get('location'));
   }
 
   Map<String, Object> toDocument() {
@@ -66,9 +46,7 @@ class UserProfileEntity extends Equatable {
       'userId': userId,
       'gender': gender,
       'age': age,
-      'location': location,
-      'interests': interests,
-      'languages': languages,
+      'location': location
     };
   }
 }

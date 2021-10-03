@@ -12,11 +12,19 @@ abstract class UserProfileEvent {
 
 class UserProfileLoadingEvent extends UserProfileEvent {}
 
-class UserIdReceivedEvent extends UserProfileEvent {
+class UserProfileCreateEvent extends UserProfileEvent {
+  final String age;
+  final String gender;
+  final String location;
+
+  const UserProfileCreateEvent({this.age, this.gender, this.location});
+}
+
+class UserProfileFetchEvent extends UserProfileEvent {
 
   final String userId;
 
-  const UserIdReceivedEvent(this.userId);
+  const UserProfileFetchEvent(this.userId);
 }
 
 class UserProfileUpdatedEvent extends UserProfileEvent {
@@ -26,7 +34,5 @@ class UserProfileUpdatedEvent extends UserProfileEvent {
 
   const UserProfileUpdatedEvent(this.userProfile, {this.updateDB = false});
 }
-
-// class UserProfilePersistEvent extends UserProfileEvent {}
 
 class UserProfileFailureEvent extends UserProfileEvent {}

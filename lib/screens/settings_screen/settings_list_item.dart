@@ -50,7 +50,7 @@ class _SettingsListItemState extends State<SettingsListItem> with SingleTickerPr
       title: Text(_title, style: bodyStyle()),
       trailing: RotationTransition(
         turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-        child: Icon(Icons.keyboard_arrow_right_sharp, size: 20, color: DARK_GRAY),
+        child: Icon(Icons.keyboard_arrow_right_sharp, size: 20, color: Colors.white),
       ),
       onExpansionChanged: (value) => setState(() {
         _open = value;

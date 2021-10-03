@@ -7,7 +7,7 @@ class VoteResult {
   final String voterId;
   final int votedOptionIndex;
   final String voterGender;
-  final int voterAge;
+  final String voterAge;
 
   const VoteResult({
     this.voterId,
@@ -41,7 +41,7 @@ class VoteResult {
   static VoteResult fromMap(Map<String, Object> map) {
     VoteResult entity = VoteResult(
       voterId: map["voterId"] as String,
-      voterAge: map["voterAge"] as int,
+      voterAge: map["voterAge"] as String,
       voterGender: map["voterGender"] as String,
       votedOptionIndex: map["voterAge"] as int,
     );
@@ -51,7 +51,7 @@ class VoteResult {
   static VoteResult fromSnapshot(DocumentSnapshot snap) {
     return VoteResult(
       voterId: snap.id,
-      voterAge: snap.get('voterAge') as int,
+      voterAge: snap.get('voterAge') as String,
       voterGender: snap.get('voterGender') as String,
       votedOptionIndex: snap.get('votedOptionIndex') as int,
     );
