@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:swiftvote/blocs/navigation/navigation.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  NavigationBloc() : super(MainNavBarState(index: 2));
+  NavigationBloc() : super(MainNavBarState(index: 1));
 
   @override
   Stream<NavigationState> mapEventToState(NavigationEvent event) async* {

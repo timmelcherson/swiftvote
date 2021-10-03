@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftvote/app_localization.dart';
+import 'package:swiftvote/blocs/vote/vote.dart';
+import 'package:swiftvote/blocs/vote/vote_bloc.dart';
+import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
+import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
+import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/themes/themes.dart';
 
-typedef OnSaveCallback = Function(String title, List<String> category, String voteOptionOne,
-    String voteOptionTwo, List<String> tags);
+typedef OnSaveCallback = Function(String title, List<String> category,
+    String voteOptionOne, String voteOptionTwo, List<String> tags);
 
 class AddVoteScreen extends StatefulWidget {
-  final bool isEditing;
-  final OnSaveCallback onSave;
-  final Map<int, String> tempVote;
 
-  AddVoteScreen({
-    Key key,
-    @required this.onSave,
-    @required this.isEditing,
-    this.tempVote,
-  }) : super(key: key ?? Keys.addVoteScreen);
+  AddVoteScreen({Key key}) : super(key: key ?? Keys.addVoteScreen);
 
   @override
   State createState() => _AddVoteScreenState();
 }
 
 class _AddVoteScreenState extends State<AddVoteScreen> {
-  static final _addVoteFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _addVoteFormKey = GlobalKey<FormState>();
 
   int _selectCount = 0;
   bool _showErrorMsg = false;
@@ -34,12 +33,11 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   List<String> _voteTags = ['#hashtag1', '#hashtag2']; // Dummy list
   List<bool> _tagCheckboxValues;
 
-  bool get isEditing => widget.isEditing;
-
   @override
   void initState() {
     super.initState();
-    _tagCheckboxValues = List.generate(Category.values.length, (index) => false);
+    _tagCheckboxValues =
+        List.generate(Category.values.length, (index) => false);
   }
 
   Widget customCheckBox(int index, String tagDescr) {
@@ -50,7 +48,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
           value: _tagCheckboxValues[index],
           onChanged: (bool value) {
             if (!(_selectCount >= 2)) {
-              value ? _voteCategory.add(tagDescr) : _voteCategory.remove(tagDescr);
+              value
+                  ? _voteCategory.add(tagDescr)
+                  : _voteCategory.remove(tagDescr);
               setState(() {
                 _tagCheckboxValues[index] = value;
                 value ? _selectCount++ : _selectCount--;
@@ -76,75 +76,54 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
     );
   }
 
+  void onSave(title, categories, voteOptionOne, voteOptionTwo, tags) {
+    BlocProvider.of<VoteBloc>(context).add(
+      AddVoteEvent(
+        Vote(
+          title: _voteTitle,
+          author: 'swiftvote',
+          sponsor: "",
+          voteOptions: [_voteOptionOne, _voteOptionTwo],
+          totalVotes: 0,
+          tags: _voteTags,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: SECONDARY_BG,
+        automaticallyImplyLeading: false,
+        title: Text("Add a vote"),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed(Routes.SETTINGS),
+            child: Container(
+              margin: EdgeInsets.only(right: 16.0),
+              child: Icon(Icons.settings_outlined),
+            ),
+          )
+        ],
+      ),
       resizeToAvoidBottomInset: false,
+      backgroundColor: SECONDARY_BG,
+      bottomNavigationBar: MainNavBar(),
       body: SafeArea(
         child: Form(
           key: _addVoteFormKey,
           child: ListView(
             children: <Widget>[
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 32.0,
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.all(12.0),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
               Container(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 32.0),
-                        child: Text(
-                          'Start a vote',
-                          style: largeTitleStyle(color: OFF_WHITE),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: ClipOval(
-                        child: Material(
-                          color: PRIMARY_BLUE,
-                          child: InkWell(
-                            child: Container(
-                              width: 32,
-                              height: 32,
-                              alignment: Alignment.center,
-                              child: Text(
-                                '?',
-                                style: TextStyle(color: Colors.white, fontSize: 24.0),
-                              ),
-                            ),
-                            onTap: () {
-                              print('HELP');
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(24.0, 4.0, 24.0, 32.0),
+                margin: EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 32.0),
                 child: TextFormField(
                   maxLength: 70,
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 8.0),
                     hintText: 'Type question',
-                    hintStyle: bodyStyle(color: LIGHT_GRAY),
+                    hintStyle: bodyStyle(),
                     border: OutlineInputBorder(borderSide: const BorderSide()),
                   ),
                   validator: (value) {
@@ -159,8 +138,8 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   widthFactor: 0.8,
                   child: TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'Answer',
-                      hintStyle: bodyStyle(color: LIGHT_GRAY),
+                      hintText: 'Answer 1',
+                      hintStyle: bodyStyle(),
                     ),
                     validator: (value) {
                       return validateTextField(value);
@@ -176,8 +155,8 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(0.0),
-                      hintText: 'Answer',
-                      hintStyle: bodyStyle(color: LIGHT_GRAY),
+                      hintText: 'Answer 2',
+                      hintStyle: bodyStyle(),
                     ),
                     validator: (value) {
                       return validateTextField(value);
@@ -186,69 +165,25 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(16.0),
-                child: Center(
-                  child: Text(
-                    'Choose categories ($_selectCount/2)',
-                    style: footnoteStyle(color: DARK_GRAY),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 3.5,
-                  crossAxisSpacing: 2.0,
-                  padding: EdgeInsets.all(8.0),
-                  children: List.generate(
-                    _tagCheckboxValues.length,
-                    (index) => customCheckBox(
-                      index,
-                      CategoryExtension.categoryToString[Category.values[index]],
-                    ),
-                  ),
-                ),
-              ),
-              if (_showErrorMsg)
-                Container(
-                  child: Text('SELECT 2 CATEGORIES PLS'),
-                ),
+
               Container(
                 margin: EdgeInsets.only(top: 32.0, bottom: 32.0),
-                height: 50.0,
                 alignment: Alignment.bottomCenter,
-                child: FractionallySizedBox(
-                  widthFactor: 0.6,
-                  child: RaisedButton(
-                    color: PRIMARY_BLUE,
-                    textColor: Colors.white,
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    onPressed: () {
-                      if (_addVoteFormKey.currentState.validate()) {
-                        if (_selectCount != 2) {
-                          setState(() {
-                            _showErrorMsg = true;
-                          });
-                          return;
-                        }
-                        _addVoteFormKey.currentState.save();
-                        widget.onSave(
-                            _voteTitle, _voteCategory, _voteOptionOne, _voteOptionTwo, _voteTags);
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: Text(
-                      'Submit',
-                      style: buttonStyle(),
-                    ),
-                  ),
+                child: CustomButton(
+                  buttonText: trans(context, 'button.post'),
+                  onPress: () {
+                    if (_addVoteFormKey.currentState.validate()) {
+                      // if (_selectCount != 2) {
+                      //   setState(() {
+                      //     _showErrorMsg = true;
+                      //   });
+                      //   return;
+                      // }
+                      _addVoteFormKey.currentState.save();
+                      onSave(_voteTitle, _voteCategory, _voteOptionOne,
+                          _voteOptionTwo, _voteTags);
+                    }
+                  },
                 ),
               ),
             ],
@@ -265,38 +200,4 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 
     return null;
   }
-}
-
-class ListItem {
-  int value;
-  String name;
-
-  ListItem(this.value, this.name);
-}
-
-class AddVoteScreenHeaderDelegate extends SliverPersistentHeaderDelegate {
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Color.fromRGBO(255, 253, 245, 1),
-      child: IconButton(
-        icon: Icon(Icons.arrow_back),
-        iconSize: 32.0,
-        alignment: Alignment.topLeft,
-        padding: EdgeInsets.all(12.0),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  @override
-  double get maxExtent => 90.0;
-
-  @override
-  double get minExtent => 80.0;
 }

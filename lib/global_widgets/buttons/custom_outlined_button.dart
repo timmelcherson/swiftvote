@@ -21,8 +21,8 @@ class CustomOutlinedButton extends StatelessWidget {
     this.buttonText,
     this.buttonTextStyle,
     this.width,
-    this.height = 40.0,
-    this.borderRadius = 8.0,
+    this.height = 48.0,
+    this.borderRadius = 4.0,
     this.border,
     this.margin = const EdgeInsets.all(16.0),
     this.backgroundColor = Colors.transparent,
@@ -52,7 +52,7 @@ class CustomOutlinedButton extends StatelessWidget {
     return Container(
       alignment: buttonAlignment ?? Alignment.center,
       decoration: BoxDecoration(
-        border: border ?? Border.all(color: PRIMARY_BLUE, width: 2.0),
+        border: border ?? Border.all(color: Colors.white, width: 2.0),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       height: height,

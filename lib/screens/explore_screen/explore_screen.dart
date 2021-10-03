@@ -15,7 +15,6 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
 class ExploreScreen extends StatelessWidget {
-
   ExploreScreen({Key key}) : super(key: key);
 
   String formatStr(String string) {
@@ -75,6 +74,7 @@ class ExploreScreen extends StatelessWidget {
 
     return Scaffold(
       bottomNavigationBar: MainNavBar(),
+      backgroundColor: PRIMARY_BG,
       body: BlocBuilder<ExploreBloc, ExploreState>(
         builder: (context, state) {
           if (state is ExploreCategoriesLoadingState) {
@@ -95,37 +95,56 @@ class ExploreScreen extends StatelessWidget {
                   delegate: ExploreWidgetHeaderDelegate(),
                 ),
                 SliverPadding(
-                  padding: EdgeInsets.all(16),
-                  sliver: SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) => Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      BlocProvider.of<ExploreBloc>(context).add(
-                                        ExploreCategoryTappedEvent(
-                                          category: categories[index],
-                                        ),
-                                      );
-                                      Navigator.of(context).pushNamed(Routes.EXPLORE_CATEGORY);
-                                    },
-                                    child: CategoryCard(
-                                      title: categories[index],
-                                      icon: categoryThumbnails[index],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                    padding: EdgeInsets.all(16),
+                    sliver: SliverList(
+                      delegate: SliverChildListDelegate(
+                        List.generate(
+                          categories.length,
+                          (index) => GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<ExploreBloc>(context).add(
+                                ExploreCategoryTappedEvent(category: categories[index]),
+                              );
+                              Navigator.of(context).pushNamed(Routes.EXPLORE_CATEGORY);
+                            },
+                            child: CategoryCard(
+                              title: categories[index],
+                              icon: categoryThumbnails[index],
                             ),
-                        childCount: categories.length),
-                  ),
-                ),
+                          ),
+                        ),
+                      ),
+                    )
+                    // SliverGrid(
+                    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //     crossAxisCount: 2,
+                    //     crossAxisSpacing: 4,
+                    //     mainAxisSpacing: 4,
+                    //   ),
+                    //   delegate: SliverChildBuilderDelegate(
+                    //       (BuildContext context, int index) => Row(
+                    //             children: <Widget>[
+                    //               Expanded(
+                    //                 child: GestureDetector(
+                    //                   onTap: () {
+                    //                     BlocProvider.of<ExploreBloc>(context).add(
+                    //                       ExploreCategoryTappedEvent(
+                    //                         category: categories[index],
+                    //                       ),
+                    //                     );
+                    //                     Navigator.of(context).pushNamed(Routes.EXPLORE_CATEGORY);
+                    //                   },
+                    //                   child: CategoryCard(
+                    //                     title: categories[index],
+                    //                     icon: categoryThumbnails[index],
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //       childCount: categories.length),
+                    // ),
+                    ),
               ],
             );
           }
@@ -163,11 +182,7 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
             alignment: Alignment.bottomLeft,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 12.0),
-              child: Text(
-                'Explore',
-                style: largeTitleStyle(color: OFF_WHITE),
-                textAlign: TextAlign.end,
-              ),
+              child: Text('Explore', style: largeTitleStyle()),
             ),
           ),
         ],
@@ -182,5 +197,5 @@ class ExploreWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 150.0;
 
   @override
-  double get minExtent => 70.0;
+  double get minExtent => 80.0;
 }

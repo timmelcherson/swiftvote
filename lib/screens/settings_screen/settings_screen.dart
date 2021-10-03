@@ -4,12 +4,14 @@ import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/screens/settings_screen/interests_list.dart';
+import 'package:swiftvote/screens/settings_screen/my_information.dart';
 import 'package:swiftvote/screens/settings_screen/settings_list_item.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 
 class SettingsScreen extends StatelessWidget {
-  List<String> titles = [
+  List<String> _titles = [
     "title.interests",
     "title.collection",
     "title.my_information",
@@ -21,39 +23,62 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(automaticallyImplyLeading: true,),
       key: Keys.settingsWidget,
-      bottomNavigationBar: MainNavBar(),
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
+        child: CustomScrollView(
+          key: Keys.exploreWidget,
+          scrollDirection: Axis.vertical,
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              collapsedHeight: 60.0,
+              expandedHeight: 60.0,
+              backgroundColor: Colors.white,
+              title: Text(
                 trans(context, 'title.settings'),
                 style: largeTitleStyle(),
               ),
             ),
-            for (var title in titles)
-              SettingsListItem(title: trans(context, title)),
-            FlatButton(
-              color: OFF_WHITE,
-              child: Text('Intro Screen'),
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
-              },
-            ),
-            FlatButton(
-              color: OFF_WHITE,
-              child: Text('Sign out'),
-              onPressed: () {
-                BlocProvider.of<AuthBloc>(context).add(AuthLogOutEvent());
-                Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
-              },
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  SettingsListItem(title: trans(context, _titles[0]), listItems: [InterestsList()]),
+                  SettingsListItem(title: trans(context, _titles[1]), listItems: [InterestsList()]),
+                  SettingsListItem(title: trans(context, _titles[2]), listItems: [MyInformation()]),
+                  SettingsListItem(title: 'My discussions', listItems: [Text('Who is best artist', style: bodyStyle(),)]),
+                ],
+              ),
+              // delegate: SliverChildBuilderDelegate(
+              //   (BuildContext context, int index) {
+              //     print('index: $index');
+              //     return SettingsListItem(title: trans(context, _titles[index]));
+              //   },
+              //   childCount: _titles.length,
             ),
           ],
         ),
+
+        // ListView(
+        //   children: [
+        //     FlatButton(
+        //       color: OFF_WHITE,
+        //       child: Text('Intro Screen'),
+        //       onPressed: () {
+        //         Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
+        //       },
+        //     ),
+        //     FlatButton(
+        //       color: OFF_WHITE,
+        //       child: Text('Sign out'),
+        //       onPressed: () {
+        //         BlocProvider.of<AuthBloc>(context).add(AuthLogOutEvent());
+        //         Navigator.of(context, rootNavigator: true).pushNamed(Routes.LOGIN);
+        //       },
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

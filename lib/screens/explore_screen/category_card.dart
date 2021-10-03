@@ -10,7 +10,8 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(16.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
         color: LIGHT_GRAY,
         borderRadius: BorderRadius.circular(8.0),
@@ -20,14 +21,8 @@ class CategoryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 80.0,
-          ),
-          Text(
-            title,
-            style: bodyStyle(color: CHARCOAL_GRAY),
-          ),
+          Icon(icon, size: 80.0),
+          Text(title, style: bodyStyle(color: CHARCOAL_GRAY)),
         ],
       ),
     );

@@ -11,21 +11,22 @@ class CategoryRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           categories.length,
           (index) {
             if (categories[index].isNotEmpty)
               return Container(
-                padding: EdgeInsets.all(4.0),
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 0.0),
                 margin: EdgeInsets.all(4.0),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  border: Border.all(color: LIGHT_GRAY),
-                  borderRadius: BorderRadius.circular(4.0),
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Text(
                   categories[index],
-                  style: footnoteStyle(color: LIGHT_GRAY),
+                  style: footnoteStyle(),
                 ),
               );
             else

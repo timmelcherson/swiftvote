@@ -6,6 +6,7 @@ import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/data/models/user_profile_model.dart';
 import 'package:swiftvote/data/models/vote_model.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
+import 'package:swiftvote/global_widgets/buttons/custom_outlined_button.dart';
 import 'package:swiftvote/global_widgets/category_row.dart';
 import 'package:swiftvote/themes/themes.dart';
 
@@ -52,19 +53,18 @@ class _VoteListItemState extends State<VoteListItem> {
   Widget _voteWidget() {
     return Column(
       children: [
-        CustomButton(
+        CustomOutlinedButton(
           buttonText: widget.vote.voteOptions[0],
           buttonTextStyle: buttonStyle(size: 14.0),
-          height: 32.0,
-          margin: EdgeInsets.all(4),
+          height: 48.0,
+          margin: EdgeInsets.symmetric(vertical: 4.0),
           onPress: () => handleVoteOptionTap(0),
         ),
-        CustomButton(
+        CustomOutlinedButton(
           buttonText: widget.vote.voteOptions[1],
           buttonTextStyle: buttonStyle(size: 14.0),
-          height: 32.0,
-          backgroundColor: SECONDARY_PINK,
-          margin: EdgeInsets.all(4),
+          height: 48.0,
+          margin: EdgeInsets.symmetric(vertical: 4.0),
           onPress: () => handleVoteOptionTap(1),
         ),
       ],
@@ -82,22 +82,33 @@ class _VoteListItemState extends State<VoteListItem> {
             style: footnoteStyle(),
           ),
         ),
-        Row(
+        Stack(
           children: [
-            AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.easeInOutQuad,
+            Container(
+              width: MediaQuery.of(context).size.width,
               height: 24.0,
-              width: MediaQuery.of(context).size.width * _barWidth1 * 0.5,
-              margin: const EdgeInsets.only(right: 16.0),
               decoration: BoxDecoration(
-                color: PRIMARY_BLUE,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0)
+              )
             ),
-            Text('66%', style: footnoteStyle()),
-            if (_votedIndex == 0)
-              Icon(Icons.check, size: 20.0, color: DARK_GRAY)
+            Row(
+              children: [
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeInOutQuad,
+                  height: 24.0,
+                  width: MediaQuery.of(context).size.width * 0.8 * _barWidth1,
+                  margin: const EdgeInsets.only(right: 16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                Text('66%', style: footnoteStyle()),
+                if (_votedIndex == 0) Icon(Icons.check, size: 20.0, color: DARK_GRAY)
+              ],
+            ),
           ],
         ),
         Padding(
@@ -113,16 +124,15 @@ class _VoteListItemState extends State<VoteListItem> {
               duration: Duration(milliseconds: 500),
               curve: Curves.easeInOutQuad,
               height: 24.0,
-              width: MediaQuery.of(context).size.width * _barWidth2 * 0.5,
+              width: MediaQuery.of(context).size.width * 0.8 * _barWidth2,
               margin: const EdgeInsets.only(right: 16.0),
               decoration: BoxDecoration(
-                color: SECONDARY_PINK,
+                color: PRIMARY_YELLOW,
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
             Text('34%', style: footnoteStyle()),
-            if (_votedIndex == 1)
-              Icon(Icons.check, size: 20.0, color: DARK_GRAY)
+            if (_votedIndex == 1) Icon(Icons.check, size: 20.0, color: DARK_GRAY)
           ],
         ),
       ],
@@ -132,7 +142,6 @@ class _VoteListItemState extends State<VoteListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: OFF_WHITE,
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
@@ -149,15 +158,16 @@ class _VoteListItemState extends State<VoteListItem> {
                   Text('2021-07-18', style: footnoteStyle()),
                   Icon(
                     Icons.more_horiz,
-                    color: DARK_GRAY,
+                    color: Colors.white,
                     size: 20.0,
                   ),
                 ],
               ),
               CategoryRow(categories: widget.vote.categories),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(widget.vote.title, style: bodyStyle()),
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(bottom: 24.0),
+                child: Text(widget.vote.title, style: bodyStyle(), textAlign: TextAlign.left,),
               ),
               AnimatedCrossFade(
                 firstChild: _voteWidget(),

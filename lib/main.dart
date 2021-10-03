@@ -72,48 +72,56 @@ class SwiftvoteApp extends StatelessWidget {
                 BlocProvider<AuthBloc>(
                   lazy: false,
                   create: (context) => AuthBloc(
-                    userRepository: RepositoryProvider.of<UserRepository>(context),
+                    userRepository:
+                        RepositoryProvider.of<UserRepository>(context),
                   ),
                 ),
                 BlocProvider<UserProfileBloc>(
                   lazy: false,
                   create: (context) => UserProfileBloc(
                     authBloc: BlocProvider.of<AuthBloc>(context),
-                    userProfileRepository: RepositoryProvider.of<UserProfileRepository>(context),
+                    userProfileRepository:
+                        RepositoryProvider.of<UserProfileRepository>(context),
                   ),
                 ),
                 BlocProvider<VoteBloc>(
                   create: (context) => VoteBloc(
-                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    voteRepository:
+                        RepositoryProvider.of<VoteRepository>(context),
                   )..add(LoadVotesEvent()),
                 ),
                 BlocProvider<VoteResultBloc>(
                   create: (context) => VoteResultBloc(
-                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    voteRepository:
+                        RepositoryProvider.of<VoteRepository>(context),
                     userProfileBloc: BlocProvider.of<UserProfileBloc>(context),
                   ),
                 ),
                 BlocProvider<VoteCommentsBloc>(
                   create: (context) => VoteCommentsBloc(
-                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    voteRepository:
+                        RepositoryProvider.of<VoteRepository>(context),
                   ),
                 ),
                 BlocProvider<ExploreBloc>(
                   create: (context) => ExploreBloc(
-                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    voteRepository:
+                        RepositoryProvider.of<VoteRepository>(context),
                     voteBloc: BlocProvider.of<VoteBloc>(context),
                   )..add(ExploreCategoriesLoadedEvent()),
                 ),
                 BlocProvider<SearchBloc>(
                   create: (context) => SearchBloc(
-                    voteRepository: RepositoryProvider.of<VoteRepository>(context),
+                    voteRepository:
+                        RepositoryProvider.of<VoteRepository>(context),
                   ),
                 ),
               ],
               child: GestureDetector(
                 onTap: () {
                   FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                  if (!currentFocus.hasPrimaryFocus &&
+                      currentFocus.focusedChild != null) {
                     currentFocus.focusedChild.unfocus();
                   }
                   // if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
@@ -156,16 +164,17 @@ class SwiftvoteApp extends StatelessWidget {
                     //   return AppScreen();
                     // },
                     // Routes.VOTE_RESULT: {},
-                    Routes.EXPLORE: (context) {
-                      return ExploreScreen();
-                    },
-                    Routes.EXPLORE_CATEGORY: (context) {
-                      return CategoryExplorer();
-                    },
+                    // Routes.EXPLORE: (context) {
+                    //   return ExploreScreen();
+                    // },
+                    // Routes.EXPLORE_CATEGORY: (context) {
+                    //   return CategoryExplorer();
+                    // },
                     Routes.SEARCH: (context) {
                       return SearchScreen();
                     },
                     Routes.VOTE: (context) {
+                      print("ROUTE VOTE");
                       return VoteScreen();
                     },
                     Routes.VOTE_COMMENTS: (context) {
@@ -174,32 +183,14 @@ class SwiftvoteApp extends StatelessWidget {
                     Routes.VOTE_RESULT: (context) {
                       return VoteResultScreen();
                     },
-                    Routes.NOTIFICATIONS: (context) {
-                      return NotificationsScreen();
-                    },
+                    // Routes.NOTIFICATIONS: (context) {
+                    //   return NotificationsScreen();
+                    // },
                     Routes.SETTINGS: (context) {
                       return SettingsScreen();
                     },
                     Routes.ADD_VOTE: (context) {
-                      return AddVoteScreen(
-                        key: Keys.addVoteScreen,
-                        isEditing: false,
-                        onSave: (title, categories, voteOptionOne, voteOptionTwo, tags) {
-                          BlocProvider.of<VoteBloc>(context).add(
-                            AddVoteEvent(
-                              Vote(
-                                title: title,
-                                author: 'swiftvote',
-                                categories: categories,
-                                sponsor: "",
-                                voteOptions: [voteOptionOne, voteOptionTwo],
-                                totalVotes: 0,
-                                tags: tags,
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                      return AddVoteScreen();
                     },
                   },
                 ),

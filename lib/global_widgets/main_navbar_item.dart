@@ -22,6 +22,9 @@ class MainNavbarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print("Tag ${this.tag} is active: ${this.isActive}");
+
     return Expanded(
       child: Material(
         color: Colors.transparent,
@@ -31,13 +34,10 @@ class MainNavbarItem extends StatelessWidget {
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeOutCubic,
-            padding: EdgeInsets.all(isActive ? 16.0 : 20.0),
-            child: Hero(
-              tag: tag,
-              child: SvgPicture.asset(
-                iconPath,
-                color: isActive ? SECONDARY_PINK : PRIMARY_BLUE,
-              ),
+            padding: EdgeInsets.all(isActive ? 18.0 : 22.0),
+            child: SvgPicture.asset(
+              iconPath,
+              color: isActive ? Colors.white : LIGHT_GRAY,
             ),
           ),
         ),

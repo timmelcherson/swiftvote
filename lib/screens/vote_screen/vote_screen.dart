@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
 import 'package:swiftvote/blocs/vote/vote.dart';
+import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/data/models.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_screen/vote_active_item.dart';
@@ -19,7 +20,7 @@ typedef OnResultWidgetCallback = Function(bool showResultWidget);
 class VoteScreen extends StatefulWidget {
   final Vote vote;
 
-  VoteScreen({Key key, this.vote}) : super(key: key ?? Keys.voteWidget);
+  VoteScreen({Key key, this.vote}) : super(key: key ?? Keys.voteScreen);
 
   @override
   State createState() => _VoteScreenState();
@@ -58,10 +59,28 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
     }
   }
 
+  void _onItemTapped(int index) {
+    print(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: SECONDARY_BG,
+        automaticallyImplyLeading: false,
+        title: Text("Feed"),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed(Routes.SETTINGS),
+            child: Container(
+              margin: EdgeInsets.only(right: 16.0),
+              child: Icon(Icons.settings_outlined),
+            ),
+          )
+        ],
+      ),
+      backgroundColor: SECONDARY_BG,
       bottomNavigationBar: MainNavBar(),
       body: SafeArea(
         child: BlocBuilder<VoteBloc, VoteState>(

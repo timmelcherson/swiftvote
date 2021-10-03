@@ -7,6 +7,7 @@ class Keys {
   static const addVoteScreen = Key('__addVoteScreen');
   static const loginScreen = Key('__loginScreen__');
   static const registerScreen = Key('__registerScreen__');
+  static const voteScreen = Key('__voteScreen__');
 
   // Tabs
   static const tabs = Key('__tabs__');
@@ -23,7 +24,6 @@ class Keys {
   static const searchWidget = Key('__searchWidget__');
   static const notificationsWidget = Key('__notificationsWidget__');
   static const homeWidget = Key('__homeWidget__');
-  static const voteWidget = Key('__voteWidget__');
   static const loadingIndicator = Key('__loadingIndicator__');
   static const loginForm = Key('__loginForm__');
 }

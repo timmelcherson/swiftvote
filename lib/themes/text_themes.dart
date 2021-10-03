@@ -56,7 +56,7 @@ TextStyle smallTitleStyle({
 }
 
 TextStyle bodyStyle({
-  Color color = DARK_GRAY,
+  Color color = Colors.white,
   double size = 16.0,
   FontWeight weight = NORMAL,
 }) {
@@ -64,7 +64,7 @@ TextStyle bodyStyle({
 }
 
 TextStyle footnoteStyle({
-  Color color = DARK_GRAY,
+  Color color = Colors.white,
   double size = 12.0,
   FontWeight weight = LIGHT,
 }) {
@@ -82,7 +82,7 @@ TextStyle hintStyle({
 TextStyle buttonStyle({
   Color color = Colors.white,
   double size = 18.0,
-  FontWeight weight = MEDIUM,
+  FontWeight weight = BOLD,
 }) {
   return generateStyle(color: color, size: size, weight: weight);
 }

@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
     this.height = 48.0,
     this.borderRadius = 8.0,
     this.margin = const EdgeInsets.all(16.0),
-    this.backgroundColor = PRIMARY_BLUE,
+    this.backgroundColor = PRIMARY_BG,
     this.onPress,
     this.submittable = true,
     this.leadingIcon,
@@ -76,7 +76,7 @@ class CustomButton extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 16.0),
                     child: leadingIcon,
                   ),
-                Text(buttonText, style: buttonTextStyle ?? buttonStyle(color: Colors.white)),
+                Text(buttonText, style: buttonTextStyle ?? buttonStyle(color: DARK_GRAY)),
               ],
             ),
             if (trailingIcon != null)

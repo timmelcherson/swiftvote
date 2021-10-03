@@ -2,6 +2,7 @@
   "button.login": "Logga in",
   "button.register": "Registrera",
   "button.save": "Spara",
+  "button.post": "Posta",
   "info.ff_email_se": "info@frilansfinans.se",
   "info.ff_phone_nr": "0771 - 15 10 00",
   "input.firstname": "Förnamn",
@@ -21,5 +22,7 @@
   "title.my_information": "Min information",
   "title.invite_friends": "Bjud in vänner",
   "title.help_and_support": "Hjälp och support",
-  "title.notifications": "Notifikationer"
+  "title.notifications": "Notifikationer",
+  "interest.music": "Musik",
+  "interest.sports": "Sport"
 }
