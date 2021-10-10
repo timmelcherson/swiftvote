@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/blocs/blocs.dart';
+import 'package:swiftvote/blocs/index.dart';
 import 'package:swiftvote/blocs/vote_result/index.dart';
 import 'package:swiftvote/data/models/vote_result_model.dart';
 import 'package:swiftvote/data/repositories/index.dart';

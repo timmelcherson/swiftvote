@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftvote/blocs/blocs.dart';
+import 'package:swiftvote/blocs/index.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';

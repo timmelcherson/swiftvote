@@ -7,7 +7,26 @@ import 'package:swiftvote/responses/BaseResponse.dart';
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
 
-  AuthRepository() : _firebaseAuth = FirebaseAuth.instance;
+  // AuthRepository() : _firebaseAuth = FirebaseAuth.instance;
+
+  AuthRepository._constructor(this._firebaseAuth) : super() {
+    assert(_firebaseAuth != null);
+  }
+
+  static final AuthRepository _instance =
+      AuthRepository._constructor(FirebaseAuth.instance);
+
+  static AuthRepository get instance => _instance;
+
+  // static final AuthRepository _instance = AuthRepository._internal();
+  //
+  // factory AuthRepository() {
+  //   return _instance;
+  // }
+  //
+  // AuthRepository._internal();
+  //
+  // static AuthRepository get instance => _instance;
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 

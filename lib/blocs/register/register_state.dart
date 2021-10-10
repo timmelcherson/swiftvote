@@ -18,12 +18,12 @@ class RegisterLoadingState extends RegisterState {}
 
 class RegisterSuccessState extends RegisterState {
 
-  final User user;
+  final String userId;
 
-  RegisterSuccessState({@required this.user});
+  RegisterSuccessState({@required this.userId});
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [userId];
 }
 
 class RegisterFailState extends RegisterState {

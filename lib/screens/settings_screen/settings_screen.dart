@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/app_localization.dart';
-import 'package:swiftvote/blocs/blocs.dart';
+import 'package:swiftvote/blocs/index.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/settings_screen/interests_list.dart';

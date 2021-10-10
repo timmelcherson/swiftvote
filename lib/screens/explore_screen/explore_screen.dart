@@ -7,7 +7,7 @@ import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/explore_screen/category_card.dart';
 import 'package:swiftvote/themes/themes.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
-import 'package:swiftvote/blocs/blocs.dart';
+import 'package:swiftvote/blocs/index.dart';
 import 'explore_barrel.dart';
 
 import 'dart:async' show Future;
