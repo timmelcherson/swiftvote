@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 
 @immutable
 abstract class VoteResultState extends Equatable {

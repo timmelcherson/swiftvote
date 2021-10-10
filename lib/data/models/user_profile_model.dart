@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/data/entities/user_profile_entity.dart';
+import 'package:swiftvote/data/entities/user_profile_entitry.dart';
 
 @immutable
 class UserProfile {
   final String userId;
   final String gender;
-  final String age;
+  final int age;
   final String location;
 
   const UserProfile({this.userId, this.gender, this.age, this.location});
 
   UserProfile copyWith({
     String gender,
-    String age,
+    int age,
     String location,
   }) {
     return UserProfile(

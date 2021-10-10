@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/data/entities/vote_entity.dart';
 import 'package:swiftvote/data/models/vote_model.dart';
-import 'package:swiftvote/data/repositories.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/explore_screen/category_card.dart';
 import 'package:swiftvote/themes/themes.dart';

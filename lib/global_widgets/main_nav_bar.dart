@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftvote/blocs/navigation/navigation.dart';
+import 'package:swiftvote/blocs/navigation/index.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/widget_tags.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';

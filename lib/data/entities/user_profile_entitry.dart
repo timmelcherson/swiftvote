@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class UserProfileEntity extends Equatable {
   final String userId;
   final String gender;
-  final String age;
+  final int age;
   final String location;
 
   const UserProfileEntity(this.userId, this.gender, this.age, this.location);
@@ -28,12 +28,12 @@ class UserProfileEntity extends Equatable {
   }
 
   static UserProfileEntity fromJson(Map<String, Object> json) {
-    UserProfileEntity userProfile = UserProfileEntity(
+    UserProfileEntity userEntity = UserProfileEntity(
         json["userId"] as String,
         json["gender"] as String,
-        json["age"] as String,
+        json["age"] as int,
         json["location"] as String);
-    return userProfile;
+    return userEntity;
   }
 
   static UserProfileEntity fromSnapshot(DocumentSnapshot snap) {

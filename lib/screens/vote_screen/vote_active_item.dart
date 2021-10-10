@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/blocs/blocs.dart';
-import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
+import 'package:swiftvote/blocs/vote_comments/index.dart';
 import 'package:swiftvote/constants/routes.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_outlined_button.dart';
 import 'package:swiftvote/global_widgets/category_row.dart';
 import 'package:swiftvote/themes/themes.dart';

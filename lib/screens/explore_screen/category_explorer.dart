@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftvote/blocs/explore/explore.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/blocs/explore/index.dart';
+import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/constants/widget_keys.dart';

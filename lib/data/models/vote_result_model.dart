@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/data/entities.dart';
 
 @immutable
 class VoteResult {
   final String voterId;
   final int votedOptionIndex;
   final String voterGender;
-  final String voterAge;
+  final int voterAge;
 
   const VoteResult({
     this.voterId,
@@ -41,7 +40,7 @@ class VoteResult {
   static VoteResult fromMap(Map<String, Object> map) {
     VoteResult entity = VoteResult(
       voterId: map["voterId"] as String,
-      voterAge: map["voterAge"] as String,
+      voterAge: map["voterAge"] as int,
       voterGender: map["voterGender"] as String,
       votedOptionIndex: map["voterAge"] as int,
     );
@@ -51,7 +50,7 @@ class VoteResult {
   static VoteResult fromSnapshot(DocumentSnapshot snap) {
     return VoteResult(
       voterId: snap.id,
-      voterAge: snap.get('voterAge') as String,
+      voterAge: snap.get('voterAge') as int,
       voterGender: snap.get('voterGender') as String,
       votedOptionIndex: snap.get('votedOptionIndex') as int,
     );

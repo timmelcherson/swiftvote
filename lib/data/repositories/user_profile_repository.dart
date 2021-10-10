@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swiftvote/data/entities/user_profile_entity.dart';
+import 'package:swiftvote/data/entities/user_profile_entitry.dart';
 import 'package:swiftvote/data/models/user_profile_model.dart';
 
 class UserProfileRepository {

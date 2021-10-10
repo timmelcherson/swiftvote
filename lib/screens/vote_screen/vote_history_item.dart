@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class VoteHistoryItem extends StatefulWidget {

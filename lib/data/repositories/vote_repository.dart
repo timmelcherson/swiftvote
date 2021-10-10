@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:swiftvote/data/entities.dart';
-import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/data/repositories.dart';
+import 'package:swiftvote/data/entities/index.dart';
+import 'package:swiftvote/data/models/index.dart';
+import 'package:swiftvote/data/repositories/index.dart';
 
 class VoteRepository {
   final voteCollection = FirebaseFirestore.instance.collection('votes');

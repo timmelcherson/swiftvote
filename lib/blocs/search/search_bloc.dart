@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:swiftvote/data/repositories.dart';
-import './search.dart';
+import 'package:swiftvote/data/repositories/index.dart';
+import './index.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 

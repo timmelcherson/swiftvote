@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 
 @immutable
 abstract class ExploreState extends Equatable {

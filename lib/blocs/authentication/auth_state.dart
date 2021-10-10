@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 
 @immutable
 abstract class AuthState extends Equatable {
@@ -24,7 +24,7 @@ class AuthSuccessState extends AuthState {
   List<Object> get props => [user];
 }
 
-class  AuthFailState extends AuthState {
+class AuthFailState extends AuthState {
 
   final String errorMessage;
 

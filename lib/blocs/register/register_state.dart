@@ -1,95 +1,34 @@
-class RegisterState {
-  final bool isEmailValid;
-  final bool isPasswordValid;
-  final bool isConfirmPasswordValid;
-  final bool isSubmitting;
-  final bool isSuccess;
-  final bool isFailure;
+import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meta/meta.dart';
+import 'package:swiftvote/data/models/index.dart';
 
-  bool get isFormValid => isEmailValid && isPasswordValid;
+@immutable
+abstract class RegisterState extends Equatable {
 
-  RegisterState(
-      {this.isEmailValid,
-      this.isPasswordValid,
-      this.isConfirmPasswordValid,
-      this.isSubmitting,
-      this.isSuccess,
-      this.isFailure});
+  RegisterState();
 
-  factory RegisterState.initial() {
-    return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isConfirmPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
-  }
+  @override
+  List<Object> get props => [];
+}
 
-  factory RegisterState.loading() {
-    return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isConfirmPasswordValid: true,
-      isSubmitting: true,
-      isSuccess: false,
-      isFailure: false,
-    );
-  }
+class RegisterInitialState extends RegisterState {}
 
-  factory RegisterState.failure() {
-    return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isConfirmPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: true,
-    );
-  }
+class RegisterLoadingState extends RegisterState {}
 
-  factory RegisterState.success() {
-    return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isConfirmPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-    );
-  }
+class RegisterSuccessState extends RegisterState {
 
-  RegisterState update({
-    bool isEmailValid,
-    bool isPasswordValid,
-    bool isConfirmPasswordValid,
-  }) {
-    return copyWith(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
-      isConfirmPasswordValid: isConfirmPasswordValid,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
-  }
+  final User user;
 
-  RegisterState copyWith({
-    bool isEmailValid,
-    bool isPasswordValid,
-    bool isConfirmPasswordValid,
-    bool isSubmitting,
-    bool isSuccess,
-    bool isFailure,
-  }) {
-    return RegisterState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
-      isConfirmPasswordValid: isConfirmPasswordValid ?? this.isConfirmPasswordValid,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSuccess: isSuccess ?? this.isSuccess,
-      isFailure: isFailure ?? this.isFailure,
-    );
-  }
+  RegisterSuccessState({@required this.user});
+
+  @override
+  List<Object> get props => [user];
+}
+
+class RegisterFailState extends RegisterState {
+
+  final String errorMessage;
+
+  RegisterFailState({this.errorMessage});
 }

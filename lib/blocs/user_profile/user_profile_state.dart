@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 
 @immutable
 abstract class UserProfileState extends Equatable {
@@ -14,17 +14,17 @@ class UserProfileInitialState extends UserProfileState {}
 
 class UserProfileLoadingState extends UserProfileState {}
 
-class UserIdReceivedState extends UserProfileState {
-  final String userId;
+class UserProfileIdReceivedState extends UserProfileState {
+  final String userProfileId;
 
-  const UserIdReceivedState(this.userId);
+  const UserProfileIdReceivedState(this.userProfileId);
 
   @override
-  List<Object> get props => [userId];
+  List<Object> get props => [userProfileId];
 
   @override
   String toString() {
-    return 'UserProfileLoadedState{userId: $userId}';
+    return 'UserProfileLoadedState{userProfileId: $userProfileId}';
   }
 }
 

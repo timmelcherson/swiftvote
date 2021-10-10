@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:swiftvote/data/models.dart';
+import 'package:swiftvote/data/models/index.dart';
 
 @immutable
 abstract class VoteResultEvent {

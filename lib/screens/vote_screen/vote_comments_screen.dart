@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
+import 'package:swiftvote/blocs/vote_comments/index.dart';
 import 'package:swiftvote/data/models/vote_model.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_screen/add_comment_overlay.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swiftvote/data/entities.dart';
+import 'package:swiftvote/data/entities/index.dart';
 
 @immutable
 class Vote {

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:swiftvote/blocs/explore/explore.dart';
-import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
-import 'package:swiftvote/data/models.dart';
-import 'package:swiftvote/data/repositories.dart';
+import 'package:swiftvote/blocs/explore/index.dart';
+import 'package:swiftvote/blocs/vote_comments/index.dart';
+import 'package:swiftvote/data/models/index.dart';
+import 'package:swiftvote/data/repositories/index.dart';
 
 class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
   final VoteRepository voteRepository;

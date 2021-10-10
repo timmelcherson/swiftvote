@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiftvote/app_localization.dart';
-import 'package:swiftvote/blocs/navigation/navigation.dart';
-import 'package:swiftvote/blocs/vote/vote.dart';
-import 'package:swiftvote/blocs/vote_comments/vote_comments.dart';
-import 'package:swiftvote/data/repositories.dart';
-import 'package:swiftvote/data/repositories/user_repository.dart';
+import 'package:swiftvote/blocs/navigation/index.dart';
+import 'package:swiftvote/blocs/vote/index.dart';
+import 'package:swiftvote/blocs/vote_comments/index.dart';
+import 'package:swiftvote/data/repositories/index.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_result/vote_result_screen.dart';
 import 'package:swiftvote/screens/vote_screen/vote_comments_screen.dart';
@@ -67,8 +66,8 @@ class _SwiftvoteAppState extends State<SwiftvoteApp> {
           print(_hasRegisteredInfo);
           return MultiRepositoryProvider(
             providers: [
-              RepositoryProvider<UserRepository>(
-                create: (context) => UserRepository(),
+              RepositoryProvider<AuthRepository>(
+                create: (context) => AuthRepository(),
               ),
               RepositoryProvider<UserProfileRepository>(
                 create: (context) => UserProfileRepository(),
