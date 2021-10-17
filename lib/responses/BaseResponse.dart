@@ -14,4 +14,9 @@ class BaseResponse {
       value: json["value"],
     );
   }
+
+  @override
+  String toString() {
+    return 'BaseResponse{success: $success, value: $value}';
+  }
 }

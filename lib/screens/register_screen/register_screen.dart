@@ -38,10 +38,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _locationController.addListener(_locationChangeHandler);
   }
 
-
-
-
-
   void _ageChangeHandler() {
     print(_ageController.text);
   }
@@ -64,7 +60,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // if (_passwordController.text == _confirmPasswordController.text) {
     //   _userProfileBloc.add(UserProfileCreateEvent());
     // }
-    print(await DeviceInfoService.getUniqueDeviceId());
+    BlocProvider.of<AuthBloc>(context).add(AuthRegisterEvent(
+      age: int.parse(_ageController.text),
+      gender: _genderController.text,
+      location: _locationController.text,
+    ));
     setState(() => _isSubmitting = true);
   }
 
@@ -73,117 +73,110 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: SECONDARY_BG,
       body: SafeArea(
-        child: BlocBuilder<UserProfileBloc, UserProfileState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-                      child: Text(
-                        trans(context, 'register.sign_up'),
-                        style: smallTitleStyle(),
-                        textAlign: TextAlign.left,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+                child: Text(
+                  trans(context, 'register.sign_up'),
+                  style: smallTitleStyle(),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.all(16.0),
+                child: Text(
+                  trans(context, 'register.info'),
+                  style: bodyStyle(),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Form(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 32.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: _ageController,
+                        decoration: InputDecoration(
+                          hintText: trans(context, 'input.age'),
+                          hintStyle: hintStyle(),
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        autocorrect: false,
+                        // validator: (_) {
+                        //   return !state.isEmailValid ? 'Invalid Email' : null;
+                        // },
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.all(16.0),
-                      child: Text(
-                        trans(context, 'register.info'),
-                        style: bodyStyle(),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    Form(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 32.0),
-                        child: Column(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            TextFormField(
-                              controller: _ageController,
-                              decoration: InputDecoration(
-                                hintText: trans(context, 'input.age'),
-                                hintStyle: hintStyle(),
-                              ),
-                              keyboardType: TextInputType.number,
-                              autovalidateMode: AutovalidateMode.disabled,
-                              autocorrect: false,
-                              // validator: (_) {
-                              //   return !state.isEmailValid ? 'Invalid Email' : null;
-                              // },
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0),
-                              child: Row(
+                            for (var i = 0; i < _genders.length; i++)
+                              Column(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  for (var i = 0; i < _genders.length; i++)
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      children: [
-                                        Text(_genders[i], style: bodyStyle()),
-                                        Checkbox(
-                                          value: _checkedIndex == i,
-                                          onChanged: (value) =>
-                                              setState(() => _checkedIndex = i),
-                                        ),
-                                      ],
-                                    ),
+                                  Text(_genders[i], style: bodyStyle()),
+                                  Checkbox(
+                                    value: _checkedIndex == i,
+                                    onChanged: (value) =>
+                                        setState(() => _checkedIndex = i),
+                                  ),
                                 ],
                               ),
-                            ),
-                            // TextFormField(
-                            //   controller: _genderController,
-                            //   decoration: InputDecoration(
-                            //     hintText: trans(context, 'input.gender'),
-                            //     hintStyle: hintStyle(),
-                            //   ),
-                            //   autovalidateMode: AutovalidateMode.disabled,
-                            //   autocorrect: false,
-                            //   // validator: (_) {
-                            //   //   return !state.isPasswordValid
-                            //   //       ? 'Invalid password'
-                            //   //       : null;
-                            //   // },
-                            // ),
-                            TextFormField(
-                              controller: _locationController,
-                              decoration: InputDecoration(
-                                hintText: trans(context, 'input.location'),
-                                hintStyle: hintStyle(),
-                              ),
-                              autovalidateMode: AutovalidateMode.disabled,
-                              autocorrect: false,
-                              // validator: (_) {
-                              //   return !state.isPasswordValid
-                              //       ? 'Invalid confirm password'
-                              //       : null;
-                              // },
-                            ),
-                            CustomButton(
-                              buttonText: trans(context, "register.lets_go"),
-                              onPress: _formSubmitHandler,
-                            ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      // TextFormField(
+                      //   controller: _genderController,
+                      //   decoration: InputDecoration(
+                      //     hintText: trans(context, 'input.gender'),
+                      //     hintStyle: hintStyle(),
+                      //   ),
+                      //   autovalidateMode: AutovalidateMode.disabled,
+                      //   autocorrect: false,
+                      //   // validator: (_) {
+                      //   //   return !state.isPasswordValid
+                      //   //       ? 'Invalid password'
+                      //   //       : null;
+                      //   // },
+                      // ),
+                      TextFormField(
+                        controller: _locationController,
+                        decoration: InputDecoration(
+                          hintText: trans(context, 'input.location'),
+                          hintStyle: hintStyle(),
+                        ),
+                        autovalidateMode: AutovalidateMode.disabled,
+                        autocorrect: false,
+                        // validator: (_) {
+                        //   return !state.isPasswordValid
+                        //       ? 'Invalid confirm password'
+                        //       : null;
+                        // },
+                      ),
+                      CustomButton(
+                        buttonText: trans(context, "register.lets_go"),
+                        onPress: _formSubmitHandler,
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            }),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

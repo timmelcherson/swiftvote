@@ -38,6 +38,8 @@ class AuthRepository {
     try {
       UserCredential credential =
           await _firebaseAuth.signInWithCustomToken(token);
+      // UserCredential credential =
+      //     await _firebaseAuth.signInWithCustomToken(token);
       return BaseResponse(success: true, value: credential.user.uid);
     } on FirebaseAuthException catch (e) {
       return BaseResponse(success: false, value: e.message);
@@ -45,7 +47,6 @@ class AuthRepository {
   }
 
   Future<bool> isSignedIn() async {
-    print('USER SIGNED IN? ${_firebaseAuth.currentUser != null}');
     return _firebaseAuth.currentUser != null;
   }
 

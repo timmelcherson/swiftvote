@@ -43,64 +43,68 @@ class _SwiftvoteAppState extends State<SwiftvoteApp> {
             return LoadingIndicator();
           }
 
-          return GestureDetector(
-            onTap: () {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              if (!currentFocus.hasPrimaryFocus &&
-                  currentFocus.focusedChild != null) {
-                currentFocus.focusedChild.unfocus();
-              }
-              // if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-              //   FocusManager.instance.primaryFocus.unfocus();
-              // }
-            },
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'swiftvote',
-              theme: primaryAppTheme,
-              supportedLocales: [
-                const Locale('en', 'GB'),
-                const Locale('sv', 'SE'),
-              ],
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              localeResolutionCallback: (locale, supportedLocales) {
-                for (var supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale.languageCode &&
-                      supportedLocale.countryCode == locale.countryCode) {
-                    return supportedLocale;
-                  }
+          if (state is AuthSuccessState || state is AuthNotRegisteredState) {
+            return GestureDetector(
+              onTap: () {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if (!currentFocus.hasPrimaryFocus &&
+                    currentFocus.focusedChild != null) {
+                  currentFocus.focusedChild.unfocus();
                 }
-                // English locale fallback
-                return supportedLocales.first;
+                // if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                //   FocusManager.instance.primaryFocus.unfocus();
+                // }
               },
-              initialRoute: Routes.VOTE,
-              routes: {
-                Routes.REGISTER: (context) {
-                  return RegisterScreen();
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'swiftvote',
+                theme: primaryAppTheme,
+                supportedLocales: [
+                  const Locale('en', 'GB'),
+                  const Locale('sv', 'SE'),
+                ],
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                localeResolutionCallback: (locale, supportedLocales) {
+                  for (var supportedLocale in supportedLocales) {
+                    if (supportedLocale.languageCode == locale.languageCode &&
+                        supportedLocale.countryCode == locale.countryCode) {
+                      return supportedLocale;
+                    }
+                  }
+                  // English locale fallback
+                  return supportedLocales.first;
                 },
-                Routes.VOTE: (context) {
-                  print("ROUTE VOTE");
-                  return VoteScreen();
+                initialRoute: state is AuthNotRegisteredState ? Routes.REGISTER : Routes.VOTE,
+                routes: {
+                  Routes.REGISTER: (context) {
+                    return RegisterScreen();
+                  },
+                  Routes.VOTE: (context) {
+                    print("ROUTE VOTE");
+                    return VoteScreen();
+                  },
+                  Routes.VOTE_COMMENTS: (context) {
+                    return VoteCommentsScreen();
+                  },
+                  Routes.VOTE_RESULT: (context) {
+                    return VoteResultScreen();
+                  },
+                  Routes.SETTINGS: (context) {
+                    return SettingsScreen();
+                  },
+                  Routes.ADD_VOTE: (context) {
+                    return AddVoteScreen();
+                  },
                 },
-                Routes.VOTE_COMMENTS: (context) {
-                  return VoteCommentsScreen();
-                },
-                Routes.VOTE_RESULT: (context) {
-                  return VoteResultScreen();
-                },
-                Routes.SETTINGS: (context) {
-                  return SettingsScreen();
-                },
-                Routes.ADD_VOTE: (context) {
-                  return AddVoteScreen();
-                },
-              },
-            ),
-          )
+              ),
+            );
+          }
+
+          return LoadingIndicator();
         },
       ),
     );

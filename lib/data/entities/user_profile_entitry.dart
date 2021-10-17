@@ -18,12 +18,12 @@ class UserProfileEntity extends Equatable {
         '$location }';
   }
 
-  Map<String, Object> toJson() {
+  Map<String, Object> toDocument() {
     return {
-      "userId": userId,
-      "gender": gender,
-      "age": age,
-      "location": location,
+      "userId": this.userId,
+      "gender": this.gender,
+      "age": this.age,
+      "location": this.location,
     };
   }
 
@@ -39,14 +39,5 @@ class UserProfileEntity extends Equatable {
   static UserProfileEntity fromSnapshot(DocumentSnapshot snap) {
     return UserProfileEntity(snap.get('userId'), snap.get('gender'),
         snap.get('age'), snap.get('location'));
-  }
-
-  Map<String, Object> toDocument() {
-    return {
-      'userId': userId,
-      'gender': gender,
-      'age': age,
-      'location': location
-    };
   }
 }
