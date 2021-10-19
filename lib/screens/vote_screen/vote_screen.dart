@@ -89,7 +89,7 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
               return LoadingIndicator(key: Keys.loadingIndicator);
             }
 
-            if (state is VotesLoadedState) {
+            if (state is VotesReadyState) {
               return ListView.builder(
                 shrinkWrap: true,
                 reverse: true,

@@ -14,11 +14,11 @@ abstract class VoteState extends Equatable {
 class VotesLoadingState extends VoteState {}
 
 @immutable
-class VotesLoadedState extends VoteState {
+class VotesReadyState extends VoteState {
   final List<Vote> fullVoteList;
   final List<Vote> votes;
 
-  const VotesLoadedState({@required this.votes, this.fullVoteList});
+  const VotesReadyState({@required this.votes, this.fullVoteList});
 
   @override
   List<Object> get props => [votes];

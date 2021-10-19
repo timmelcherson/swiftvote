@@ -54,7 +54,7 @@ class _AppInitializerState extends State<AppInitializer> {
                     authRepository:
                         RepositoryProvider.of<AuthRepository>(context),
                     userProfileRepository:
-                    RepositoryProvider.of<UserProfileRepository>(context),
+                        RepositoryProvider.of<UserProfileRepository>(context),
                   )..add(AuthCheckIfRegisteredEvent()),
                 ),
                 BlocProvider<NavigationBloc>(
@@ -66,13 +66,24 @@ class _AppInitializerState extends State<AppInitializer> {
                   create: (context) => UserProfileBloc(
                     userProfileRepository:
                         RepositoryProvider.of<UserProfileRepository>(context),
-                  ),
+                  )..add(UserProfilePrefetchEvent()),
                 ),
                 BlocProvider<VoteBloc>(
                   create: (context) => VoteBloc(
                     voteRepository:
                         RepositoryProvider.of<VoteRepository>(context),
                   )..add(LoadVotesEvent()),
+                ),
+                BlocProvider<SettingsBloc>(
+                  lazy: false,
+                  create: (context) => SettingsBloc(
+                    voteRepository:
+                        RepositoryProvider.of<VoteRepository>(context),
+                    userProfileRepository:
+                        RepositoryProvider.of<UserProfileRepository>(context),
+                    voteBloc: BlocProvider.of<VoteBloc>(context),
+                    userProfileBloc: BlocProvider.of<UserProfileBloc>(context),
+                  ),
                 ),
                 BlocProvider<VoteResultBloc>(
                   create: (context) => VoteResultBloc(

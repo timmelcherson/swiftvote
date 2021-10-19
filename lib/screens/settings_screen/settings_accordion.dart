@@ -4,30 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/color_themes.dart';
 import 'package:swiftvote/themes/text_themes.dart';
 
-class SettingsListItem extends StatefulWidget {
+class SettingsAccordion extends StatefulWidget {
   final String title;
-  final List<Widget> listItems;
+  final List<Widget> content;
 
-  SettingsListItem({
+  SettingsAccordion({
     @required this.title,
-    this.listItems,
+    this.content,
   });
 
   @override
-  _SettingsListItemState createState() => _SettingsListItemState();
+  _SettingsAccordionState createState() => _SettingsAccordionState();
 }
 
-class _SettingsListItemState extends State<SettingsListItem> with SingleTickerProviderStateMixin {
+class _SettingsAccordionState extends State<SettingsAccordion> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   String _title;
-  var _listItems;
+  var _content;
   bool _open;
 
   @override
   void initState() {
     _open = false;
     _title = widget.title;
-    _listItems = widget.listItems;
+    _content = widget.content;
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 150),
@@ -56,7 +56,7 @@ class _SettingsListItemState extends State<SettingsListItem> with SingleTickerPr
         _open = value;
         _open ? _animationController.forward() : _animationController.reverse();
       }),
-      children: _listItems,
+      children: _content,
     );
   }
 }

@@ -10,7 +10,9 @@ abstract class UserProfileEvent {
   List<Object> get props => [];
 }
 
-class UserProfileLoadingEvent extends UserProfileEvent {}
+///
+///
+class UserProfilePrefetchEvent extends UserProfileEvent {}
 
 class UserProfileCreateEvent extends UserProfileEvent {
   final String id;
