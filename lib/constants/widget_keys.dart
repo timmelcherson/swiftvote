@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
 
 class Keys {
+  // Etc
+  static const appInitializer = Key('__appInitializer__');
+  static const main = Key('__main__');
+
   // Screens
   static const homeScreen = Key('__homeScreen__');
   static const appScreen = Key('__appScreen__');

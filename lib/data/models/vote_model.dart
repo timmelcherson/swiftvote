@@ -13,27 +13,27 @@ class Vote {
   final List<String> tags;
 
   const Vote({
-    this.id,
-    this.title,
-    this.author,
-    this.categories,
-    this.sponsor,
-    this.voteOptions,
-    this.totalVotes,
-    this.tags,
+    required this.id,
+    required this.title,
+    required this.author,
+    required this.categories,
+    required this.sponsor,
+    required this.voteOptions,
+    required this.totalVotes,
+    required this.tags,
   });
 
-  Vote copyWith(String id, String title, String author, String categories, List<String> voteOptions,
+  Vote copyWith(String id, String title, String author, List<String> categories, List<String> voteOptions,
       int totalVotes, List<String> tags) {
     return Vote(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      author: author ?? this.author,
-      categories: categories ?? this.categories,
-      sponsor: sponsor ?? this.sponsor,
-      voteOptions: voteOptions ?? this.voteOptions,
-      totalVotes: totalVotes ?? this.totalVotes,
-      tags: tags ?? this.tags,
+      id: id,
+      title: title,
+      author: author,
+      categories: categories,
+      sponsor: sponsor,
+      voteOptions: voteOptions,
+      totalVotes: totalVotes,
+      tags: tags,
     );
   }
 

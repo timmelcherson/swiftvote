@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-String trans(BuildContext context, String key) {
-  return AppLocalizations.of(context)._localizedStrings[key];
+String? trans(BuildContext context, String key) {
+  return AppLocalizations.of(context)!._localizedStrings[key];
 }
 
 class AppLocalizations {
@@ -12,11 +12,11 @@ class AppLocalizations {
 
   AppLocalizations(this.locale);
 
-  static AppLocalizations of(BuildContext context) {
+  static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  Map<String, String> _localizedStrings;
+  late Map<String, String> _localizedStrings;
 
   Future<bool> load() async {
     String jsonString =
@@ -30,7 +30,7 @@ class AppLocalizations {
     return true;
   }
 
-  String translate(String key) {
+  String? translate(String key) {
     return _localizedStrings[key];
   }
 

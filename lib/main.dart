@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swiftvote/AppInitializer.dart';
 import 'package:swiftvote/app_localization.dart';
+import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/data/repositories/index.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
 import 'package:swiftvote/screens/vote_result/vote_result_screen.dart';
@@ -36,6 +37,7 @@ class _SwiftvoteAppState extends State<SwiftvoteApp> {
     //     builder: (context, state) {});
 
     return AppInitializer(
+      key: Keys.main,
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
 
@@ -47,9 +49,8 @@ class _SwiftvoteAppState extends State<SwiftvoteApp> {
             return GestureDetector(
               onTap: () {
                 FocusScopeNode currentFocus = FocusScope.of(context);
-                if (!currentFocus.hasPrimaryFocus &&
-                    currentFocus.focusedChild != null) {
-                  currentFocus.focusedChild.unfocus();
+                if (!currentFocus.hasPrimaryFocus) {
+                  currentFocus.focusedChild!.unfocus();
                 }
                 // if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
                 //   FocusManager.instance.primaryFocus.unfocus();
@@ -70,7 +71,7 @@ class _SwiftvoteAppState extends State<SwiftvoteApp> {
                 ],
                 localeResolutionCallback: (locale, supportedLocales) {
                   for (var supportedLocale in supportedLocales) {
-                    if (supportedLocale.languageCode == locale.languageCode &&
+                    if (supportedLocale.languageCode == locale!.languageCode &&
                         supportedLocale.countryCode == locale.countryCode) {
                       return supportedLocale;
                     }

@@ -14,8 +14,8 @@ class VoteListItem extends StatefulWidget {
   final Vote vote;
 
   const VoteListItem({
-    Key key,
-    this.vote,
+    required Key key,
+    required this.vote,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class VoteListItem extends StatefulWidget {
 class _VoteListItemState extends State<VoteListItem> {
   bool _expanded = false;
   bool _voted = false;
-  int _votedIndex;
+  late int _votedIndex;
   double _barWidth1 = 0.0;
   double _barWidth2 = 0.0;
 

@@ -18,24 +18,23 @@ import 'package:swiftvote/themes/color_themes.dart';
 typedef OnResultWidgetCallback = Function(bool showResultWidget);
 
 class VoteScreen extends StatefulWidget {
-  final Vote vote;
 
-  VoteScreen({Key key, this.vote}) : super(key: key ?? Keys.voteScreen);
+  VoteScreen({required Key key}) : super(key: key);
 
   @override
   State createState() => _VoteScreenState();
 }
 
 class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
-  VoteBloc _voteBloc;
-  Vote _vote;
-  bool _showResults = false;
-  ScrollController _controller;
-  AnimationController _animationController;
+  late VoteBloc _voteBloc;
+  late Vote _vote;
+  late ScrollController _controller;
+  late AnimationController _animationController;
   final Animatable<double> _fadeOutTween = Tween<double>(
     begin: 1.0,
     end: 0.0,
   );
+  bool _showResults = false;
 
   @override
   void initState() {
@@ -97,6 +96,7 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
                 itemCount: state.votes.length,
                 itemBuilder: (BuildContext context, int index) {
                   return VoteListItem(
+                    key: Key(state.votes[index].id),
                     vote: state.votes[index],
                   );
                   // if (index == 0) {
@@ -122,7 +122,7 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
 
   void votePassed(List currentVotesInState) {
     print('CALLBACK votePassed');
-    _voteBloc.add(PassVoteEvent(currentVotesInState));
+    // _voteBloc.add(PassVoteEvent(currentVotesInState));
     setState(() {
       print('setting state');
     });

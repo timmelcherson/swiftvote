@@ -8,7 +8,7 @@ import 'package:swiftvote/global_widgets/loading_indicator.dart';
 class AppInitializer extends StatefulWidget {
   final Widget child;
 
-  const AppInitializer({Key key, @required this.child}) : super(key: key);
+  const AppInitializer({required Key key, required this.child}) : super(key: key);
 
   @override
   _AppInitializerState createState() => _AppInitializerState();

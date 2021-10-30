@@ -8,27 +8,27 @@ class SharedPreferencesHandler {
 
   static Future<bool> readBool(String key) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.get(key) ?? false;
+    return sharedPrefs.getBool(key) ?? false;
   }
 
-  static Future<String> readString(String key) async {
+  static Future<String?> readString(String key) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.get(key) ?? false;
+    return sharedPrefs.getString(key);
   }
 
-  static Future<int> readInt(String key) async {
+  static Future<int?> readInt(String key) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.get(key) ?? false;
+    return sharedPrefs.getInt(key);
   }
 
-  static Future<double> readDouble(String key) async {
+  static Future<double?> readDouble(String key) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.get(key) ?? false;
+    return sharedPrefs.getDouble(key);
   }
 
-  static Future<List<String>> readList(String key) async {
+  static Future<List<String>?> readList(String key) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.get(key) ?? false;
+    return sharedPrefs.getStringList(key);
   }
 
   static save(String key, dynamic value) async {

@@ -18,9 +18,9 @@ const FontWeight EXTRA_BOLD = FontWeight.w700;
 // static const double TITLE = 32.0;
 
 TextStyle generateStyle({
-  Color color,
-  double size,
-  FontWeight weight,
+  required Color color,
+  required double size,
+  required FontWeight weight,
 }) {
   return TextStyle(
     color: color,

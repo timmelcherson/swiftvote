@@ -11,15 +11,16 @@ class VoteEntity extends Equatable {
   final int totalVotes;
   final List<String> tags;
 
-  const VoteEntity(
-      {this.id,
-      this.title,
-      this.author,
-      this.categories,
-      this.sponsor,
-      this.voteOptions,
-      this.totalVotes,
-      this.tags});
+  const VoteEntity({
+    required this.id,
+    required this.title,
+    required this.author,
+    required this.categories,
+    required this.sponsor,
+    required this.voteOptions,
+    required this.totalVotes,
+    required this.tags,
+  });
 
   @override
   List<Object> get props => [
@@ -64,7 +65,7 @@ class VoteEntity extends Equatable {
       categories: categoryList,
       sponsor: map["sponsor"] as String,
       voteOptions: voteOptionsList,
-      totalVotes: map["totalVotes"],
+      totalVotes: map["totalVotes"] as int,
       tags: tagsList,
     );
 

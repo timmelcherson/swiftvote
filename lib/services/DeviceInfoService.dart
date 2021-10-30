@@ -18,7 +18,7 @@ abstract class DeviceInfoService {
       }
     } catch(e) {
       print(e);
-      _result = BaseResponse(success: false, value: e.message);
+      _result = BaseResponse(success: false, value: e);
     }
 
     return _result;
