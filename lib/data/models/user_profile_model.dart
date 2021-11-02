@@ -8,18 +8,23 @@ class UserProfile {
   final int age;
   final String location;
 
-  const UserProfile({this.userId, this.gender, this.age, this.location});
+  const UserProfile({
+    required this.userId,
+    required this.gender,
+    required this.age,
+    required this.location,
+  });
 
   UserProfile copyWith({
-    String gender,
-    int age,
-    String location,
+    required String gender,
+    required int age,
+    required String location,
   }) {
     return UserProfile(
       userId: this.userId,
-      gender: gender ?? this.gender,
-      age: age ?? this.age,
-      location: location ?? this.location,
+      gender: gender,
+      age: age,
+      location: location,
     );
   }
 

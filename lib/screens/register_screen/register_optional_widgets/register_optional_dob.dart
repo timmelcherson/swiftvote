@@ -9,7 +9,7 @@ class RegisterOptionalDob extends StatefulWidget {
 
   final DobScreenCallback dobScreenCallback;
 
-  RegisterOptionalDob({@required this.dobScreenCallback});
+  RegisterOptionalDob({required this.dobScreenCallback});
 
   @override
   State createState() => _RegisterOptionalDobState();
@@ -34,11 +34,11 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
   ];
   final List<String> years = List.generate(90, (index) => '${2002 - index}');
 
-  String _day;
-  String _month;
-  String _year;
-  String _fullDate;
-  Function _callback;
+  late String _day;
+  late String _month;
+  late String _year;
+  late String _fullDate;
+  late Function _callback;
 
   @override
   void initState() {
@@ -84,7 +84,7 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                     style: bodyStyle(color: DARK_GRAY),
                     onChanged: (value) {
                       setState(() {
-                        _day = value;
+                        _day = value!;
                         setDate();
                       });
                     },
@@ -110,7 +110,7 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                     style: bodyStyle(color: DARK_GRAY),
                     onChanged: (value) {
                       setState(() {
-                        _month = value;
+                        _month = value!;
                         setDate();
                       });
                     },
@@ -136,7 +136,7 @@ class _RegisterOptionalDobState extends State<RegisterOptionalDob> {
                     style: bodyStyle(color: DARK_GRAY),
                     onChanged: (value) {
                       setState(() {
-                        _year = value;
+                        _year = value!;
                         setDate();
                       });
                     },

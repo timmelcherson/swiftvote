@@ -8,20 +8,20 @@ typedef void LocationScreenCallback(String gender);
 class RegisterOptionalLocation extends StatefulWidget {
   final LocationScreenCallback locationScreenCallback;
 
-  RegisterOptionalLocation({@required this.locationScreenCallback});
+  RegisterOptionalLocation({required this.locationScreenCallback});
 
   @override
   State createState() => _RegisterOptionalLocationState();
 }
 
 class _RegisterOptionalLocationState extends State<RegisterOptionalLocation> {
-  Function _callback;
+  late Function _callback;
   final TextEditingController _searchController = TextEditingController();
   final String baseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
   final String type = '(regions)';
   final int searchRadius = 3000;
   final String session = '&sessiontoken=1234567890';
-  String _searchString;
+  late String _searchString;
 
   // Example
   // https://maps.googleapis.com/maps/api/place/autocomplete/xml

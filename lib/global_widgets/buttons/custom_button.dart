@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class CustomButton extends StatelessWidget {
-  final Alignment buttonAlignment;
-  final String buttonText;
-  final TextStyle buttonTextStyle;
-  final double width;
+  final Alignment? buttonAlignment;
+  final String? buttonText;
+  final TextStyle? buttonTextStyle;
+  final double? width;
   final double height;
   final double borderRadius;
   final Color backgroundColor;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
   final EdgeInsets margin;
   final bool submittable;
-  final Widget leadingIcon;
-  final Widget trailingIcon;
+  final Widget? leadingIcon;
+  final Widget? trailingIcon;
 
   const CustomButton({
     this.buttonAlignment,
@@ -76,7 +76,10 @@ class CustomButton extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 16.0),
                     child: leadingIcon,
                   ),
-                Text(buttonText, style: buttonTextStyle ?? buttonStyle(color: DARK_GRAY)),
+                Text(
+                  buttonText ?? '',
+                  style: buttonTextStyle ?? buttonStyle(color: DARK_GRAY),
+                ),
               ],
             ),
             if (trailingIcon != null)

@@ -5,15 +5,15 @@ class CustomTextInput extends StatefulWidget {
 
   final AutovalidateMode autovalidateMode;
   final TextEditingController controller;
-  final String hintText;
-  final Widget icon;
+  final String? hintText;
+  final Widget? icon;
   final TextInputType keyboardType;
-  final Widget suffix;
+  final Widget? suffix;
 
   const CustomTextInput({
-    Key key,
+    required Key key,
     this.autovalidateMode = AutovalidateMode.disabled,
-    this.controller,
+    required this.controller,
     this.hintText,
     this.icon,
     this.keyboardType = TextInputType.text,

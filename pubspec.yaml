@@ -26,7 +26,6 @@ dependencies:
   shared_preferences: ^2.0.5
   location: ^4.0.2
   cupertino_icons: ^1.0.2
-  flutter_svg: ^0.23.0+1
   http: ^0.13.0
   device_info: ^2.0.2
 
@@ -46,9 +45,9 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/category_thumbnails/
-    - assets/votes.txt
     - assets/lang_files/sv.json
     - assets/lang_files/en.json
+    - assets/votes.txt
 
 
   fonts:

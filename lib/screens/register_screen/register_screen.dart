@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/index.dart';
+import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
 import 'package:swiftvote/screens/register_screen/register_barrel.dart';
@@ -14,19 +15,19 @@ import 'package:swiftvote/services/DeviceInfoService.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key key}) : super(key: key);
+  const RegisterScreen() : super(key: Keys.registerScreen);
 
   @override
   State createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  UserProfileBloc _userProfileBloc;
+  late UserProfileBloc _userProfileBloc;
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final List<String> _genders = ['Male', 'Female', 'Other'];
-  int _checkedIndex;
+  late int _checkedIndex;
   bool _isSubmitting = false;
 
   @override

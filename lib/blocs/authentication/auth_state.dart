@@ -20,7 +20,7 @@ class AuthSuccessState extends AuthState {
 
   final UserProfile userProfile;
 
-  AuthSuccessState({@required this.userProfile});
+  AuthSuccessState({required this.userProfile});
 
   @override
   List<Object> get props => [userProfile];
@@ -30,5 +30,5 @@ class AuthFailState extends AuthState {
 
   final String errorMessage;
 
-  AuthFailState({this.errorMessage});
+  AuthFailState({this.errorMessage = ''});
 }

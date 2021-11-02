@@ -18,7 +18,7 @@ class SettingsReadyState extends SettingsState {
   final UserProfile userProfile;
   final List<Vote> votes;
 
-  const SettingsReadyState({@required this.votes, this.userProfile});
+  const SettingsReadyState({required this.votes, required this.userProfile});
 
   @override
   List<Object> get props => [votes, userProfile];

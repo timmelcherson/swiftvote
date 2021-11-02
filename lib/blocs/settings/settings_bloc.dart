@@ -17,10 +17,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   bool _isVoteStateReady = false;
 
   SettingsBloc({
-    @required this.voteRepository,
-    @required this.userProfileRepository,
-    @required this.voteBloc,
-    @required this.userProfileBloc,
+    required this.voteRepository,
+    required this.userProfileRepository,
+    required this.voteBloc,
+    required this.userProfileBloc,
   }) : super(SettingsLoadingState()) {
     print('SettingsLoadingState');
     print('userProfileState: ${userProfileBloc.state}');

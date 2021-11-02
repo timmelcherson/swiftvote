@@ -4,6 +4,7 @@ import 'package:swiftvote/app_localization.dart';
 import 'package:swiftvote/blocs/vote/index.dart';
 import 'package:swiftvote/blocs/vote/vote_bloc.dart';
 import 'package:swiftvote/constants/routes.dart';
+import 'package:swiftvote/data/entities/vote_entity.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
@@ -14,8 +15,7 @@ typedef OnSaveCallback = Function(String title, List<String> category,
     String voteOptionOne, String voteOptionTwo, List<String> tags);
 
 class AddVoteScreen extends StatefulWidget {
-
-  AddVoteScreen({Key key}) : super(key: key ?? Keys.addVoteScreen);
+  AddVoteScreen() : super(key: Keys.addVoteScreen);
 
   @override
   State createState() => _AddVoteScreenState();
@@ -26,12 +26,12 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
 
   int _selectCount = 0;
   bool _showErrorMsg = false;
-  String _voteTitle;
-  String _voteOptionOne;
-  String _voteOptionTwo;
-  List<String> _voteCategory = [];
+  late String _voteTitle;
+  late String _voteOptionOne;
+  late String _voteOptionTwo;
+  List<String> _voteCategories = [];
   List<String> _voteTags = ['#hashtag1', '#hashtag2']; // Dummy list
-  List<bool> _tagCheckboxValues;
+  late List<bool> _tagCheckboxValues;
 
   @override
   void initState() {
@@ -46,21 +46,21 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
       children: [
         Checkbox(
           value: _tagCheckboxValues[index],
-          onChanged: (bool value) {
+          onChanged: (bool? value) {
             if (!(_selectCount >= 2)) {
-              value
-                  ? _voteCategory.add(tagDescr)
-                  : _voteCategory.remove(tagDescr);
+              _tagCheckboxValues[index]
+                  ? _voteCategories.add(tagDescr)
+                  : _voteCategories.remove(tagDescr);
               setState(() {
-                _tagCheckboxValues[index] = value;
-                value ? _selectCount++ : _selectCount--;
+                _tagCheckboxValues[index] = !_tagCheckboxValues[index];
+                _tagCheckboxValues[index] ? _selectCount++ : _selectCount--;
                 _showErrorMsg = false;
               });
             } else if (_tagCheckboxValues[index]) {
-              _voteCategory.remove(tagDescr);
+              _voteCategories.remove(tagDescr);
               setState(() {
-                _tagCheckboxValues[index] = value;
-                value ? _selectCount++ : _selectCount--;
+                _tagCheckboxValues[index] = !_tagCheckboxValues[index];
+                _tagCheckboxValues[index] ? _selectCount++ : _selectCount--;
                 _showErrorMsg = false;
               });
             }
@@ -77,17 +77,16 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
   }
 
   void onSave(title, categories, voteOptionOne, voteOptionTwo, tags) {
+    VoteEntity entity = VoteEntity(
+        title: _voteTitle,
+        author: 'swiftvote',
+        sponsor: "",
+        voteOptions: [_voteOptionOne, _voteOptionTwo],
+        totalVotes: 0,
+        tags: _voteTags,
+        categories: _voteCategories);
     BlocProvider.of<VoteBloc>(context).add(
-      AddVoteEvent(
-        Vote(
-          title: _voteTitle,
-          author: 'swiftvote',
-          sponsor: "",
-          voteOptions: [_voteOptionOne, _voteOptionTwo],
-          totalVotes: 0,
-          tags: _voteTags,
-        ),
-      ),
+      AddVoteEvent(voteEntity: entity),
     );
   }
 
@@ -127,9 +126,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                     border: OutlineInputBorder(borderSide: const BorderSide()),
                   ),
                   validator: (value) {
-                    return validateTextField(value);
+                    return validateTextField(value!);
                   },
-                  onSaved: (value) => _voteTitle = value,
+                  onSaved: (value) => _voteTitle = value!,
                 ),
               ),
               Container(
@@ -142,9 +141,9 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                       hintStyle: bodyStyle(),
                     ),
                     validator: (value) {
-                      return validateTextField(value);
+                      return validateTextField(value!);
                     },
-                    onSaved: (value) => _voteOptionOne = value,
+                    onSaved: (value) => _voteOptionOne = value!,
                   ),
                 ),
               ),
@@ -159,29 +158,33 @@ class _AddVoteScreenState extends State<AddVoteScreen> {
                       hintStyle: bodyStyle(),
                     ),
                     validator: (value) {
-                      return validateTextField(value);
+                      return validateTextField(value!);
                     },
-                    onSaved: (value) => _voteOptionTwo = value,
+                    onSaved: (value) => _voteOptionTwo = value!,
                   ),
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.only(top: 32.0, bottom: 32.0),
                 alignment: Alignment.bottomCenter,
                 child: CustomButton(
                   buttonText: trans(context, 'button.post'),
                   onPress: () {
-                    if (_addVoteFormKey.currentState.validate()) {
+                    if (_addVoteFormKey.currentState!.validate()) {
                       // if (_selectCount != 2) {
                       //   setState(() {
                       //     _showErrorMsg = true;
                       //   });
                       //   return;
                       // }
-                      _addVoteFormKey.currentState.save();
-                      onSave(_voteTitle, _voteCategory, _voteOptionOne,
-                          _voteOptionTwo, _voteTags);
+                      _addVoteFormKey.currentState!.save();
+                      onSave(
+                        _voteTitle,
+                        _voteCategories,
+                        _voteOptionOne,
+                        _voteOptionTwo,
+                        _voteTags,
+                      );
                     }
                   },
                 ),

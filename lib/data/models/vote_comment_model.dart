@@ -8,16 +8,14 @@ class VoteComment {
   final String createdAt;
 
   const VoteComment({
-    this.content,
-    this.createdAt,
+    required this.content,
+    required this.createdAt,
   });
 
-  VoteComment copyWith(
-    String id,
-    String content,
-  ) {
+  VoteComment copyWith({required String content, required String createdAt}) {
     return VoteComment(
-      content: content ?? this.content,
+      content: content,
+      createdAt: createdAt,
     );
   }
 
@@ -27,7 +25,9 @@ class VoteComment {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is VoteComment && runtimeType == other.runtimeType && createdAt == other.createdAt;
+      other is VoteComment &&
+          runtimeType == other.runtimeType &&
+          createdAt == other.createdAt;
 
   @override
   String toString() {

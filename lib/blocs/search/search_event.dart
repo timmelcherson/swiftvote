@@ -7,5 +7,5 @@ class SearchSubmittedEvent extends SearchEvent {
 
   final String searchQuery;
 
-  SearchSubmittedEvent({this.searchQuery});
+  SearchSubmittedEvent({required this.searchQuery});
 }

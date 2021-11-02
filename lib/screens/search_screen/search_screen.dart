@@ -7,7 +7,7 @@ class SearchScreen extends StatelessWidget {
   bool _renderSearchResult = false;
   final ScrollController _scrollController = new ScrollController();
 
-  String searchQuery;
+  String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +23,19 @@ class SearchScreen extends StatelessWidget {
               key: Keys.searchWidget,
               scrollDirection: Axis.vertical,
               controller: _scrollController,
-              physics: _renderSearchResult ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
+              physics: _renderSearchResult
+                  ? BouncingScrollPhysics()
+                  : NeverScrollableScrollPhysics(),
               slivers: <Widget>[
                 SliverPersistentHeader(
                   pinned: true,
                   floating: true,
                   delegate: SearchWidgetHeaderDelegate(
-                      maxExtentValue: constraints.maxHeight,
-                      searchCallback: searchCallback,
-                      isSearchMade: _renderSearchResult,
-                      searchQuery: searchQuery),
+                    maxExtentValue: constraints.maxHeight,
+                    searchCallback: searchCallback,
+                    isSearchMade: _renderSearchResult,
+                    searchQuery: searchQuery,
+                  ),
                 ),
                 SliverGrid(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -49,11 +52,14 @@ class SearchScreen extends StatelessWidget {
                                   alignment: Alignment.bottomLeft,
                                   children: <Widget>[
                                     Container(
-                                      color: Colors.lightBlue[100 * (index % 9)],
+                                      color:
+                                          Colors.lightBlue[100 * (index % 9)],
                                     ),
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                      child: Text('Search here', style: bodyStyle()),
+                                      margin:
+                                          EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
+                                      child: Text('Search here',
+                                          style: bodyStyle()),
                                     )
                                   ],
                                 ),
@@ -72,7 +78,8 @@ class SearchScreen extends StatelessWidget {
 
   void searchCallback(String search) {
     if (!_renderSearchResult) {
-      _scrollController.animateTo(0, duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
+      _scrollController.animateTo(0,
+          duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
     }
     _renderSearchResult = true;
     searchQuery = search;
@@ -86,11 +93,16 @@ class SearchWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Function(String) searchCallback;
   final TextEditingController _editingController = TextEditingController();
 
-  SearchWidgetHeaderDelegate(
-      {this.maxExtentValue, this.isSearchMade, this.searchQuery, this.searchCallback});
+  SearchWidgetHeaderDelegate({
+    required this.maxExtentValue,
+    required this.isSearchMade,
+    required this.searchQuery,
+    required this.searchCallback,
+  });
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       height: maxExtent,
       decoration: BoxDecoration(

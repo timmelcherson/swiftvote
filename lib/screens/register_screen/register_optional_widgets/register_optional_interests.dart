@@ -7,7 +7,7 @@ typedef void InterestsScreenCallback(List<String> interests);
 class RegisterOptionalInterests extends StatefulWidget {
   final InterestsScreenCallback interestsScreenCallback;
 
-  RegisterOptionalInterests({@required this.interestsScreenCallback});
+  RegisterOptionalInterests({required this.interestsScreenCallback});
 
   @override
   State createState() => _RegisterOptionalInterestsState();
@@ -15,10 +15,11 @@ class RegisterOptionalInterests extends StatefulWidget {
 
 class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
   final _categories = CategoryExtension.categoryToString.values.toList();
-  final _categoryImages = CategoryExtension.categoryThumbnailAssetPath.values.toList();
+  final _categoryImages =
+      CategoryExtension.categoryThumbnailAssetPath.values.toList();
 
-  Function _callback;
-  List<bool> _selectedIndices;
+  late Function _callback;
+  late List<bool> _selectedIndices;
   List<String> _selectedCategories = [];
   bool _selectedAll = false;
 
@@ -49,7 +50,6 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
         _selectedCategories = _categories;
         _selectedIndices = List.generate(_categories.length, (index) => false);
       }
-
     });
     _callback(_selectedCategories);
   }
@@ -79,10 +79,12 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              _selectedIndices[index] = !_selectedIndices[index];
+                              _selectedIndices[index] =
+                                  !_selectedIndices[index];
                               _selectedIndices[index]
                                   ? _selectedCategories.add(_categories[index])
-                                  : _selectedCategories.remove(_categories[index]);
+                                  : _selectedCategories
+                                      .remove(_categories[index]);
                             });
                             _callback(_selectedCategories);
                           },
@@ -96,10 +98,8 @@ class _RegisterOptionalInterestsState extends State<RegisterOptionalInterests> {
                                 ),
                                 Container(
                                   margin: EdgeInsets.fromLTRB(8.0, 0, 0, 16.0),
-                                  child: Text(
-                                    _categories[index],
-                                    style: bodyStyle()
-                                  ),
+                                  child: Text(_categories[index],
+                                      style: bodyStyle()),
                                 ),
                                 if (_selectedIndices[index]) selectedOverlay()
                               ],
@@ -158,13 +158,15 @@ class InterestsWidgetHeaderDelegate extends SliverPersistentHeaderDelegate {
   final VoidCallback selectAllCallback;
   final VoidCallback clearCallback;
 
-  InterestsWidgetHeaderDelegate(
-      {@required this.isNoneSelected,
-      @required this.selectAllCallback,
-      @required this.clearCallback});
+  InterestsWidgetHeaderDelegate({
+    required this.isNoneSelected,
+    required this.selectAllCallback,
+    required this.clearCallback,
+  });
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.white,
       child: Column(

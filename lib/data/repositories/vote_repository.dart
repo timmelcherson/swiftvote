@@ -6,25 +6,9 @@ import 'package:swiftvote/data/repositories/index.dart';
 class VoteRepository {
   final voteCollection = FirebaseFirestore.instance.collection('votes');
 
-  Future<void> addNewVote(Vote vote) async {
+  Future<void> addNewVote({required VoteEntity entity}) async {
     try {
-      await voteCollection.add(vote.toEntity().toDocument());
-      // DocumentReference docRef = await voteCollection.add(vote.toEntity().toDocument());
-      // if (docRef != null) {
-      //   vote.voteOptions.asMap().forEach((index, voteOption) {
-      //     VoteResult voteResult = VoteResult(
-      //       totalVotes: 0,
-      //       femaleVotes: 0,
-      //       maleVotes: 0,
-      //       unknownGenderVotes: 0,
-      //     );
-      //     voteCollection
-      //         .doc(vote.id)
-      //         .collection('vote_results')
-      //         .doc(index.toString())
-      //         .set(voteResult.toEntity().toDocument()); // add each vote option
-      //   });
-      // }
+      await voteCollection.add(entity.toMap()).then((id) => id.toString());
     } catch (error) {
       print("Could not add vote, got error: $error");
     }
@@ -65,7 +49,7 @@ class VoteRepository {
     });
 
     return querySnapshot.docs.map((snap) {
-      return Vote.fromEntity(VoteEntity.fromQuerySnapshot(snap));
+      return Vote.fromQuerySnapshot(snap);
     }).toList();
   }
 
@@ -78,32 +62,50 @@ class VoteRepository {
   // }
 
   Stream<List<Vote>> getVotes() {
-    return voteCollection.limit(5).snapshots(includeMetadataChanges: true).map((snapshot) {
+    return voteCollection
+        .limit(5)
+        .snapshots(includeMetadataChanges: true)
+        .map((snapshot) {
       print('GOT FROM CACHE??? : ${snapshot.metadata.isFromCache}');
-      return snapshot.docs.map((vote) {
-        return Vote.fromEntity(VoteEntity.fromSnapshot(vote));
+      return snapshot.docs.map((snap) {
+        print('SNAPID: ${snap.id}');
+        return Vote.fromSnapshot(id: snap.id, snap: snap);
       }).toList();
     });
   }
 
-  Stream<List<VoteComment>> getVoteCommentsByVoteId({String voteId}) {
+  Stream<List<VoteComment>> getVoteCommentsByVoteId({required String voteId}) {
     print('getVoteCommentsByVoteId');
-    return voteCollection.doc(voteId).collection('comments').snapshots().map((snapshot) {
+    return voteCollection
+        .doc(voteId)
+        .collection('comments')
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) {
         return VoteComment.fromSnapshot(doc);
       }).toList();
     });
   }
 
-  Future<void> addVoteComment({String voteId, VoteComment comment}) async {
+  Future<void> addVoteComment({
+    required String voteId,
+    required VoteComment comment,
+  }) async {
     try {
-      await voteCollection.doc(voteId).collection('comments').add(comment.toMap());
+      await voteCollection
+          .doc(voteId)
+          .collection('comments')
+          .add(comment.toMap());
     } catch (error) {
       print("Could not add vote, got error: $error");
     }
   }
 
-  Future<bool> addVoteResult({String userId, String voteId, VoteResult result}) async {
+  Future<bool> addVoteResult({
+    required String userId,
+    required String voteId,
+    required VoteResult result,
+  }) async {
     print('adding result: $result to vote with id: $voteId');
     try {
       // voteCollection.doc(voteId).collection('results').add(result.toMap());
@@ -123,9 +125,13 @@ class VoteRepository {
     }
   }
 
-  Stream<List<VoteResult>> getVoteResultByVoteId({String voteId}) {
+  Stream<List<VoteResult>> getVoteResultByVoteId({required String voteId}) {
     print('getVoteCommentsByVoteId');
-    return voteCollection.doc(voteId).collection('results').snapshots().map((snapshot) {
+    return voteCollection
+        .doc(voteId)
+        .collection('results')
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) {
         return VoteResult.fromSnapshot(doc);
       }).toList();

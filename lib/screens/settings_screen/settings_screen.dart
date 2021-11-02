@@ -34,21 +34,20 @@ class SettingsScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is SettingsReadyState) {
             return CustomScrollView(
-              key: Keys.exploreWidget,
               scrollDirection: Axis.vertical,
               slivers: <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate(
                     [
                       SettingsAccordion(
-                          title: trans(context, _titles["my_information"]),
+                          title: trans(context, _titles["my_information"]!),
                           content: [
                             MyInformation(
                               userProfile: state.userProfile,
                             )
                           ]),
                       SettingsAccordion(
-                        title: trans(context, _titles["collection"]),
+                        title: trans(context, _titles["collection"]!),
                         content: [MyCollection(votes: state.votes)],
                       ),
                     ],

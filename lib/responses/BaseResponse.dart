@@ -6,7 +6,7 @@ class BaseResponse {
   bool success;
   dynamic value;
 
-  BaseResponse({this.success, this.value});
+  BaseResponse({required this.success, required this.value});
 
   factory BaseResponse.fromJson(Map<String, dynamic> json) {
     return BaseResponse(

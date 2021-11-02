@@ -7,7 +7,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   final VoteRepository voteRepository;
 
-  SearchBloc({this.voteRepository}) : super(SearchInitialState());
+  SearchBloc({required this.voteRepository}) : super(SearchInitialState());
 
   @override
   Stream<SearchState> mapEventToState(

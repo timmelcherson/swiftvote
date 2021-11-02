@@ -7,14 +7,14 @@ class FullScreenInputOverlay extends StatefulWidget {
   final String buttonText;
   final Function callback;
 
-  FullScreenInputOverlay({@required this.buttonText, @required this.callback});
+  FullScreenInputOverlay({required this.buttonText, required this.callback});
 
   @override
   _FullScreenInputOverlayState createState() => _FullScreenInputOverlayState();
 }
 
 class _FullScreenInputOverlayState extends State<FullScreenInputOverlay> {
-  TextEditingController _controller;
+  late TextEditingController _controller;
 
   @override
   void initState() {

@@ -25,7 +25,7 @@ class VoteListItem extends StatefulWidget {
 class _VoteListItemState extends State<VoteListItem> {
   bool _expanded = false;
   bool _voted = false;
-  late int _votedIndex;
+  int? _votedIndex;
   double _barWidth1 = 0.0;
   double _barWidth2 = 0.0;
 

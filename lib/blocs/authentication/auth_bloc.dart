@@ -14,15 +14,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   final UserProfileRepository userProfileRepository;
 
-  // AuthBloc({
-  //   @required this.authRepository,
-  // }) : super(AuthInitialState());
-
-  StreamSubscription registerSubscription;
-
   AuthBloc({
-    @required this.authRepository,
-    @required this.userProfileRepository,
+    required this.authRepository,
+    required this.userProfileRepository,
   }) : super(AuthLoadingState());
 
   @override

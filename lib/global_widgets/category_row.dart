@@ -4,7 +4,7 @@ import 'package:swiftvote/themes/themes.dart';
 class CategoryRow extends StatelessWidget {
   final List<String> categories;
 
-  CategoryRow({@required this.categories});
+  CategoryRow({required this.categories});
 
   @override
   Widget build(BuildContext context) {

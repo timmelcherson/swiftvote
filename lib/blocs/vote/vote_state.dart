@@ -15,10 +15,9 @@ class VotesLoadingState extends VoteState {}
 
 @immutable
 class VotesReadyState extends VoteState {
-  final List<Vote> fullVoteList;
   final List<Vote> votes;
 
-  const VotesReadyState({@required this.votes, this.fullVoteList});
+  const VotesReadyState({required this.votes});
 
   @override
   List<Object> get props => [votes];

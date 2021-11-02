@@ -7,13 +7,11 @@ import 'package:swiftvote/data/repositories/index.dart';
 import './index.dart';
 
 class VoteBloc extends Bloc<VoteEvent, VoteState> {
-  final VoteRepository _voteRepository;
-  StreamSubscription _voteSubscription;
+  final VoteRepository voteRepository;
+  late StreamSubscription _voteSubscription;
 
-  VoteBloc({@required VoteRepository voteRepository})
-      : assert(voteRepository != null),
-        _voteRepository = voteRepository,
-        super(VotesLoadingState());
+  VoteBloc({required this.voteRepository})
+      : super(VotesLoadingState());
 
   @override
   Stream<VoteState> mapEventToState(
@@ -39,20 +37,21 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
   }
 
   Stream<VoteState> _mapLoadVotesToState() async* {
-    _voteSubscription?.cancel();
-    _voteSubscription = _voteRepository.getVotes().listen((votes) => add(VotesUpdatedEvent(votes)));
+    _voteSubscription = voteRepository
+        .getVotes()
+        .listen((votes) => add(VotesUpdatedEvent(votes)));
   }
 
   Stream<VoteState> _mapAddVoteToState(AddVoteEvent event) async* {
-    _voteRepository.addNewVote(event.vote);
+    voteRepository.addNewVote(entity: event.voteEntity);
   }
 
   Stream<VoteState> _mapUpdateVoteToState(UpdateVoteEvent event) async* {
-    _voteRepository.updateVote(event.updatedVote);
+    voteRepository.updateVote(event.updatedVote);
   }
 
   Stream<VoteState> _mapDeleteVoteToState(DeleteVoteEvent event) async* {
-    _voteRepository.deleteVote(event.vote);
+    voteRepository.deleteVote(event.vote);
   }
 
   Stream<VoteState> _mapVotesUpdatedToState(VotesUpdatedEvent event) async* {
@@ -62,7 +61,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
     print('-------------------------------------');
     newList.forEach((vote) => print({...vote.categories}));
     print('-------------------------------------');
-    yield VotesReadyState(votes: newList, fullVoteList: event.votes);
+    yield VotesReadyState(votes: newList);
     // print('%%%%%%%%%%%%%%');
     // print('event.newIndex: ${event.newIndex}');
     // print('%%%%%%%%%%%%%%');
@@ -89,7 +88,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   Stream<VoteState> _mapResetVotesToState(ResetVotesEvent event) async* {
     event.fullVoteList.forEach((element) => print(element.title));
-    yield VotesReadyState(votes: event.fullVoteList, fullVoteList: event.fullVoteList);
+    yield VotesReadyState(votes: event.fullVoteList);
   }
 
   _mapIncreaseVoteScoreToState(IncreaseVoteScoreEvent event) {
@@ -104,7 +103,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   @override
   Future<void> close() {
-    _voteSubscription?.cancel();
+    _voteSubscription.cancel();
     return super.close();
   }
 }

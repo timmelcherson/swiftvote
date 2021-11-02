@@ -5,7 +5,7 @@ class CategoryCard extends StatelessWidget {
   final String title;
   final IconData icon;
 
-  CategoryCard({this.title, this.icon});
+  CategoryCard({required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {

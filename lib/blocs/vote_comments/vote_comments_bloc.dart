@@ -8,10 +8,9 @@ import 'package:swiftvote/data/repositories/index.dart';
 
 class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
   final VoteRepository voteRepository;
-  StreamSubscription _voteSubscription;
+  late StreamSubscription _voteSubscription;
 
-  VoteCommentsBloc({@required this.voteRepository})
-      : assert(voteRepository != null),
+  VoteCommentsBloc({required this.voteRepository}) :
         super(VoteCommentsLoadingState());
 
   @override
@@ -32,7 +31,6 @@ class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
   Stream<VoteCommentsState> _mapLoadVoteCommentsByVoteIdEventToState(
     LoadVoteCommentsByVoteIdEvent event,
   ) async* {
-    _voteSubscription?.cancel();
     print('_mapLoadVoteCommentsByVoteIdEventToState for voteId: ${event.vote.id}');
     _voteSubscription = voteRepository.getVoteCommentsByVoteId(voteId: event.vote.id).listen(
           (comments) => add(
@@ -63,7 +61,7 @@ class VoteCommentsBloc extends Bloc<VoteCommentsEvent, VoteCommentsState> {
 
   @override
   Future<void> close() {
-    _voteSubscription?.cancel();
+    _voteSubscription.cancel();
     return super.close();
   }
 }

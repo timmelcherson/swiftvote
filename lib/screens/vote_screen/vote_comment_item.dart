@@ -7,7 +7,11 @@ class VoteCommentItem extends StatelessWidget {
   final int commentIndex;
   final String createdAt;
 
-  VoteCommentItem({this.content, this.commentIndex, this.createdAt});
+  VoteCommentItem({
+    required this.content,
+    required this.commentIndex,
+    required this.createdAt,
+  });
 
   @override
   Widget build(BuildContext context) {

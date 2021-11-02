@@ -11,14 +11,14 @@ import 'package:swiftvote/themes/themes.dart';
 class VoteActiveItem extends StatefulWidget {
   final Vote vote;
 
-  VoteActiveItem({@required this.vote});
+  VoteActiveItem({required this.vote});
 
   @override
   _VoteActiveItemState createState() => _VoteActiveItemState();
 }
 
 class _VoteActiveItemState extends State<VoteActiveItem> {
-  Vote _vote;
+  late Vote _vote;
 
   @override
   void initState() {

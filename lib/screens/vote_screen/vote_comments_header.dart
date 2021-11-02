@@ -6,7 +6,7 @@ import 'package:swiftvote/themes/themes.dart';
 class VoteCommentsHeader extends StatelessWidget {
   final Vote vote;
 
-  VoteCommentsHeader({@required this.vote});
+  VoteCommentsHeader({required this.vote});
 
   @override
   Widget build(BuildContext context) {

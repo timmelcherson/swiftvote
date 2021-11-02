@@ -17,7 +17,10 @@ class ExploreCategoriesLoadedState extends ExploreState {
   final List<String> categories;
   final List<IconData> categoryThumbnails;
 
-  const ExploreCategoriesLoadedState({this.categories, this.categoryThumbnails});
+  const ExploreCategoriesLoadedState({
+    required this.categories,
+    required this.categoryThumbnails,
+  });
 
   @override
   List<Object> get props => [categories];
@@ -28,12 +31,12 @@ class ExploreCategoriesLoadedState extends ExploreState {
   }
 
   ExploreCategoriesLoadedState copyWith({
-    List<String> categories,
-    List<IconData> categoryThumbnails,
+    required List<String> categories,
+    required List<IconData> categoryThumbnails,
   }) {
     return ExploreCategoriesLoadedState(
-      categories: categories ?? this.categories,
-      categoryThumbnails: categoryThumbnails ?? this.categoryThumbnails,
+      categories: categories,
+      categoryThumbnails: categoryThumbnails,
     );
   }
 }
@@ -43,14 +46,14 @@ class ExploreCategoriesLoadFailureState extends ExploreState {}
 class ExploreCategoryLoadState extends ExploreState {
   final String category;
 
-  ExploreCategoryLoadState({this.category});
+  ExploreCategoryLoadState({required this.category});
 }
 
 class ExploreCategoryLoadedState extends ExploreState {
   final String category;
   final List<Vote> votes;
 
-  ExploreCategoryLoadedState({this.category, this.votes});
+  ExploreCategoryLoadedState({required this.category, required this.votes});
 }
 
 class ExploreCategoryLoadFailState extends ExploreState {}

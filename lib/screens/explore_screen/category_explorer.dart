@@ -79,10 +79,10 @@ class CategoryExplorer extends StatelessWidget {
 }
 
 class CategoryExplorerHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final String path;
+  final String? path;
   final String text;
 
-  CategoryExplorerHeaderDelegate({this.path, this.text});
+  CategoryExplorerHeaderDelegate({this.path, required this.text});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

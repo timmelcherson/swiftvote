@@ -18,8 +18,9 @@ class UserProfileRepository {
 
   UserProfileRepository._internal();
 
-  Future<BaseResponse> addNewUserProfile(
-      {@required UserProfile userProfile}) async {
+  Future<BaseResponse> addNewUserProfile({
+    required UserProfile userProfile,
+  }) async {
     bool _success = false;
     var _value;
     await _userProfileCollection
@@ -43,11 +44,11 @@ class UserProfileRepository {
     return _userProfileCollection.doc(userProfile.userId).delete();
   }
 
-  Future<bool> hasProfile({@required String id}) async {
-    return _userProfileCollection.doc(id) == null;
+  Future<String> hasProfile({required String id}) async {
+    return _userProfileCollection.doc(id).toString();
   }
 
-  Future<UserProfile> fetchUserProfileById({@required String id}) async {
+  Future<UserProfile?> fetchUserProfileById({required String id}) async {
     return await _userProfileCollection.doc(id).get().then((snapshot) {
       return snapshot.exists
           ? UserProfile.fromEntity(UserProfileEntity.fromSnapshot(snapshot))

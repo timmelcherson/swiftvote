@@ -70,7 +70,7 @@ extension CategoryExtension on Category {
     Category.TRAVEL: Icons.airplanemode_active_outlined,
   };
 
-  String get categories => categoryToString[this];
-  String get getThumbnailAssetPath => categoryThumbnailAssetPath[this];
-  IconData get getCategoryThumbnails => categoryThumbnails[this];
+  String? get categories => categoryToString[this];
+  String? get getThumbnailAssetPath => categoryThumbnailAssetPath[this];
+  IconData? get getCategoryThumbnails => categoryThumbnails[this];
 }

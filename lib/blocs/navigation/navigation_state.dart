@@ -13,7 +13,7 @@ class MainNavBarState extends NavigationState {
 
   final int index;
 
-  MainNavBarState({this.index});
+  MainNavBarState({required this.index});
 
   @override
   List<Object> get props => [index];

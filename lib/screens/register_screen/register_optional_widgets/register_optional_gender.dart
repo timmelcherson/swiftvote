@@ -9,7 +9,7 @@ class RegisterOptionalGender extends StatefulWidget {
 
   final GenderScreenCallback genderScreenCallback;
 
-  RegisterOptionalGender({this.genderScreenCallback});
+  RegisterOptionalGender({required this.genderScreenCallback});
 
   @override
   State createState() => _RegisterOptionalGenderState();
@@ -17,9 +17,9 @@ class RegisterOptionalGender extends StatefulWidget {
 
 class _RegisterOptionalGenderState extends State<RegisterOptionalGender> {
 
-  int checkedIndex;
+  late int checkedIndex;
   List<String> _genders = ['Male', 'Female', 'Other'];
-  Function _callback;
+  late Function _callback;
 
   @override
   void initState() {

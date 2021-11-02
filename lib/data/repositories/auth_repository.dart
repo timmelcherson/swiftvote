@@ -28,19 +28,19 @@ class AuthRepository {
   //
   // static AuthRepository get instance => _instance;
 
-  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   /// Signs in the user with a custom [token].
   ///
   /// The custom token should be the device unique identifier in this case.
   /// Returns a [BaseResponse] the created user's firebase auth UID on success.
-  Future<BaseResponse> signInWithCustomToken({@required String token}) async {
+  Future<BaseResponse> signInWithCustomToken({required String token}) async {
     try {
       UserCredential credential =
           await _firebaseAuth.signInWithCustomToken(token);
       // UserCredential credential =
       //     await _firebaseAuth.signInWithCustomToken(token);
-      return BaseResponse(success: true, value: credential.user.uid);
+      return BaseResponse(success: true, value: credential.user?.uid);
     } on FirebaseAuthException catch (e) {
       return BaseResponse(success: false, value: e.message);
     }
@@ -54,7 +54,7 @@ class AuthRepository {
     return _firebaseAuth.signOut();
   }
 
-  Future<User> getUser() async {
+  Future<User?> getUser() async {
     return _firebaseAuth.currentUser;
   }
 }

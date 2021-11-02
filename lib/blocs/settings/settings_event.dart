@@ -14,7 +14,7 @@ class LoadSettingsEvent extends SettingsEvent {
   final List<Vote> votes;
   final UserProfile userProfile;
 
-  LoadSettingsEvent({@required this.votes, @required this.userProfile});
+  LoadSettingsEvent({required this.votes, required this.userProfile});
 }
 
 
@@ -22,7 +22,7 @@ class LoadSettingsEvent extends SettingsEvent {
 class UpdateUserProfileEvent extends SettingsEvent {
   final UserProfile userProfile;
 
-  const UpdateUserProfileEvent({@required this.userProfile});
+  const UpdateUserProfileEvent({required this.userProfile});
 
   @override
   List<Object> get props => [userProfile];

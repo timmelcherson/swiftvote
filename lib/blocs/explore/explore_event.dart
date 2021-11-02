@@ -13,13 +13,13 @@ class ExploreCategoriesLoadedEvent extends ExploreEvent {}
 class ExploreCategoryTappedEvent extends ExploreEvent {
   final String category;
 
-  ExploreCategoryTappedEvent({this.category});
+  ExploreCategoryTappedEvent({required this.category});
 }
 
 class ExploreCategorySelectedEvent extends ExploreEvent {
   final Vote vote;
 
-  ExploreCategorySelectedEvent({this.vote});
+  ExploreCategorySelectedEvent({required this.vote});
 }
 
 class ExploreCategoryReturnEvent extends ExploreEvent {}

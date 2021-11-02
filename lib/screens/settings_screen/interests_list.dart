@@ -4,7 +4,7 @@ import 'package:swiftvote/themes/color_themes.dart';
 import 'package:swiftvote/themes/text_themes.dart';
 
 class InterestsList extends StatefulWidget {
-  const InterestsList({Key key}) : super(key: key);
+  const InterestsList();
 
   @override
   _InterestsListState createState() => _InterestsListState();
@@ -19,6 +19,7 @@ class _InterestsListState extends State<InterestsList> {
     if (states == MaterialState.selected) {
       return PRIMARY_BLUE;
     }
+    return PRIMARY_BLUE;
   }
 
   @override

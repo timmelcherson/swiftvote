@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftvote/data/entities/index.dart';
 
@@ -52,7 +53,6 @@ class Vote {
 
   VoteEntity toEntity() {
     return VoteEntity(
-      id: id,
       title: title,
       author: author,
       categories: categories,
@@ -63,16 +63,50 @@ class Vote {
     );
   }
 
-  static Vote fromEntity(VoteEntity entity) {
+  static Vote fromSnapshot({required String id, required DocumentSnapshot snap}) {
+    List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
+    List<String> _tags = new List<String>.from(snap.get('tags'));
+    List<String> _categories = new List<String>.from(snap.get('categories'));
+
     return Vote(
-      id: entity.id,
-      title: entity.title,
-      author: entity.author,
-      categories: entity.categories,
-      sponsor: entity.sponsor,
-      voteOptions: entity.voteOptions,
-      totalVotes: entity.totalVotes,
-      tags: entity.tags,
+      id: id,
+      title: snap.get('title'),
+      author: snap.get('author'),
+      categories: _categories,
+      sponsor: snap.get('sponsor'),
+      voteOptions: _voteOptions,
+      totalVotes: snap.get('totalVotes'),
+      tags: _tags,
     );
+  }
+
+  static Vote fromQuerySnapshot(QueryDocumentSnapshot snap) {
+    List<String> _voteOptions = new List<String>.from(snap.get('voteOptions'));
+    List<String> _tags = new List<String>.from(snap.get('tags'));
+    List<String> _categories = new List<String>.from(snap.get('categories'));
+
+    return Vote(
+      id: snap.get('id'),
+      title: snap.get('title'),
+      author: snap.get('author'),
+      categories: _categories,
+      sponsor: snap.get('sponsor'),
+      voteOptions: _voteOptions,
+      totalVotes: snap.get('totalVotes'),
+      tags: _tags,
+    );
+  }
+
+  Map<String, Object> toDocument() {
+    return {
+      'id': id,
+      'title': title,
+      'author': author,
+      'categories': categories,
+      'sponsor': sponsor,
+      'voteOptions': voteOptions,
+      'totalVotes': totalVotes,
+      'tags': tags,
+    };
   }
 }

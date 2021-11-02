@@ -9,22 +9,23 @@ class VoteResult {
   final int voterAge;
 
   const VoteResult({
-    this.voterId,
-    this.voterAge,
-    this.voterGender,
-    this.votedOptionIndex,
+    required this.voterId,
+    required this.voterAge,
+    required this.voterGender,
+    required this.votedOptionIndex,
   });
 
-  VoteResult copyWith(
-    String voterId,
-    int votedOptionIndex,
-    String voterGender,
-    int voterAge,
-  ) {
+  VoteResult copyWith({
+    required String voterId,
+    required int votedOptionIndex,
+    required String voterGender,
+    required int voterAge,
+  }) {
     return VoteResult(
-      voterAge: voterAge ?? this.voterAge,
-      voterGender: voterGender ?? this.voterGender,
-      votedOptionIndex: votedOptionIndex ?? this.votedOptionIndex,
+      voterId: voterId,
+      voterAge: voterAge,
+      voterGender: voterGender,
+      votedOptionIndex: votedOptionIndex,
     );
   }
 

@@ -15,7 +15,7 @@ class VoteCommentsScreen extends StatefulWidget {
 }
 
 class _VoteCommentsScreenState extends State<VoteCommentsScreen> {
-  VoteCommentsBloc _voteCommentsBloc;
+  late VoteCommentsBloc _voteCommentsBloc;
 
   @override
   void initState() {

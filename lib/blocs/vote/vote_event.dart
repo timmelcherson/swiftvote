@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:swiftvote/data/entities/index.dart';
 import 'package:swiftvote/data/models/index.dart';
 
 @immutable
@@ -13,15 +14,23 @@ class LoadVotesEvent extends VoteEvent {}
 
 // ---------------------------------- //
 class AddVoteEvent extends VoteEvent {
-  final Vote vote;
+  final VoteEntity voteEntity;
 
-  const AddVoteEvent(this.vote);
+  // final String title;
+  // final String author;
+  // final String? sponsor;
+  // final List<String> voteOptions;
+  // final int totalVotes;
+  // final List<String>? tags;
+  // final List<String>? categories;
+
+  const AddVoteEvent({required this.voteEntity});
 
   @override
-  List<Object> get props => [vote];
+  List<Object> get props => [this.voteEntity];
 
   @override
-  String toString() => 'AddVote { vote: $vote }';
+  String toString() => 'AddVoteEvent{voteEntity: $voteEntity}';
 }
 
 // ---------------------------------- //
@@ -53,9 +62,11 @@ class DeleteVoteEvent extends VoteEvent {
 // ---------------------------------- //
 class VotesUpdatedEvent extends VoteEvent {
   final List<Vote> votes;
+
   // final int newIndex;
 
   const VotesUpdatedEvent(this.votes);
+
   // const VotesUpdatedEvent(this.votes, [this.newIndex = 0]);
 
   @override
@@ -63,7 +74,6 @@ class VotesUpdatedEvent extends VoteEvent {
 }
 
 class IncreaseVoteScoreEvent extends VoteEvent {
-
   final Vote vote;
   final int optionIndex;
 

@@ -18,7 +18,7 @@ class VoteResultLoadedState extends VoteResultState {
   final Vote vote;
   final List<VoteResult> voteResults;
 
-  const VoteResultLoadedState({this.vote, this.voteResults});
+  const VoteResultLoadedState({required this.vote, required this.voteResults});
 
   int get getVoteAmountOptionOne => voteResults.where((vote) => vote.votedOptionIndex == 0).length;
   int get getVoteAmountOptionTwo => voteResults.where((vote) => vote.votedOptionIndex == 1).length;

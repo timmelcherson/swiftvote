@@ -8,7 +8,7 @@ class RegisterOptionalLanguages extends StatefulWidget {
 
   final LanguagesScreenCallback languagesScreenCallback;
 
-  RegisterOptionalLanguages({@required this.languagesScreenCallback});
+  RegisterOptionalLanguages({required this.languagesScreenCallback});
 
   @override
   State createState() => _RegisterOptionalLanguagesState();
@@ -17,11 +17,11 @@ class RegisterOptionalLanguages extends StatefulWidget {
 class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
   // Lang _selectedLangKey = Lang.EN;
   List<String> _selectedLangs = [
-    LangExt.languages[Lang.EN],
+    LangExt.languages[Lang.EN]!,
   ];
   int numberOfLangRows = 1;
 
-  Function _callback;
+  late Function _callback;
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
   void addNewLangRow() {
     if (numberOfLangRows < LangExt.languages.length) {
       setState(() {
-        _selectedLangs.add(LangExt.languages[Lang.EN]);
+        _selectedLangs.add(LangExt.languages[Lang.EN]!);
         numberOfLangRows++;
       });
     }
@@ -91,7 +91,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
             icon: Icon(Icons.arrow_downward),
             onChanged: (value) {
               setState(() {
-                _selectedLangs[index] = value;
+                _selectedLangs[index] = value!;
               });
             },
             items: LangExt.languages.keys.map<DropdownMenuItem<String>>((Lang key) {
@@ -99,7 +99,7 @@ class _RegisterOptionalLanguagesState extends State<RegisterOptionalLanguages> {
                 value: LangExt.languages[key],
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,
-                  child: Text(LangExt.languages[key]),
+                  child: Text(LangExt.languages[key]!),
                 ),
               );
             }).toList(),

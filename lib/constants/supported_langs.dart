@@ -14,8 +14,8 @@ extension LangExt on Lang {
     Lang.SV: 'Svenska',
   };
 
-  IconData get icon => icons[this];
+  IconData? get icon => icons[this];
 
-  String get lang => languages[this];
+  String? get lang => languages[this];
 }
 

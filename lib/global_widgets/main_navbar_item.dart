@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/themes/color_themes.dart';
 
 class MainNavbarItem extends StatelessWidget {
@@ -13,11 +12,11 @@ class MainNavbarItem extends StatelessWidget {
   // final Color iconColor;
 
   MainNavbarItem({
-    this.isActive,
-    this.onTapCallback,
-    this.iconPath,
-    this.iconData,
-    this.tag,
+    required this.isActive,
+    required this.onTapCallback,
+    required this.iconPath,
+    required this.iconData,
+    required this.tag,
   });
 
   @override
@@ -29,16 +28,20 @@ class MainNavbarItem extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTapCallback,
+          onTap: () {
+            print('callbnack');
+            onTapCallback();
+          },
           splashColor: Colors.white38,
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeOutCubic,
             padding: EdgeInsets.all(isActive ? 18.0 : 22.0),
-            child: SvgPicture.asset(
-              iconPath,
-              color: isActive ? Colors.white : LIGHT_GRAY,
-            ),
+            child: Icon(Icons.home, size: 20.0, color: Colors.white),
+            // SvgPicture.asset(
+            //   iconPath,
+            //   color: isActive ? Colors.white : LIGHT_GRAY,
+            // ),
           ),
         ),
       ),

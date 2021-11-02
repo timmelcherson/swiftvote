@@ -86,7 +86,7 @@ class _SwiftvoteAppState extends State<SwiftvoteApp> {
                   },
                   Routes.VOTE: (context) {
                     print("ROUTE VOTE");
-                    return VoteScreen();
+                    return VoteScreen(key: Keys.voteScreen);
                   },
                   Routes.VOTE_COMMENTS: (context) {
                     return VoteCommentsScreen();

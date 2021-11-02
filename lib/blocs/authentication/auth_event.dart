@@ -16,16 +16,16 @@ class AuthRegisterEvent extends AuthEvent {
   final String location;
 
   AuthRegisterEvent({
-    @required this.age,
-    @required this.gender,
-    @required this.location,
+    required this.age,
+    required this.gender,
+    required this.location,
   });
 }
 
 class AuthSuccessEvent extends AuthEvent {
   final UserProfile userProfile;
 
-  AuthSuccessEvent({@required this.userProfile});
+  AuthSuccessEvent({required this.userProfile});
 }
 
 class AuthLogOutEvent extends AuthEvent {}

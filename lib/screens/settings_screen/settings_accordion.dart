@@ -9,8 +9,8 @@ class SettingsAccordion extends StatefulWidget {
   final List<Widget> content;
 
   SettingsAccordion({
-    @required this.title,
-    this.content,
+    required this.title,
+    required this.content,
   });
 
   @override
@@ -18,10 +18,10 @@ class SettingsAccordion extends StatefulWidget {
 }
 
 class _SettingsAccordionState extends State<SettingsAccordion> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  String _title;
-  var _content;
-  bool _open;
+  late AnimationController _animationController;
+  late String _title;
+  late List<Widget> _content;
+  late bool _open;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _SettingsAccordionState extends State<SettingsAccordion> with SingleTicker
 
   @override
   void dispose() {
-    _animationController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 

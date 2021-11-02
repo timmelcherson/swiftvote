@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
+/// This class is the same as {Vote] but without the ID,
+/// i.e. a vote to-be-posted
 class VoteEntity extends Equatable {
-  final String id;
   final String title;
   final String author;
   final List<String> categories;
@@ -12,7 +13,6 @@ class VoteEntity extends Equatable {
   final List<String> tags;
 
   const VoteEntity({
-    required this.id,
     required this.title,
     required this.author,
     required this.categories,
@@ -24,7 +24,6 @@ class VoteEntity extends Equatable {
 
   @override
   List<Object> get props => [
-        id,
         title,
         author,
         categories,
@@ -36,13 +35,12 @@ class VoteEntity extends Equatable {
 
   @override
   String toString() {
-    return 'VoteEntity{id: $id, title: $title, author: $author, categories: $categories, '
+    return 'VoteEntity{title: $title, author: $author, categories: $categories, '
         'sponsor: $sponsor, voteOptions: $voteOptions, totalVotes: $totalVotes, tags: $tags}';
   }
 
   Map<String, Object> toMap() {
     return {
-      "id": id,
       "title": title,
       "author": author,
       "categories": categories,
@@ -54,12 +52,11 @@ class VoteEntity extends Equatable {
   }
 
   static VoteEntity fromMap(Map<String, Object> map) {
-    List<String> voteOptionsList = new List<String>.from(map["voteOptions"]);
-    List<String> tagsList = new List<String>.from(map["tags"]);
-    List<String> categoryList = new List<String>.from(map["category"]);
+    List<String> voteOptionsList = new List<String>.from(map["voteOptions"] as List<String>);
+    List<String> tagsList = new List<String>.from(map["tags"] as List<String>);
+    List<String> categoryList = new List<String>.from(map["category"] as List<String>);
 
     VoteEntity entity = VoteEntity(
-      id: map["id"] as String,
       title: map["title"] as String,
       author: map["author"] as String,
       categories: categoryList,
@@ -81,7 +78,6 @@ class VoteEntity extends Equatable {
     List<String> _categories = new List<String>.from(snap.get('categories'));
 
     return VoteEntity(
-      id: snap.id,
       title: snap.get('title'),
       author: snap.get('author'),
       categories: _categories,
@@ -98,7 +94,6 @@ class VoteEntity extends Equatable {
     List<String> _categories = new List<String>.from(snap.get('categories'));
 
     return VoteEntity(
-      id: snap.id,
       title: snap.get('title'),
       author: snap.get('author'),
       categories: _categories,

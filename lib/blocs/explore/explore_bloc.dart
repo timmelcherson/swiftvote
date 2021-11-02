@@ -10,7 +10,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
   final VoteRepository voteRepository;
   final VoteBloc voteBloc;
 
-  ExploreBloc({@required this.voteRepository, @required this.voteBloc})
+  ExploreBloc({required this.voteRepository, required this.voteBloc})
       : super(
           ExploreCategoriesLoadedState(
             categories: CategoryExtension.categoryToString.values.toList(),

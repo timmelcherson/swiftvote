@@ -10,7 +10,7 @@ import 'package:swiftvote/services/DeviceInfoService.dart';
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   final UserProfileRepository userProfileRepository;
 
-  UserProfileBloc({@required this.userProfileRepository})
+  UserProfileBloc({required this.userProfileRepository})
       : super(UserProfileLoadingState());
 
   @override
@@ -33,7 +33,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       BaseResponse deviceResponse = await DeviceInfoService.getUniqueDeviceId();
 
       if (deviceResponse.success) {
-        UserProfile _userProfile =
+        UserProfile? _userProfile =
         await userProfileRepository.fetchUserProfileById(id: deviceResponse.value);
 
         if (_userProfile != null) {

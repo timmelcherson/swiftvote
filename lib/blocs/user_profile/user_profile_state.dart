@@ -31,7 +31,7 @@ class UserProfileIdReceivedState extends UserProfileState {
 class UserProfileReadyState extends UserProfileState {
   final UserProfile userProfile;
 
-  const UserProfileReadyState({this.userProfile});
+  const UserProfileReadyState({required this.userProfile});
 
   @override
   List<Object> get props => [userProfile];

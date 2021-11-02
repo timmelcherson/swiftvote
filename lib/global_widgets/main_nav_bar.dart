@@ -37,7 +37,7 @@ class _MainNavBarState extends State<MainNavBar> {
 
   void onTapHandler(int tappedIndex) {
     print("Tapped index: $tappedIndex");
-    if (ModalRoute.of(context).settings.name !=
+    if (ModalRoute.of(context)!.settings.name !=
         navItems[tappedIndex]['route']) {
       BlocProvider.of<NavigationBloc>(context)
           .add(MainNavBarTapEvent(index: tappedIndex));
@@ -53,7 +53,10 @@ class _MainNavBarState extends State<MainNavBar> {
           iconData: navItems[index]['iconData'],
           iconPath: navItems[index]['iconPath'],
           isActive: selectedIndex == index,
-          onTapCallback: () => onTapHandler(index),
+          onTapCallback: () {
+            print(index);
+            onTapHandler(index);
+          },
           tag: navItems[index]['name'],
         );
       },

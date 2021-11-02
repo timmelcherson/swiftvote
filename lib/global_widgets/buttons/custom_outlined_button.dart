@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:swiftvote/themes/themes.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
-  final Alignment buttonAlignment;
-  final String buttonText;
-  final TextStyle buttonTextStyle;
-  final double width;
+  final Alignment? buttonAlignment;
+  final String? buttonText;
+  final TextStyle? buttonTextStyle;
+  final double? width;
   final double height;
   final double borderRadius;
-  final Border border;
+  final Border? border;
   final Color backgroundColor;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
   final EdgeInsets margin;
   final bool submittable;
-  final Widget leadingIcon;
-  final Widget trailingIcon;
+  final Widget? leadingIcon;
+  final Widget? trailingIcon;
 
   const CustomOutlinedButton({
     this.buttonAlignment,
@@ -82,7 +82,7 @@ class CustomOutlinedButton extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 16.0),
                     child: leadingIcon,
                   ),
-                Text(buttonText, style: buttonTextStyle ?? buttonStyle()),
+                Text(buttonText ?? '', style: buttonTextStyle ?? buttonStyle()),
               ],
             ),
             if (trailingIcon != null)

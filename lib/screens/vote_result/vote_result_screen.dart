@@ -15,21 +15,21 @@ class VoteResultScreen extends StatefulWidget {
 }
 
 class _VoteResultScreenState extends State<VoteResultScreen> {
-  Vote _vote;
+  late Vote _vote;
   double _startAngleTop = -(pi / 2);
   double _startAngleBottom = pi / 2;
-  double _sweepAngleOptionOne;
-  double _sweepAngleOptionTwo;
-  double _optionOnePart;
-  double _optionTwoPart;
-  int _totalVotes;
+  late double _sweepAngleOptionOne;
+  late double _sweepAngleOptionTwo;
+  late double _optionOnePart;
+  late double _optionTwoPart;
+  late int _totalVotes;
 
   bool _femaleFilterActive = false;
   bool _maleFilterActive = false;
 
   bool _showDetails = false;
-  VoteResultBloc _voteResultBloc;
-  String _selectedAgeFilter;
+  late VoteResultBloc _voteResultBloc;
+  late String _selectedAgeFilter;
   final List<String> _ages = ['18-30', '30-50', '50+'];
 
   @override
@@ -242,14 +242,14 @@ class _VoteResultScreenState extends State<VoteResultScreen> {
                       Expanded(
                         child: CustomButton(
                           buttonText: 'Female',
-                          backgroundColor: _femaleFilterActive ? Colors.greenAccent[200] : OFF_WHITE,
+                          backgroundColor: _femaleFilterActive ? Colors.greenAccent[200]! : OFF_WHITE,
                           onPress: filterFemale,
                         ),
                       ),
                       Expanded(
                         child: CustomButton(
                           buttonText: 'Male',
-                          backgroundColor: _maleFilterActive ? Colors.greenAccent[200] : OFF_WHITE,
+                          backgroundColor: _maleFilterActive ? Colors.greenAccent[200]! : OFF_WHITE,
                           onPress: filterMale,
                         ),
                       ),
@@ -302,7 +302,7 @@ class _VoteResultScreenState extends State<VoteResultScreen> {
 
   @override
   void dispose() {
-    _voteResultBloc?.close();
+    _voteResultBloc.close();
     super.dispose();
   }
 }
@@ -310,7 +310,7 @@ class _VoteResultScreenState extends State<VoteResultScreen> {
 class CirclePainter extends CustomPainter {
   final Color fillColor;
 
-  CirclePainter({this.fillColor});
+  CirclePainter({required this.fillColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -330,7 +330,7 @@ class ArcPainter extends CustomPainter {
   final double sweepAngle;
   final Color color;
 
-  ArcPainter({@required this.startAngle, @required this.sweepAngle, this.color = SKY_BLUE});
+  ArcPainter({required this.startAngle, required this.sweepAngle, this.color = SKY_BLUE});
 
   @override
   void paint(Canvas canvas, Size size) {

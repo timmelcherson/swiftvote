@@ -13,19 +13,19 @@ class LoadVoteCommentsByVoteIdEvent extends VoteCommentsEvent {
 
   final Vote vote;
 
-  LoadVoteCommentsByVoteIdEvent({@required this.vote});
+  LoadVoteCommentsByVoteIdEvent({required this.vote});
 }
 
 class VoteCommentsUpdatedEvent extends VoteCommentsEvent {
   final Vote vote;
   final List<VoteComment> comments;
 
-  VoteCommentsUpdatedEvent({@required this.vote, @required this.comments});
+  VoteCommentsUpdatedEvent({required this.vote, required this.comments});
 }
 
 class AddVoteCommentEvent extends VoteCommentsEvent {
 
   final String content;
 
-  AddVoteCommentEvent({@required this.content});
+  AddVoteCommentEvent({required this.content});
 }

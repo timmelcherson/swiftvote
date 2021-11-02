@@ -7,7 +7,7 @@ import 'package:swiftvote/themes/text_themes.dart';
 class AddCommentOverlay extends ModalRoute<void> {
   final Function callback;
 
-  AddCommentOverlay({@required this.callback});
+  AddCommentOverlay({required this.callback});
 
   @override
   Color get barrierColor => Colors.white;
@@ -16,7 +16,7 @@ class AddCommentOverlay extends ModalRoute<void> {
   bool get barrierDismissible => false;
 
   @override
-  String get barrierLabel => null;
+  String get barrierLabel => '';
 
   @override
   bool get maintainState => true;

@@ -4,7 +4,7 @@ import 'package:swiftvote/data/models/vote_model.dart';
 class MyCollection extends StatelessWidget {
   final List<Vote> votes;
 
-  const MyCollection({Key? key, this.votes}) : super(key: key);
+  const MyCollection({Key? key, required this.votes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

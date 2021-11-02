@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-String? trans(BuildContext context, String key) {
-  return AppLocalizations.of(context)!._localizedStrings[key];
+String trans(BuildContext context, String key) {
+  return AppLocalizations.of(context)!._localizedStrings[key]!;
 }
 
 class AppLocalizations {

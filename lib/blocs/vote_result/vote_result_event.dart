@@ -9,17 +9,16 @@ abstract class VoteResultEvent {
 }
 
 class LoadVoteResultByVoteIdEvent extends VoteResultEvent {
-
   final Vote vote;
 
-  LoadVoteResultByVoteIdEvent({@required this.vote});
+  LoadVoteResultByVoteIdEvent({required this.vote});
 }
 
 class VoteResultUpdatedEvent extends VoteResultEvent {
   final Vote vote;
   final List<VoteResult> results;
 
-  VoteResultUpdatedEvent({@required this.vote, @required this.results});
+  VoteResultUpdatedEvent({required this.vote, required this.results});
 }
 
 class AddVoteResultEvent extends VoteResultEvent {
@@ -27,7 +26,11 @@ class AddVoteResultEvent extends VoteResultEvent {
   final int votedIndex;
   final UserProfile voter;
 
-  const AddVoteResultEvent({@required this.voteId, this.votedIndex, this.voter});
+  const AddVoteResultEvent({
+    required this.voteId,
+    required this.votedIndex,
+    required this.voter,
+  });
 
   @override
   List<Object> get props => [voteId];

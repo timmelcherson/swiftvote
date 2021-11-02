@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/themes/text_themes.dart';
 
 class MyInformation extends StatefulWidget {
   final UserProfile userProfile;
 
-  const MyInformation({Key key, @required this.userProfile}) : super(key: key);
+  const MyInformation({required this.userProfile}) : super(key: Keys.myInformation);
 
   @override
   _MyInformationState createState() => _MyInformationState();
@@ -15,9 +16,9 @@ class _MyInformationState extends State<MyInformation> {
   TextEditingController _ageController = TextEditingController();
   TextEditingController _genderController = TextEditingController();
 
-  int _age;
-  String _gender;
-  String _location;
+  late String _age;
+  late String _gender;
+  late String _location;
 
   bool _editGender = false;
 
@@ -25,7 +26,7 @@ class _MyInformationState extends State<MyInformation> {
   void initState() {
     super.initState();
     _age = widget.userProfile.age.toString().isNotEmpty
-        ? widget.userProfile.age
+        ? widget.userProfile.age.toString()
         : "Not set";
     _gender = widget.userProfile.gender.isNotEmpty
         ? widget.userProfile.gender
@@ -96,7 +97,7 @@ class _MyInformationState extends State<MyInformation> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text('Age', style: bodyStyle(size: 14.0)),
-                Text(_age.toString(), style: bodyStyle(size: 14.0)),
+                Text(_age, style: bodyStyle(size: 14.0)),
               ],
             ),
           ),

@@ -14,7 +14,7 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
 class ExploreScreen extends StatelessWidget {
-  ExploreScreen({Key key}) : super(key: key);
+  ExploreScreen() : super(key: Keys.exploreScreen);
 
   String formatStr(String string) {
     return string.trim().replaceAll("[", "").replaceAll("]", "");
@@ -77,7 +77,7 @@ class ExploreScreen extends StatelessWidget {
       body: BlocBuilder<ExploreBloc, ExploreState>(
         builder: (context, state) {
           if (state is ExploreCategoriesLoadingState) {
-            return LoadingIndicator(key: Keys.loadingIndicator);
+            return LoadingIndicator();
           }
 
           if (state is ExploreCategoriesLoadedState) {
@@ -86,7 +86,6 @@ class ExploreScreen extends StatelessWidget {
             // final categoryThumbnailAssetPath = state.categoryImagesPaths;
 
             return CustomScrollView(
-              key: Keys.exploreWidget,
               scrollDirection: Axis.vertical,
               slivers: <Widget>[
                 SliverPersistentHeader(

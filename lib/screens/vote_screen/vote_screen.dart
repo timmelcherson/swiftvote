@@ -85,7 +85,7 @@ class _VoteScreenState extends State<VoteScreen> with TickerProviderStateMixin {
         child: BlocBuilder<VoteBloc, VoteState>(
           builder: (context, state) {
             if (state is VotesLoadingState) {
-              return LoadingIndicator(key: Keys.loadingIndicator);
+              return LoadingIndicator();
             }
 
             if (state is VotesReadyState) {

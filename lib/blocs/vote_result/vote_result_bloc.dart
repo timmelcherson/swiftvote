@@ -9,11 +9,10 @@ import 'package:swiftvote/data/repositories/index.dart';
 class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
   final VoteRepository voteRepository;
   final UserProfileBloc userProfileBloc;
-  StreamSubscription _voteSubscription;
+  late StreamSubscription _voteSubscription;
 
-  VoteResultBloc({@required this.voteRepository, this.userProfileBloc})
-      : assert(voteRepository != null),
-        super(VoteResultInitialState());
+  VoteResultBloc({required this.voteRepository, required this.userProfileBloc})
+      : super(VoteResultInitialState());
 
   @override
   Stream<VoteResultState> mapEventToState(
@@ -34,13 +33,14 @@ class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
   Stream<VoteResultState> _mapLoadVoteResultByVoteIdEventToState(
     LoadVoteResultByVoteIdEvent event,
   ) async* {
-    _voteSubscription?.cancel();
-    print('_mapLoadVoteResultByVoteIdEventToState for voteId: ${event.vote.id}');
-    _voteSubscription = voteRepository.getVoteResultByVoteId(voteId: event.vote.id).listen(
-          (results) => add(
-            VoteResultUpdatedEvent(vote: event.vote, results: results),
-          ),
-        );
+    print(
+        '_mapLoadVoteResultByVoteIdEventToState for voteId: ${event.vote.id}');
+    _voteSubscription =
+        voteRepository.getVoteResultByVoteId(voteId: event.vote.id).listen(
+              (results) => add(
+                VoteResultUpdatedEvent(vote: event.vote, results: results),
+              ),
+            );
   }
 
   Stream<VoteResultState> _mapVoteResultUpdatedEventToState(
@@ -49,7 +49,8 @@ class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
     yield VoteResultLoadedState(vote: event.vote, voteResults: event.results);
   }
 
-  Stream<VoteResultState> _mapAddVoteResultEventToState(AddVoteResultEvent event) async* {
+  Stream<VoteResultState> _mapAddVoteResultEventToState(
+      AddVoteResultEvent event) async* {
     print('_mapAddVoteResultEventToState');
     VoteResult result = VoteResult(
       voterId: event.voter.userId,
@@ -67,5 +68,11 @@ class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
     } catch (error) {
       print('Error in _mapAddVoteResultEventToState: $error');
     }
+  }
+
+  @override
+  Future<void> close() {
+    _voteSubscription.cancel();
+    return super.close();
   }
 }

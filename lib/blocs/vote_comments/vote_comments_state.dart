@@ -19,7 +19,7 @@ class VoteCommentsLoadedState extends VoteCommentsState {
   final Vote vote;
   final List<VoteComment> comments;
 
-  const VoteCommentsLoadedState({@required this.vote, @required this.comments});
+  const VoteCommentsLoadedState({required this.vote, required this.comments});
 
   @override
   List<Object> get props => [comments];

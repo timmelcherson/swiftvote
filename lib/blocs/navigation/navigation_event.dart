@@ -11,5 +11,5 @@ class MainNavBarTapEvent extends NavigationEvent {
 
   final int index;
 
-  MainNavBarTapEvent({this.index});
+  MainNavBarTapEvent({required this.index});
 }

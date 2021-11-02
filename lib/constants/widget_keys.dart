@@ -12,6 +12,7 @@ class Keys {
   static const loginScreen = Key('__loginScreen__');
   static const registerScreen = Key('__registerScreen__');
   static const voteScreen = Key('__voteScreen__');
+  static const exploreScreen = Key('__exploreScreen__');
 
   // Tabs
   static const tabs = Key('__tabs__');
@@ -23,11 +24,11 @@ class Keys {
 
   // Widgets
   static const settingsWidget = Key('__settingsWidget__');
-  static const exploreWidget = Key('__exploreWidget__');
   static const exploreCategoryWidget = Key('__exploreCategoryWidget__');
   static const searchWidget = Key('__searchWidget__');
   static const notificationsWidget = Key('__notificationsWidget__');
   static const homeWidget = Key('__homeWidget__');
   static const loadingIndicator = Key('__loadingIndicator__');
   static const loginForm = Key('__loginForm__');
+  static const myInformation = Key('__myInformation__');
 }
