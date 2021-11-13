@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swiftvote/themes/color_themes.dart';
 
 class MainNavbarItem extends StatelessWidget {
@@ -37,11 +38,10 @@ class MainNavbarItem extends StatelessWidget {
             duration: Duration(milliseconds: 300),
             curve: Curves.easeOutCubic,
             padding: EdgeInsets.all(isActive ? 18.0 : 22.0),
-            child: Icon(Icons.home, size: 20.0, color: Colors.white),
-            // SvgPicture.asset(
-            //   iconPath,
-            //   color: isActive ? Colors.white : LIGHT_GRAY,
-            // ),
+            child: SvgPicture.asset(
+              iconPath,
+              color: isActive ? Colors.white : LIGHT_GRAY,
+            ),
           ),
         ),
       ),
