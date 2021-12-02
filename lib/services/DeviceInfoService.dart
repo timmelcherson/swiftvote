@@ -16,8 +16,8 @@ abstract class DeviceInfoService {
         IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
         _result = BaseResponse(success: true, value: iosDeviceInfo.identifierForVendor);
       }
+      print(_result);
     } catch(e) {
-      print(e);
       _result = BaseResponse(success: false, value: e);
     }
 

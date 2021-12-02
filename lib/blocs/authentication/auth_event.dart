@@ -5,7 +5,7 @@ import 'package:swiftvote/data/models/index.dart';
 @immutable
 abstract class AuthEvent extends Equatable {
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
 
 class AuthCheckIfRegisteredEvent extends AuthEvent {}

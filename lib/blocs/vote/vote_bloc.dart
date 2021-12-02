@@ -8,7 +8,7 @@ import './index.dart';
 
 class VoteBloc extends Bloc<VoteEvent, VoteState> {
   final VoteRepository voteRepository;
-  late StreamSubscription _voteSubscription;
+  late StreamSubscription? _voteSubscription;
 
   VoteBloc({required this.voteRepository})
       : super(VotesLoadingState());
@@ -103,7 +103,7 @@ class VoteBloc extends Bloc<VoteEvent, VoteState> {
 
   @override
   Future<void> close() {
-    _voteSubscription.cancel();
+    _voteSubscription?.cancel();
     return super.close();
   }
 }

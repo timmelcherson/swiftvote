@@ -9,7 +9,6 @@ import 'package:swiftvote/blocs/vote/index.dart';
 import 'package:swiftvote/constants/routes.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
-import 'package:swiftvote/screens/vote_screen/vote_active_item.dart';
 import 'package:swiftvote/screens/vote_screen/vote_history_item.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/screens/vote_screen/vote_list_item.dart';

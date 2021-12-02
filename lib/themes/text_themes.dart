@@ -24,7 +24,7 @@ TextStyle generateStyle({
 }) {
   return TextStyle(
     color: color,
-    fontFamily: 'RobotoMono',
+    fontFamily: 'Poppins',
     fontFamilyFallback: ['Roboto'],
     fontSize: size,
     fontWeight: weight,

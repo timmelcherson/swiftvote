@@ -72,10 +72,9 @@ class _AppInitializerState extends State<AppInitializer> {
                   create: (context) => VoteBloc(
                     voteRepository:
                         RepositoryProvider.of<VoteRepository>(context),
-                  )..add(LoadVotesEvent()),
+                  ),
                 ),
                 BlocProvider<SettingsBloc>(
-                  lazy: false,
                   create: (context) => SettingsBloc(
                     voteRepository:
                         RepositoryProvider.of<VoteRepository>(context),

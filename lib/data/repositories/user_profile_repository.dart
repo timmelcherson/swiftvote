@@ -21,16 +21,19 @@ class UserProfileRepository {
   Future<BaseResponse> addNewUserProfile({
     required UserProfile userProfile,
   }) async {
-    bool _success = false;
-    var _value;
+    bool _success = true;
+    var _errorMessage = '';
     await _userProfileCollection
         .doc(userProfile.userId)
         .set(userProfile.toEntity().toDocument())
-        .catchError((error) => _value = error);
+        .catchError((error) {
+      _success = false;
+      _errorMessage = error;
+    });
 
     return BaseResponse(
       success: _success,
-      value: _value,
+      errorMessage: _errorMessage,
     );
   }
 

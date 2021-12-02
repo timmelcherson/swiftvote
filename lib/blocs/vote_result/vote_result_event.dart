@@ -21,17 +21,13 @@ class VoteResultUpdatedEvent extends VoteResultEvent {
   VoteResultUpdatedEvent({required this.vote, required this.results});
 }
 
-class AddVoteResultEvent extends VoteResultEvent {
-  final String voteId;
-  final int votedIndex;
-  final UserProfile voter;
+class VoteResultVotedEvent extends VoteResultEvent {
+  final Vote vote;
 
-  const AddVoteResultEvent({
-    required this.voteId,
-    required this.votedIndex,
-    required this.voter,
+  const VoteResultVotedEvent({
+    required this.vote,
   });
 
   @override
-  List<Object> get props => [voteId];
+  List<Object> get props => [vote];
 }

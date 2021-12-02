@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 // Primary
 // const Color PRIMARY_BG = Color.fromRGBO(245, 245, 245, 1);
 const Color PRIMARY_BLUE = Color.fromRGBO(15, 67, 146, 1);
+const Color SECONDARY_BLUE = Color.fromRGBO(143, 184, 253, 1.0);
 const Color PRIMARY_YELLOW = Color.fromRGBO(181, 122, 35, 1);
+const Color SECONDARY_YELLOW = Color.fromRGBO(253, 207, 147, 1.0);
 const Color SECONDARY_PINK = Color.fromRGBO(255, 134, 134, 1);
 
 // Blue

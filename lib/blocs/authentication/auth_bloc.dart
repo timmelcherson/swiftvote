@@ -25,10 +25,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print('AuthCheckIfRegisteredEvent');
       yield* _mapAuthCheckIfRegisteredEventToState(event);
     } else if (event is AuthSuccessEvent) {
-      print('AuthSignInEvent');
+      print('AuthSuccessEvent');
       yield* _mapAuthSuccessEventToState(event);
     } else if (event is AuthRegisterEvent) {
-      print('AuthSignInEvent');
+      print('AuthRegisterEvent');
       yield* _mapAuthRegisterEventToState(event);
     }
     // else if (event is AuthLogOutEvent) {
@@ -52,8 +52,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         print(userProfile);
         if (userProfile != null) {
           // add(AuthSuccessEvent(userProfile: userProfile));
+          print('yielding AuthSuccessState');
           yield AuthSuccessState(userProfile: userProfile);
         } else {
+          print('yielding AuthNotRegisteredState');
           yield AuthNotRegisteredState();
         }
       }
@@ -81,6 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapAuthSuccessEventToState(AuthSuccessEvent event) async* {
     print('_mapAuthSignInEventToState token');
+    print(event.userProfile);
     yield AuthSuccessState(userProfile: event.userProfile);
   }
 
@@ -88,21 +91,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AuthRegisterEvent event) async* {
     try {
       BaseResponse tokenResponse = await DeviceInfoService.getUniqueDeviceId();
-
+      print(tokenResponse);
+      print('IN HERE');
+      print(event);
       if (tokenResponse.success) {
+        print('tokenResponse.success');
         UserProfile userProfile = UserProfile(
           userId: tokenResponse.value,
           age: event.age,
           gender: event.gender,
           location: event.location,
         );
+        print(userProfile);
         BaseResponse createUserProfileResponse = await userProfileRepository
             .addNewUserProfile(userProfile: userProfile);
 
         if (createUserProfileResponse.success) {
+          print('yielding AuthSuccessState');
           yield AuthSuccessState(userProfile: userProfile);
         } else {
-          yield AuthFailState(errorMessage: createUserProfileResponse.value);
+          print('Failing here with message: ${createUserProfileResponse.value}');
+          yield AuthFailState(errorMessage: createUserProfileResponse.errorMessage ?? '');
         }
       }
     } catch (e) {

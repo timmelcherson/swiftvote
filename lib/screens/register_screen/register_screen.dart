@@ -10,6 +10,7 @@ import 'package:swiftvote/blocs/index.dart';
 import 'package:swiftvote/constants/widget_keys.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
+import 'package:swiftvote/global_widgets/sv_form_field.dart';
 import 'package:swiftvote/screens/register_screen/register_barrel.dart';
 import 'package:swiftvote/services/DeviceInfoService.dart';
 import 'package:swiftvote/themes/themes.dart';
@@ -27,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _genderController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final List<String> _genders = ['Male', 'Female', 'Other'];
-  late int _checkedIndex;
+  late int _checkedIndex = -1;
   bool _isSubmitting = false;
 
   @override
@@ -35,16 +36,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
     _userProfileBloc = BlocProvider.of<UserProfileBloc>(context);
     _ageController.addListener(_ageChangeHandler);
-    _genderController.addListener(_genderChangeHandler);
     _locationController.addListener(_locationChangeHandler);
   }
 
   void _ageChangeHandler() {
     print(_ageController.text);
-  }
-
-  void _genderChangeHandler() {
-    print(_genderController.text);
   }
 
   void _locationChangeHandler() {
@@ -61,9 +57,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // if (_passwordController.text == _confirmPasswordController.text) {
     //   _userProfileBloc.add(UserProfileCreateEvent());
     // }
+    print('age: ${_ageController.text}');
+    print('gender: ${_checkedIndex >= 0 && _checkedIndex < _genders.length ? _genders[_checkedIndex] : ''}');
+    print('location: ${_locationController.text}');
     BlocProvider.of<AuthBloc>(context).add(AuthRegisterEvent(
       age: int.parse(_ageController.text),
-      gender: _genderController.text,
+      gender: _checkedIndex >= 0 && _checkedIndex < _genders.length ? _genders[_checkedIndex] : '',
       location: _locationController.text,
     ));
     setState(() => _isSubmitting = true);
@@ -104,18 +103,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextFormField(
+                      // TextFormField(
+                      //   controller: _ageController,
+                      //   decoration: InputDecoration(
+                      //     hintText: trans(context, 'input.age'),
+                      //     hintStyle: hintStyle(),
+                      //   ),
+                      //   keyboardType: TextInputType.number,
+                      //   autovalidateMode: AutovalidateMode.disabled,
+                      //   autocorrect: false,
+                      //   // validator: (_) {
+                      //   //   return !state.isEmailValid ? 'Invalid Email' : null;
+                      //   // },
+                      // ),
+                      SvFormField(
                         controller: _ageController,
-                        decoration: InputDecoration(
-                          hintText: trans(context, 'input.age'),
-                          hintStyle: hintStyle(),
-                        ),
+                        hint: trans(context, 'input.age'),
                         keyboardType: TextInputType.number,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        autocorrect: false,
-                        // validator: (_) {
-                        //   return !state.isEmailValid ? 'Invalid Email' : null;
-                        // },
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -131,8 +135,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   Text(_genders[i], style: bodyStyle()),
                                   Checkbox(
                                     value: _checkedIndex == i,
-                                    onChanged: (value) =>
-                                        setState(() => _checkedIndex = i),
+                                    onChanged: (value) {
+                                      print('CLICKED INDEX: $i');
+                                      setState(() => _checkedIndex = i);
+                                    },
                                   ),
                                 ],
                               ),
@@ -153,19 +159,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //   //       : null;
                       //   // },
                       // ),
-                      TextFormField(
+                      SvFormField(
                         controller: _locationController,
-                        decoration: InputDecoration(
-                          hintText: trans(context, 'input.location'),
-                          hintStyle: hintStyle(),
-                        ),
-                        autovalidateMode: AutovalidateMode.disabled,
-                        autocorrect: false,
-                        // validator: (_) {
-                        //   return !state.isPasswordValid
-                        //       ? 'Invalid confirm password'
-                        //       : null;
-                        // },
+                        hint: trans(context, 'input.location'),
                       ),
                       CustomButton(
                         buttonText: trans(context, "register.lets_go"),

@@ -9,7 +9,6 @@ import 'package:swiftvote/data/repositories/index.dart';
 class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
   final VoteRepository voteRepository;
   final UserProfileBloc userProfileBloc;
-  late StreamSubscription _voteSubscription;
 
   VoteResultBloc({required this.voteRepository, required this.userProfileBloc})
       : super(VoteResultInitialState());
@@ -18,15 +17,14 @@ class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
   Stream<VoteResultState> mapEventToState(
     VoteResultEvent event,
   ) async* {
-    print('GOT EVENT: $event');
     if (event is LoadVoteResultByVoteIdEvent) {
       yield* _mapLoadVoteResultByVoteIdEventToState(event);
     }
-    if (event is VoteResultUpdatedEvent) {
-      yield* _mapVoteResultUpdatedEventToState(event);
-    }
-    if (event is AddVoteResultEvent) {
-      yield* _mapAddVoteResultEventToState(event);
+    // if (event is VoteResultUpdatedEvent) {
+    //   yield* _mapVoteResultUpdatedEventToState(event);
+    // }
+    if (event is VoteResultVotedEvent) {
+      yield* _mapVoteResultVotedEventToState(event);
     }
   }
 
@@ -35,44 +33,38 @@ class VoteResultBloc extends Bloc<VoteResultEvent, VoteResultState> {
   ) async* {
     print(
         '_mapLoadVoteResultByVoteIdEventToState for voteId: ${event.vote.id}');
-    _voteSubscription =
-        voteRepository.getVoteResultByVoteId(voteId: event.vote.id).listen(
-              (results) => add(
-                VoteResultUpdatedEvent(vote: event.vote, results: results),
-              ),
-            );
   }
 
-  Stream<VoteResultState> _mapVoteResultUpdatedEventToState(
-    VoteResultUpdatedEvent event,
-  ) async* {
-    yield VoteResultLoadedState(vote: event.vote, voteResults: event.results);
-  }
+  // Stream<VoteResultState> _mapVoteResultUpdatedEventToState(
+  //   VoteResultUpdatedEvent event,
+  // ) async* {
+  //   yield VoteResultLoadedState(vote: event.vote, voteResults: event.results);
+  // }
 
-  Stream<VoteResultState> _mapAddVoteResultEventToState(
-      AddVoteResultEvent event) async* {
-    print('_mapAddVoteResultEventToState');
-    VoteResult result = VoteResult(
-      voterId: event.voter.userId,
-      voterAge: event.voter.age,
-      voterGender: event.voter.gender,
-      votedOptionIndex: event.votedIndex,
-    );
-    print(result);
-    try {
-      voteRepository.addVoteResult(
-        voteId: event.voteId,
-        userId: event.voter.userId,
-        result: result,
-      );
-    } catch (error) {
-      print('Error in _mapAddVoteResultEventToState: $error');
-    }
+  Stream<VoteResultState> _mapVoteResultVotedEventToState(
+      VoteResultVotedEvent event) async* {
+    yield VoteResultReadyState(vote: event.vote);
+    // print('_mapAddVoteResultEventToState');
+    // VoteResult result = VoteResult(
+    //   voterId: event.voter.userId,
+    //   voterAge: event.voter.age,
+    //   voterGender: event.voter.gender,
+    //   votedOptionIndex: event.votedIndex,
+    // );
+    // print(result);
+    // try {
+    //   voteRepository.addVoteResult(
+    //     voteId: event.voteId,
+    //     userId: event.voter.userId,
+    //     result: result,
+    //   );
+    // } catch (error) {
+    //   print('Error in _mapAddVoteResultEventToState: $error');
+    // }
   }
 
   @override
   Future<void> close() {
-    _voteSubscription.cancel();
     return super.close();
   }
 }
