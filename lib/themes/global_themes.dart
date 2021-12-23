@@ -10,7 +10,7 @@ final ThemeData primaryAppTheme = ThemeData(
   // scaffoldBackgroundColor: PRIMARY_BG,
 
   // Define the default font family.
-  fontFamily: 'RobotoMono',
+  fontFamily: 'Poppins',
 
   // Define the default TextTheme. Use this to specify the default
   // text styling for headlines, titles, bodies of text, and more.

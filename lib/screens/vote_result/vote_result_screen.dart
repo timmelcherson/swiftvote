@@ -7,6 +7,8 @@ import 'package:swiftvote/blocs/index.dart';
 import 'package:swiftvote/data/models/index.dart';
 import 'package:swiftvote/global_widgets/buttons/custom_button.dart';
 import 'package:swiftvote/global_widgets/global_widgets_barrel.dart';
+import 'package:swiftvote/screens/vote_result/result_filter.dart';
+import 'package:swiftvote/screens/vote_result/vote_comments_list.dart';
 import 'package:swiftvote/screens/vote_screen/vote_list_result_bars.dart';
 import 'package:swiftvote/themes/themes.dart';
 
@@ -116,25 +118,34 @@ class _VoteResultScreenState extends State<VoteResultScreen> {
             // print(state.voteResults);
             return Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                  const EdgeInsets.symmetric(vertical: 16.0),
               margin: const EdgeInsets.all(8.0),
-              child: Column(
+              child: ListView(
                 children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.only(bottom: 24.0),
-                    child: Text(
-                      state.vote.title,
-                      style: smallTitleStyle(),
-                      textAlign: TextAlign.left,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.only(bottom: 24.0),
+                          child: Text(
+                            state.vote.title,
+                            style: smallTitleStyle(),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        VoteListResultBars(
+                          vote: state.vote,
+                          firstBarLength: 0.6,
+                          secondBarLength: 0.4,
+                        ),
+                        Text('${state.vote.totalVotes} Votes'),
+                        ResultFilter(),
+                      ],
                     ),
                   ),
-                  VoteListResultBars(
-                    vote: state.vote,
-                    firstBarLength: 0.6,
-                    secondBarLength: 0.4,
-                  ),
-                  Text('${state.vote.totalVotes} Votes'),
+                  VoteCommentsList(),
                 ],
               ),
             );
